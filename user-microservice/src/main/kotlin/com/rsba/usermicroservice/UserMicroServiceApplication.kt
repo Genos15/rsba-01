@@ -19,7 +19,7 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @EnableScheduling
 @EnableCaching
 @EnableFeignClients
-//E1
+//E12
 class UserMicroServiceApplication
 
 fun main(args: Array<String>) {
