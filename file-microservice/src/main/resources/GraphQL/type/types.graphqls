@@ -1,0 +1,31 @@
+#type CategoryOfItem {
+#    id: ID!
+#    name: String!
+#    description: String
+#    createdAt: String
+#    editedAt: String
+#    creator: ID
+#}
+#
+#type Item {
+#    id: ID!
+#    name: String!
+#    description: String
+#    material: String
+#    createdAt: String
+#    editedAt: String
+#    creator: ID
+#}
+#
+#type Operation {
+#    id: ID!
+#    name: String!
+#    description: String
+#    move: String
+#    estimatedTimeInHour: Float
+#    createdAt: String
+#    editedAt: String
+#    creator: ID
+#}
+#
+

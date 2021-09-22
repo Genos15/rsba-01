@@ -1,0 +1,17 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    retrieveAllItem (first: Int!, after: ID): ItemConnection @connection(for: "Item")
+    retrieveAllItemHavingCategory (first: Int!, after: ID): ItemConnection @connection(for: "Item")
+    retrieveAllCategoryOfItem (first: Int!, after: ID): CategoryOfItemConnection @connection(for: "CategoryOfItem")
+    retrieveAllOperation (first: Int!, after: ID): OperationConnection @connection(for: "Operation")
+
+    retrieveTechnologies (first: Int!, after: ID): TechnologyConnection @connection(for: "Technology")
+    retrieveTechnologyById (id: ID!): Technology
+    searchTechnologies (content: String!): [Technology]
+
+    retrieveItemByCategoryId (categoryId: ID!, first: Int!, after: ID): ItemConnection @connection(for: "Item")
+}

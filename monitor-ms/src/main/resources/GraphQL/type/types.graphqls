@@ -1,0 +1,48 @@
+type Customer {
+    id: ID!
+    name: String!
+    description: String
+    email: String
+    phone: String
+    createdAt: String
+    editedAt: String
+    creator: ID
+    activeProductCount: Int
+    representativeName: String
+    entities: [Customer!]
+}
+
+type CategoryOfItemInOrder {
+    id: ID!
+    name: String!
+    description: String
+    #    items: Float
+    itemCount: Int
+    progress: Float
+}
+
+type Agent {
+    firstName: String
+    lastName: String
+    middleName: String
+    phone: String
+    email: String
+}
+
+type Order {
+    id: ID!
+    referenceNumber: String!
+    description: String
+    createdAt: String
+    editedAt: String
+    creator: ID
+    customer: Customer
+    manager: Agent
+    agent: Agent
+    startAt: String
+    estimatedAt: String
+    progress: Float
+    status: String
+    categories: [CategoryOfItemInOrder!]
+}
+

@@ -1,0 +1,6 @@
+input InviteUsersInput {
+    email: [String!]!
+    groupId: ID
+    roleId: ID!
+    message: String
+}

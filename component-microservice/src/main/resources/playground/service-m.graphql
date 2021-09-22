@@ -1,0 +1,101 @@
+mutation CREATE_OR_EDIT_NEW_CATEGORY_OF_ITEM {
+    createOrEditCategoryOfItem(input: {
+        id: ""
+        name: ""
+        description: ""
+    }) {
+        id
+        name
+        description
+    }
+}
+
+mutation CREATE_OR_EDIT_NEW_ITEM {
+    createOrEditItem(input: {
+        id: ""
+        name: ""
+        description: ""
+        material: ""
+    }) {
+        id
+        name
+        description
+        material
+    }
+}
+
+mutation CREATE_OR_EDIT_NEW_OPERATION {
+    createOrEditOperation(input: {
+        id: ""
+        name: ""
+        description: ""
+        move: ""
+        estimatedTimeInHour: 1.0
+    }) {
+        id
+        name
+        description
+        move
+        estimatedTimeInHour
+    }
+}
+
+mutation DELETE_CATEGORY_OF_ITEM {
+    deleteCategoryOfItem(input: "")
+}
+
+mutation DELETE_ITEM {
+    deleteItem(input: "")
+}
+
+mutation DELETE_OPERATION {
+    deleteOperation(input: "")
+}
+
+mutation ATTACH_OPERATION_TO_GROUP {
+    attachOperationToGroup(input: {
+        operationId: ""
+        groupId: ""
+    }) {
+        id
+        name
+        description
+        move
+        estimatedTimeInHour
+    }
+}
+
+mutation DETACH_OPERATION_TO_GROUP {
+    detachOperationToGroup(input: {
+        operationId: ""
+        groupId: ""
+    }) {
+        id
+        name
+        description
+        move
+        estimatedTimeInHour
+    }
+}
+
+mutation ATTACH_OPERATION_TO_ITEM {
+    attachOperationToItem(input: {
+        operationId: ""
+        itemId: ""
+    }) {
+        id
+        name
+    }
+}
+
+mutation DETACH_OPERATION_TO_ITEM {
+    detachOperationToItem(input: {
+        operationId: ""
+        itemId: ""
+    }) {
+        id
+        name
+    }
+}
+
+

@@ -1,0 +1,75 @@
+type UserConnection {
+    edges: [UserEdge]
+    pageInfo: PageInfo
+}
+
+type UserEdge {
+    cursor: String
+    node: User
+}
+
+type PageInfo {
+    hasPreviousPage: Boolean!
+    hasNextPage: Boolean!
+}
+
+type GroupConnection {
+    edges: [GroupEdge]
+    pageInfo: PageInfo
+}
+
+type GroupEdge {
+    cursor: String
+    node: Group
+}
+
+type RoleConnection {
+    edges: [RoleEdge]
+    pageInfo: PageInfo
+}
+
+type RoleEdge {
+    cursor: String
+    node: Role
+}
+
+
+type ModuleConnection {
+    edges: [ModuleEdge]
+    pageInfo: PageInfo
+}
+
+type ModuleEdge {
+    cursor: String
+    node: Module
+}
+
+type ModuleWithPermissionConnection {
+    edges: [ModuleWithPermissionEdge]
+    pageInfo: PageInfo
+}
+
+type ModuleWithPermissionEdge {
+    cursor: String
+    node: ModuleWithPermission
+}
+
+type WorkingCenterConnection {
+    edges: [WorkingCenterEdge]
+    pageInfo: PageInfo
+}
+
+type WorkingCenterEdge {
+    cursor: String
+    node: WorkingCenter
+}
+
+type AnalysisTemplateConnection {
+    edges: [AnalysisTemplateEdge]
+    pageInfo: PageInfo
+}
+
+type AnalysisTemplateEdge {
+    cursor: String
+    node: AnalysisTemplate
+}

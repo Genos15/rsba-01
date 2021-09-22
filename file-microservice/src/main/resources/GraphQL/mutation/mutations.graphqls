@@ -1,0 +1,10 @@
+type Mutation{
+    #    createOrEditCategoryOfItem(input: CreateOrEditCategoryOfItemInput!): CategoryOfItem
+    #    createOrEditItem(input: CreateOrEditItemInput!): Item
+    #    createOrEditOperation(input: CreateOrEditOperationInput!): Operation
+    #    deleteCategoryOfItem(input: ID!): Int
+    #    deleteItem(input: ID!): Int
+    #    deleteOperation(input: ID!): Int
+    addPhoto: ID
+    removePhoto(input: ID!): Boolean
+}

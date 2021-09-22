@@ -1,0 +1,65 @@
+#CREATE OR EDIT NEW GROUP
+mutation CREATE_OR_EDIT_GROUP {
+    createOrEditGroup(input: {
+        id: ""
+        name: ""
+        description: ""
+        company:  ""
+        parent: ""
+        priority: 0
+        isAnalytic: false
+        isStaging: false
+    }) {
+        id
+        name
+        description
+        priority
+        isAnalytic
+        isStaging
+    }
+}
+
+#CREATE A NEW GROUP
+mutation CREATE_GROUP {
+    createGroup(input: {
+        name: ""
+        description: ""
+        parentId: "" #Optional
+    }) {
+        name
+    }
+}
+
+#ADD A USER IN A GROUP
+mutation ADD_USER_IN_GROUP {
+    addUserInGroup(input: {
+        userId: ""
+        groupId: ""
+        occupationId: "Optional"
+        isManager: false #Optional
+    }) {
+        name
+    }
+}
+
+#DELETE A USER IN A GROUP
+mutation DELETE_USER_IN_GROUP {
+    deleteUserInGroup(input: {
+        userId: ""
+        groupId: ""
+    })
+}
+
+#DELETE GROUPS
+mutation DELETE_GROUPS {
+    deleteGroups(input: [""])
+}
+
+#ALLOCATE ROLE TO GROUPS
+mutation ALLOCATE_ROLE_TO_GROUP {
+    allocateRoleToGroup(input: {
+        roleId: ""
+        groupId: ""
+        except: [] #Optional
+    })
+}

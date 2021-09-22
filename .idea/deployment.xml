@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="rs-cloud-instance-2" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="database-file-support">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/component-microservice" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="database-main-support">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/notification-microservice" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="rs-cloud-discovery-gateway">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/order-microservice" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="rs-cloud-instance-2">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/notification-microservice" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="rs-cloud-orders-compoents">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/order-microservice" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="rs-cloud-redis-events">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/order-microservice" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="rs-cloud-users">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/gateway-demo" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="rs.database.production">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/discovery-ms" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="rs.orders.components.production">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/discovery-ms" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="rs.users.notification.production">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/discovery-ms" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

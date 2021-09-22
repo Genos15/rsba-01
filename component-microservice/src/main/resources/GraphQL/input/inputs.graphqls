@@ -1,0 +1,53 @@
+input CreateOrEditCategoryOfItemInput {
+    id: ID
+    name: String
+    description: String
+}
+
+input CreateOrEditItemInput {
+    id: ID
+    name: String
+    description: String
+    material: String
+    operations: [ID] #Diffirent operations attached to the item/nomenclature
+    categoryId: ID #Family of the item/nomenclature
+    components: [ID]#Diffirent components attached to the item/nomenclature
+}
+
+input CreateOrEditOperationInput {
+    id: ID
+    name: String
+    description: String
+    move: String
+    estimatedTimeInHour: Float
+    departments: [ID]
+}
+
+input OperationAndGroupInput {
+    operationId: ID!
+    groupId: ID!
+}
+
+input ItemAndOperationInput {
+    itemId: ID!
+    operationId: ID!
+    estimatedTimeInHour: Float
+}
+
+input CreateOrEditTechnologyInput {
+    id: ID
+    name: String
+    description: String
+    operationIds: [ID]
+}
+
+input TechnologyAndOperation {
+    technologyId: ID
+    operationId: ID
+    priority: Int
+}
+
+input ItemTechnologyInput {
+    itemId: ID!
+    technologiesIds: [ID]
+}

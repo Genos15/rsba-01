@@ -1,0 +1,9 @@
+type PersonalInfo {
+    id: ID
+    firstname: String!
+    lastname: String!
+    middlename: String
+    birthday: String
+    createdAt: String
+    editedAt: String
+}

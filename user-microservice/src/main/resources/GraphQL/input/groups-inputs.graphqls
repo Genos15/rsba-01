@@ -1,0 +1,34 @@
+input CreateGroupInput {
+    name: String!
+    description: String!
+    parentId: String
+}
+
+input AddUserInGroupInput {
+    userId: ID!
+    groupId: ID!
+    occupationId: String
+    isManager: Boolean
+}
+
+input DeleteUserInGroupInput {
+    userId: ID!
+    groupId: ID!
+}
+
+input AllocateRoleToGroup {
+    roleId: ID!
+    groupId: ID!
+    except: [ID!] = []
+}
+
+input CreateOrEditGroupInput {
+    id: ID
+    name: String
+    description: String
+    company:  ID
+    parent: ID
+    priority: Int = 0
+    isAnalytic: Boolean
+    isStaging: Boolean
+}

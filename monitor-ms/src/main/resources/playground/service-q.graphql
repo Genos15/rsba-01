@@ -1,0 +1,16 @@
+subscription GET_ALL_ORDER  {
+    all{
+        referenceNumber
+        description
+        createdAt
+        editedAt
+        creator
+        customer {
+            name
+            description
+            email
+            phone
+            representativeName
+        }
+    }
+}

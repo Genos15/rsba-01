@@ -1,0 +1,8 @@
+mutation ADD_PHOTO {
+    addPhoto
+}
+
+mutation REMOVE_PHOTO {
+    removePhoto(input: "")
+}
+

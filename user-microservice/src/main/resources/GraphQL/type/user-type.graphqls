@@ -1,0 +1,103 @@
+type User {
+    id: ID!
+    login: String!
+    password: String!
+    createdAt: String
+    editedAt: String
+    lang:  String!
+    personalInfo: PersonalInfo
+    contactInfo: [ContactInfo!]
+    role: Role
+    pending: Boolean!
+    blocked: Boolean!
+    deleted: Boolean
+    departments: [Group!]
+}
+
+type Company {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: String
+    editedAt: String
+    creator:  User
+    referenceCode: String
+    country: String
+}
+
+type Group {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: String
+    editedAt: String
+    company:  Company
+    parent: Group
+    priority: Int
+    isAnalytic: Boolean
+    isStaging: Boolean
+    users: [User!]
+    workingCenters: [WorkingCenter]
+    managers: [User!]
+}
+
+type Role {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: String
+    editedAt: String
+    company:  Company
+    permissions: [Permission!]
+}
+
+type Permission {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: String
+    editedAt: String
+    moduleId:  ID
+}
+
+type Module {
+    id: ID!
+    name: String!
+    createdAt: String
+    editedAt: String
+    permissions: [Permission!]
+}
+
+type PermissionOfModule {
+    id: ID!
+    name: String!
+    canCreate: Boolean
+    canEdit: Boolean
+    canView: Boolean
+    canDelete: Boolean
+}
+
+type ModuleWithPermission {
+    id: ID!
+    roleId: ID!
+    name: String!
+    description: String
+    permissions: [PermissionOfModule!]
+}
+
+type WorkingCenter {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: String
+    editedAt: String
+    users: [User!]
+    managers: [User!]
+}
+
+type AnalysisTemplate {
+    id: ID!
+    content: String!
+    createdAt: String
+    editedAt: String
+}

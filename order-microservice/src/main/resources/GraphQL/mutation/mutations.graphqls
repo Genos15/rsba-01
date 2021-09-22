@@ -1,0 +1,34 @@
+type Mutation {
+
+    createOrEditCustomer(input: CreateOrEditCustomerInput!): Customer
+    addEntityToCustomer(input: AddEntityToCustomerInput!): Customer
+    createOrder(input: CreateOrderInput!): Order
+    editOrder(input: EditOrderInput!): Order
+    addCategoriesInOrder(input: AttachCategoryWithOrderInput!): Order
+    editCategoryOfOrder(input: EditCategoryOfOrderInput!): Order
+    deleteCustomer(input: ID!): Int
+    deleteOrder(input: ID!): Int
+    removeEntityOfCustomer(input: RemoveEntityOfCustomerInput!): Customer
+    addItemsInOrder(input: ItemInOrder): Order
+    editItemInOrder(input: EditItemInOrderInput): Order
+    deleteItemsInOrder(input: ItemInOrder): Order
+
+    pinDepartmentsInTask(input: DepartmentWithTask): Task
+    pinWorkingCentersInTask(input: WorkingCenterWithTask): Task
+    pinUsersInTask(input: UserWithTask): Task
+    unpinDepartmentsInTask(input: DepartmentWithTask): Task
+    unpinWorkingCentersInTask(input: WorkingCenterWithTask): Task
+    unpinUsersInTask(input: UserWithTask): Task
+
+    #    CommentInput
+    createOrEditCommentOfTask(input: CommentTaskInput!): Comment
+    deleteComment(input: ID!): Boolean
+
+    createOrEditTask(input: TaskInput!): Task
+    deleteTask(input: TaskInput!): Order
+    editTask(input: TaskInput!): Task
+    terminateAnalysis(input: ID!): Order
+
+    terminateTask(input: ID!): Task
+    importOrderFromJsonFile: Boolean
+}

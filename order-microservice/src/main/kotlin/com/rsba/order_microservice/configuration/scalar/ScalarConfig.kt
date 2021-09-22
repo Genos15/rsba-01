@@ -1,0 +1,19 @@
+package com.rsba.order_microservice.configuration.scalar
+
+import graphql.scalars.ExtendedScalars
+import graphql.schema.GraphQLScalarType
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+
+@Configuration
+class ScalarConfig {
+
+    @Bean
+    fun jsonType(): GraphQLScalarType = ExtendedScalars.Json /*graphqlJSONType*/
+
+    @Bean
+    fun timestampType(): GraphQLScalarType = ExtendedScalars.DateTime
+
+    @Bean
+    fun objectType(): GraphQLScalarType = ExtendedScalars.Object
+}

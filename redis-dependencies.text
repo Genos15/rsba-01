@@ -1,0 +1,10 @@
+
+XADD token-events * any-key any-value
+
+XGROUP CREATE token-events token-events $
+
+XADD email-events * any-key any-value
+
+XGROUP CREATE email-events email-events $
+
+docker logs --follow --until=1m

@@ -1,0 +1,251 @@
+scalar DateTime
+scalar Object
+
+type Group {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: String
+    editedAt: String
+    parent: Group
+    priority: Int
+    isAnalytic: Boolean
+    isStaging: Boolean
+}
+
+type ContactInfo {
+    id: ID!
+    value: String!
+    createdAt: DateTime
+    editedAt: DateTime
+    streetAddress: String
+    postalCode: String
+    city: String
+    stateProvince: String
+}
+
+type PersonalInfo {
+    id: ID
+    firstname: String!
+    lastname: String!
+    middlename: String
+    birthday: DateTime
+    createdAt: DateTime
+    editedAt: DateTime
+}
+
+type User {
+    id: ID!
+    createdAt: DateTime
+    editedAt: DateTime
+    lang:  String
+    personalInfo: PersonalInfo
+    contactInfo: [ContactInfo!]
+}
+
+type WorkingCenter {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: DateTime
+    editedAt: String
+    users: [User!]
+    managers: [User!]
+    taskId: ID!
+}
+
+type Department {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: DateTime
+    editedAt: DateTime
+    priority: Int
+    isAnalytic: Boolean
+    isStaging: Boolean
+    workingCenters: [WorkingCenter]
+    managers: [User!]
+    taskId: ID!
+}
+
+type Customer {
+    id: ID!
+    name: String!
+    description: String
+    email: String
+    phone: String
+    createdAt: String
+    editedAt: String
+    creator: ID
+    activeProductCount: Int
+    representativeName: String
+    entities: [Customer!]
+}
+
+#type CategoryOfItemInOrder {
+#    id: ID!
+#    name: String!
+#    description: String
+#    #    items: Float
+#    itemCount: Int
+#    progress: Float
+#    color: String
+#}
+
+type Agent {
+    firstName: String
+    lastName: String
+    middleName: String
+    phone: String
+    email: String
+}
+
+type CategoryOfItem {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: DateTime
+    editedAt: DateTime
+    orderId: ID
+    items: [Item]
+    color: String
+    progress: Float!
+}
+
+type Item {
+    id: ID!
+    name: String!
+    description: String
+    material: String
+    createdAt: DateTime
+    editedAt: DateTime
+    operations: [Operation]
+    tasks: [Task]
+    category: CategoryOfItem
+    #    components: [Item]
+    quantity: Float!
+    progress: Float!
+    orderId: ID
+}
+
+type Operation {
+    id: ID!
+    name: String!
+    description: String
+    move: String
+    estimatedTimeInHour: Float
+    createdAt: String
+    editedAt: String
+    departments: [Group!]
+}
+
+type Order {
+    id: ID!
+    referenceNumber: String!
+    description: String
+    createdAt: String
+    editedAt: String
+    creator: ID
+    customer: Customer
+    manager: Agent
+    agent: Agent
+    startAt: String
+    estimatedAt: String
+    progress: Float
+    status: String
+    #    categories: [CategoryOfItemInOrder!]
+    #    categories: [CategoryOfItem!]
+    isAnalyzing: Boolean
+    items: [Item!]
+    deleted: Boolean
+}
+
+type OrderForSub {
+    id: ID!
+    referenceNumber: String!
+    description: String
+    createdAt: String
+    editedAt: String
+    creator: ID
+    customer: Customer
+    manager: Agent
+    agent: Agent
+    startAt: String
+    estimatedAt: String
+    progress: Float
+    status: String
+    categories: [CategoryOfItem!]
+    #    categories: [CategoryOfItemInOrder!]
+    deleted: Boolean
+}
+
+type Comment {
+    id: ID!
+    comment: String!
+    createdAt: DateTime
+    editedAt: DateTime
+    actor: User
+}
+
+type Task {
+    id: ID!
+    quantity: Float!
+    estimatedTimeInHour: Float!
+    description: String
+    estimatedEndDate: DateTime
+    createdAt: DateTime
+    editedAt: DateTime
+    operation: Operation
+    item: Item
+    departments: [Department!]
+    comments: [Comment!]
+    users: [User!]
+    order: Order
+}
+
+type DraggableMap {
+    tasks: Object!
+    columns: Object!
+    columnOrder: [ID!]
+}
+
+type Worklog {
+    id:ID!
+    contentTitle: String!
+    content: String!
+    createdAt: DateTime
+    details: String
+    actor: User
+}
+
+type ProgressionStep {
+    id: ID!
+    name: String!
+    description: String
+    priority: Int
+    rowIndex: Int!
+    isActive: Boolean!
+    isDone: Boolean!
+}
+
+type Technology {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: String
+    editedAt: String
+    operations: [Operation]
+}
+
+type DetailItemInOrder {
+    orderId: ID!
+    itemId: ID!
+    addedInOrderAt: DateTime
+    createdAt: DateTime
+    editedAt: DateTime
+    whoAdded: User
+    technologies: [Technology]
+    totalNumberOfTasks: Int!
+    totalNumberOfTasksDone: Int!
+}
+

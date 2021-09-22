@@ -1,0 +1,23 @@
+input CreateRoleInput {
+    name: String!
+    description: String
+}
+
+input EditRoleOfUserInput {
+    roleId: ID!
+    userId: ID!
+}
+
+input PermissionInRoleInput {
+    roleId: ID!
+    permissionId: ID!
+    canCreate: Boolean!
+    canEdit: Boolean!
+    canView: Boolean!
+    canDelete: Boolean!
+}
+
+input DeletePermissionInRoleInput {
+    roleId: ID!
+    permissionId: ID!
+}

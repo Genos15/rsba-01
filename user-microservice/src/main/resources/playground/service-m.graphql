@@ -1,0 +1,66 @@
+#INVITE NEW USER
+
+mutation CREATE_USER {
+    createUser(input: {
+        firstName: ""
+        lastName: ""
+        middleName: ""
+        login: ""
+        password: ""
+        email: ""
+        phone: ""
+        lang: ""
+        code: ""
+    }) {
+        id
+        login
+    }
+}
+
+#Login user
+mutation LOGIN_USER {
+    loginUser(input: {
+        login: ""
+        password: ""
+    }) {
+        accessToken
+        refreshToken
+        expireIn
+    }
+}
+
+
+#CREATE NEW ADMINISTRATOR AND COMPANY
+mutation CREATE_ADMIN {
+    createAdmin(input: {
+        email: "email@gmail.com",
+        firstname: "user1",
+        lastname: "lusdhfjdsf",
+        middlename: "fdsfdfs",
+        companyName: "kncjfjdsfd",
+        country: "Russia",
+        phone: "8798798794",
+        login: "fdsfdsfdsf",
+        password: "fdsfdsfdsfsd"
+    })
+}
+
+#BLOCK USERS
+mutation BLOCK_USERS {
+    blockUsers(input: ["", ""] )
+}
+
+#INVITE NEW USER
+mutation INVITE_USERS {
+    inviteUsers(input: {
+        email: ["user1@gmail.com", "user2@gmail.com"]
+        groupId: ""
+        roleId: ""
+        message: ""
+    })
+}
+
+#LOGOUT USER
+mutation LOGOUT_USER {
+    logoutUser
+}

@@ -1,0 +1,10 @@
+type ContactInfo {
+    id: ID!
+    value: String!
+    createdAt: String
+    editedAt: String
+    streetAddress: String
+    postalCode: String
+    city: String
+    stateProvince: String
+}

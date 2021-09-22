@@ -1,0 +1,6 @@
+type LoginUserReturn {
+    accessToken: String!
+    refreshToken: String!
+    expireIn: String!
+}
+

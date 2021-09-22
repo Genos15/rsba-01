@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.graphql-java:graphql-java-extended-scalars:2021-08-15T23-45-48-a9f6ec6">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/graphql-java/graphql-java-extended-scalars/2021-08-15T23-45-48-a9f6ec6/graphql-java-extended-scalars-2021-08-15T23-45-48-a9f6ec6.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/graphql-java/graphql-java-extended-scalars/2021-08-15T23-45-48-a9f6ec6/graphql-java-extended-scalars-2021-08-15T23-45-48-a9f6ec6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/graphql-java/graphql-java-extended-scalars/2021-08-15T23-45-48-a9f6ec6/graphql-java-extended-scalars-2021-08-15T23-45-48-a9f6ec6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

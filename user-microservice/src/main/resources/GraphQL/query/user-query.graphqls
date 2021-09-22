@@ -1,0 +1,20 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+
+    retrieveAllUsers (first: Int!, after: ID): UserConnection @connection(for: "User")
+    retrieveAllNotInGroup (first: Int!, after: ID): UserConnection @connection(for: "User")
+    retrieveAllGroups (first: Int!, after: ID): GroupConnection @connection(for: "Group")
+    retrieveAllRoles (first: Int!, after: ID): RoleConnection @connection(for: "Role")
+    retrieveAllModules (first: Int!, after: ID): ModuleConnection @connection(for: "Module")
+    retrieveModuleByRoleId (roleId: ID!, first: Int!, after: ID): ModuleWithPermissionConnection @connection(for: "Role")
+    retrieveGroupById (groupId: ID!): Group
+    retrieveAllWorkingCenters (first: Int!, after: ID): WorkingCenterConnection @connection(for: "WorkingCenter")
+    retrieveWorkingCenterById (id: ID!): WorkingCenter
+    retrieveAllAnalysisTemplates (first: Int!, after: ID): AnalysisTemplateConnection @connection(for: "AnalysisTemplate")
+
+    retrieveUserByToken: User
+}

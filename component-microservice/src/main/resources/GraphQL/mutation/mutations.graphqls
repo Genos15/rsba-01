@@ -1,0 +1,23 @@
+type Mutation {
+    createOrEditCategoryOfItem(input: CreateOrEditCategoryOfItemInput!): CategoryOfItem
+    createOrEditItem(input: CreateOrEditItemInput!): Item
+    createOrEditOperation(input: CreateOrEditOperationInput!): Operation
+    deleteCategoryOfItem(input: ID!): Int
+    deleteItem(input: ID!): Int
+    deleteOperation(input: ID!): Int
+    attachOperationToGroup(input: OperationAndGroupInput!): Operation
+    detachOperationToGroup(input: OperationAndGroupInput!): Operation
+    attachOperationToItem(input: ItemAndOperationInput!): Item
+    detachOperationToItem(input: ItemAndOperationInput!): Item
+    #    Use this (createOrEditTechnology) to pin operations in technology
+    createOrEditTechnology(input: CreateOrEditTechnologyInput!): Technology
+    deleteTechnology(input: ID!): Boolean
+    unpinOperationInTechnology(input: [TechnologyAndOperation]): Technology
+
+    attachTechnologyWithItem(input: ItemTechnologyInput!): Item
+
+    importItemFromJsonFile: Boolean
+    importTechnologyFromJsonFile: Boolean
+    importOperationFromJsonFile: Boolean
+
+}

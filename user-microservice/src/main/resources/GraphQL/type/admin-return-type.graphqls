@@ -1,0 +1,6 @@
+type CreateAdminReturn {
+    login: String!
+    companyName: String!
+    email: String!
+}
+

@@ -1,0 +1,23 @@
+#input CreateOrEditCategoryOfItemInput {
+#    id: ID
+#    name: String
+#    description: String
+#}
+#
+#input CreateOrEditItemInput {
+#    id: ID
+#    name: String
+#    description: String
+#    material: String
+#    #    category: ID
+#}
+#
+#input CreateOrEditOperationInput {
+#    id: ID
+#    name: String
+#    description: String
+#    move: String
+#    estimatedTimeInHour: Float
+#}
+#
+#

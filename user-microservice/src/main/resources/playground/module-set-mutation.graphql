@@ -1,0 +1,54 @@
+#CREATE A NEW MODULE
+mutation CREATE_MODULE {
+    createModule(input: {
+        name: ""
+        description: ""
+    }) {
+        id
+        name
+    }
+}
+
+#EDIT A MODULE
+mutation EDIT_MODULE {
+    editModule(input: {
+        id: ""
+        name: ""
+        description: ""
+    }){
+        id
+        name
+    }
+}
+
+#ADD A DEPENDENCY IN MODULE
+mutation ADD_DEPENDENCY_IN_MODULE {
+    addDependencyInModule(input: {
+        moduleId: ""
+        dependencyId: ""
+    }){
+        id
+        name
+    }
+}
+
+#ADD A PERMISSION IN MODULE
+mutation ADD_PERMISSION_IN_MODULE {
+    addPermissionInModule(input: {
+        moduleId: ""
+        permissionName: ""
+        permissionDescription: "" #Optional
+    }){
+        id
+        name
+    }
+}
+
+#DELETE A PERMISSION IN A MODULE
+mutation DELETE_PERMISSION_IN_MODULE {
+    deletePermissionInModule(input: {
+        moduleId: ""
+        permissionId: ""
+    })
+}
+

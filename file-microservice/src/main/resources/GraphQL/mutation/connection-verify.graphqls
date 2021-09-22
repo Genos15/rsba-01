@@ -1,0 +1,34 @@
+#type ItemConnection {
+#    edges: [ItemEdge]
+#    pageInfo: PageInfo
+#}
+#
+#type ItemEdge {
+#    cursor: String
+#    node: Item
+#}
+#
+#type PageInfo {
+#    hasPreviousPage: Boolean!
+#    hasNextPage: Boolean!
+#}
+#
+#type CategoryOfItemConnection {
+#    edges: [CategoryOfItemEdge]
+#    pageInfo: PageInfo
+#}
+#
+#type CategoryOfItemEdge {
+#    cursor: String
+#    node: CategoryOfItem
+#}
+#
+#type OperationConnection {
+#    edges: [OperationEdge]
+#    pageInfo: PageInfo
+#}
+#
+#type OperationEdge {
+#    cursor: String
+#    node: Operation
+#}

@@ -1,0 +1,46 @@
+type Mutation{
+    createUser(input: CreateUserInput!): User
+    createAdmin(input: CreateAdminInput!): Int
+    loginUser(input: LoginUserInput!): LoginUserReturn
+    inviteUsers(input: InviteUsersInput!): Int
+    blockUsers(input: [ID!]!): Int
+
+    createGroup(input: CreateGroupInput!): Group
+
+    createOrEditGroup(input: CreateOrEditGroupInput!): Group
+
+    addUserInGroup(input: AddUserInGroupInput!): Group
+    deleteUserInGroup(input: DeleteUserInGroupInput!): Int
+    deleteGroups(input: [ID!]!): Int
+
+    createRole(input: CreateRoleInput!): Role
+    editRoleOfUser(input: EditRoleOfUserInput!): Role
+    addPermissionInRole(input: PermissionInRoleInput!): Role
+    editPermissionInRole(input: PermissionInRoleInput!): Role
+    deletePermissionInRole(input: DeletePermissionInRoleInput!): Int
+    deleteRoles(input: [ID!]!): Int
+
+    allocateRoleToGroup(input: AllocateRoleToGroup!): Int
+
+    logoutUser: Int
+    createModule(input: CreateModuleInput!): Module
+    editModule(input: EditModuleInput!): Module
+    addDependencyInModule(input: AddDependencyInModuleInput!): Module
+    addPermissionInModule(input: AddPermissionInModuleInput!): Module
+    deletePermissionInModule(input: DeletePermissionInModuleInput!): Int
+
+    createOrEditWorkingCenter(input: CreateOrEditWorkingCenterInput): WorkingCenter
+    deleteWorkingCenter(input: ID!): Boolean
+
+    addUserInWorkingCenter(input: UserInWorkingCenterInput): WorkingCenter
+    deleteUserInWorkingCenter(input: UserInWorkingCenterInput): WorkingCenter
+
+    pickManagerInWorkingCenter(input: ManagerInWorkingCenterInput): WorkingCenter
+    unpickManagerInWorkingCenter(input: ManagerInWorkingCenterInput): WorkingCenter
+
+    pickManagerInGroup(input: ManagerInGroupInput): Group
+    unpickManagerInGroup(input: ManagerInGroupInput): Group
+
+    createOrEditAnalysisTemplate(input: CreateOrEditAnalysisTemplateInput): AnalysisTemplate
+    deleteAnalysisTemplate(input: ID!): Boolean
+}

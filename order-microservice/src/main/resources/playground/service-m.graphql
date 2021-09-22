@@ -1,0 +1,182 @@
+mutation CREATE_OR_EDIT_NEW_CUSTOMER {
+    createOrEditCustomer(input: {
+        id: ""
+        name: ""
+        description: ""
+        email: ""
+        phone: ""
+        representativeName: ""
+    }) {
+        name
+        description
+        email
+        phone
+        representativeName
+    }
+}
+
+mutation ADD_ENTITY_TO_CUSTOMER {
+    addEntityToCustomer(input: {
+        customerId: ""
+        name: ""
+        description: ""
+        email: ""
+        phone: ""
+        representativeName: ""
+    }) {
+        name
+        description
+        email
+        phone
+        representativeName
+        entities {
+            name
+            description
+            email
+            phone
+            representativeName
+        }
+    }
+}
+
+mutation CREATE_NEW_ORDER {
+    createOrder(input: {
+        customerId: ""
+    }) {
+        id
+        referenceNumber
+        description
+        customer {
+            name
+            description
+            email
+            phone
+            representativeName
+        }
+    }
+}
+
+mutation EDIT_ORDER {
+    editOrder(input: {
+        orderId: ""
+        agentId: "" #this is a reference to user
+        managerId: "" #this is a reference to user
+        estimatedAt: ""
+        description: ""
+    }) {
+        id
+        referenceNumber
+        description
+        customer {
+            name
+            description
+            email
+            phone
+            representativeName
+        }
+    }
+}
+
+
+mutation ADD_CATEGORY_IN_ORDER {
+    addCategoriesInOrder(input: {
+        orderId: ""
+        categories: [{
+            categoryId: ""
+            itemCount: 0
+        }]
+    }) {
+        referenceNumber
+        description
+        createdAt
+        editedAt
+        creator
+        startAt
+        status
+        estimatedAt
+        progress
+        customer {
+            name
+            description
+            email
+            phone
+            representativeName
+        }
+        agent {
+            firstName
+            lastName
+            middleName
+            phone
+            email
+        }
+        manager {
+            firstName
+            lastName
+            middleName
+            phone
+            email
+        }
+    }
+}
+
+mutation EDIT_CATEGORY_IN_ORDER {
+    editCategoryOfOrder(input: {
+        orderId: ""
+        categoryId: ""
+        progress: 0 #it must be between 0 and 100
+        itemCount: 0
+    }) {
+        referenceNumber
+        description
+        createdAt
+        editedAt
+        creator
+        startAt
+        status
+        estimatedAt
+        progress
+        customer {
+            name
+            description
+            email
+            phone
+            representativeName
+        }
+        agent {
+            firstName
+            lastName
+            middleName
+            phone
+            email
+        }
+        manager {
+            firstName
+            lastName
+            middleName
+            phone
+            email
+        }
+    }
+}
+
+mutation DELETE_CUSTOMER {
+    deleteCustomer(input: "")
+}
+
+mutation DELETE_ORDER {
+    deleteOrder(input: "")
+}
+
+mutation REMOVE_ENTITY_OF_CUSTOMER {
+    removeEntityOfCustomer(input: {
+        customerId: ""
+        entityId: ""
+    }) {
+        name
+        description
+        email
+        phone
+        representativeName
+    }
+}
+

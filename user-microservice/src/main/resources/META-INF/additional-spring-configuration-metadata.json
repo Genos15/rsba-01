@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "publish.rate",
+      "type": "java.lang.String",
+      "description": "Description for publish.rate."
+  }
+] }

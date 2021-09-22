@@ -1,0 +1,43 @@
+type PageInfo {
+    hasPreviousPage: Boolean!
+    hasNextPage: Boolean!
+}
+
+type ItemEdge {
+    cursor: String
+    node: Item
+}
+type ItemConnection {
+    edges: [ItemEdge]
+    pageInfo: PageInfo
+}
+
+type CategoryOfItemEdge {
+    cursor: String
+    node: CategoryOfItem
+}
+
+type CategoryOfItemConnection {
+    edges: [CategoryOfItemEdge]
+    pageInfo: PageInfo
+}
+
+type OperationEdge {
+    cursor: String
+    node: Operation
+}
+
+type OperationConnection {
+    edges: [OperationEdge]
+    pageInfo: PageInfo
+}
+
+type TechnologyEdge {
+    cursor: String
+    node: Technology
+}
+
+type TechnologyConnection {
+    edges: [TechnologyEdge]
+    pageInfo: PageInfo
+}

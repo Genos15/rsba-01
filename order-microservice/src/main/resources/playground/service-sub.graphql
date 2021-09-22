@@ -1,0 +1,11 @@
+subscription GET_ALL_ORDER  {
+    all{
+        referenceNumber
+        description
+        editedAt
+        manager {
+            firstName
+            lastName
+        }
+    }
+}

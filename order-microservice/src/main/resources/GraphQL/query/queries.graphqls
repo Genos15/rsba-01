@@ -1,0 +1,46 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+
+    retrieveAllOrder (first: Int!, after: ID): OrderConnection @connection(for: "Order")
+
+    retrieveOrderByUserToken (first: Int!, after: ID): OrderConnection @connection(for: "Order")
+
+    retrieveOneOrder(id: ID!): Order
+
+    retrieveOneCustomer(id: ID!): Customer
+
+    retrieveAllCustomer(first: Int!, after: ID): CustomerConnection @connection(for: "Customer")
+
+    retrieveTasksByGroupId(id: ID!): DraggableMap
+
+    retrieveCommentsByTaskId(taskId: ID!, first: Int!, after: ID): CommentConnection @connection(for: "Comment")
+
+    retrieveTaskById(id:ID!): Task
+
+    retrieveItemInOrderById(itemId:ID!, orderId:ID!): Item
+
+    retrieveTasksByUserId(userId: ID!, first: Int!, after: ID): TaskConnection @connection(for: "Task")
+
+    retrieveTasksByUserToken(first: Int!, after: ID): TaskConnection @connection(for: "Task")
+
+    retrieveWorklogsByTaskId(taskId: ID!, first: Int!, after: ID): WorklogConnection @connection(for: "Worklog")
+
+    retrieveProgressionStepsByOrderId(orderId: ID!): [ProgressionStep]
+
+    retrieveNumberOfActiveOrder: Int
+
+    retrieveNumberOfTaskByUserId(userId: ID!): Int
+
+    retrieveDetailOfItemInOrder(orderId: ID!, itemId: ID!): DetailItemInOrder
+
+    tasksAttachedTechnologyInOrder(input: FindTaskAttachedToTechnologyInput!): [Task]
+
+    operationsAttachedTechnologyInOrder(input: FindOperationAttachedToTechnologyInput!): [Operation]
+
+    itemsAttachedTechnologyInOrder(input: FindItemAttachedToTechnologyInput!): [Item]
+
+}

@@ -1,0 +1,38 @@
+input CreateUserInput {
+    firstName: String!
+    lastName: String!
+    middleName: String
+    login: String!
+    password: String!
+    email: String!
+    phone: String
+    lang: String
+    code: String!
+}
+
+input CreateOrEditWorkingCenterInput {
+    id: ID
+    name: String
+    description: String
+    groupId: ID
+}
+
+input UserInWorkingCenterInput {
+    id: ID!
+    users: [ID]
+}
+
+input ManagerInWorkingCenterInput {
+    workingCenterId: ID!
+    userId: ID!
+}
+
+input ManagerInGroupInput {
+    groupId: ID!
+    userId: ID!
+}
+
+input CreateOrEditAnalysisTemplateInput {
+    id: ID
+    content: String
+}

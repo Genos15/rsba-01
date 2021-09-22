@@ -1,0 +1,123 @@
+#Get All USER NOT IN GROUP
+query GET_USER_NOT_IN_GROUP($first: Int!, $after: ID) {
+    retrieveAllNotInGroup(first: $first, after: $after){
+        edges{
+            node {
+                id
+                login
+                role {
+                    name
+                    description
+                }
+            }
+        }
+    }
+}
+
+#Get All Groups
+query GET_GROUPS_ALL($first: Int!, $after: ID) {
+    retrieveAllGroups(first: $first, after: $after){
+        edges{
+            node {
+                id
+                name
+                users {
+                    id
+                    login
+                    pending
+                    personalInfo {
+                        firstname
+                        lastname
+                    }
+                    contactInfo {
+                        value
+                        streetAddress
+                    }
+                    role {
+                        name
+                        description
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+#Get All Roles
+query GET_ROLES_ALL($first: Int!, $after: ID) {
+    retrieveAllRoles(first: $first, after: $after){
+        edges{
+            node {
+                id
+                name
+                permissions {
+                    id
+                    name
+                    description
+                }
+            }
+        }
+    }
+}
+
+#Get All Roles
+query GET_MODULE_ALL($first: Int!, $after: ID) {
+    retrieveAllModules(first: $first, after: $after){
+        edges{
+            node {
+                id
+                name
+                permissions {
+                    id
+                    name
+                    description
+                }
+            }
+        }
+    }
+}
+
+#Get All Module By Role Id
+query GET_MODULE_BY_ROLE_ID($roleId: ID!, $first: Int!, $after: ID) {
+    retrieveModuleByRoleId(roleId: $roleId, first: $first, after: $after){
+        edges{
+            node {
+                id
+                name
+                description
+                permissions {
+                    name
+                    canCreate
+                    canEdit
+                    canView
+                    canDelete
+                }
+            }
+        }
+    }
+}
+
+query GET_GROUP_BY_ID($groupId: ID) {
+    retrieveGroupById(groupId: $groupId) {
+        id
+        name
+        users {
+            id
+            login
+            pending
+            personalInfo {
+                firstname
+                lastname
+            }
+            contactInfo {
+                value
+                streetAddress
+            }
+            role {
+                name
+                description
+            }
+        }
+    }
+}

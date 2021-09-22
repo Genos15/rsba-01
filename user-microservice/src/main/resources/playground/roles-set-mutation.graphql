@@ -1,0 +1,59 @@
+#CREATE A NEW ROLE
+mutation CREATE_ROLE {
+    createRole(input: {
+        name: ""
+    }){
+        name
+    }
+}
+
+#EDIT A ROLE OF USER
+mutation EDIT_ROLE_OF_USER {
+    editRoleOfUser(input: {
+        userId: ""
+        roleId: ""
+    }) {
+        name
+    }
+}
+
+#ADD PERMISSION IN ROLE
+mutation ADD_PERMISSION_IN_ROLE {
+    addPermissionInRole(input: {
+        roleId: ""
+        permissionId: ""
+        canCreate: false
+        canEdit: false
+        canView: false
+        canDelete: false
+    }) {
+        name
+    }
+}
+
+#EDIT PERMISSION IN ROLE
+mutation EDIT_PERMISSION_IN_ROLE {
+    editPermissionInRole(input: {
+        roleId: ""
+        permissionId: ""
+        canCreate: false
+        canEdit: false
+        canView: false
+        canDelete: false
+    }) {
+        name
+    }
+}
+
+#DELETE PERMISSION IN ROLE
+mutation DELETE_PERMISSION_IN_ROLE {
+    deletePermissionInRole(input: {
+        roleId: ""
+        permissionId: ""
+    })
+}
+
+#DELETE ROLES
+mutation DELETE_ROLES {
+    deleteRoles(input: [""])
+}

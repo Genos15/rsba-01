@@ -1,0 +1,26 @@
+input CreateModuleInput {
+    name: String!
+    description: String
+}
+
+input EditModuleInput {
+    id: ID!
+    name: String
+    description: String
+}
+
+input AddDependencyInModuleInput {
+    moduleId: ID!
+    dependencyId: ID!
+}
+
+input AddPermissionInModuleInput {
+    moduleId: ID!
+    permissionName: String!
+    permissionDescription: String
+}
+
+input DeletePermissionInModuleInput {
+    moduleId: ID!
+    permissionId: ID!
+}

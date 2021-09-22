@@ -1,0 +1,13 @@
+input CreateAdminInput {
+    email: String!
+    firstname: String!
+    lastname: String!
+    middlename: String!
+    companyName: String!
+    companyId: ID
+    companyAddress: String
+    country: String!
+    phone: String
+    login: String!
+    password: String!
+}

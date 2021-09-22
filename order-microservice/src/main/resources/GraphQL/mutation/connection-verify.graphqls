@@ -1,0 +1,54 @@
+type OrderConnection {
+    edges: [OrderEdge]
+    pageInfo: PageInfo
+}
+
+type OrderEdge {
+    cursor: String
+    node: Order
+}
+
+type PageInfo {
+    hasPreviousPage: Boolean!
+    hasNextPage: Boolean!
+}
+
+type CustomerConnection {
+    edges: [CustomerEdge]
+    pageInfo: PageInfo
+}
+
+type CustomerEdge {
+    cursor: String
+    node: Customer
+}
+
+type CommentConnection {
+    edges: [CommentEdge]
+    pageInfo: PageInfo
+}
+
+type CommentEdge {
+    cursor: String
+    node: Comment
+}
+
+type TaskConnection {
+    edges: [TaskEdge]
+    pageInfo: PageInfo
+}
+
+type TaskEdge {
+    cursor: String
+    node: Task
+}
+
+type WorklogConnection {
+    edges: [WorklogEdge]
+    pageInfo: PageInfo
+}
+
+type WorklogEdge {
+    cursor: String
+    node: Worklog
+}

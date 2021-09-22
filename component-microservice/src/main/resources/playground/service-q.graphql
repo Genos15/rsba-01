@@ -1,0 +1,42 @@
+#get items list
+query GET_ALL_ITEM($first: Int!, $after: ID) {
+    retrieveAllItem(first: $first, after: $after){
+        edges{
+            node {
+                id
+                name
+                description
+                material
+            }
+        }
+    }
+}
+
+#get category of item list
+query GET_ALL_CATEGORY_OF_ITEM($first: Int!, $after: ID) {
+    retrieveAllCategoryOfItem(first: $first, after: $after){
+        edges{
+            node {
+                id
+                name
+                description
+            }
+        }
+    }
+}
+
+
+#Get All Roles
+query GET_ALL_OPERATION($first: Int!, $after: ID) {
+    retrieveAllOperation(first: $first, after: $after){
+        edges{
+            node {
+                id
+                name
+                description
+                move
+                estimatedTimeInHour
+            }
+        }
+    }
+}

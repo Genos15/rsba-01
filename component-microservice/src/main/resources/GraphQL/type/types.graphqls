@@ -1,0 +1,56 @@
+type Group {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: String
+    editedAt: String
+    parent: Group
+    priority: Int
+    isAnalytic: Boolean
+    isStaging: Boolean
+}
+
+type CategoryOfItem {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: String
+    editedAt: String
+    creator: ID
+}
+
+type Item {
+    id: ID!
+    name: String!
+    description: String
+    material: String
+    createdAt: String
+    editedAt: String
+    creator: ID
+    operations: [Operation]
+    category: CategoryOfItem
+    components: [Item]
+}
+
+type Operation {
+    id: ID!
+    name: String!
+    description: String
+    move: String
+    estimatedTimeInHour: Float
+    createdAt: String
+    editedAt: String
+    creator: ID
+    departments: [Group]
+}
+
+
+type Technology {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: String
+    editedAt: String
+    operations: [Operation]
+}
+
