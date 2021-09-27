@@ -2,52 +2,45 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="1fa361f0-7021-46a5-8b50-9bfb5175dd5c" name="database-main-support">
-        <fileTransfer rootFolder="/home" accessType="SFTP" host="46.101.103.29" port="22" sshConfigId="be8b671e-4109-4f91-9a9f-b5ddd621bd05" sshConfig="rs-database-main">
+      <webServer id="1fa361f0-7021-46a5-8b50-9bfb5175dd5c" name="rs.database.development">
+        <fileTransfer rootFolder="/home" accessType="SFTP" host="46.101.103.29" port="22" sshConfigId="be8b671e-4109-4f91-9a9f-b5ddd621bd05" sshConfig="rs.database.development.source">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>
-      <webServer id="952ed0be-3a82-45d4-a6ff-1f11cf0bf956" name="database-file-support">
+      <webServer id="952ed0be-3a82-45d4-a6ff-1f11cf0bf956" name="not-use3">
         <fileTransfer rootFolder="/home" accessType="SFTP" host="104.248.16.14" port="22" sshConfigId="5961fc9e-4769-4efa-9545-2b452510aa6a" sshConfig="rs-database-file">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>
-      <webServer id="b9b9214f-0603-41a2-911e-c74977cd4f20" name="rs-cloud-redis-events">
+      <webServer id="b9b9214f-0603-41a2-911e-c74977cd4f20" name="not-use1">
         <fileTransfer rootFolder="/home" accessType="SFTP" host="46.101.125.169" port="22" sshConfigId="548a5615-1106-495a-b038-0f392a40e53a" sshConfig="rs-cloud-redis-event-source">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>
-      <webServer id="abbdc120-1e29-42b2-a5ac-0ce9c1de1d34" name="rs-cloud-discovery-gateway">
+      <webServer id="abbdc120-1e29-42b2-a5ac-0ce9c1de1d34" name="not-use2">
         <fileTransfer rootFolder="/home" accessType="SFTP" host="207.154.227.200" port="22" sshConfigId="698f390c-7d49-44c8-8af8-a47ca3d90575" sshConfig="rs-cloud-discovery-gateway-source">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>
-      <webServer id="1c2e8eea-f527-4f0d-b8ae-dca1dbc3fb59" name="rs-cloud-orders-compoents">
-        <fileTransfer accessType="SFTP" host="207.154.242.175" port="22" sshConfigId="b6a09bab-5c4e-4262-86b2-de1c7503577c" sshConfig="rs-cloud-orders-components-source">
+      <webServer id="1c2e8eea-f527-4f0d-b8ae-dca1dbc3fb59" name="rs.orders.components.development">
+        <fileTransfer rootFolder="/home" accessType="SFTP" host="207.154.242.175" port="22" sshConfigId="b6a09bab-5c4e-4262-86b2-de1c7503577c" sshConfig="rs.orders.components.development.source">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>
-      <webServer id="f00ec712-9003-46ad-b6bf-da6509868e6e" name="rs-cloud-users">
-        <fileTransfer accessType="SFTP" host="165.227.131.116" port="22" sshConfigId="02515a89-aa9e-4cbd-99e4-2b7980be390c" sshConfig="rs-cloud-users-source">
+      <webServer id="f00ec712-9003-46ad-b6bf-da6509868e6e" name="rs.users.notifications.development">
+        <fileTransfer rootFolder="/home" accessType="SFTP" host="165.227.131.116" port="22" sshConfigId="02515a89-aa9e-4cbd-99e4-2b7980be390c" sshConfig="rs.users.notifications.development.source">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
-          </advancedOptions>
-        </fileTransfer>
-      </webServer>
-      <webServer id="95a6a0d8-3036-474d-8516-dffc585987a7" name="rs-cloud-instance-2">
-        <fileTransfer accessType="SFTP" host="46.101.103.29" port="22" sshConfigId="be8b671e-4109-4f91-9a9f-b5ddd621bd05" sshConfig="rs-database-main">
-          <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>
@@ -75,15 +68,14 @@
     </option>
     <groups>
       <group>
-        <name>rsba.v1</name>
+        <name>rsba.development.configuration</name>
         <servers>
-          <name value="database-main-support" />
-          <name value="database-file-support" />
-          <name value="rs-cloud-redis-events" />
-          <name value="rs-cloud-discovery-gateway" />
-          <name value="rs-cloud-orders-compoents" />
-          <name value="rs-cloud-users" />
-          <name value="rs-cloud-instance-2" />
+          <name value="rs.database.development" />
+          <name value="not-use3" />
+          <name value="not-use1" />
+          <name value="not-use2" />
+          <name value="rs.orders.components.development" />
+          <name value="rs.users.notifications.development" />
         </servers>
       </group>
       <group>

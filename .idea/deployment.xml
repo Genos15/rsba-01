@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="rs-cloud-instance-2" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" serverName="rs.orders.components.development" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="database-file-support">
+      <paths name="not-use1">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/order-microservice" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="not-use2">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/order-microservice" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="not-use3">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$/component-microservice" web="/" />
@@ -10,50 +26,10 @@
           </mappings>
         </serverdata>
       </paths>
-      <paths name="database-main-support">
+      <paths name="rs.database.development">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$/notification-microservice" web="/" />
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="rs-cloud-discovery-gateway">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$/order-microservice" web="/" />
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="rs-cloud-instance-2">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$/notification-microservice" web="/" />
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="rs-cloud-orders-compoents">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$/order-microservice" web="/" />
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="rs-cloud-redis-events">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$/order-microservice" web="/" />
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="rs-cloud-users">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$/gateway-demo" web="/" />
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
@@ -62,6 +38,14 @@
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$/discovery-ms" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="rs.orders.components.development">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/order-microservice" web="/" />
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
@@ -78,6 +62,14 @@
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$/discovery-ms" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="rs.users.notifications.development">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/gateway-demo" web="/" />
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>

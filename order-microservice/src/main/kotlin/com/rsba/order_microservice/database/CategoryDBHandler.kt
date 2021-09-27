@@ -38,7 +38,6 @@ object CategoryDBHandler {
     fun one(row: Row?, meta: RowMetadata? = null): Optional<CategoryOfItem> = try {
         if (row != null) {
             val json = row.get(0, String::class.java)
-            println("json = $json")
             if (json != null) {
                 Optional.ofNullable(
                     jsonHandler.decodeFromString<List<CategoryOfItem>>("""$json""").firstOrNull()

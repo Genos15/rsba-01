@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="rsba.database.dev" uuid="1cb0206f-d157-4182-bc1d-6b8eeeaab540">
+    <data-source source="LOCAL" name="rsba.database.devevelopment" uuid="1cb0206f-d157-4182-bc1d-6b8eeeaab540">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
@@ -20,6 +20,13 @@
       <synchronize>true</synchronize>
       <jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver>
       <jdbc-url>mongodb://157.230.115.134 :27017/rsba_001</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="rsba.database.development.file" uuid="42fe51ec-7ad7-4dfa-96c8-91a8ec22e2ef">
+      <driver-ref>mongo</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver>
+      <jdbc-url>mongodb://46.101.103.29:27017/rsba_001</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

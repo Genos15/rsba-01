@@ -6,4 +6,4 @@ FROM openjdk:8-jdk-alpine
 ARG JAR_FILE=/home/app/target/*.jar
 COPY --from=builder ${JAR_FILE} /usr/local/lib/app.jar
 EXPOSE 9001/tcp
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","/usr/local/lib/app.jar"]
