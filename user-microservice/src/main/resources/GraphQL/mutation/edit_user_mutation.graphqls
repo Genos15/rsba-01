@@ -1,0 +1,4 @@
+type Mutation{
+    #Using this mutation to edit a user using his current token
+    editUserProfile(input: EditUserInput!): User
+}

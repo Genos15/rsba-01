@@ -16,7 +16,7 @@ class TokenImpl(private val logger: KLogger) {
         val context: CustomGraphQLContext = environment.getContext()
         val request = context.httpServletRequest
         val full = request.getHeader("Authorization") ?: ""
-        val token = full.toLowerCase().replace("bearer ", "", ignoreCase = true)
+        val token = full.lowercase().replace("bearer ", "", ignoreCase = true)
         return try {
             UUID.fromString(token)
         } catch (e: Exception) {
@@ -27,7 +27,7 @@ class TokenImpl(private val logger: KLogger) {
 
     fun read(request: HttpServletRequest?): UUID? {
         val full = request?.getHeader("Authorization") ?: ""
-        val token = full.toLowerCase().replace("bearer ", "", ignoreCase = true)
+        val token = full.lowercase().replace("bearer ", "", ignoreCase = true)
         return try {
             UUID.fromString(token)
         } catch (e: Exception) {

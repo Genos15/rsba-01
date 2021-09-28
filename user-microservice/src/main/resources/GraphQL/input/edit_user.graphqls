@@ -1,0 +1,11 @@
+input EditUserInput {
+    firstName: String
+    lastName: String
+    middleName: String
+    login: String
+    password: String
+    newPassword: String
+    email: String
+    phone: String
+    photo: ID
+}

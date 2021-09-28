@@ -43,4 +43,6 @@ interface UserRepository : AbstractCRUDRepository<User, CreateUserInput, CreateA
     ): Map<UUID, List<Group>>
 
     suspend fun retrieveByToken(token: UUID): Optional<User>
+
+    suspend fun editUserProfile(input: EditUserInput, environment: DataFetchingEnvironment): Optional<User>
 }

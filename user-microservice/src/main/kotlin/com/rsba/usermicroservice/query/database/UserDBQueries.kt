@@ -1,11 +1,14 @@
 package com.rsba.usermicroservice.query.database
 
 import com.rsba.usermicroservice.domain.input.CreateAdminInput
+import com.rsba.usermicroservice.domain.input.EditUserInput
 import com.rsba.usermicroservice.domain.input.LoginUserInput
 import com.rsba.usermicroservice.domain.input.SingleInviteUsersInput
 import com.rsba.usermicroservice.domain.model.CachedUserContact
 import com.rsba.usermicroservice.domain.model.CreateUserDatabaseParam
 import com.rsba.usermicroservice.domain.model.TokenHelper
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.util.*
 
 object UserDBQueries {
@@ -39,5 +42,8 @@ object UserDBQueries {
 
     fun retrieveByToken(token: UUID): String =
         "SELECT on_retrieve_user_by_token('$token')"
+
+    fun editUserProfile(input: EditUserInput, token: UUID) =
+        "SELECT on_edit_user_profile('${Json.encodeToString(input)}', '$token')"
 
 }

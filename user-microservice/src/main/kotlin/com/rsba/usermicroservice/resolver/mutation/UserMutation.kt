@@ -73,4 +73,8 @@ class UserMutation(
     @AdminSecured
     suspend fun logoutUser(environment: DataFetchingEnvironment): Optional<Int> =
         service.onLogOut(environment = environment)
+
+    @AdminSecured
+    suspend fun editUserProfile(input: EditUserInput, environment: DataFetchingEnvironment): Optional<User> =
+        service.editUserProfile(input = input, environment = environment)
 }

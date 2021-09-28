@@ -8,7 +8,9 @@ import com.rsba.usermicroservice.domain.model.CreateUserDatabaseParam
 import com.rsba.usermicroservice.domain.model.Group
 import com.rsba.usermicroservice.domain.model.User
 import com.rsba.usermicroservice.query.database.*
+import com.rsba.usermicroservice.repository.PhotoRepository
 import com.rsba.usermicroservice.repository.UserRepository
+import com.rsba.usermicroservice.service.implementation.EditUserProfileImpl
 import com.rsba.usermicroservice.utils.CacheHelper
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.reactive.awaitFirstOrElse
@@ -28,11 +30,12 @@ import javax.servlet.http.HttpServletRequest
 class UserService(
     private val logger: KLogger,
     private val database: DatabaseClient,
+    private val fileManager: PhotoRepository,
     private val emailHelper: EmailHelper,
     private val cached: CacheService,
     private val queryHelper: UserDatabaseQuery,
     private val dataHandler: User2DataHandler
-) : UserRepository {
+) : UserRepository, EditUserProfileImpl {
 
 
     @Throws(RuntimeException::class)
@@ -328,11 +331,19 @@ class UserService(
 
     override suspend fun retrieveByToken(token: UUID): Optional<User> =
         database.sql(UserDBQueries.retrieveByToken(token = token))
-            .map { row, meta -> UserDBHandler.one(row = row, meta = meta) }
+            .map { row -> UserDBHandler.one(row = row) }
             .first()
             .onErrorResume {
                 logger.warn { it.message }
                 throw it
             }
             .awaitFirstOrElse { Optional.empty() }
+
+    /**
+     * @param input this object consist of different parameter that have to be edited in user instance.
+     * @param environment the data wrapper GraphQL engine uses to keep request meta data.
+     * @return {@link Optional<UUID>} url id of a saved file
+     */
+    override suspend fun editUserProfile(input: EditUserInput, environment: DataFetchingEnvironment): Optional<User> =
+        performEditUserProfile(input = input, database = database, environment = environment, fileManager = fileManager)
 }
