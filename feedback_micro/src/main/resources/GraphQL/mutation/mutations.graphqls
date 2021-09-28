@@ -1,0 +1,4 @@
+type Mutation {
+    createOrEditFeedbackArticle(input: FeedbackArticleInput!): FeedbackArticle
+    deleteFeedbackArticle(input: ID!): Boolean
+}

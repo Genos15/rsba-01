@@ -1,0 +1,10 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    retrieveAllFeedbackArticle (first: Int!, after: ID): FeedbackArticleConnection @connection(for: "FeedbackArticle")
+    searchFeedbackArticle (input: String!, first: Int!, after: ID): FeedbackArticleConnection @connection(for: "FeedbackArticle")
+    retrieveFeedbackArticleById (id: ID!): FeedbackArticle
+}

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/component-microservice/component-microservice.iml" filepath="$PROJECT_DIR$/component-microservice/component-microservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/discovery-ms/discovery-ms.iml" filepath="$PROJECT_DIR$/discovery-ms/discovery-ms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/feedback_micro/feedback_micro.iml" filepath="$PROJECT_DIR$/feedback_micro/feedback_micro.iml" />
       <module fileurl="file://$PROJECT_DIR$/file-microservice/file-microservice.iml" filepath="$PROJECT_DIR$/file-microservice/file-microservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/gateway-demo/gateway-microservice.iml" filepath="$PROJECT_DIR$/gateway-demo/gateway-microservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/gateway-ms/getaway-ms.iml" filepath="$PROJECT_DIR$/gateway-ms/getaway-ms.iml" />

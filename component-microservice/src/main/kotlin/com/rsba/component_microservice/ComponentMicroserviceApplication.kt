@@ -18,7 +18,6 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @EnableAspectJAutoProxy
 @EnableScheduling
 @EnableCaching
-//@EnableDiscoveryClient
 class ComponentMicroserviceApplication
 
 fun main(args: Array<String>) {

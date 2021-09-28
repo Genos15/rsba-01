@@ -1,0 +1,14 @@
+type PageInfo {
+    hasPreviousPage: Boolean!
+    hasNextPage: Boolean!
+}
+
+type FeedbackArticleEdge {
+    cursor: String
+    node: FeedbackArticle
+}
+
+type FeedbackArticleConnection {
+    edges: [FeedbackArticleEdge]
+    pageInfo: PageInfo
+}

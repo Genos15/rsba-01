@@ -1,0 +1,7 @@
+type FeedbackArticle {
+    id: ID!
+    title: String!
+    content: String
+    link: String!
+}
+
