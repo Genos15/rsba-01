@@ -1,11 +1,12 @@
 input EditUserInput {
-    firstName: String
-    lastName: String
-    middleName: String
+    firstname: String
+    lastname: String
+    middlename: String
     login: String
     password: String
     newPassword: String
     email: String
     phone: String
+    gender: String
     photo: ID
 }

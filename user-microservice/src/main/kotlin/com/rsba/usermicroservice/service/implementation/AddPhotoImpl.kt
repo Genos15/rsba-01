@@ -4,7 +4,6 @@ import com.mongodb.BasicDBObject
 import com.rsba.usermicroservice.context.CustomGraphQLContext
 import com.rsba.usermicroservice.domain.model.FileType
 import graphql.schema.DataFetchingEnvironment
-import kotlinx.coroutines.reactive.awaitFirstOrElse
 import org.springframework.data.mongodb.gridfs.ReactiveGridFsOperations
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -16,7 +15,7 @@ interface AddPhotoImpl {
     fun performAddPhoto(
         database: ReactiveGridFsOperations,
         environment: DataFetchingEnvironment
-    ): Mono<UUID> = Flux.just(environment)
+    ): Mono<Optional<UUID>> = Flux.just(environment)
         .map {
             environment.getContext() as CustomGraphQLContext
         }.filter { it.fileParts.isNotEmpty() }
@@ -34,7 +33,7 @@ interface AddPhotoImpl {
         .runOn(Schedulers.parallel())
         .sequential()
         .collectList()
-        .map { it.first() }
+        .map { Optional.ofNullable(it.first()) }
         .onErrorResume {
             println("performAddPhoto->error = ${it.message}")
             throw it

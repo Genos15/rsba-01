@@ -12,10 +12,10 @@ class ReactiveMongoConfig {
 
     @Bean
     fun reactiveGridFsTemplate(
-        reactiveMongoDbFactory: ReactiveMongoDatabaseFactory?,
-        mappingMongoConverter: MappingMongoConverter?
+        reactiveMongoDbFactory: ReactiveMongoDatabaseFactory,
+        mappingMongoConverter: MappingMongoConverter
     ): ReactiveGridFsTemplate? {
-        return ReactiveGridFsTemplate(reactiveMongoDbFactory!!, mappingMongoConverter!!)
+        return ReactiveGridFsTemplate(reactiveMongoDbFactory, mappingMongoConverter)
     }
 
 }

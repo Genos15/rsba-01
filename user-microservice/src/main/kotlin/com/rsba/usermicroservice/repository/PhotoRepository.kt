@@ -8,10 +8,10 @@ import kotlin.jvm.Throws
 interface PhotoRepository {
 
     @Throws(RuntimeException::class)
-    fun addPhoto(environment: DataFetchingEnvironment): Mono<UUID>
+    fun addPhoto(environment: DataFetchingEnvironment): Mono<Optional<UUID>>
 
     @Throws(RuntimeException::class)
-    suspend fun edit(environment: DataFetchingEnvironment): Optional<UUID>
+    suspend fun edit(environment: DataFetchingEnvironment): Mono<Optional<UUID>>
 
     @Throws(RuntimeException::class)
     suspend fun delete(input: UUID, token: UUID): Boolean

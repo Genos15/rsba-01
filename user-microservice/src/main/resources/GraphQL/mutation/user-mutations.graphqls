@@ -43,4 +43,6 @@ type Mutation{
 
     createOrEditAnalysisTemplate(input: CreateOrEditAnalysisTemplateInput): AnalysisTemplate
     deleteAnalysisTemplate(input: ID!): Boolean
+
+    editUserProfile(input: EditUserInput!): User
 }

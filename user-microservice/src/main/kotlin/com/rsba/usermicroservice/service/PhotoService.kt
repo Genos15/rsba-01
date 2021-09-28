@@ -15,10 +15,10 @@ class PhotoService(private val database: ReactiveGridFsOperations) : PhotoReposi
      *
      * @return {@link Optional<UUID>} url id of a saved file
      */
-    override fun addPhoto(environment: DataFetchingEnvironment): Mono<UUID> =
+    override fun addPhoto(environment: DataFetchingEnvironment): Mono<Optional<UUID>> =
         performAddPhoto(database = database, environment = environment)
 
-    override suspend fun edit(environment: DataFetchingEnvironment): Optional<UUID> {
+    override suspend fun edit(environment: DataFetchingEnvironment): Mono<Optional<UUID>> {
         TODO("Not yet implemented")
     }
 

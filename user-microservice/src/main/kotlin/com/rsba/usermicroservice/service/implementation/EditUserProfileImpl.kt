@@ -22,7 +22,7 @@ interface EditUserProfileImpl {
         .flatMap {
             database.sql(
                 UserDBQueries.editUserProfile(
-                    input = input.apply { photo = it },
+                    input = input.apply { photo = it.orElse(null) },
                     token = TokenManagerImpl.read(environment = environment)
                 )
             ).map { row -> UserDBHandler.one(row = row) }.first()

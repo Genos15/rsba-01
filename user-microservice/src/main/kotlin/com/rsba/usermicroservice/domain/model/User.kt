@@ -18,6 +18,7 @@ data class User(
     val personalInfo: PersonalInfo? = null,
     val contactInfo: MutableList<ContactInfo>? = mutableListOf(),
     val role: Role? = null,
+    val gender: String? = null,
     @SerialName(value = "pending") val pending: Boolean = true,
     @SerialName(value = "blocked") val blocked: Boolean = false,
     val departments: List<Group>? = emptyList()

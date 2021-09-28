@@ -1,10 +1,11 @@
 type User {
     id: ID!
     login: String!
-    password: String!
+    password: String
     createdAt: String
     editedAt: String
-    lang:  String!
+    gender: String
+    lang:  String
     personalInfo: PersonalInfo
     contactInfo: [ContactInfo!]
     role: Role
