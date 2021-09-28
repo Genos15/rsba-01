@@ -2,8 +2,8 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig authType="PASSWORD" host="46.101.177.133" id="3bd579ac-6d14-4a7b-b0b3-2d80eed7b146" port="22" customName="rs-cloud-source-2" nameFormat="CUSTOM" username="root">
-        <option name="customName" value="rs-cloud-source-2" />
+      <sshConfig authType="PASSWORD" host="46.101.177.133" id="3bd579ac-6d14-4a7b-b0b3-2d80eed7b146" port="22" customName="rs.feedback.prod.source" nameFormat="CUSTOM" username="root">
+        <option name="customName" value="rs.feedback.prod.source" />
       </sshConfig>
       <sshConfig authType="PASSWORD" host="46.101.103.29" id="be8b671e-4109-4f91-9a9f-b5ddd621bd05" port="22" customName="rs.database.development.source" nameFormat="CUSTOM" username="root">
         <option name="customName" value="rs.database.development.source" />
@@ -11,8 +11,8 @@
       <sshConfig authType="PASSWORD" host="104.248.16.14" id="5961fc9e-4769-4efa-9545-2b452510aa6a" port="22" customName="rs-database-file" nameFormat="CUSTOM" username="root">
         <option name="customName" value="rs-database-file" />
       </sshConfig>
-      <sshConfig authType="PASSWORD" host="46.101.125.169" id="548a5615-1106-495a-b038-0f392a40e53a" port="22" customName="rs-cloud-redis-event-source" nameFormat="CUSTOM" username="root">
-        <option name="customName" value="rs-cloud-redis-event-source" />
+      <sshConfig authType="PASSWORD" host="46.101.125.169" id="548a5615-1106-495a-b038-0f392a40e53a" port="22" customName="rs.feedback.development.source" nameFormat="CUSTOM" username="root">
+        <option name="customName" value="rs.feedback.development.source" />
       </sshConfig>
       <sshConfig authType="PASSWORD" host="207.154.227.200" id="698f390c-7d49-44c8-8af8-a47ca3d90575" port="22" customName="rs-cloud-discovery-gateway-source" nameFormat="CUSTOM" username="root">
         <option name="customName" value="rs-cloud-discovery-gateway-source" />

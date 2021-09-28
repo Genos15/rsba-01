@@ -2,14 +2,6 @@
 <project version="4">
   <component name="PublishConfigData" serverName="rs.orders.components.development" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="not-use1">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$/order-microservice" web="/" />
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
       <paths name="not-use2">
         <serverdata>
           <mappings>
@@ -38,6 +30,14 @@
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$/discovery-ms" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="rs.feedback.development">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/order-microservice" web="/" />
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>

@@ -16,8 +16,8 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
-      <webServer id="b9b9214f-0603-41a2-911e-c74977cd4f20" name="not-use1">
-        <fileTransfer rootFolder="/home" accessType="SFTP" host="46.101.125.169" port="22" sshConfigId="548a5615-1106-495a-b038-0f392a40e53a" sshConfig="rs-cloud-redis-event-source">
+      <webServer id="b9b9214f-0603-41a2-911e-c74977cd4f20" name="rs.feedback.development">
+        <fileTransfer rootFolder="/home" accessType="SFTP" host="46.101.125.169" port="22" sshConfigId="548a5615-1106-495a-b038-0f392a40e53a" sshConfig="rs.feedback.development.source">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
@@ -72,7 +72,7 @@
         <servers>
           <name value="rs.database.development" />
           <name value="not-use3" />
-          <name value="not-use1" />
+          <name value="rs.feedback.development" />
           <name value="not-use2" />
           <name value="rs.orders.components.development" />
           <name value="rs.users.notifications.development" />
