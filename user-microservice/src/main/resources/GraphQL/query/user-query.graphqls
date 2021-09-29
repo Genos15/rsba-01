@@ -16,5 +16,9 @@ type Query {
     retrieveWorkingCenterById (id: ID!): WorkingCenter
     retrieveAllAnalysisTemplates (first: Int!, after: ID): AnalysisTemplateConnection @connection(for: "AnalysisTemplate")
 
+    retrieveAllExecutors (first: Int!, after: ID): ExecutorConnection @connection(for: "Executor")
+    searchExecutors (input: String!, first: Int!, after: ID): ExecutorConnection @connection(for: "Executor")
+    retrieveExecutorById (id: ID!): Executor
+
     retrieveUserByToken: User
 }

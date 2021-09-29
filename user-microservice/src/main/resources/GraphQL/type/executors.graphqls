@@ -1,0 +1,10 @@
+type Executor {
+    id: ID!
+    firstname: String!
+    lastname: String!
+    middlename: String
+    photo: ID
+    phone: String
+    email: String
+    pin: String
+}

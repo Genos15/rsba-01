@@ -73,3 +73,13 @@ type AnalysisTemplateEdge {
     cursor: String
     node: AnalysisTemplate
 }
+
+type ExecutorEdge {
+    cursor: String
+    node: Executor
+}
+
+type ExecutorConnection {
+    edges: [ExecutorEdge]
+    pageInfo: PageInfo
+}

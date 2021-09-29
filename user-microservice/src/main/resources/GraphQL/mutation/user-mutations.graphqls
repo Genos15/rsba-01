@@ -45,4 +45,8 @@ type Mutation{
     deleteAnalysisTemplate(input: ID!): Boolean
 
     editUserProfile(input: EditUserInput!): User
+
+    createOrEditExecutor(input: ExecutorInput!): Executor
+    renewExecutorPin(input: ExecutorInput!): Executor
+    deleteExecutor(input: ID!): Boolean
 }
