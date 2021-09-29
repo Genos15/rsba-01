@@ -13,5 +13,5 @@ data class Executor(
     val phone: String? = null,
     val email: String? = null,
     val pin: String? = null,
-    @Serializable(with = UUIDSerializer::class) var photo: UUID
+    @Serializable(with = UUIDSerializer::class) var photo: UUID? = null
 )

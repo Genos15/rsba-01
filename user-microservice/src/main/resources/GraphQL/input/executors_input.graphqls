@@ -3,7 +3,7 @@ input ExecutorInput {
     firstname: String
     lastname: String
     middlename: String
-    phone: Stirng
+    phone: String
     email: String
     photo:ID
 }

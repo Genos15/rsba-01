@@ -20,7 +20,7 @@ object ExecutorQueries {
         "SELECT on_retrieve_executors('$first', ${after?.let { "'$it'" }},'$token')"
 
     fun search(input: String, first: Int, after: UUID?, token: UUID) =
-        "SELECT on_search_feedback_article('$input','$first', ${after?.let { "'$it'" }},'$token')"
+        "SELECT on_search_executors('$input','$first', ${after?.let { "'$it'" }},'$token')"
 
     fun retrieveById(id: UUID, token: UUID) =
         "SELECT on_retrieve_executor_by_id('$id','$token')"

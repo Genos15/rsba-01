@@ -4,6 +4,7 @@ import com.rsba.usermicroservice.deserializer.UUIDSerializer
 import kotlinx.serialization.Serializable
 import java.util.*
 
+
 @Serializable
 data class ExecutorInput(
     @Serializable(with = UUIDSerializer::class) val id: UUID? = null,

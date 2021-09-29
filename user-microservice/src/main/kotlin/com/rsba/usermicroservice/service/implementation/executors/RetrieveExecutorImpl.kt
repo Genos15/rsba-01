@@ -21,7 +21,9 @@ interface RetrieveExecutorImpl : ITokenImpl {
         input?.let {
             ExecutorQueries.search(input = input, token = token, first = first, after = after)
         } ?: ExecutorQueries.retrieve(token = token, first = first, after = after)
-    ).map { row -> ExecutorDBHandler.all(row = row) }.first()
+    ).map { row -> ExecutorDBHandler.all(row = row) }
+        .first()
+        .log()
         .onErrorResume {
             println("RetrieveExecutorImpl->retrieve->error=${it.message}")
             throw it
@@ -33,7 +35,9 @@ interface RetrieveExecutorImpl : ITokenImpl {
         id: UUID,
         token: UUID
     ): Optional<Executor> = database.sql(ExecutorQueries.retrieveById(id = id, token = token))
-        .map { row -> ExecutorDBHandler.one(row = row) }.first()
+        .map { row -> ExecutorDBHandler.one(row = row) }
+        .first()
+        .log()
         .onErrorResume {
             println("RetrieveExecutorImpl->retrieveById->error=${it.message}")
             throw it
