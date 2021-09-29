@@ -8,20 +8,20 @@ import java.util.*
 object ExecutorQueries {
 
     fun createOrEdit(input: ExecutorInput, token: UUID) =
-        "SELECT on_create_or_edit_feedback_article('${Json.encodeToString(input)}', '$token')"
+        "SELECT on_create_or_edit_executor('${Json.encodeToString(input)}', '$token')"
 
     fun renewPin(input: ExecutorInput, token: UUID) =
-        "SELECT on_create_or_edit_feedback_article('${Json.encodeToString(input)}', '$token')"
+        "SELECT on_renew_executor_pin('${Json.encodeToString(input)}', '$token')"
 
     fun delete(input: UUID, token: UUID) =
-        "SELECT on_delete_feedback_article('$input', '$token')"
+        "SELECT on_delete_executor('$input', '$token')"
 
     fun retrieve(first: Int, after: UUID?, token: UUID) =
-        "SELECT on_retrieve_feedback_article('$first', ${after?.let { "'$it'" }},'$token')"
+        "SELECT on_retrieve_executors('$first', ${after?.let { "'$it'" }},'$token')"
 
     fun search(input: String, first: Int, after: UUID?, token: UUID) =
         "SELECT on_search_feedback_article('$input','$first', ${after?.let { "'$it'" }},'$token')"
 
     fun retrieveById(id: UUID, token: UUID) =
-        "SELECT on_retrieve_feedback_article_by_id('$id','$token')"
+        "SELECT on_retrieve_executor_by_id('$id','$token')"
 }
