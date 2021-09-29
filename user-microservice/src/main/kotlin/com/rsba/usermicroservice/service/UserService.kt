@@ -10,7 +10,8 @@ import com.rsba.usermicroservice.domain.model.User
 import com.rsba.usermicroservice.query.database.*
 import com.rsba.usermicroservice.repository.PhotoRepository
 import com.rsba.usermicroservice.repository.UserRepository
-import com.rsba.usermicroservice.service.implementation.EditUserProfileImpl
+import com.rsba.usermicroservice.service.implementation.users.EditUserProfileImpl
+import com.rsba.usermicroservice.service.implementation.users.RetrievePhotoImpl
 import com.rsba.usermicroservice.utils.CacheHelper
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.reactive.awaitFirstOrElse
@@ -21,6 +22,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.core.publisher.SynchronousSink
 import reactor.kotlin.core.publisher.toMono
+import java.io.InputStream
 import java.util.*
 import java.util.stream.Collectors
 import javax.servlet.http.HttpServletRequest
@@ -35,7 +37,7 @@ class UserService(
     private val cached: CacheService,
     private val queryHelper: UserDatabaseQuery,
     private val dataHandler: User2DataHandler
-) : UserRepository, EditUserProfileImpl {
+) : UserRepository, EditUserProfileImpl, RetrievePhotoImpl {
 
 
     @Throws(RuntimeException::class)
@@ -346,4 +348,11 @@ class UserService(
      */
     override suspend fun editUserProfile(input: EditUserInput, environment: DataFetchingEnvironment): Optional<User> =
         performEditUserProfile(input = input, database = database, environment = environment, fileManager = fileManager)
+
+    /**
+     * @param input unique id of image ressource in database
+     * @return {@link Mono<Image>}
+     */
+    override fun retrievePhoto(input: UUID): Mono<InputStream> =
+        retrievePhotoFn(input = input, fileManager = fileManager)
 }

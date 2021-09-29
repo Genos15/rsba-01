@@ -5,6 +5,7 @@ import com.rsba.usermicroservice.domain.model.Group
 import com.rsba.usermicroservice.domain.model.User
 import graphql.schema.DataFetchingEnvironment
 import reactor.core.publisher.Mono
+import java.io.InputStream
 import java.util.*
 import kotlin.jvm.Throws
 
@@ -45,4 +46,7 @@ interface UserRepository : AbstractCRUDRepository<User, CreateUserInput, CreateA
     suspend fun retrieveByToken(token: UUID): Optional<User>
 
     suspend fun editUserProfile(input: EditUserInput, environment: DataFetchingEnvironment): Optional<User>
+
+    fun retrievePhoto(input: UUID): Mono<InputStream>
+
 }

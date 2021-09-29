@@ -1,14 +1,13 @@
 package com.rsba.usermicroservice.restful
 
 import com.rsba.usermicroservice.repository.UserRepository
-import mu.KLogger
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 
 @RestController
 @RequestMapping("email")
 @CrossOrigin(origins = ["*"])
-class EmailController(private val logger: KLogger, private val service: UserRepository) {
+class EmailController(private val service: UserRepository) {
 
     @GetMapping("/confirm/{email}/{code}")
     fun confirm(@PathVariable code: String, @PathVariable email: String): Mono<String> =

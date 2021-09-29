@@ -1,4 +1,4 @@
-package com.rsba.usermicroservice.service.implementation
+package com.rsba.usermicroservice.service.implementation.files
 
 import com.mongodb.BasicDBObject
 import com.rsba.usermicroservice.context.CustomGraphQLContext

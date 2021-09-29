@@ -1,4 +1,4 @@
-package com.rsba.usermicroservice.service.implementation
+package com.rsba.usermicroservice.service.implementation.users
 
 import com.rsba.usermicroservice.context.token.TokenManagerImpl
 import com.rsba.usermicroservice.domain.input.EditUserInput
@@ -32,6 +32,5 @@ interface EditUserProfileImpl {
             throw it
         }
         .awaitFirstOrElse { Optional.empty() }
-
 
 }
