@@ -1,0 +1,6 @@
+type OrderType {
+    id: ID!
+    name: String!
+    description: String
+    isDefault: Boolean!
+}

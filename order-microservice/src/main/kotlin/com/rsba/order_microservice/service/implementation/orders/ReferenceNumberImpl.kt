@@ -5,7 +5,6 @@ import com.rsba.order_microservice.database.OrderDBQueries
 import com.rsba.order_microservice.exception.CustomGraphQLError
 import kotlinx.coroutines.reactive.awaitFirst
 import org.springframework.r2dbc.core.DatabaseClient
-import reactor.core.publisher.SynchronousSink
 import java.util.*
 
 interface ReferenceNumberImpl {
@@ -14,12 +13,10 @@ interface ReferenceNumberImpl {
         database.sql(OrderDBQueries.retrieveNextOrderReference(token = token, companyId = companyId))
             .map { row -> OrderDBHandler.countAsString(row = row) }
             .first()
-            .handle { single: String?, sink: SynchronousSink<String> ->
-                if (single != null) {
-                    sink.next(single)
-                } else {
-                    sink.error(CustomGraphQLError(message = "IMPOSSIBLE TO RETRIEVE THE NEXT ORDER REFERENCE. PLEASE CONTACT THE SUPPORT"))
-                }
+            .map { it!! }
+            .onErrorResume {
+                println { "retrieveNextReferenceImpl = ${it.message}" }
+                throw CustomGraphQLError(message = "НЕВОЗМОЖНО ПОЛУЧИТЬ ССЫЛКУ НА СЛЕДУЮЩИЙ ЗАКАЗ. ПОЖАЛУЙСТА, СВЯЖИТЕСЬ СО СЛУЖБОЙ ПОДДЕРЖКИ")
             }
             .log()
             .awaitFirst()

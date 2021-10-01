@@ -1,6 +1,6 @@
 package  com.rsba.order_microservice.database
 
-import com.rsba.order_microservice.domain.model.Order
+import com.rsba.order_microservice.domain.model.OrderType
 import io.r2dbc.spi.Row
 import io.r2dbc.spi.RowMetadata
 import kotlinx.serialization.decodeFromString
@@ -8,7 +8,7 @@ import kotlinx.serialization.json.Json
 import java.util.*
 
 
-object OrderDBHandler {
+object OrderTypeDBHandler {
 
     private val jsonHandler = Json {
         ignoreUnknownKeys = true
@@ -18,7 +18,7 @@ object OrderDBHandler {
         classDiscriminator = "#class"
     }
 
-    fun all(row: Row?, meta: RowMetadata? = null): List<Order> = try {
+    fun all(row: Row?, meta: RowMetadata? = null): List<OrderType> = try {
         if (row != null) {
             val json = row.get(0, String::class.java)
             if (json != null) {
@@ -34,13 +34,12 @@ object OrderDBHandler {
         listOf()
     }
 
-
-    fun one(row: Row?, meta: RowMetadata? = null): Optional<Order> = try {
+    fun one(row: Row?, meta: RowMetadata? = null): Optional<OrderType> = try {
         if (row != null) {
             val json = row.get(0, String::class.java)
             if (json != null) {
                 Optional.ofNullable(
-                    jsonHandler.decodeFromString<List<Order>>("""$json""").firstOrNull()
+                    jsonHandler.decodeFromString<List<OrderType>>("""$json""").firstOrNull()
                 )
             } else {
                 Optional.empty()
@@ -53,12 +52,10 @@ object OrderDBHandler {
         Optional.empty()
     }
 
-
     private inline fun <reified N> meOrNull(row: Row, index: Int): N? = try {
-        val i = row.get(index, N::class.java)
-        println { "Count = $i" }
-        i
+        row.get(index, N::class.java)
     } catch (e: Exception) {
+        e.printStackTrace()
         null
     }
 
@@ -66,15 +63,8 @@ object OrderDBHandler {
         return try {
             meOrNull(row = row, index = 0) ?: 0
         } catch (e: Exception) {
+            e.printStackTrace()
             0
-        }
-    }
-
-    fun countAsString(row: Row, meta: RowMetadata? = null): String? {
-        return try {
-            meOrNull(row = row, index = 0)
-        } catch (e: Exception) {
-            null
         }
     }
 

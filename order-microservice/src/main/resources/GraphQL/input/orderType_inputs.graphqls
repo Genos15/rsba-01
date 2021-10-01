@@ -1,0 +1,6 @@
+input OrderTypeInput {
+    id: ID
+    name: String
+    description: String
+    isDefault: Boolean
+}

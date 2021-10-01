@@ -45,4 +45,9 @@ type Query {
 
     retrieveNextOrderReference: String!
 
+    retrieveAllOrderType (first: Int!, after: ID): OrderTypeConnection @connection(for: "OrderType")
+
+    searchOrderType (input: String!, first: Int!, after: ID): OrderTypeConnection @connection(for: "OrderType")
+
+    retrieveOrderTypeById (id: ID!): OrderType
 }

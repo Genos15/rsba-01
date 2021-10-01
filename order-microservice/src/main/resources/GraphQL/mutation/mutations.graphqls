@@ -31,4 +31,7 @@ type Mutation {
 
     terminateTask(input: ID!): Task
     importOrderFromJsonFile: Boolean
+
+    createOrEditOrderType(input: OrderTypeInput!): OrderType
+    deleteOrderType(input: ID!): Boolean
 }
