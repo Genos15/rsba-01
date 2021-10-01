@@ -44,4 +44,11 @@ object OrderDBQueries {
 
     fun retrieveOrderByUserToken(first: Int, after: UUID?, token: UUID) =
         "SELECT on_retrieve_orders_by_user_token('$first', ${after?.let { "'$it'" }},'$token')"
+
+    fun completedOrder(first: Int, after: UUID?, token: UUID) =
+        "SELECT on_retrieve_orders_completed('$first', ${after?.let { "'$it'" }},'$token')"
+
+    fun ordersByDepartmentId(departmentId: UUID, first: Int, after: UUID?, token: UUID) =
+        "SELECT on_retrieve_orders_by_department_id('$departmentId', '$first', ${after?.let { "'$it'" }},'$token')"
+
 }

@@ -26,7 +26,7 @@ class CustomGraphQLContextBuilder(
 
 //        logger.warn { "************ building session context…" }
 //
-//        val token = tokenImpl.read(request = request)
+//        val token = readToken(request = request)
 //
 //        logger.warn { "************ the token = $token" }
 

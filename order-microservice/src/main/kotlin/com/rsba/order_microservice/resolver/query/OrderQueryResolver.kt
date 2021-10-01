@@ -1,9 +1,8 @@
 package  com.rsba.order_microservice.resolver.query
 
-import  com.rsba.order_microservice.configuration.request_helper.CursorUtil
 import  com.rsba.order_microservice.domain.model.Order
 import  com.rsba.order_microservice.aspect.AdminSecured
-import com.rsba.order_microservice.context.token.TokenImpl
+import com.rsba.order_microservice.context.token.ITokenImpl
 import com.rsba.order_microservice.domain.model.Item
 import com.rsba.order_microservice.domain.model.ProgressionStep
 import  com.rsba.order_microservice.repository.OrderRepository
@@ -17,41 +16,24 @@ import java.util.*
 
 
 @Component
-class OrderQueryResolver(
-    private val cursorUtil: CursorUtil,
-    private val service: OrderRepository,
-    private val logger: KLogger,
-    private val tokenImpl: TokenImpl
-) : GraphQLQueryResolver {
+class OrderQueryResolver(private val service: OrderRepository, private val logger: KLogger) : GraphQLQueryResolver,
+    ITokenImpl, GenericRetrieveConnection(myLogger = logger) {
 
     @AdminSecured
     suspend fun retrieveAllOrder(
         first: Int,
         after: UUID? = null,
         env: DataFetchingEnvironment
-    ): Connection<Order>? {
-
-        logger.warn { "+OrderQueryResolver->retrieveAllOrder" }
-
-        val edges: List<Edge<Order>> =
-            service.onRetrieveAllOrder(token = tokenImpl.read(environment = env), first = first, after = after).map {
-                return@map DefaultEdge(it, cursorUtil.createCursorWith(it.id))
-            }.take(first)
-
-        val pageInfo = DefaultPageInfo(
-            cursorUtil.firstCursorFrom(edges),
-            cursorUtil.lastCursorFrom(edges),
-            after != null,
-            edges.size >= first
-        )
-
-        return DefaultConnection(edges, pageInfo)
-    }
+    ): Connection<Order>? = retrieveFn(
+        entry = service.onRetrieveAllOrder(token = readToken(environment = env), first = first, after = after),
+        first = first,
+        after = after
+    )
 
     @AdminSecured
     suspend fun retrieveOneOrder(id: UUID, env: DataFetchingEnvironment): Optional<Order> {
         logger.warn { "+OrderQueryResolver->retrieveOneOrder" }
-        return service.retrieveOneOrder(id = id, token = tokenImpl.read(environment = env))
+        return service.retrieveOneOrder(id = id, token = readToken(environment = env))
     }
 
     @AdminSecured
@@ -60,20 +42,20 @@ class OrderQueryResolver(
         return service.retrieveItemInOrderById(
             itemId = itemId,
             orderId = orderId,
-            token = tokenImpl.read(environment = env)
+            token = readToken(environment = env)
         )
     }
 
     @AdminSecured
     suspend fun retrieveProgressionStepsByOrderId(orderId: UUID, env: DataFetchingEnvironment): List<ProgressionStep> {
         logger.warn { "+OrderQueryResolver->retrieveProgressionStepsByOrderId" }
-        return service.retrieveProgressionStepsByOrderId(orderId = orderId, token = tokenImpl.read(environment = env))
+        return service.retrieveProgressionStepsByOrderId(orderId = orderId, token = readToken(environment = env))
     }
 
     @AdminSecured
     suspend fun retrieveNumberOfActiveOrder(env: DataFetchingEnvironment): Optional<Int> {
         logger.warn { "+OrderQueryResolver->retrieveNumberOfActiveOrder" }
-        return service.retrieveNumberOfActiveOrder(token = tokenImpl.read(environment = env))
+        return service.retrieveNumberOfActiveOrder(token = readToken(environment = env))
     }
 
     @AdminSecured
@@ -81,28 +63,46 @@ class OrderQueryResolver(
         first: Int,
         after: UUID? = null,
         env: DataFetchingEnvironment
-    ): Connection<Order>? {
-        logger.warn { "+OrderQueryResolver->retrieveOrderByUserToken" }
-        val edges: List<Edge<Order>> =
-            service.orderByUserToken(token = tokenImpl.read(environment = env), first = first, after = after).map {
-                return@map DefaultEdge(it, cursorUtil.createCursorWith(it.id))
-            }.take(first)
-        val pageInfo = DefaultPageInfo(
-            cursorUtil.firstCursorFrom(edges),
-            cursorUtil.lastCursorFrom(edges),
-            after != null,
-            edges.size >= first
+    ): Connection<Order>? =
+        retrieveFn(
+            entry = service.orderByUserToken(token = readToken(environment = env), first = first, after = after),
+            first = first,
+            after = after
         )
-        return DefaultConnection(edges, pageInfo)
-    }
 
     @AdminSecured
     suspend fun retrieveNextOrderReference(env: DataFetchingEnvironment): String {
         logger.warn { "+OrderQueryResolver->retrieveNextOrderReference" }
         return service.retrieveNextOrderReference(
-            token = tokenImpl.read(environment = env),
+            token = readToken(environment = env),
             companyId = UUID.randomUUID()
         )
     }
+
+    @AdminSecured
+    suspend fun retrieveCompletedOrders(
+        first: Int,
+        after: UUID? = null,
+        env: DataFetchingEnvironment
+    ): Connection<Order>? = retrieveFn(
+        entry = service.myCompletedOrders(token = readToken(environment = env), first = first, after = after),
+        first = first,
+        after = after
+    )
+
+    @AdminSecured
+    suspend fun retrieveOrdersByDepartmentId(
+        departmentId: UUID,
+        first: Int,
+        after: UUID? = null,
+        env: DataFetchingEnvironment
+    ): Connection<Order>? = retrieveFn(
+        entry = service.myOrdersByDepartmentId(
+            departmentId = departmentId,
+            token = readToken(environment = env),
+            first = first,
+            after = after
+        ), first = first, after = after
+    )
 
 }

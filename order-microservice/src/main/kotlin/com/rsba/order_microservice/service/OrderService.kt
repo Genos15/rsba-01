@@ -8,6 +8,7 @@ import com.rsba.order_microservice.publisher.OrderPublisher
 import  com.rsba.order_microservice.repository.OrderRepository
 import com.rsba.order_microservice.service.implementation.orders.OrderDataloaderServiceImpl
 import com.rsba.order_microservice.service.implementation.orders.ReferenceNumberImpl
+import com.rsba.order_microservice.service.implementation.orders.RetrieveOrderImpl
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import mu.KLogger
@@ -32,7 +33,7 @@ class OrderService(
     private val categoryDataHandler: CategoryDataHandler,
     private val agentDataHandler: AgentDataHandler,
     private val monitorPublisher: OrderPublisher
-) : OrderRepository, ReferenceNumberImpl, OrderDataloaderServiceImpl {
+) : OrderRepository, ReferenceNumberImpl, OrderDataloaderServiceImpl, RetrieveOrderImpl {
 
     override suspend fun createOrder(input: CreateOrderInput, token: UUID): Optional<Order> =
         database.sql(queryHelper.onCreateOrder(input = input, token = token))
@@ -437,7 +438,6 @@ class OrderService(
             }
             .awaitFirstOrElse { Optional.empty() }
 
-
     /**
      * @param companyId the reference to the company where the order belongs
      * @param token security aspect
@@ -453,5 +453,34 @@ class OrderService(
      */
     override suspend fun retrieveMyType(ids: Set<UUID>, userId: UUID): Map<UUID, Optional<OrderType>> =
         myType(ids = ids, database = database)
+
+    /**
+     * @param first number of element to retrieve
+     * @param after last element in previous request
+     * @param token request security aspect
+     * @return {@link List<Order>}
+     */
+    override suspend fun myCompletedOrders(first: Int, after: UUID?, token: UUID): List<Order> =
+        completedOrderFn(first = first, after = after, token = token, database = database)
+
+    /**
+     * @param departmentId reference to working group
+     * @param first number of element to retrieve
+     * @param after last element in previous request
+     * @param token request security aspect
+     * @return {@link List<Order>}
+     */
+    override suspend fun myOrdersByDepartmentId(
+        departmentId: UUID,
+        first: Int,
+        after: UUID?,
+        token: UUID
+    ): List<Order> = orderByDepartmentIdFn(
+        first = first,
+        after = after,
+        token = token,
+        database = database,
+        departmentId = departmentId
+    )
 
 }

@@ -7,6 +7,10 @@ type Query {
 
     retrieveAllOrder (first: Int!, after: ID): OrderConnection @connection(for: "Order")
 
+    retrieveCompletedOrders (first: Int!, after: ID): OrderConnection @connection(for: "Order")
+
+    retrieveOrdersByDepartmentId (departmentId: ID!, first: Int!, after: ID): OrderConnection @connection(for: "Order")
+
     retrieveOrderByUserToken (first: Int!, after: ID): OrderConnection @connection(for: "Order")
 
     retrieveOneOrder(id: ID!): Order

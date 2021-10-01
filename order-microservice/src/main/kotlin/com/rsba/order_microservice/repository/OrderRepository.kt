@@ -91,4 +91,8 @@ interface OrderRepository {
         userId: UUID
     ): Map<UUID, Optional<OrderType>>
 
+    suspend fun myCompletedOrders(first: Int, after: UUID?, token: UUID): List<Order>
+
+    suspend fun myOrdersByDepartmentId(departmentId: UUID, first: Int, after: UUID?, token: UUID): List<Order>
+
 }
