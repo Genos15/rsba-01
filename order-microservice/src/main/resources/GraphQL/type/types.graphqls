@@ -140,7 +140,7 @@ type Order {
     manager: Agent
     agent: Agent
     startAt: String
-    estimatedAt: String
+    estimatedAt: DateTime
     progress: Float
     status: String
     #    categories: [CategoryOfItemInOrder!]
@@ -149,6 +149,11 @@ type Order {
     items: [Item!]
     deleted: Boolean
     type: OrderType
+
+    packagingAt: DateTime
+    deliveryAt: DateTime
+    receptionAt: DateTime
+    isSuspended: Boolean!
 }
 
 type OrderForSub {

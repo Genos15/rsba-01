@@ -1,7 +1,9 @@
 package  com.rsba.order_microservice.domain.model
 
+import com.rsba.order_microservice.deserializer.DateTimeSerializer
 import  com.rsba.order_microservice.deserializer.UUIDSerializer
 import kotlinx.serialization.Serializable
+import java.time.OffsetDateTime
 import java.util.*
 
 @Serializable
@@ -16,11 +18,15 @@ data class Order(
     val manager: Agent? = null,
     val agent: Agent? = null,
     val startAt: String? = null,
-    val estimatedAt: String? = null,
+    @Serializable(with = DateTimeSerializer::class) val estimatedAt: OffsetDateTime? = null,
     val progress: Float? = 0f,
     val status: String? = null,
     val items: List<Item>? = listOf(),
     val deleted: Boolean? = false,
     val isAnalyzing: Boolean? = true,
-    val type: OrderType? = null
+    val type: OrderType? = null,
+    @Serializable(with = DateTimeSerializer::class) val packagingAt: OffsetDateTime? = null,
+    @Serializable(with = DateTimeSerializer::class) val deliveryAt: OffsetDateTime? = null,
+    @Serializable(with = DateTimeSerializer::class) val receptionAt: OffsetDateTime? = null,
+    val isSuspended: Boolean
 )

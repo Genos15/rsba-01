@@ -26,9 +26,17 @@ input EditOrderInput {
     orderId: ID!
     agentId: ID #this is a reference to user
     managerId: ID #this is a reference to user
-    estimatedAt: String
+    #this must be in format RFC 3339, ex: 2002-10-02T10:00:00-05:00
+    estimatedAt: DateTime
     description: String
     typeId: ID
+    #this must be in format RFC 3339, ex: 2002-10-02T10:00:00-05:00
+    packagingAt: DateTime
+    #this must be in format RFC 3339, ex: 2002-10-02T10:00:00-05:00
+    deliveryAt: DateTime
+    #this must be in format RFC 3339, ex: 2002-10-02T10:00:00-05:00
+    receptionAt: DateTime
+    isSuspended: Boolean
 }
 
 input CategoryInOrderInput {
