@@ -6,6 +6,7 @@ import com.rsba.order_microservice.domain.input.*
 import com.rsba.order_microservice.domain.model.*
 import com.rsba.order_microservice.publisher.OrderPublisher
 import  com.rsba.order_microservice.repository.OrderRepository
+import com.rsba.order_microservice.service.implementation.orders.OrderDataloaderServiceImpl
 import com.rsba.order_microservice.service.implementation.orders.ReferenceNumberImpl
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.reactive.awaitFirstOrElse
@@ -31,7 +32,7 @@ class OrderService(
     private val categoryDataHandler: CategoryDataHandler,
     private val agentDataHandler: AgentDataHandler,
     private val monitorPublisher: OrderPublisher
-) : OrderRepository, ReferenceNumberImpl {
+) : OrderRepository, ReferenceNumberImpl, OrderDataloaderServiceImpl {
 
     override suspend fun createOrder(input: CreateOrderInput, token: UUID): Optional<Order> =
         database.sql(queryHelper.onCreateOrder(input = input, token = token))
@@ -436,7 +437,21 @@ class OrderService(
             }
             .awaitFirstOrElse { Optional.empty() }
 
+
+    /**
+     * @param companyId the reference to the company where the order belongs
+     * @param token security aspect
+     * @return {@link String}
+     */
     override suspend fun retrieveNextOrderReference(companyId: UUID, token: UUID): String =
         retrieveNextReferenceImpl(companyId = companyId, token = token, database = database)
+
+    /**
+     * @param ids list of orders related id.
+     * @param userId aspect security.
+     * @return {@link Map<UUID, Optional<OrderType>>}
+     */
+    override suspend fun retrieveMyType(ids: Set<UUID>, userId: UUID): Map<UUID, Optional<OrderType>> =
+        myType(ids = ids, database = database)
 
 }

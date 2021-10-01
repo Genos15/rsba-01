@@ -11,7 +11,7 @@ class DataLoaderRegistryFactory(
     private val forCustomer: CustomerDataLoaderImpl,
     private val forAgent: AgentDataLoaderImpl,
     private val forCategory: CategoryOfItemDataLoaderImpl,
-    private val forOrder: OrderDataLoaderImpl,
+    private val orderImpl: OrderDataLoaderImpl,
     private val _item: ItemDataLoaderImpl,
     private val forOperation: OperationDataLoaderImpl,
     private val forTask: TaskDataLoaderImpl,
@@ -21,6 +21,7 @@ class DataLoaderRegistryFactory(
     private val forWorkcenter: WorkCenterDataLoaderImpl,
     private val forWorklog: WorklogDataLoaderImpl,
     private val _technology: TechnologyDataLoaderImpl
+
 
 ) {
 
@@ -64,6 +65,8 @@ class DataLoaderRegistryFactory(
 
         const val TECHNOLOGIES_IN_DETAIL_OF_ORDER_DATALOADER = "TECHNOLOGIES_IN_DETAIL_OF_ORDER_DATALOADER"
 
+        const val TYPE_OF_ORDER_DATALOADER = "TYPE_OF_ORDER_DATALOADER"
+
     }
 
     fun create(instanceId: UUID): DataLoaderRegistry {
@@ -80,7 +83,7 @@ class DataLoaderRegistryFactory(
 //            forOrder.dataLoaderCategoriesOfItemInOrder(userId = instanceId)
 //        )
 
-        registry.register(ITEM_IN_ORDER, forOrder.dataLoaderItemsInOrder(userId = instanceId))
+        registry.register(ITEM_IN_ORDER, orderImpl.dataLoaderItemsInOrder(userId = instanceId))
         registry.register(OPERATIONS_IN_ITEM, _item.dataLoaderOperationOfItem(userId = instanceId))
         registry.register(CATEGORY_IN_ITEM, _item.dataLoaderCategoryInItem(userId = instanceId))
         registry.register(GROUP_IN_OPERATION_DATALOADER, forOperation.dataLoaderGroupInOperation(userId = instanceId))
@@ -123,6 +126,8 @@ class DataLoaderRegistryFactory(
             TECHNOLOGIES_IN_DETAIL_OF_ORDER_DATALOADER,
             _item.dataLoaderDetailTechnologies(userId = instanceId)
         )
+
+        registry.register(TYPE_OF_ORDER_DATALOADER, orderImpl.dataLoaderTypeOfOrder(userId = instanceId))
 
         return registry
     }

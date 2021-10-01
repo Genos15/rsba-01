@@ -86,4 +86,9 @@ interface OrderRepository {
 
     suspend fun retrieveNextOrderReference(companyId: UUID, token: UUID): String
 
+    suspend fun retrieveMyType(
+        ids: Set<UUID>,
+        userId: UUID
+    ): Map<UUID, Optional<OrderType>>
+
 }

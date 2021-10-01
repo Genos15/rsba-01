@@ -55,4 +55,11 @@ class OrderResolver(
         return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(listOf())
     }
 
+    fun type(order: Order, env: DataFetchingEnvironment): CompletableFuture<Optional<OrderType>>? {
+        logger.warn { "+OrderResolver -> type" }
+        val dataLoader =
+            env.getDataLoader<UUID, Optional<OrderType>>(DataLoaderRegistryFactory.TYPE_OF_ORDER_DATALOADER)
+        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(null)
+    }
+
 }

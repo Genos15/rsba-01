@@ -82,16 +82,6 @@ type Customer {
     entities: [Customer!]
 }
 
-#type CategoryOfItemInOrder {
-#    id: ID!
-#    name: String!
-#    description: String
-#    #    items: Float
-#    itemCount: Int
-#    progress: Float
-#    color: String
-#}
-
 type Agent {
     firstName: String
     lastName: String
@@ -158,6 +148,7 @@ type Order {
     isAnalyzing: Boolean
     items: [Item!]
     deleted: Boolean
+    type: OrderType
 }
 
 type OrderForSub {

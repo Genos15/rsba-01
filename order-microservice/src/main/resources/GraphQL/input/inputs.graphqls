@@ -18,6 +18,8 @@ input AddEntityToCustomerInput {
 
 input CreateOrderInput {
     customerId: ID!
+    typeId: ID
+    referenceNumber: Int
 }
 
 input EditOrderInput {
@@ -26,6 +28,7 @@ input EditOrderInput {
     managerId: ID #this is a reference to user
     estimatedAt: String
     description: String
+    typeId: ID
 }
 
 input CategoryInOrderInput {

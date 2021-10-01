@@ -21,5 +21,6 @@ data class Order(
     val status: String? = null,
     val items: List<Item>? = listOf(),
     val deleted: Boolean? = false,
-    val isAnalyzing: Boolean? = true
+    val isAnalyzing: Boolean? = true,
+    val type: OrderType? = null
 )

@@ -1,6 +1,7 @@
 package com.rsba.order_microservice.context.dataloader
 
 import com.rsba.order_microservice.domain.model.Item
+import com.rsba.order_microservice.domain.model.OrderType
 import com.rsba.order_microservice.repository.OrderRepository
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.future.future
@@ -35,6 +36,19 @@ class OrderDataLoaderImpl(private val logger: KLogger, private val service: Orde
                     userId = userId,
                     page = 0,
                     size = 1000
+                )
+            }
+        }
+    }
+
+
+    fun dataLoaderTypeOfOrder(userId: UUID): DataLoader<UUID, Optional<OrderType>> {
+        logger.warn { "+OrderDataLoaderImpl->dataLoaderTypeOfOrder" }
+        return DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future {
+                service.retrieveMyType(
+                    ids = ids,
+                    userId = userId,
                 )
             }
         }

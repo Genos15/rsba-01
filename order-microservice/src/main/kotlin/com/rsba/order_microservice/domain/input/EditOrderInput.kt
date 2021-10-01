@@ -10,5 +10,6 @@ data class EditOrderInput(
     @Serializable(with = UUIDSerializer::class) val agentId: UUID? = null,
     @Serializable(with = UUIDSerializer::class) val managerId: UUID? = null,
     val estimatedAt: String? = null,
-    val description: String? = null
+    val description: String? = null,
+    @Serializable(with = UUIDSerializer::class) val typeId: UUID? = null
 )
