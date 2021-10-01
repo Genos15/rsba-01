@@ -12,7 +12,7 @@ import java.util.*
 
 interface AddPhotoImpl {
 
-    fun performAddPhoto(
+    fun addPhotoFn(
         database: ReactiveGridFsOperations,
         environment: DataFetchingEnvironment
     ): Mono<Optional<UUID>> = Flux.just(environment)

@@ -36,6 +36,9 @@ object OrderDBQueries {
     fun retrieveNumberOfActiveOrder(token: UUID) =
         "SELECT on_retrieve_number_of_active_order( '$token')"
 
+    fun retrieveNextOrderReference(companyId: UUID, token: UUID) =
+        "SELECT util_next_order_reference('$companyId', '$token')"
+
     fun retrieveOrderByUserToken(first: Int, after: UUID?, token: UUID) =
         "SELECT on_retrieve_orders_by_user_token('$first', ${after?.let { "'$it'" }},'$token')"
 }

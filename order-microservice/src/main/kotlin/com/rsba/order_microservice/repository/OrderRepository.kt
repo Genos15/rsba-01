@@ -84,4 +84,6 @@ interface OrderRepository {
 
     suspend fun retrieveNumberOfActiveOrder(token: UUID): Optional<Int>
 
+    suspend fun retrieveNextOrderReference(companyId: UUID, token: UUID): String
+
 }

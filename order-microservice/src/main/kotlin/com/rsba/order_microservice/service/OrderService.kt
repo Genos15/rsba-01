@@ -6,6 +6,7 @@ import com.rsba.order_microservice.domain.input.*
 import com.rsba.order_microservice.domain.model.*
 import com.rsba.order_microservice.publisher.OrderPublisher
 import  com.rsba.order_microservice.repository.OrderRepository
+import com.rsba.order_microservice.service.implementation.orders.ReferenceNumberImpl
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import mu.KLogger
@@ -30,7 +31,7 @@ class OrderService(
     private val categoryDataHandler: CategoryDataHandler,
     private val agentDataHandler: AgentDataHandler,
     private val monitorPublisher: OrderPublisher
-) : OrderRepository {
+) : OrderRepository, ReferenceNumberImpl {
 
     override suspend fun createOrder(input: CreateOrderInput, token: UUID): Optional<Order> =
         database.sql(queryHelper.onCreateOrder(input = input, token = token))
@@ -434,4 +435,8 @@ class OrderService(
                 throw it
             }
             .awaitFirstOrElse { Optional.empty() }
+
+    override suspend fun retrieveNextOrderReference(companyId: UUID, token: UUID): String =
+        retrieveNextReferenceImpl(companyId = companyId, token = token, database = database)
+
 }

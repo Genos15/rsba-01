@@ -13,12 +13,11 @@ import java.util.*
 @Service
 class PhotoService(private val database: ReactiveGridFsOperations) : PhotoRepository, AddPhotoImpl, RetrieveFileImpl {
     /**
-     * @param environment the data wrapper GraphQL engine uses to keep request meta data.
-     *
+     * @param environment the data wrapper GraphQL engine uses to keep request metadata
      * @return {@link Optional<UUID>} url id of a saved file
      */
     override fun addPhoto(environment: DataFetchingEnvironment): Mono<Optional<UUID>> =
-        performAddPhoto(database = database, environment = environment)
+        addPhotoFn(database = database, environment = environment)
 
     override suspend fun edit(environment: DataFetchingEnvironment): Mono<Optional<UUID>> {
         TODO("Not yet implemented")

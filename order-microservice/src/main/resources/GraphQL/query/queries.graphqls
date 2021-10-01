@@ -43,4 +43,6 @@ type Query {
 
     itemsAttachedTechnologyInOrder(input: FindItemAttachedToTechnologyInput!): [Item]
 
+    retrieveNextOrderReference: String!
+
 }

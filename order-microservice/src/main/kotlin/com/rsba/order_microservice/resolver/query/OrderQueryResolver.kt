@@ -96,4 +96,13 @@ class OrderQueryResolver(
         return DefaultConnection(edges, pageInfo)
     }
 
+    @AdminSecured
+    suspend fun retrieveNextOrderReference(env: DataFetchingEnvironment): String {
+        logger.warn { "+OrderQueryResolver->retrieveNextOrderReference" }
+        return service.retrieveNextOrderReference(
+            token = tokenImpl.read(environment = env),
+            companyId = UUID.randomUUID()
+        )
+    }
+
 }

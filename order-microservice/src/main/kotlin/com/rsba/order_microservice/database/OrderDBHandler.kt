@@ -61,12 +61,21 @@ object OrderDBHandler {
         null
     }
 
-    fun count(row: Row, meta: RowMetadata): Int {
+    fun count(row: Row, meta: RowMetadata? = null): Int {
         return try {
             meOrNull(row = row, index = 0) ?: 0
         } catch (e: Exception) {
             e.printStackTrace()
             0
+        }
+    }
+
+    fun countAsString(row: Row, meta: RowMetadata? = null): String? {
+        return try {
+            meOrNull(row = row, index = 0)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 
