@@ -19,7 +19,7 @@ input CreateOrEditOperationInput {
     name: String
     description: String
     move: String
-    estimatedTimeInHour: Float
+    estimatedTimeInHour: BigDecimal
     departments: [ID]
 }
 
@@ -31,7 +31,7 @@ input OperationAndGroupInput {
 input ItemAndOperationInput {
     itemId: ID!
     operationId: ID!
-    estimatedTimeInHour: Float
+    estimatedTimeInHour: BigDecimal
 }
 
 input CreateOrEditTechnologyInput {

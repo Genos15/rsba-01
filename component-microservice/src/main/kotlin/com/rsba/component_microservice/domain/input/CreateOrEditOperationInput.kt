@@ -1,7 +1,9 @@
 package com.rsba.component_microservice.domain.input
 
+import com.rsba.component_microservice.configuration.scalar.BigDecimalSerializer
 import com.rsba.component_microservice.deserializer.UUIDSerializer
 import kotlinx.serialization.Serializable
+import java.math.BigDecimal
 import java.util.*
 
 @Serializable
@@ -10,6 +12,7 @@ data class CreateOrEditOperationInput(
     val name: String? = null,
     val description: String? = null,
     val move: String? = null,
-    val estimatedTimeInHour: Float? = 1.0f,
+    @Serializable(with = BigDecimalSerializer::class) val estimatedTimeInHour: BigDecimal? = null,
     val departments: List<String>? = listOf()
 )
+

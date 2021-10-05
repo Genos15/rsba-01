@@ -1,4 +1,4 @@
-package com.rsba.order_microservice.configuration.scalar
+package com.rsba.component_microservice.configuration.scalar
 
 import graphql.scalars.ExtendedScalars
 import graphql.schema.GraphQLScalarType
