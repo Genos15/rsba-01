@@ -1,8 +1,10 @@
 package  com.rsba.order_microservice.service
 
 import com.rsba.order_microservice.database.*
+import com.rsba.order_microservice.domain.input.ItemAndItemInput
 import com.rsba.order_microservice.domain.model.*
 import com.rsba.order_microservice.repository.ItemRepository
+import com.rsba.order_microservice.service.implementation.items.ItemAndItemImpl
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import mu.KLogger
 import org.springframework.r2dbc.core.DatabaseClient
@@ -13,10 +15,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 @Service
-class ItemService(
-    private val logger: KLogger,
-    private val database: DatabaseClient,
-) : ItemRepository {
+class ItemService(private val logger: KLogger, private val database: DatabaseClient) : ItemRepository, ItemAndItemImpl {
 
     override suspend fun myOperations(
         ids: Set<UUID>,
@@ -162,5 +161,11 @@ class ItemService(
                 throw it
             }
             .awaitFirstOrElse { emptyMap() }
+
+    override suspend fun addItemInItem(input: ItemAndItemInput, token: UUID): Optional<Item> =
+        addItemAndItemImplFn(input = input, token = token, database = database)
+
+    override suspend fun removeItemInItem(input: ItemAndItemInput, token: UUID): Optional<Item> =
+        removeItemAndItemImplFn(input = input, token = token, database = database)
 
 }

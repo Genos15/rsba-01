@@ -1,5 +1,6 @@
 package  com.rsba.order_microservice.repository
 
+import com.rsba.order_microservice.domain.input.ItemAndItemInput
 import com.rsba.order_microservice.domain.model.*
 import java.util.*
 
@@ -41,4 +42,10 @@ interface ItemRepository {
         page: Int,
         size: Int
     ): Map<DetailItemInOrder, List<Technology>>
+
+
+    suspend fun addItemInItem(input: ItemAndItemInput, token: UUID): Optional<Item>
+
+    suspend fun removeItemInItem(input: ItemAndItemInput, token: UUID): Optional<Item>
+
 }

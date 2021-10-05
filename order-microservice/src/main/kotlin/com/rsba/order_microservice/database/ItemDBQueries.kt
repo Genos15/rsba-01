@@ -1,8 +1,11 @@
 package  com.rsba.order_microservice.database
 
 
+import com.rsba.order_microservice.domain.input.ItemAndItemInput
 import com.rsba.order_microservice.domain.model.Item
 import com.rsba.order_microservice.domain.model.OrderAndItem
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.util.*
 
 object ItemDBQueries {
@@ -23,4 +26,10 @@ object ItemDBQueries {
 
     fun myDetailTechnologies(input: OrderAndItem) =
         "SELECT on_retrieve_technologies_item_in_order_id('${input.itemId}', '${input.orderId}')"
+
+    fun addItemInItem(input: ItemAndItemInput, token: UUID) =
+        "SELECT on_add_item_in_item('${Json.encodeToString(input)}', '$token')"
+
+    fun removeItemInItem(input: ItemAndItemInput, token: UUID) =
+        "SELECT on_remove_item_in_item('${Json.encodeToString(input)}', '$token')"
 }
