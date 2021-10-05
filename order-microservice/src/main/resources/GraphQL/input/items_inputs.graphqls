@@ -1,7 +1,7 @@
 input ItemAndItemInput {
     id: ID
-    orderId: ID
-    parentId: ID
-    childId: ID
+    orderId: ID!
+    parentId: ID!
+    childId: ID!
     quantity: Float
 }

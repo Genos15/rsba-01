@@ -14,7 +14,7 @@ import java.util.*
 class ItemMutation(private val service: ItemRepository, private val tokenImpl: TokenImpl) : GraphQLMutationResolver {
 
     @AdminSecured
-    suspend fun addItemInItem(
+    suspend fun addOrEditItemInItem(
         input: ItemAndItemInput,
         environment: DataFetchingEnvironment
     ): Optional<Item> = service.addItemInItem(input = input, token = tokenImpl.read(environment = environment))

@@ -7,8 +7,8 @@ import java.util.*
 @Serializable
 data class ItemAndItemInput(
     @Serializable(with = UUIDSerializer::class) val id: UUID? = null,
-    @Serializable(with = UUIDSerializer::class) val orderId: UUID? = null,
-    @Serializable(with = UUIDSerializer::class) val parentId: UUID? = null,
-    @Serializable(with = UUIDSerializer::class) val childId: UUID? = null,
+    @Serializable(with = UUIDSerializer::class) val orderId: UUID,
+    @Serializable(with = UUIDSerializer::class) val parentId: UUID,
+    @Serializable(with = UUIDSerializer::class) val childId: UUID,
     val quantity: Float? = 0f
 )
