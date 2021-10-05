@@ -13,6 +13,7 @@ type User {
     blocked: Boolean!
     deleted: Boolean
     departments: [Group!]
+    photo: ID
 }
 
 type Company {

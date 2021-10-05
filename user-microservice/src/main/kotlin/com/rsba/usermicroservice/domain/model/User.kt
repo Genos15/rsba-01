@@ -21,5 +21,6 @@ data class User(
     val gender: String? = null,
     @SerialName(value = "pending") val pending: Boolean = true,
     @SerialName(value = "blocked") val blocked: Boolean = false,
-    val departments: List<Group>? = emptyList()
+    val departments: List<Group>? = emptyList(),
+    @Serializable(with = UUIDSerializer::class) val photo: UUID? = null,
 ) : AbstractModel
