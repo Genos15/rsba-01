@@ -27,21 +27,38 @@ class ItemQueryResolver(
         after: UUID? = null,
         env: DataFetchingEnvironment? = null
     ): Connection<Item>? {
-
         logger.warn { "+ItemQueryResolver->retrieveAllItem" }
-
         val edges: List<Edge<Item>> =
-            service.onRetrieveItem(first = first, after = after, token = UUID.randomUUID()).map {
-                return@map DefaultEdge(it, cursorUtil.createCursorWith(it.id))
-            }.take(first)
-
+            service.onRetrieveItem(first = first, after = after, token = UUID.randomUUID())
+                .map { DefaultEdge(it, cursorUtil.createCursorWith(it.id)) }
+                .take(first)
         val pageInfo = DefaultPageInfo(
             cursorUtil.firstCursorFrom(edges),
             cursorUtil.lastCursorFrom(edges),
             after != null,
             edges.size >= first
         )
+        return DefaultConnection(edges, pageInfo)
+    }
 
+    @AdminSecured
+    suspend fun searchItems(
+        input: String,
+        first: Int,
+        after: UUID? = null,
+        env: DataFetchingEnvironment? = null
+    ): Connection<Item>? {
+        logger.warn { "+ItemQueryResolver->searchItems" }
+        val edges: List<Edge<Item>> =
+            service.search(input = input, first = first, after = after, token = UUID.randomUUID())
+                .map { DefaultEdge(it, cursorUtil.createCursorWith(it.id)) }
+                .take(first)
+        val pageInfo = DefaultPageInfo(
+            cursorUtil.firstCursorFrom(edges),
+            cursorUtil.lastCursorFrom(edges),
+            after != null,
+            edges.size >= first
+        )
         return DefaultConnection(edges, pageInfo)
     }
 
@@ -53,22 +70,17 @@ class ItemQueryResolver(
         after: UUID? = null,
         env: DataFetchingEnvironment? = null
     ): Connection<Item>? {
-
         logger.warn { "+ItemQueryResolver->retrieveItemByCategoryId" }
-
         val edges: List<Edge<Item>> =
             service.itemsByCategoryId(categoryId = categoryId, first = first, after = after, token = UUID.randomUUID())
-                .map {
-                    return@map DefaultEdge(it, cursorUtil.createCursorWith(it.id))
-                }.take(first)
-
+                .map { DefaultEdge(it, cursorUtil.createCursorWith(it.id)) }
+                .take(first)
         val pageInfo = DefaultPageInfo(
             cursorUtil.firstCursorFrom(edges),
             cursorUtil.lastCursorFrom(edges),
             after != null,
             edges.size >= first
         )
-
         return DefaultConnection(edges, pageInfo)
     }
 
@@ -82,17 +94,15 @@ class ItemQueryResolver(
         logger.warn { "+ItemQueryResolver->retrieveAllItemHavingCategory" }
 
         val edges: List<Edge<Item>> =
-            service.onRetrieveItemHavingCategory(first = first, after = after, token = UUID.randomUUID()).map {
-                return@map DefaultEdge(it, cursorUtil.createCursorWith(it.id))
-            }.take(first)
-
+            service.onRetrieveItemHavingCategory(first = first, after = after, token = UUID.randomUUID())
+                .map { DefaultEdge(it, cursorUtil.createCursorWith(it.id)) }
+                .take(first)
         val pageInfo = DefaultPageInfo(
             cursorUtil.firstCursorFrom(edges),
             cursorUtil.lastCursorFrom(edges),
             after != null,
             edges.size >= first
         )
-
         return DefaultConnection(edges, pageInfo)
     }
 
@@ -103,21 +113,17 @@ class ItemQueryResolver(
         after: UUID? = null,
         env: DataFetchingEnvironment? = null
     ): Connection<CategoryOfItem>? {
-
         logger.warn { "+ItemQueryResolver->retrieveAllCategoryOfItem" }
-
         val edges: List<Edge<CategoryOfItem>> =
-            service.onRetrieveCategoryOfItem(first = first, after = after, token = UUID.randomUUID()).map {
-                return@map DefaultEdge(it, cursorUtil.createCursorWith(it.id))
-            }.take(first)
-
+            service.onRetrieveCategoryOfItem(first = first, after = after, token = UUID.randomUUID())
+                .map { DefaultEdge(it, cursorUtil.createCursorWith(it.id)) }
+                .take(first)
         val pageInfo = DefaultPageInfo(
             cursorUtil.firstCursorFrom(edges),
             cursorUtil.lastCursorFrom(edges),
             after != null,
             edges.size >= first
         )
-
         return DefaultConnection(edges, pageInfo)
     }
 

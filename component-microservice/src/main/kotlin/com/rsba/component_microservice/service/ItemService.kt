@@ -8,6 +8,7 @@ import com.rsba.component_microservice.domain.input.ItemTechnologyInput
 import com.rsba.component_microservice.domain.model.*
 import com.rsba.component_microservice.query.database.*
 import com.rsba.component_microservice.repository.ItemRepository
+import com.rsba.component_microservice.service.implementations.items.RetrieveItemsImpl
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import mu.KLogger
@@ -30,7 +31,7 @@ class ItemService(
     private val database: DatabaseClient,
     private val queryHelper: ItemDBQuery,
     private val logger: KLogger
-) : ItemRepository {
+) : ItemRepository, RetrieveItemsImpl {
 
     override suspend fun createOrEditItem(input: CreateOrEditItemInput, token: UUID): Optional<Item> =
         database.sql(queryHelper.onCreateOrEditItem(input = input, token = token))
@@ -209,4 +210,6 @@ class ItemService(
                 Optional.of(true)
             }.awaitFirstOrElse { Optional.of(false) }
 
+    override suspend fun search(input: String, first: Int, after: UUID?, token: UUID): List<Item> =
+        searchItemsImplFn(database = database, first = first, input = input, token = token, after = after)
 }

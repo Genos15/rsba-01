@@ -24,14 +24,14 @@ object ItemDBHandler {
             if (json != null) {
                 jsonHandler.decodeFromString("""$json""")
             } else {
-                mutableListOf()
+                emptyList()
             }
         } else {
-            mutableListOf()
+            emptyList()
         }
     } catch (e: Exception) {
         e.printStackTrace()
-        listOf()
+        emptyList()
     }
 
 

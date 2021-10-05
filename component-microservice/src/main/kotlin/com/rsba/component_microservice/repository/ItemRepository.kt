@@ -53,4 +53,6 @@ interface ItemRepository {
 
     suspend fun importItemFromJsonFile(environment: DataFetchingEnvironment): Optional<Boolean>
 
+    suspend fun search(input: String, first: Int, after: UUID?, token: UUID): List<Item>
+
 }

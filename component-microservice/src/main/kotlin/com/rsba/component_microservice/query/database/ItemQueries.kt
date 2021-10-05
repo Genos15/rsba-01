@@ -18,4 +18,7 @@ object ItemQueries {
 
     fun addOldItem(input: ItemFromOld, token: UUID?) =
         "SELECT on__add__old__item('${Json.encodeToString(input)}', '$token')"
+
+    fun search(input: String, first: Int, after: UUID?, token: UUID) =
+        "SELECT on_search_items('$input','$first', ${after?.let { "'$it'" }},'$token')"
 }
