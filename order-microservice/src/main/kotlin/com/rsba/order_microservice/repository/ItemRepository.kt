@@ -20,6 +20,11 @@ interface ItemRepository {
         size: Int
     ): Map<Item, CategoryOfItem?>
 
+    suspend fun myItems(
+        ids: Set<Item>,
+        userId: UUID
+    ): Map<Item, List<Item>>
+
     suspend fun myTasks(
         ids: Set<Item>,
         userId: UUID,
@@ -44,8 +49,8 @@ interface ItemRepository {
     ): Map<DetailItemInOrder, List<Technology>>
 
 
-    suspend fun addItemInItem(input: ItemAndItemInput, token: UUID): Optional<Item>
+    suspend fun addOrEditComponentInItem(input: ItemAndItemInput, token: UUID): Optional<Item>
 
-    suspend fun removeItemInItem(input: ItemAndItemInput, token: UUID): Optional<Item>
+    suspend fun removeComponentInItem(input: ItemAndItemInput, token: UUID): Optional<Item>
 
 }

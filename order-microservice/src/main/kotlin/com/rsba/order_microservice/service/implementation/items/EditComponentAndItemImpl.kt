@@ -9,10 +9,10 @@ import kotlinx.coroutines.reactive.awaitFirst
 import org.springframework.r2dbc.core.DatabaseClient
 import java.util.*
 
-interface ItemAndItemImpl {
+interface EditComponentAndItemImpl {
 
     suspend fun addItemAndItemImplFn(input: ItemAndItemInput, token: UUID, database: DatabaseClient): Optional<Item> =
-        database.sql(ItemDBQueries.addItemInItem(input = input, token = token))
+        database.sql(ItemDBQueries.addOrEditComponentInItem(input = input, token = token))
             .map { row -> ItemDBHandler.one(row = row) }
             .first()
             .onErrorResume {
@@ -27,7 +27,7 @@ interface ItemAndItemImpl {
         token: UUID,
         database: DatabaseClient
     ): Optional<Item> =
-        database.sql(ItemDBQueries.removeItemInItem(input = input, token = token))
+        database.sql(ItemDBQueries.removeComponentInItem(input = input, token = token))
             .map { row -> ItemDBHandler.one(row = row) }
             .first()
             .onErrorResume {

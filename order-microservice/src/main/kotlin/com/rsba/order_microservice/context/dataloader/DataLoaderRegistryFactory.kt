@@ -21,8 +21,6 @@ class DataLoaderRegistryFactory(
     private val forWorkcenter: WorkCenterDataLoaderImpl,
     private val forWorklog: WorklogDataLoaderImpl,
     private val _technology: TechnologyDataLoaderImpl
-
-
 ) {
 
     companion object {
@@ -67,6 +65,8 @@ class DataLoaderRegistryFactory(
 
         const val TYPE_OF_ORDER_DATALOADER = "TYPE_OF_ORDER_DATALOADER"
 
+        const val ITEM_IN_ITEM_DATALOADER = "TYPE_OF_ORDER_DATALOADER"
+
     }
 
     fun create(instanceId: UUID): DataLoaderRegistry {
@@ -77,11 +77,6 @@ class DataLoaderRegistryFactory(
         registry.register(AGENT_OF_ORDER, forAgent.dataLoaderAgentOfUser(userId = instanceId))
         registry.register(MANAGER_OF_ORDER, forAgent.dataLoaderManagerOfOrder(userId = instanceId))
         registry.register(CATEGORY_OF_ITEM_IN_ORDER, forCategory.dataLoaderCategoriesOfItemInOrder(userId = instanceId))
-
-//        registry.register(
-//            CATEGORY_OF_ITEM_IN_ORDER_POST_MVP,
-//            forOrder.dataLoaderCategoriesOfItemInOrder(userId = instanceId)
-//        )
 
         registry.register(ITEM_IN_ORDER, orderImpl.dataLoaderItemsInOrder(userId = instanceId))
         registry.register(OPERATIONS_IN_ITEM, _item.dataLoaderOperationOfItem(userId = instanceId))
@@ -128,7 +123,7 @@ class DataLoaderRegistryFactory(
         )
 
         registry.register(TYPE_OF_ORDER_DATALOADER, orderImpl.dataLoaderTypeOfOrder(userId = instanceId))
-
+        registry.register(ITEM_IN_ITEM_DATALOADER, _item.dataLoaderItemAndItem(userId = instanceId))
         return registry
     }
 

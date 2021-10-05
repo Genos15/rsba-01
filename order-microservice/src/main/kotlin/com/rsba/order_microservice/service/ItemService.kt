@@ -4,7 +4,8 @@ import com.rsba.order_microservice.database.*
 import com.rsba.order_microservice.domain.input.ItemAndItemInput
 import com.rsba.order_microservice.domain.model.*
 import com.rsba.order_microservice.repository.ItemRepository
-import com.rsba.order_microservice.service.implementation.items.ItemAndItemImpl
+import com.rsba.order_microservice.service.implementation.items.EditComponentAndItemImpl
+import com.rsba.order_microservice.service.implementation.items.RetrieveComponentAndItemImpl
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import mu.KLogger
 import org.springframework.r2dbc.core.DatabaseClient
@@ -15,7 +16,8 @@ import java.util.*
 import java.util.stream.Collectors
 
 @Service
-class ItemService(private val logger: KLogger, private val database: DatabaseClient) : ItemRepository, ItemAndItemImpl {
+class ItemService(private val logger: KLogger, private val database: DatabaseClient) : ItemRepository,
+    EditComponentAndItemImpl, RetrieveComponentAndItemImpl {
 
     override suspend fun myOperations(
         ids: Set<UUID>,
@@ -72,7 +74,7 @@ class ItemService(private val logger: KLogger, private val database: DatabaseCli
                     .first()
                     .map { AbstractMap.SimpleEntry(id, it) }
             }
-            .collect(Collectors.toList())
+            .collectList()
             .map {
                 val map = mutableMapOf<Item, List<Task>>()
                 it.filterNotNull().forEach { element -> map[element.key] = element.value }
@@ -162,10 +164,13 @@ class ItemService(private val logger: KLogger, private val database: DatabaseCli
             }
             .awaitFirstOrElse { emptyMap() }
 
-    override suspend fun addItemInItem(input: ItemAndItemInput, token: UUID): Optional<Item> =
+    override suspend fun addOrEditComponentInItem(input: ItemAndItemInput, token: UUID): Optional<Item> =
         addItemAndItemImplFn(input = input, token = token, database = database)
 
-    override suspend fun removeItemInItem(input: ItemAndItemInput, token: UUID): Optional<Item> =
+    override suspend fun removeComponentInItem(input: ItemAndItemInput, token: UUID): Optional<Item> =
         removeItemAndItemImplFn(input = input, token = token, database = database)
+
+    override suspend fun myItems(ids: Set<Item>, userId: UUID): Map<Item, List<Item>> =
+        retrieveComponentInItemsFn(items = ids, token = UUID.randomUUID(), database = database)
 
 }

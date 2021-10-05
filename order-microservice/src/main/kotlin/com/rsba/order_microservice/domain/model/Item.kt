@@ -20,4 +20,5 @@ data class Item(
     val progress: Float,
     val category: CategoryOfItem? = null,
     @Serializable(with = UUIDSerializer::class) val orderId: UUID,
+    val components: List<Item>? = emptyList(),
 )

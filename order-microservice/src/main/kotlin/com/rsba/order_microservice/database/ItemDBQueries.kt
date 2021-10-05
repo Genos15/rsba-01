@@ -27,9 +27,12 @@ object ItemDBQueries {
     fun myDetailTechnologies(input: OrderAndItem) =
         "SELECT on_retrieve_technologies_item_in_order_id('${input.itemId}', '${input.orderId}')"
 
-    fun addItemInItem(input: ItemAndItemInput, token: UUID) =
-        "SELECT on_add_item_in_item('${Json.encodeToString(input)}', '$token')"
+    fun addOrEditComponentInItem(input: ItemAndItemInput, token: UUID) =
+        "SELECT on_add_component_in_item('${Json.encodeToString(input)}', '$token')"
 
-    fun removeItemInItem(input: ItemAndItemInput, token: UUID) =
-        "SELECT on_remove_item_in_item('${Json.encodeToString(input)}', '$token')"
+    fun removeComponentInItem(input: ItemAndItemInput, token: UUID) =
+        "SELECT on_remove_component_in_item('${Json.encodeToString(input)}', '$token')"
+
+    fun retrieveComponentInItem(input: Item, token: UUID) =
+        "SELECT on_retrieve_components_by_item_id('${input.id}', '${input.orderId}')"
 }

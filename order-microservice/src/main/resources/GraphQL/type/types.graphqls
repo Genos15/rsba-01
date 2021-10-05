@@ -109,7 +109,7 @@ type Item {
     operations: [Operation]
     tasks: [Task]
     category: CategoryOfItem
-    #    components: [Item]
+    components: [Item]
     quantity: Float!
     progress: Float!
     orderId: ID

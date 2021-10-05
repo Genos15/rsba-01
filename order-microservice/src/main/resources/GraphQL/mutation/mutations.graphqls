@@ -35,6 +35,6 @@ type Mutation {
     createOrEditOrderType(input: OrderTypeInput!): OrderType
     deleteOrderType(input: ID!): Boolean
 
-    addOrEditItemInItem(input: ItemAndItemInput): Item
-    removeItemInItem(input: ItemAndItemInput): Item
+    addOrEditComponentInItem(input: ItemAndItemInput): Item
+    removeComponentInItem(input: ItemAndItemInput): Item
 }

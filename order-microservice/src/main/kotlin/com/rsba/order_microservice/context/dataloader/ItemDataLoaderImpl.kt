@@ -82,4 +82,11 @@ class ItemDataLoaderImpl(private val logger: KLogger, private val service: ItemR
         }
     }
 
+    fun dataLoaderItemAndItem(userId: UUID): DataLoader<Item, List<Item>> {
+        logger.warn { "+dataLoaderItemAndItem" }
+        return DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future { service.myItems(ids = ids, userId = userId) }
+        }
+    }
+
 }

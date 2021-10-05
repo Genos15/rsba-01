@@ -12,14 +12,14 @@ import java.util.concurrent.CompletableFuture
 @Component
 class ItemResolver(private val logger: KLogger) : GraphQLResolver<Item> {
 
-    fun operations(instance: Item, env: DataFetchingEnvironment): CompletableFuture<List<Operation>>? {
+    fun operations(instance: Item, env: DataFetchingEnvironment): CompletableFuture<List<Operation>> {
         logger.warn { "+ItemResolver -> operations" }
         val dataLoader =
             env.getDataLoader<UUID, List<Operation>>(DataLoaderRegistryFactory.OPERATIONS_IN_ITEM)
         return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(emptyList())
     }
 
-    fun tasks(instance: Item, env: DataFetchingEnvironment): CompletableFuture<List<Task>>? {
+    fun tasks(instance: Item, env: DataFetchingEnvironment): CompletableFuture<List<Task>> {
         logger.warn { "+ItemResolver -> tasks" }
         val dataLoader =
             env.getDataLoader<Item, List<Task>>(DataLoaderRegistryFactory.TASK_IN_ITEM_DATALOADER)
@@ -31,6 +31,12 @@ class ItemResolver(private val logger: KLogger) : GraphQLResolver<Item> {
         val dataLoader =
             env.getDataLoader<Item, CategoryOfItem?>(DataLoaderRegistryFactory.CATEGORY_IN_ITEM)
         return dataLoader?.load(instance) ?: CompletableFuture.completedFuture(null)
+    }
+
+    fun components(instance: Item, env: DataFetchingEnvironment): CompletableFuture<List<Item>> {
+        logger.warn { "+ItemResolver->components" }
+        val dataLoader = env.getDataLoader<Item, List<Item>>(DataLoaderRegistryFactory.ITEM_IN_ITEM_DATALOADER)
+        return dataLoader?.load(instance) ?: CompletableFuture.completedFuture(emptyList())
     }
 
 }
