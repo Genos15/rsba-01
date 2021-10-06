@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.scheduler.Schedulers
 import java.util.*
-import java.util.stream.Collectors
 
 @Service
 class ItemService(private val logger: KLogger, private val database: DatabaseClient) : ItemRepository,
@@ -25,13 +24,16 @@ class ItemService(private val logger: KLogger, private val database: DatabaseCli
         page: Int,
         size: Int
     ): Map<UUID, List<Operation>> = Flux.fromIterable(ids)
+        .parallel()
         .flatMap { id ->
             return@flatMap database.sql(ItemDBQueries.retrieveMyOperations(itemId = id))
                 .map { row, meta -> OperationDBHandler.all(row = row, meta = meta) }
                 .first()
                 .map { AbstractMap.SimpleEntry(id, it) }
         }
-        .collect(Collectors.toList())
+        .runOn(Schedulers.parallel())
+        .sequential()
+        .collectList()
         .map {
             val map = mutableMapOf<UUID, List<Operation>>()
             it.filterNotNull().forEach { element -> map[element.key] = element.value }
@@ -68,12 +70,15 @@ class ItemService(private val logger: KLogger, private val database: DatabaseCli
 
     override suspend fun myTasks(ids: Set<Item>, userId: UUID, page: Int, size: Int): Map<Item, List<Task>> =
         Flux.fromIterable(ids)
+            .parallel()
             .flatMap { id ->
                 return@flatMap database.sql(ItemDBQueries.retrieveMyTasks(instance = id))
                     .map { row, meta -> TaskDBHandler.all(row = row, meta = meta) }
                     .first()
                     .map { AbstractMap.SimpleEntry(id, it) }
             }
+            .runOn(Schedulers.parallel())
+            .sequential()
             .collectList()
             .map {
                 val map = mutableMapOf<Item, List<Task>>()

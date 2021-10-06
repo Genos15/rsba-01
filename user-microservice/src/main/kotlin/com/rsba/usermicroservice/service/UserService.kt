@@ -357,12 +357,12 @@ class UserService(
     override fun retrievePhoto(input: UUID): Mono<InputStream> =
         retrievePhotoFn(input = input, fileManager = fileManager)
 
-    override suspend fun updatePhoto(part: Part, environment: DataFetchingEnvironment): Optional<User> =
+    override suspend fun updatePhoto(input: Part, environment: DataFetchingEnvironment): Optional<User> =
         performEditUserPhoto(
             input = EditUserInput(),
             database = database,
             environment = environment,
             fileManager = fileManager,
-            part = part
+            part = input
         )
 }

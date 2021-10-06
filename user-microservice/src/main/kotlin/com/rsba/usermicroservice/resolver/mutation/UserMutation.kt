@@ -6,14 +6,15 @@ import com.rsba.usermicroservice.interpector.aspect.AdminSecured
 import com.rsba.usermicroservice.interpector.aspect.LoginSecured
 import com.rsba.usermicroservice.repository.UserRepository
 import graphql.kickstart.tools.GraphQLMutationResolver
-import mu.KLogger
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import javax.servlet.http.Part
+import mu.KLogger
 import org.springframework.stereotype.Component
 import java.util.*
+import javax.servlet.http.Part
+
 
 @Component
 class UserMutation(
@@ -80,6 +81,10 @@ class UserMutation(
         service.editUserProfile(input = input, environment = environment)
 
     @AdminSecured
-    suspend fun updatePhoto(part: Part, environment: DataFetchingEnvironment): Optional<User> =
-        service.updatePhoto(input = part, environment = environment)
+    suspend fun updatePhoto(input: Any, environment: DataFetchingEnvironment): Optional<User> {
+        val ll: LinkedHashMap<String, Any> = environment.getArgument("input")
+        val file = ll["file"] as Part
+        return service.updatePhoto(input = file, environment = environment)
+    }
+
 }

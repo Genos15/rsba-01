@@ -37,4 +37,5 @@ type Mutation {
 
     addOrEditComponentInItem(input: ItemAndItemInput): Item
     removeComponentInItem(input: ItemAndItemInput): Item
+
 }
