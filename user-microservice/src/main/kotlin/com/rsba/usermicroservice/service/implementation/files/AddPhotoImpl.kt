@@ -47,15 +47,12 @@ interface AddPhotoImpl {
         part: Part,
         environment: DataFetchingEnvironment
     ): Mono<Optional<UUID>> = Mono.just(environment)
-        .map {
-            environment.getArgument("photo") as Part
-        }
         .flatMap {
-            val dataBuffer = FileType.image.factory().wrap(it.inputStream.readBytes())
+            val dataBuffer = FileType.image.factory().wrap(part.inputStream.readBytes())
             val url = UUID.randomUUID()
             val meta = BasicDBObject()
             meta["type"] = FileType.image.toString()
-            meta["filename"] = it.submittedFileName
+            meta["filename"] = part.submittedFileName
             meta["url"] = url
 
             database.store(Flux.just(dataBuffer), url.toString(), meta)
