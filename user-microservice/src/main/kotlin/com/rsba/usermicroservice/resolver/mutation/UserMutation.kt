@@ -11,9 +11,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import mu.KLogger
+import org.apache.catalina.core.ApplicationPart
 import org.springframework.stereotype.Component
 import java.util.*
-import javax.servlet.http.Part
 
 
 @Component
@@ -81,10 +81,8 @@ class UserMutation(
         service.editUserProfile(input = input, environment = environment)
 
     @AdminSecured
-    suspend fun updatePhoto(input: Any, environment: DataFetchingEnvironment): Optional<User> {
-        val ll: LinkedHashMap<String, Any> = environment.getArgument("input")
-        val file = ll["file"] as Part
-        return service.updatePhoto(input = file, environment = environment)
+    suspend fun updatePhoto(input: ApplicationPart, environment: DataFetchingEnvironment): Optional<User> {
+        return service.updatePhoto(input = input, environment = environment)
     }
 
 }
