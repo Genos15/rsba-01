@@ -16,6 +16,7 @@ import com.rsba.usermicroservice.utils.CacheHelper
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import mu.KLogger
+import javax.servlet.http.Part
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
@@ -355,4 +356,13 @@ class UserService(
      */
     override fun retrievePhoto(input: UUID): Mono<InputStream> =
         retrievePhotoFn(input = input, fileManager = fileManager)
+
+    override suspend fun updatePhoto(part: Part, environment: DataFetchingEnvironment): Optional<User> =
+        performEditUserPhoto(
+            input = EditUserInput(),
+            database = database,
+            environment = environment,
+            fileManager = fileManager,
+            part = part
+        )
 }

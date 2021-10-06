@@ -4,6 +4,7 @@ import com.rsba.usermicroservice.domain.input.*
 import com.rsba.usermicroservice.domain.model.Group
 import com.rsba.usermicroservice.domain.model.User
 import graphql.schema.DataFetchingEnvironment
+import javax.servlet.http.Part
 import reactor.core.publisher.Mono
 import java.io.InputStream
 import java.util.*
@@ -48,5 +49,8 @@ interface UserRepository : AbstractCRUDRepository<User, CreateUserInput, CreateA
     suspend fun editUserProfile(input: EditUserInput, environment: DataFetchingEnvironment): Optional<User>
 
     fun retrievePhoto(input: UUID): Mono<InputStream>
+
+    suspend fun updatePhoto(input: Part, environment: DataFetchingEnvironment): Optional<User>
+
 
 }

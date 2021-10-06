@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.gridfs.ReactiveGridFsResource
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 import java.util.*
+import javax.servlet.http.Part
 
 @Service
 class PhotoService(private val database: ReactiveGridFsOperations) : PhotoRepository, AddPhotoImpl, RetrieveFileImpl {
@@ -19,9 +20,9 @@ class PhotoService(private val database: ReactiveGridFsOperations) : PhotoReposi
     override fun addPhoto(environment: DataFetchingEnvironment): Mono<Optional<UUID>> =
         addPhotoFn(database = database, environment = environment)
 
-    override suspend fun edit(environment: DataFetchingEnvironment): Mono<Optional<UUID>> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun edit(part: Part, environment: DataFetchingEnvironment): Mono<Optional<UUID>> =
+        editPhotoFn(database = database, part = part, environment = environment)
+
 
     override suspend fun delete(input: UUID, token: UUID): Boolean {
         TODO("Not yet implemented")

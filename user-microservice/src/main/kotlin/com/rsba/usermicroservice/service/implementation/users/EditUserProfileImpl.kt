@@ -8,6 +8,7 @@ import com.rsba.usermicroservice.query.database.UserDBQueries
 import com.rsba.usermicroservice.repository.PhotoRepository
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.reactive.awaitFirstOrElse
+import javax.servlet.http.Part
 import org.springframework.r2dbc.core.DatabaseClient
 import java.util.*
 
@@ -29,6 +30,28 @@ interface EditUserProfileImpl {
         }
         .onErrorResume {
             println("performEditUserProfile->error=${it.message}")
+            throw it
+        }
+        .awaitFirstOrElse { Optional.empty() }
+
+
+    suspend fun performEditUserPhoto(
+        database: DatabaseClient,
+        input: EditUserInput,
+        fileManager: PhotoRepository,
+        part: Part,
+        environment: DataFetchingEnvironment
+    ): Optional<User> = fileManager.edit(environment = environment, part = part)
+        .flatMap {
+            database.sql(
+                UserDBQueries.editUserProfile(
+                    input = input.apply { photo = it.orElse(null) },
+                    token = TokenManagerImpl.read(environment = environment)
+                )
+            ).map { row -> UserDBHandler.one(row = row) }.first()
+        }
+        .onErrorResume {
+            println("performEditPhoto->>error=${it.message}")
             throw it
         }
         .awaitFirstOrElse { Optional.empty() }

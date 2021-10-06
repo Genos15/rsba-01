@@ -11,6 +11,7 @@ import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import javax.servlet.http.Part
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -77,4 +78,8 @@ class UserMutation(
     @AdminSecured
     suspend fun editUserProfile(input: EditUserInput, environment: DataFetchingEnvironment): Optional<User> =
         service.editUserProfile(input = input, environment = environment)
+
+    @AdminSecured
+    suspend fun updatePhoto(part: Part, environment: DataFetchingEnvironment): Optional<User> =
+        service.updatePhoto(input = part, environment = environment)
 }

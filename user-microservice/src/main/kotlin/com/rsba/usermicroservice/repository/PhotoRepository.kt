@@ -2,6 +2,7 @@ package com.rsba.usermicroservice.repository
 
 import graphql.schema.DataFetchingEnvironment
 import org.springframework.data.mongodb.gridfs.ReactiveGridFsResource
+import javax.servlet.http.Part
 import reactor.core.publisher.Mono
 import java.util.*
 import kotlin.jvm.Throws
@@ -12,7 +13,7 @@ interface PhotoRepository {
     fun addPhoto(environment: DataFetchingEnvironment): Mono<Optional<UUID>>
 
     @Throws(RuntimeException::class)
-    suspend fun edit(environment: DataFetchingEnvironment): Mono<Optional<UUID>>
+    suspend fun edit(part: Part, environment: DataFetchingEnvironment): Mono<Optional<UUID>>
 
     @Throws(RuntimeException::class)
     suspend fun delete(input: UUID, token: UUID): Boolean

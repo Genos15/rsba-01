@@ -17,5 +17,4 @@ interface RetrievePhotoImpl {
                 println("RetrievePhotoImpl->retrievePhotoImpl->error=${it.message}")
                 throw it
             }
-
 }

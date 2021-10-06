@@ -49,4 +49,5 @@ type Mutation{
     createOrEditExecutor(input: ExecutorInput!): Executor
     renewExecutorPin(input: ExecutorInput!): Executor
     deleteExecutor(input: ID!): Boolean
+    updatePhoto(input: Upload!): ID
 }
