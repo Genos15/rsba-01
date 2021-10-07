@@ -19,15 +19,13 @@ interface EditUserProfileImpl {
         input: EditUserInput,
         fileManager: PhotoRepository,
         environment: DataFetchingEnvironment
-    ): Optional<User> = fileManager.addPhoto(environment = environment)
-        .flatMap {
-            database.sql(
-                UserDBQueries.editUserProfile(
-                    input = input.apply { photo = it.orElse(null) },
-                    token = TokenManagerImpl.read(environment = environment)
-                )
-            ).map { row -> UserDBHandler.one(row = row) }.first()
-        }
+    ): Optional<User> = database.sql(
+        UserDBQueries.editUserProfile(
+            input = input,
+            token = TokenManagerImpl.read(environment = environment)
+        )
+    ).map { row -> UserDBHandler.one(row = row) }
+        .first()
         .onErrorResume {
             println("performEditUserProfile->error=${it.message}")
             throw it
