@@ -31,7 +31,7 @@ class SmartPublisher {
         }
 
         return when (topic) {
-            SinkStrategy.monitors.topic -> {
+            SinkStrategy.Monitors.topic -> {
                 monitors
             }
             else -> sinkMap[topic]?.asFlux()

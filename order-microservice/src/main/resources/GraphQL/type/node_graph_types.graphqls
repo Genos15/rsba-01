@@ -1,0 +1,17 @@
+type ElkGraphNode {
+    id: ID!
+    height: Int!
+    width: Int!
+    payload: Item!
+}
+
+type ElkGraphLink {
+    id: ID!
+    source: ID!
+    target: ID!
+}
+
+type ElkGraphData {
+    nodes: [ElkGraphNode]!
+    links: [ElkGraphLink]!
+}

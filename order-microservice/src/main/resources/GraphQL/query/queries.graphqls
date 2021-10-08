@@ -49,4 +49,6 @@ type Query {
     searchOrderType (input: String!, first: Int!, after: ID): OrderTypeConnection @connection(for: "OrderType")
 
     retrieveOrderTypeById (id: ID!): OrderType
+
+    constructElkGraph(input: ElkGraphInput!): ElkGraphData!
 }
