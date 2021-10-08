@@ -31,7 +31,6 @@ object UUIDCoercing : Coercing<UUID, String> {
     override fun serialize(dataFetcherResult: Any?): String = dataFetcherResult.toString()
 }
 
-
 @Configuration
 class UUIDScalarConfiguration : SchemaGeneratorHooks {
     override fun willGenerateGraphQLType(type: KType): GraphQLType? = when (type.classifier as? KClass<*>) {

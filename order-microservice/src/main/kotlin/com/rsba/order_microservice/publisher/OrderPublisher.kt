@@ -11,6 +11,7 @@ import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Component
 import reactor.core.publisher.*
 import reactor.util.concurrent.Queues
+import java.util.*
 
 @Component
 class OrderPublisher(
@@ -21,12 +22,52 @@ class OrderPublisher(
     private val agentDataHandler: AgentDataHandler,
     private val forCustomer: CustomerDatabaseQuery,
     private val customerDataHandler: CustomerDataHandler
-) {
+) : InMenRepository {
 
     private var sink: Sinks.Many<OrderForSub> =
         Sinks.many().multicast().onBackpressureBuffer(Queues.SMALL_BUFFER_SIZE, false)
 
+    private var sinkMessage: Sinks.Many<UserMessage> =
+        Sinks.many().multicast().onBackpressureBuffer(Queues.SMALL_BUFFER_SIZE, false)
+
     var processor: Flux<OrderForSub> = sink.asFlux()
+
+    private lateinit var processorMessage: Flux<UserMessage>
+
+    private val uuidPublisher: ConnectableFlux<UUID>
+    private lateinit var uuidStream: FluxSink<UUID>
+
+    init {
+        val myUuidPublisher = Flux.create<UUID>({
+            uuidStream = it
+        }, FluxSink.OverflowStrategy.BUFFER)
+        uuidPublisher = myUuidPublisher.publish()
+        uuidPublisher.map {
+
+        }.subscribe { }
+        uuidPublisher.connect {}
+//        uuidStream.next()
+        processorMessage = sinkMessage.asFlux()
+    }
+//    val t: FluxSink<Any> =
+
+//    val subscribers: ConcurrentMultiRegistry<String, FluxSink<Any>> = ConcurrentMultiRegistry()
+
+//    var sink2: FluxSink<Any> = processor.sink(FluxSink.OverflowStrategy.IGNORE)
+
+
+    fun publishMessage(message: UserMessage) = try {
+        logger.warn { "+--- OrderPublisher -> publish" }
+
+        GlobalScope.async {
+            sinkMessage.asFlux().subscribe {
+
+            }
+//            sink.tryEmitNext(order).orThrow()
+        }
+    } catch (e: Exception) {
+        logger.warn { "+--- OrderPublisher -> publish -> error = ${e.message}" }
+    }
 
     fun publish(order: OrderForSub) = try {
         logger.warn { "+--- OrderPublisher -> publish" }
@@ -60,5 +101,13 @@ class OrderPublisher(
     fun get(environment: DataFetchingEnvironment?): Publisher<OrderForSub> {
         logger.warn { "+--- OrderPublisher -> get" }
         return processor
+    }
+
+    fun getAs(environment: DataFetchingEnvironment?): Publisher<UserMessage> {
+        return processorMessage
+    }
+
+    override fun getUUIDPublisher(): Publisher<UUID> {
+        TODO("Not yet implemented")
     }
 }
