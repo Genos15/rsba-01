@@ -1,4 +1,7 @@
 input ElkGraphInput {
     height: Int!
     width: Int!
+    itemId: ID!
+    orderId:ID!
+    parentId:ID
 }

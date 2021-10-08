@@ -2,7 +2,7 @@ type ElkGraphNode {
     id: ID!
     height: Int!
     width: Int!
-    payload: Item!
+    payload: GraphItem!
 }
 
 type ElkGraphLink {

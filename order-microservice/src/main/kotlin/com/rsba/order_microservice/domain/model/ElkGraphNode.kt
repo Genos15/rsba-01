@@ -9,5 +9,5 @@ data class ElkGraphNode(
     @Serializable(with = UUIDSerializer::class) val id: UUID,
     val height: Int,
     val width: Int,
-    val payload: Item
+    val payload: Item.GraphItem
 )
