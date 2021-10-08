@@ -87,44 +87,6 @@ type Agent {
     email: String
 }
 
-type CategoryOfItem {
-    id: ID!
-    name: String!
-    description: String
-    createdAt: DateTime
-    editedAt: DateTime
-    orderId: ID
-    items: [Item]
-    color: String
-    progress: Float!
-}
-
-type Item {
-    id: ID!
-    name: String!
-    description: String
-    material: String
-    createdAt: DateTime
-    editedAt: DateTime
-    operations: [Operation]
-    tasks: [Task]
-    category: CategoryOfItem
-    components: [Item]
-    quantity: Float!
-    progress: Float!
-    orderId: ID
-}
-
-type GraphItem {
-    id: ID!
-    name: String!
-    description: String
-    material: String
-    createdAt: DateTime
-    editedAt: DateTime
-    orderId: ID!
-    parentId: ID
-}
 
 type Operation {
     id: ID!
