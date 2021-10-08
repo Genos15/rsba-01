@@ -1,0 +1,12 @@
+enum ParameterType {
+    ITEM
+    TASK
+}
+
+type Parameter {
+    id: ID!
+    name: String!
+    description: String
+    value: String!
+    type: ParameterType
+}

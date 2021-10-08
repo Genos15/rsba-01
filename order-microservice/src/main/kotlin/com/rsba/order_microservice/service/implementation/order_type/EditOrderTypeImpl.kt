@@ -21,6 +21,7 @@ interface EditOrderTypeImpl {
             println("EditOrderTypeImpl->createOrEdit->error=${it.message}")
             throw it
         }
+        .log()
         .awaitFirstOrElse { Optional.empty() }
 
 
@@ -35,6 +36,7 @@ interface EditOrderTypeImpl {
             println("EditOrderTypeImpl->deleteImpl->error=${it.message}")
             throw it
         }
+        .log()
         .awaitFirstOrElse { false }
 
 }

@@ -24,6 +24,7 @@ interface RetrieveOrderTypeImpl {
             println("RetrieveOrderTypeImpl->retrieve->error=${it.message}")
             throw it
         }
+        .log()
         .awaitFirstOrElse { emptyList() }
 
     suspend fun retrieveByIdImpl(
@@ -36,5 +37,6 @@ interface RetrieveOrderTypeImpl {
             println("RetrieveFeedbackArticleImpl->retrieveById->error=${it.message}")
             throw it
         }
+        .log()
         .awaitFirstOrElse { Optional.empty() }
 }

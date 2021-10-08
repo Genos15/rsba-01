@@ -32,5 +32,6 @@ interface OrderDataloaderServiceImpl {
                 println { "myType = ${it.message}" }
                 throw it
             }
+            .log()
             .awaitFirstOrElse { emptyMap() }
 }

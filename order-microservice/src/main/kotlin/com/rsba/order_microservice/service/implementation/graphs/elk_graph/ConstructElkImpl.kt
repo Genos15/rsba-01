@@ -18,5 +18,5 @@ interface ConstructElkImpl {
             .first()
             .awaitFirstOrDefault(emptyList())
         ElkGraphData(entries = items, height = input.height, width = input.width)
-    }.awaitFirst()
+    }.log().awaitFirst()
 }

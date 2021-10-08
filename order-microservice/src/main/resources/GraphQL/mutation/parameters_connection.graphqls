@@ -1,0 +1,10 @@
+type ParameterEdge {
+    cursor: String
+    node: Parameter
+}
+
+type ParameterConnection {
+    edges: [ParameterEdge]
+    pageInfo: PageInfo
+}
+
