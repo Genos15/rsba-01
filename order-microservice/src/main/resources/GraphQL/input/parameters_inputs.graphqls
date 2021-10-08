@@ -4,4 +4,5 @@ input ParameterInput {
     value: String
     type: ParameterType
     hostId: ID!
+    orderId: ID
 }
