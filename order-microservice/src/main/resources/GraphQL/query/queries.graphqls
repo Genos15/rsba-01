@@ -4,9 +4,9 @@ type Query {
 
     retrieveCompletedOrders (first: Int!, after: ID): OrderConnection @connection(for: "Order")
 
-    retrieveOrdersByDepartmentId (departmentId: ID!, first: Int!, after: ID): OrderConnection @connection(for: "Order")
+    retrieveOrdersByDepartmentId (departmentId: ID!, first: Int!, after: ID, level: OrderLevel): OrderConnection @connection(for: "Order")
 
-    retrieveOrderByUserToken (first: Int!, after: ID): OrderConnection @connection(for: "Order")
+    retrieveOrderByUserToken (first: Int!, after: ID, level: OrderLevel): OrderConnection @connection(for: "Order")
 
     retrieveOneOrder(id: ID!): Order
 
@@ -57,6 +57,6 @@ type Query {
     searchParameters (input: String!, first: Int!, after: ID): ParameterConnection @connection(for: "Parameter")
 
     retrieveParametersByTaskId (taskId: ID!): [Parameter]!
-    
+
     retrieveParametersByItemId (itemId: ID!): [Parameter]!
 }

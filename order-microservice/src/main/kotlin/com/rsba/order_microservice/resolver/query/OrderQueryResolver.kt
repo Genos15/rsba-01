@@ -4,6 +4,7 @@ import  com.rsba.order_microservice.domain.model.Order
 import  com.rsba.order_microservice.aspect.AdminSecured
 import com.rsba.order_microservice.context.token.ITokenImpl
 import com.rsba.order_microservice.domain.model.Item
+import com.rsba.order_microservice.domain.model.OrderLevel
 import com.rsba.order_microservice.domain.model.ProgressionStep
 import  com.rsba.order_microservice.repository.OrderRepository
 import graphql.kickstart.tools.GraphQLQueryResolver
@@ -62,10 +63,16 @@ class OrderQueryResolver(private val service: OrderRepository, private val logge
     suspend fun retrieveOrderByUserToken(
         first: Int,
         after: UUID? = null,
+        level: OrderLevel?,
         env: DataFetchingEnvironment
     ): Connection<Order>? =
         retrieveFn(
-            entry = service.orderByUserToken(token = readToken(environment = env), first = first, after = after),
+            entry = service.orderByUserToken(
+                token = readToken(environment = env),
+                first = first,
+                after = after,
+                level = level
+            ),
             first = first,
             after = after
         )
@@ -95,13 +102,15 @@ class OrderQueryResolver(private val service: OrderRepository, private val logge
         departmentId: UUID,
         first: Int,
         after: UUID? = null,
+        level: OrderLevel?,
         env: DataFetchingEnvironment
     ): Connection<Order>? = retrieveFn(
         entry = service.myOrdersByDepartmentId(
             departmentId = departmentId,
             token = readToken(environment = env),
             first = first,
-            after = after
+            after = after,
+            level = level
         ), first = first, after = after
     )
 

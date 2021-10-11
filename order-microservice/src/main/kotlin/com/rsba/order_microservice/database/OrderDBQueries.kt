@@ -4,6 +4,7 @@ package  com.rsba.order_microservice.database
 import com.rsba.order_microservice.domain.input.EditItemInOrderInput
 import com.rsba.order_microservice.domain.input.ItemInOrderInput
 import com.rsba.order_microservice.domain.model.OrderFromOld
+import com.rsba.order_microservice.domain.model.OrderLevel
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.util.*
@@ -42,13 +43,14 @@ object OrderDBQueries {
     fun retrieveMyType(orderId: UUID, token: UUID) =
         "SELECT on_retrieve_order_type_by_order_id('$orderId', '$token')"
 
-    fun retrieveOrderByUserToken(first: Int, after: UUID?, token: UUID) =
-        "SELECT on_retrieve_orders_by_user_token('$first', ${after?.let { "'$it'" }},'$token')"
+    fun retrieveOrderByUserToken(first: Int, after: UUID?, token: UUID, level: OrderLevel? = null) =
+        "SELECT on_retrieve_orders_by_user_token('$first', ${after?.let { "'$it'" }}, ${level?.let { "'$it'" }},'$token')"
 
     fun completedOrder(first: Int, after: UUID?, token: UUID) =
         "SELECT on_retrieve_orders_completed('$first', ${after?.let { "'$it'" }},'$token')"
 
-    fun ordersByDepartmentId(departmentId: UUID, first: Int, after: UUID?, token: UUID) =
-        "SELECT on_retrieve_orders_by_department_id('$departmentId', '$first', ${after?.let { "'$it'" }},'$token')"
+    fun ordersByDepartmentId(departmentId: UUID, first: Int, after: UUID?, token: UUID, level: OrderLevel? = null) =
+        "SELECT on_retrieve_orders_by_department_id('$departmentId', '$first', ${after?.let { "'$it'" }}, ${level?.let { "'$it'" }},'$token')"
+
 
 }

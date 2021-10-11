@@ -14,7 +14,12 @@ interface OrderRepository {
 
     suspend fun onRetrieveAllOrder(first: Int, after: UUID?, token: UUID): MutableList<Order>
 
-    suspend fun orderByUserToken(first: Int, after: UUID?, token: UUID): List<Order>
+    suspend fun orderByUserToken(
+        first: Int,
+        after: UUID?,
+        token: UUID,
+        level: OrderLevel? = null,
+    ): List<Order>
 
     suspend fun retrieveManagerOfOrder(
         orderIds: Set<UUID>,
@@ -93,6 +98,12 @@ interface OrderRepository {
 
     suspend fun myCompletedOrders(first: Int, after: UUID?, token: UUID): List<Order>
 
-    suspend fun myOrdersByDepartmentId(departmentId: UUID, first: Int, after: UUID?, token: UUID): List<Order>
+    suspend fun myOrdersByDepartmentId(
+        departmentId: UUID,
+        first: Int,
+        after: UUID?,
+        token: UUID,
+        level: OrderLevel? = null,
+    ): List<Order>
 
 }

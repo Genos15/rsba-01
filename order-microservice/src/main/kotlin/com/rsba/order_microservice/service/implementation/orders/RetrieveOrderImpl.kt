@@ -3,6 +3,7 @@ package com.rsba.order_microservice.service.implementation.orders
 import com.rsba.order_microservice.database.OrderDBHandler
 import com.rsba.order_microservice.database.OrderDBQueries
 import com.rsba.order_microservice.domain.model.Order
+import com.rsba.order_microservice.domain.model.OrderLevel
 import kotlinx.coroutines.reactive.awaitFirst
 import org.springframework.r2dbc.core.DatabaseClient
 import java.util.*
@@ -25,14 +26,16 @@ interface RetrieveOrderImpl {
         first: Int,
         after: UUID?,
         token: UUID,
-        database: DatabaseClient
+        database: DatabaseClient,
+        level: OrderLevel?
     ): List<Order> =
         database.sql(
             OrderDBQueries.ordersByDepartmentId(
                 token = token,
                 first = first,
                 after = after,
-                departmentId = departmentId
+                departmentId = departmentId,
+                level = level
             )
         ).map { row -> OrderDBHandler.all(row = row) }
             .first()

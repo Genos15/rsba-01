@@ -82,8 +82,20 @@ class OrderService(
             }
             .awaitFirstOrElse { mutableListOf() }
 
-    override suspend fun orderByUserToken(first: Int, after: UUID?, token: UUID): List<Order> =
-        database.sql(OrderDBQueries.retrieveOrderByUserToken(token = token, first = first, after = after))
+    override suspend fun orderByUserToken(
+        first: Int,
+        after: UUID?,
+        token: UUID,
+        level: OrderLevel?
+    ): List<Order> =
+        database.sql(
+            OrderDBQueries.retrieveOrderByUserToken(
+                token = token,
+                first = first,
+                after = after,
+                level = level
+            )
+        )
             .map { row -> OrderDBHandler.all(row = row) }
             .first()
             .onErrorResume {
@@ -474,13 +486,15 @@ class OrderService(
         departmentId: UUID,
         first: Int,
         after: UUID?,
-        token: UUID
+        token: UUID,
+        level: OrderLevel?
     ): List<Order> = orderByDepartmentIdFn(
         first = first,
         after = after,
         token = token,
         database = database,
-        departmentId = departmentId
+        departmentId = departmentId,
+        level = level
     )
 
 }
