@@ -4,6 +4,7 @@ import com.rsba.order_microservice.database.*
 import com.rsba.order_microservice.domain.input.*
 import com.rsba.order_microservice.domain.model.*
 import com.rsba.order_microservice.repository.TaskRepository
+import com.rsba.order_microservice.service.implementation.tasks.RetrieveTaskImpl
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import mu.KLogger
 import org.springframework.r2dbc.core.DatabaseClient
@@ -11,10 +12,10 @@ import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.util.*
-import java.util.stream.Collectors
 
 @Service
-class TaskService(private val logger: KLogger, private val database: DatabaseClient) : TaskRepository {
+class TaskService(private val logger: KLogger, private val database: DatabaseClient) : TaskRepository,
+    RetrieveTaskImpl {
 
     override suspend fun myPersonalInfo(
         ids: Set<UUID>,
@@ -452,15 +453,48 @@ class TaskService(private val logger: KLogger, private val database: DatabaseCli
             }
             .awaitFirstOrElse { emptyList() }
 
-    override suspend fun retrieveTasksByUserToken(first: Int, after: UUID?, token: UUID): List<Task> =
-        database.sql(TaskDBQueries.retrieveTaskByUserToken(first = first, after = after, token = token))
-            .map { row -> TaskDBHandler.all(row = row) }
-            .first()
-            .onErrorResume {
-                logger.warn { "+TaskService -> retrieveTasksByUserToken -> error = ${it.message}" }
-                throw it
-            }
-            .awaitFirstOrElse { emptyList() }
+    override suspend fun retrieveTasksByDepartmentId(
+        departmentId: UUID,
+        first: Int,
+        after: UUID?,
+        token: UUID,
+        level: TaskLevel?
+    ): List<Task> = fnTasksByDepartmentId(
+        departmentId = departmentId,
+        first = first,
+        after = after,
+        token = token,
+        level = level,
+        database = database
+    )
+
+    override suspend fun retrieveTasksByWorkingCenterId(
+        workingCenterId: UUID,
+        first: Int,
+        after: UUID?,
+        token: UUID,
+        level: TaskLevel?
+    ): List<Task> = fnTasksByWorkingCenterId(
+        workingCenterId = workingCenterId,
+        first = first,
+        after = after,
+        token = token,
+        level = level,
+        database = database
+    )
+
+    override suspend fun retrieveTasksByUserToken(
+        first: Int,
+        after: UUID?,
+        token: UUID,
+        level: TaskLevel?
+    ): List<Task> = fnTasksByUserToken(
+        first = first,
+        after = after,
+        token = token,
+        level = level,
+        database = database
+    )
 
     override suspend fun retrieveNumberOfTaskByUserId(userId: UUID, token: UUID): Optional<Int> =
         database.sql(TaskDBQueries.retrieveNumberOfTaskByUserId(userId = userId, token = token))

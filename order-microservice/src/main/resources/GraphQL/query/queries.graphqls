@@ -24,7 +24,11 @@ type Query {
 
     retrieveTasksByUserId(userId: ID!, first: Int!, after: ID): TaskConnection @connection(for: "Task")
 
-    retrieveTasksByUserToken(first: Int!, after: ID): TaskConnection @connection(for: "Task")
+    retrieveTasksByUserToken(first: Int!, after: ID, level: TaskLevel): TaskConnection @connection(for: "Task")
+
+    retrieveTasksByDepartmentId(departmentId: ID, first: Int!, after: ID, level: TaskLevel): TaskConnection @connection(for: "Task")
+
+    retrieveTasksByWorkingCenterId(workingCenterId: ID, first: Int!, after: ID, level: TaskLevel): TaskConnection @connection(for: "Task")
 
     retrieveWorklogsByTaskId(taskId: ID!, first: Int!, after: ID): WorklogConnection @connection(for: "Worklog")
 

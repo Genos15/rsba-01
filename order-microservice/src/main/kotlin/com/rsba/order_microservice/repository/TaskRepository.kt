@@ -5,7 +5,6 @@ import com.rsba.order_microservice.domain.input.TaskInput
 import com.rsba.order_microservice.domain.input.UserWithTask
 import com.rsba.order_microservice.domain.input.WorkingCenterWithTask
 import com.rsba.order_microservice.domain.model.*
-import graphql.schema.DataFetchingEnvironment
 import java.util.*
 
 interface TaskRepository {
@@ -91,7 +90,25 @@ interface TaskRepository {
     suspend fun editTask(input: TaskInput, token: UUID): Optional<Task>
     suspend fun terminateTask(id: UUID, token: UUID): Optional<Task>
     suspend fun retrieveTasksByUserId(userId: UUID, first: Int, after: UUID?, token: UUID): List<Task>
-    suspend fun retrieveTasksByUserToken(first: Int, after: UUID?, token: UUID): List<Task>
+
+    suspend fun retrieveTasksByUserToken(first: Int, after: UUID?, token: UUID, level: TaskLevel? = null): List<Task>
+    suspend fun retrieveTasksByDepartmentId(
+        departmentId: UUID,
+        first: Int,
+        after: UUID?,
+        token: UUID,
+        level: TaskLevel? = null
+    ): List<Task>
+
+    suspend fun retrieveTasksByWorkingCenterId(
+        workingCenterId: UUID,
+        first: Int,
+        after: UUID?,
+        token: UUID,
+        level: TaskLevel? = null
+    ): List<Task>
+
+
     suspend fun retrieveNumberOfTaskByUserId(userId: UUID, token: UUID): Optional<Int>
     suspend fun createOrEdit(input: TaskInput, token: UUID): Optional<Task>
     suspend fun delete(input: TaskInput, token: UUID): Optional<Order>

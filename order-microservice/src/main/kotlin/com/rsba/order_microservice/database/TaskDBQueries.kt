@@ -5,6 +5,7 @@ import com.rsba.order_microservice.domain.input.DepartmentWithTaskInput
 import com.rsba.order_microservice.domain.input.TaskInput
 import com.rsba.order_microservice.domain.input.UserWithTaskInput
 import com.rsba.order_microservice.domain.input.WorkingCenterWithTaskInput
+import com.rsba.order_microservice.domain.model.TaskLevel
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.util.*
@@ -76,8 +77,26 @@ object TaskDBQueries {
     fun retrieveTaskByUserId(userId: UUID, first: Int, after: UUID?, token: UUID) =
         "SELECT on_retrieve_tasks_by_user_id('$userId', '$first', ${after?.let { "'$it'" }},'$token')"
 
-    fun retrieveTaskByUserToken(first: Int, after: UUID?, token: UUID) =
-        "SELECT on_retrieve_tasks_by_user_token('$first', ${after?.let { "'$it'" }},'$token')"
+    fun retrieveTaskByUserToken(first: Int, after: UUID?, token: UUID, level: TaskLevel? = null) =
+        "SELECT on_retrieve_tasks_by_user_token('$first', ${after?.let { "'$it'" }}, ${level?.let { "'$it'" }},'$token')"
+
+    fun retrieveTaskByDepartmentId(
+        departmentId: UUID,
+        first: Int,
+        after: UUID?,
+        token: UUID,
+        level: TaskLevel? = null
+    ) =
+        "SELECT on_retrieve_tasks_by_department_id('$departmentId','$first', ${after?.let { "'$it'" }}, ${level?.let { "'$it'" }},'$token')"
+
+    fun retrieveTaskByWorkingCenterId(
+        workingCenterId: UUID,
+        first: Int,
+        after: UUID?,
+        token: UUID,
+        level: TaskLevel? = null
+    ) =
+        "SELECT on_retrieve_tasks_by_working_center_id('$workingCenterId','$first', ${after?.let { "'$it'" }}, ${level?.let { "'$it'" }},'$token')"
 
     fun retrieveNumberOfTaskByUserId(userId: UUID, token: UUID) =
         "SELECT on_retrieve_number_of_task_by_user_id('$userId', '$token')"
