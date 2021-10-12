@@ -1,9 +1,6 @@
 package com.rsba.usermicroservice.query.database
 
-import com.rsba.usermicroservice.domain.input.CreateAdminInput
-import com.rsba.usermicroservice.domain.input.EditUserInput
-import com.rsba.usermicroservice.domain.input.LoginUserInput
-import com.rsba.usermicroservice.domain.input.SingleInviteUsersInput
+import com.rsba.usermicroservice.domain.input.*
 import com.rsba.usermicroservice.domain.model.CachedUserContact
 import com.rsba.usermicroservice.domain.model.CreateUserDatabaseParam
 import com.rsba.usermicroservice.domain.model.TokenHelper
@@ -45,6 +42,9 @@ object UserDBQueries {
 
     fun editUserProfile(input: EditUserInput, token: UUID) =
         "SELECT on_edit_user_profile('${Json.encodeToString(input)}', '$token')"
+
+    fun editUserByMasterId(input: EditUserByMasterInput, token: UUID) =
+        "SELECT on_edit_user_by_master('${Json.encodeToString(input)}', '$token')"
 
     fun removeUserPhotoByPhotoId(input: UUID, token: UUID) =
         "SELECT on_remove_user_photo_by_photo_id('$input', '$token')"

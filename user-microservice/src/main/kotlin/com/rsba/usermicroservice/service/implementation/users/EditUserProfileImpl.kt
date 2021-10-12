@@ -1,6 +1,7 @@
 package com.rsba.usermicroservice.service.implementation.users
 
 import com.rsba.usermicroservice.context.token.TokenManagerImpl
+import com.rsba.usermicroservice.domain.input.EditUserByMasterInput
 import com.rsba.usermicroservice.domain.input.EditUserInput
 import com.rsba.usermicroservice.domain.model.User
 import com.rsba.usermicroservice.query.database.UserDBHandler
@@ -65,6 +66,18 @@ interface EditUserProfileImpl {
         }
         .onErrorResume {
             println("fnDeleteUserPhoto=${it.message}")
+            throw it
+        }
+        .awaitFirstOrElse { Optional.empty() }
+
+    suspend fun fnEditUserByMaster(
+        database: DatabaseClient,
+        input: EditUserByMasterInput,
+        token: UUID
+    ): Optional<User> = database.sql(UserDBQueries.editUserByMasterId(input = input, token = token))
+        .map { row -> UserDBHandler.one(row = row) }.first()
+        .onErrorResume {
+            println("fnEditUserByMaster=${it.message}")
             throw it
         }
         .awaitFirstOrElse { Optional.empty() }

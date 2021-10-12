@@ -17,6 +17,13 @@ input CreateOrEditWorkingCenterInput {
     groupId: ID
 }
 
+input EditUserByMasterInput {
+    #this is the reference to the id of the user
+    id: ID!
+    blocked: Boolean
+    roleId: ID
+}
+
 input UserInWorkingCenterInput {
     id: ID!
     users: [ID]

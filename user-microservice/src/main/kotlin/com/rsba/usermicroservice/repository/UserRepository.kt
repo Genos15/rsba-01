@@ -52,5 +52,5 @@ interface UserRepository : AbstractCRUDRepository<User, CreateUserInput, CreateA
 
     suspend fun updatePhoto(input: Part, environment: DataFetchingEnvironment): Optional<User>
     suspend fun removePhoto(input: UUID, token: UUID): Optional<User>
-
+    suspend fun editUserByMaster(input: EditUserByMasterInput, token: UUID): Optional<User>
 }

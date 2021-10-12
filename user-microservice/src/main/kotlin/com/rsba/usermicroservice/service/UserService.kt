@@ -373,4 +373,7 @@ class UserService(
             token = token,
             fileManager = fileManager,
         )
+
+    override suspend fun editUserByMaster(input: EditUserByMasterInput, token: UUID): Optional<User> =
+        fnEditUserByMaster(database = database, input = input, token = token)
 }

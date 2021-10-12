@@ -91,4 +91,9 @@ class UserMutation(
         return service.removePhoto(input = input, token = readToken(environment = environment))
     }
 
+    @AdminSecured
+    suspend fun editUserByMaster(input: EditUserByMasterInput, environment: DataFetchingEnvironment): Optional<User> {
+        return service.editUserByMaster(input = input, token = readToken(environment = environment))
+    }
+
 }
