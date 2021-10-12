@@ -32,7 +32,6 @@ interface EditUserProfileImpl {
         }
         .awaitFirstOrElse { Optional.empty() }
 
-
     suspend fun performEditUserPhoto(
         database: DatabaseClient,
         input: EditUserInput,
@@ -50,6 +49,22 @@ interface EditUserProfileImpl {
         }
         .onErrorResume {
             println("performEditPhoto->>error=${it.message}")
+            throw it
+        }
+        .awaitFirstOrElse { Optional.empty() }
+
+    suspend fun fnDeleteUserPhoto(
+        database: DatabaseClient,
+        input: UUID,
+        fileManager: PhotoRepository,
+        token: UUID
+    ): Optional<User> = fileManager.delete(input = input, token = UUID.randomUUID())
+        .flatMap {
+            database.sql(UserDBQueries.removeUserPhotoByPhotoId(input = input, token = token))
+                .map { row -> UserDBHandler.one(row = row) }.first()
+        }
+        .onErrorResume {
+            println("fnDeleteUserPhoto=${it.message}")
             throw it
         }
         .awaitFirstOrElse { Optional.empty() }

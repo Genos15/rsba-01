@@ -50,4 +50,5 @@ type Mutation{
     renewExecutorPin(input: ExecutorInput!): Executor
     deleteExecutor(input: ID!): Boolean
     updatePhoto(input: Upload!): ID
+    removePhoto(input: ID!): User
 }

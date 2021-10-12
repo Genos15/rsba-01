@@ -365,4 +365,12 @@ class UserService(
             fileManager = fileManager,
             part = input
         )
+
+    override suspend fun removePhoto(input: UUID, token: UUID): Optional<User> =
+        fnDeleteUserPhoto(
+            input = input,
+            database = database,
+            token = token,
+            fileManager = fileManager,
+        )
 }

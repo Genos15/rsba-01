@@ -4,16 +4,21 @@ import com.mongodb.BasicDBObject
 import com.rsba.usermicroservice.context.CustomGraphQLContext
 import com.rsba.usermicroservice.domain.model.FileType
 import graphql.schema.DataFetchingEnvironment
+import kotlinx.coroutines.reactive.awaitFirstOrElse
+import kotlinx.coroutines.reactor.mono
+import org.springframework.data.mongodb.core.query.Query
+import org.springframework.data.mongodb.gridfs.GridFsCriteria.whereFilename
 import org.springframework.data.mongodb.gridfs.ReactiveGridFsOperations
-import javax.servlet.http.Part
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.core.scheduler.Schedulers
 import java.util.*
+import javax.servlet.http.Part
 
-interface AddPhotoImpl {
 
-    fun addPhotoFn(
+interface UpdatePhotoImpl {
+
+    fun fnAddPhoto(
         database: ReactiveGridFsOperations,
         environment: DataFetchingEnvironment
     ): Mono<Optional<UUID>> = Flux.just(environment)
@@ -42,7 +47,7 @@ interface AddPhotoImpl {
         }
 
 
-    fun editPhotoFn(
+    fun fnEditPhoto(
         database: ReactiveGridFsOperations,
         part: Part,
         environment: DataFetchingEnvironment
@@ -63,5 +68,15 @@ interface AddPhotoImpl {
             println("editPhotoFn->error = ${it.message}")
             throw it
         }
+
+    fun fnDeletePhoto(
+        database: ReactiveGridFsOperations,
+        filename: UUID,
+    ): Mono<Boolean> = mono {
+        database.find(Query.query(whereFilename().`is`(filename.toString())))
+            .map {
+                true
+            }.awaitFirstOrElse { false }
+    }
 
 }

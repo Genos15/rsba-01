@@ -1,5 +1,6 @@
 package com.rsba.usermicroservice.resolver.mutation
 
+import com.rsba.usermicroservice.context.token.ITokenImpl
 import com.rsba.usermicroservice.domain.input.*
 import com.rsba.usermicroservice.domain.model.User
 import com.rsba.usermicroservice.interpector.aspect.AdminSecured
@@ -20,7 +21,7 @@ import java.util.*
 class UserMutation(
     private val service: UserRepository,
     private val logger: KLogger,
-) : GraphQLMutationResolver {
+) : GraphQLMutationResolver, ITokenImpl {
 
     @LoginSecured
     suspend fun createUser(input: CreateUserInput, environment: DataFetchingEnvironment): Optional<User> {
@@ -83,6 +84,11 @@ class UserMutation(
     @AdminSecured
     suspend fun updatePhoto(input: ApplicationPart, environment: DataFetchingEnvironment): Optional<User> {
         return service.updatePhoto(input = input, environment = environment)
+    }
+
+    @AdminSecured
+    suspend fun removePhoto(input: UUID, environment: DataFetchingEnvironment): Optional<User> {
+        return service.removePhoto(input = input, token = readToken(environment = environment))
     }
 
 }

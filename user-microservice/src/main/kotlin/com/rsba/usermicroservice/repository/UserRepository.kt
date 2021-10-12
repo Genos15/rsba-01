@@ -51,6 +51,6 @@ interface UserRepository : AbstractCRUDRepository<User, CreateUserInput, CreateA
     fun retrievePhoto(input: UUID): Mono<InputStream>
 
     suspend fun updatePhoto(input: Part, environment: DataFetchingEnvironment): Optional<User>
-
+    suspend fun removePhoto(input: UUID, token: UUID): Optional<User>
 
 }

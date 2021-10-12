@@ -46,4 +46,6 @@ object UserDBQueries {
     fun editUserProfile(input: EditUserInput, token: UUID) =
         "SELECT on_edit_user_profile('${Json.encodeToString(input)}', '$token')"
 
+    fun removeUserPhotoByPhotoId(input: UUID, token: UUID) =
+        "SELECT on_remove_user_photo_by_photo_id('$input', '$token')"
 }

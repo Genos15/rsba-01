@@ -16,7 +16,7 @@ interface PhotoRepository {
     suspend fun edit(part: Part, environment: DataFetchingEnvironment): Mono<Optional<UUID>>
 
     @Throws(RuntimeException::class)
-    suspend fun delete(input: UUID, token: UUID): Boolean
+    fun delete(input: UUID, token: UUID): Mono<Boolean>
 
     fun retrievePhoto(id: UUID): Mono<ReactiveGridFsResource>
 }

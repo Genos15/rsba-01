@@ -1,7 +1,7 @@
 package com.rsba.usermicroservice.service
 
 import com.rsba.usermicroservice.repository.PhotoRepository
-import com.rsba.usermicroservice.service.implementation.files.AddPhotoImpl
+import com.rsba.usermicroservice.service.implementation.files.UpdatePhotoImpl
 import com.rsba.usermicroservice.service.implementation.files.RetrieveFileImpl
 import graphql.schema.DataFetchingEnvironment
 import org.springframework.data.mongodb.gridfs.ReactiveGridFsOperations
@@ -12,21 +12,19 @@ import java.util.*
 import javax.servlet.http.Part
 
 @Service
-class PhotoService(private val database: ReactiveGridFsOperations) : PhotoRepository, AddPhotoImpl, RetrieveFileImpl {
+class PhotoService(private val database: ReactiveGridFsOperations) : PhotoRepository, UpdatePhotoImpl,
+    RetrieveFileImpl {
     /**
      * @param environment the data wrapper GraphQL engine uses to keep request metadata
      * @return {@link Optional<UUID>} url id of a saved file
      */
     override fun addPhoto(environment: DataFetchingEnvironment): Mono<Optional<UUID>> =
-        addPhotoFn(database = database, environment = environment)
+        fnAddPhoto(database = database, environment = environment)
 
     override suspend fun edit(part: Part, environment: DataFetchingEnvironment): Mono<Optional<UUID>> =
-        editPhotoFn(database = database, part = part, environment = environment)
+        fnEditPhoto(database = database, part = part, environment = environment)
 
-
-    override suspend fun delete(input: UUID, token: UUID): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun delete(input: UUID, token: UUID): Mono<Boolean> = fnDeletePhoto(database = database, filename = input)
 
     /**
      * @param id the unique reference of the photo file
