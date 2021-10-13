@@ -42,6 +42,14 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="rs.feedback.production">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/notification-microservice" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="rs.orders.components.development">
         <serverdata>
           <mappings>

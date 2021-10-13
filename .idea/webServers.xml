@@ -52,16 +52,23 @@
         </fileTransfer>
       </webServer>
       <webServer id="2c8bee55-69c3-47c6-9338-a44e98c4d34b" name="rs.users.notification.production">
-        <fileTransfer accessType="SFTP" host="157.230.29.190" port="22" sshConfigId="815da69b-a9dc-474a-9177-4b6d63c584da" sshConfig="rs.users.notification.prod.source">
+        <fileTransfer rootFolder="/home/rsba-01" accessType="SFTP" host="157.230.29.190" port="22" sshConfigId="815da69b-a9dc-474a-9177-4b6d63c584da" sshConfig="rs.users.notification.prod.source">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>
       <webServer id="798aab87-0bb9-4272-b341-e7cfb3253539" name="rs.orders.components.production">
-        <fileTransfer accessType="SFTP" host="159.89.9.131" port="22" sshConfigId="81caf1d9-dc0b-46af-8be5-cb1a24cb1d4b" sshConfig="rs.orders.components.prod.source">
+        <fileTransfer rootFolder="/home/rsba-01" accessType="SFTP" host="159.89.9.131" port="22" sshConfigId="81caf1d9-dc0b-46af-8be5-cb1a24cb1d4b" sshConfig="rs.orders.components.prod.source">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="04acea0d-9caf-46c3-a4bc-34c125ddd09b" name="rs.feedback.production">
+        <fileTransfer rootFolder="/home/projects/services/rsba-01" accessType="SFTP" host="46.101.177.133" port="22" sshConfigId="3bd579ac-6d14-4a7b-b0b3-2d80eed7b146" sshConfig="rs.feedback.prod.source">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>
@@ -84,6 +91,7 @@
           <name value="rs.database.production" />
           <name value="rs.users.notification.production" />
           <name value="rs.orders.components.production" />
+          <name value="rs.feedback.production" />
         </servers>
       </group>
     </groups>

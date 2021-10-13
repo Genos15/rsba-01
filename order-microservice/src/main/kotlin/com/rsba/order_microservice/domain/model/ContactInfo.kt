@@ -12,8 +12,8 @@ data class ContactInfo(
     val value: String,
     @Serializable(with = DateTimeSerializer::class) val createdAt: OffsetDateTime? = null,
     @Serializable(with = DateTimeSerializer::class) val editedAt: OffsetDateTime? = null,
-    val streetAddress: String,
-    val postalCode: String,
-    val city: String,
-    val stateProvince: String
+    val streetAddress: String? = null,
+    val postalCode: String? = null,
+    val city: String? = null,
+    val stateProvince: String? = null
 )

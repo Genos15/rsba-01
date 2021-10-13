@@ -37,7 +37,7 @@ type User {
     editedAt: DateTime
     lang:  String
     personalInfo: PersonalInfo
-    contactInfo: [ContactInfo!]
+    contactInfo: [ContactInfo]
 }
 
 type WorkingCenter {
