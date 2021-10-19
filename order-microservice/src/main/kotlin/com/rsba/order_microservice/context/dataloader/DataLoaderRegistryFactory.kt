@@ -65,7 +65,7 @@ class DataLoaderRegistryFactory(
 
         const val TYPE_OF_ORDER_DATALOADER = "TYPE_OF_ORDER_DATALOADER"
 
-        const val ITEM_IN_ITEM_DATALOADER = "TYPE_OF_ORDER_DATALOADER"
+        const val ITEM_IN_ITEM_DATALOADER = "ITEM_IN_ITEM_DATALOADER"
 
     }
 

@@ -174,7 +174,7 @@ class TaskService(private val logger: KLogger, private val database: DatabaseCli
         Flux.fromIterable(ids)
             .flatMap { id ->
                 return@flatMap database.sql(TaskDBQueries.myItem(taskId = id))
-                    .map { row, meta -> ItemDBHandler.one(row = row, meta = meta) }
+                    .map { row -> ItemDBHandler.one(row = row) }
                     .first()
                     .map { AbstractMap.SimpleEntry(id, it) }
             }

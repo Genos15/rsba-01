@@ -31,7 +31,7 @@
         </fileTransfer>
       </webServer>
       <webServer id="1c2e8eea-f527-4f0d-b8ae-dca1dbc3fb59" name="rs.orders.components.development">
-        <fileTransfer rootFolder="/home" accessType="SFTP" host="207.154.242.175" port="22" sshConfigId="b6a09bab-5c4e-4262-86b2-de1c7503577c" sshConfig="rs.orders.components.development.source">
+        <fileTransfer rootFolder="/home/projects/rsba-01" accessType="SFTP" host="207.154.242.175" port="22" sshConfigId="b6a09bab-5c4e-4262-86b2-de1c7503577c" sshConfig="rs.orders.components.development.source">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

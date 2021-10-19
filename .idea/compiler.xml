@@ -6,16 +6,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="feedback" />
         <module name="file-microservice" />
         <module name="discovery-ms" />
         <module name="order-microservice" />
         <module name="logging-microservice" />
-        <module name="gateway-microservice" />
+        <module name="gateway-demo" />
         <module name="notification-microservice" />
         <module name="monitor-ms" />
-        <module name="component-microservice" />
         <module name="user-microservice" />
-        <module name="feedback_micro" />
         <module name="getaway-ms" />
       </profile>
     </annotationProcessing>
@@ -27,8 +26,10 @@
       <module name="component-microservice" target="1.8" />
       <module name="discovery-microservice" target="1.8" />
       <module name="discovery-ms" target="1.8" />
+      <module name="feedback" target="1.8" />
       <module name="feedback_micro" target="1.8" />
       <module name="file-microservice" target="1.8" />
+      <module name="gateway-demo" target="1.8" />
       <module name="gateway-microservice" target="1.8" />
       <module name="getaway-ms" target="1.8" />
       <module name="logging-microservice" target="1.8" />
@@ -47,8 +48,10 @@
       <module name="component-microservice" options="-parameters" />
       <module name="discovery-microservice" options="-parameters" />
       <module name="discovery-ms" options="-parameters" />
+      <module name="feedback" options="-parameters" />
       <module name="feedback_micro" options="-parameters" />
       <module name="file-microservice" options="-parameters" />
+      <module name="gateway-demo" options="-parameters" />
       <module name="gateway-microservice" options="-parameters" />
       <module name="getaway-ms" options="-parameters" />
       <module name="logging-microservice" options="-parameters" />
