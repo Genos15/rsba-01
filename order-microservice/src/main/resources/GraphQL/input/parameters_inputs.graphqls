@@ -2,6 +2,7 @@ input ParameterInput {
     #this fields is mandatory when editing parameter
     id: ID
     name: String
+    description: String
     value: String
     #this fields is mandatory when creating new parameter
     type: ParameterType
