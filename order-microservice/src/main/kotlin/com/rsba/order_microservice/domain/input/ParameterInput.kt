@@ -12,6 +12,6 @@ data class ParameterInput(
     val description: String? = null,
     val value: String? = null,
     val type: ParameterType? = null,
-    @Serializable(with = UUIDSerializer::class) val hostId: UUID,
+    @Serializable(with = UUIDSerializer::class) val hostId: UUID? = null,
     @Serializable(with = UUIDSerializer::class) val orderId: UUID? = null
 )
