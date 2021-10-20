@@ -21,7 +21,7 @@ object ParameterQueries {
         "SELECT on_retrieve_parameters('$first', ${after?.let { "'$it'" }},'$token')"
 
     fun search(input: String, first: Int, after: UUID?, token: UUID) =
-        "SELECT on_search_parameters('$first', ${after?.let { "'$it'" }},'$token')"
+        "SELECT on_search_parameters('$input', '$first', ${after?.let { "'$it'" }},'$token')"
 
     fun retrieveByTaskId(taskId: UUID, token: UUID) =
         "SELECT on_retrieve_parameter_by_task_id('$taskId', '$token')"
