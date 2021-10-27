@@ -20,7 +20,8 @@ class DataLoaderRegistryFactory(
     private val forDepartment: DepartmentDataLoaderImpl,
     private val forWorkcenter: WorkCenterDataLoaderImpl,
     private val forWorklog: WorklogDataLoaderImpl,
-    private val _technology: TechnologyDataLoaderImpl
+    private val _technology: TechnologyDataLoaderImpl,
+    private val _parameter: ParameterDataLoaderImpl
 ) {
 
     companion object {
@@ -67,6 +68,7 @@ class DataLoaderRegistryFactory(
 
         const val ITEM_IN_ITEM_DATALOADER = "ITEM_IN_ITEM_DATALOADER"
 
+        const val POTENTIAL_VALUES_PARAMETER_DATALOADER = "POTENTIAL_VALUES_PARAMETER_DATALOADER"
     }
 
     fun create(instanceId: UUID): DataLoaderRegistry {
@@ -124,6 +126,11 @@ class DataLoaderRegistryFactory(
 
         registry.register(TYPE_OF_ORDER_DATALOADER, orderImpl.dataLoaderTypeOfOrder(userId = instanceId))
         registry.register(ITEM_IN_ITEM_DATALOADER, _item.dataLoaderItemAndItem(userId = instanceId))
+
+        registry.register(
+            POTENTIAL_VALUES_PARAMETER_DATALOADER,
+            _parameter.dataLoaderPotentialValuesOfParameter(userId = instanceId)
+        )
         return registry
     }
 

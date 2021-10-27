@@ -10,5 +10,6 @@ data class Parameter(
     val name: String,
     val description: String? = null,
     val value: String,
-    val type: ParameterType? = null
+    val type: ParameterType? = null,
+    val potentialValues: List<String>? = emptyList()
 )

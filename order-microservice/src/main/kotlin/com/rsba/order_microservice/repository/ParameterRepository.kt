@@ -14,4 +14,8 @@ interface ParameterRepository {
     suspend fun retrieveByTaskId(taskId: UUID, token: UUID): List<Parameter>
     suspend fun retrieveByItemId(itemId: UUID, token: UUID): List<Parameter>
 
+    suspend fun myPotentialValues(
+        ids: Set<UUID>,
+        userId: UUID,
+    ): Map<UUID, List<String>>
 }

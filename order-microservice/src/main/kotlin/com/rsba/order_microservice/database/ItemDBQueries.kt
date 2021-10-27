@@ -4,10 +4,12 @@ package  com.rsba.order_microservice.database
 import com.rsba.order_microservice.domain.input.ItemAndItemInput
 import com.rsba.order_microservice.domain.model.Item
 import com.rsba.order_microservice.domain.model.OrderAndItem
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.util.*
 
+@OptIn(ExperimentalSerializationApi::class)
 object ItemDBQueries {
     fun retrieveMyOperations(itemId: UUID) =
         "SELECT on_retrieve_operations_by_item_id('$itemId')"

@@ -9,4 +9,5 @@ type Parameter {
     description: String
     value: String!
     type: ParameterType
+    potentialValues: [String]
 }

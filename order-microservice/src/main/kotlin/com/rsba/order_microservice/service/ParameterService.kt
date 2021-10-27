@@ -4,13 +4,17 @@ import com.rsba.order_microservice.domain.input.ParameterInput
 import com.rsba.order_microservice.domain.model.Parameter
 import com.rsba.order_microservice.repository.ParameterRepository
 import com.rsba.order_microservice.service.implementation.parameters.EditParameterImpl
+import com.rsba.order_microservice.service.implementation.parameters.GetPotentialValuesOfParameterUseCase
 import com.rsba.order_microservice.service.implementation.parameters.RetrieveParameterImpl
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class ParameterService(private val database: DatabaseClient) : ParameterRepository,
+class ParameterService(
+    private val database: DatabaseClient,
+    private val getPotentialValuesOfParameterUseCase: GetPotentialValuesOfParameterUseCase
+) : ParameterRepository,
     EditParameterImpl, RetrieveParameterImpl {
 
     override suspend fun createOrEdit(input: ParameterInput, token: UUID): Optional<Parameter> =
@@ -33,5 +37,10 @@ class ParameterService(private val database: DatabaseClient) : ParameterReposito
 
     override suspend fun retrieveByItemId(itemId: UUID, token: UUID): List<Parameter> =
         retrieveParametersByItemId(itemId = itemId, token = token, database = database)
+
+    override suspend fun myPotentialValues(
+        ids: Set<UUID>,
+        userId: UUID,
+    ): Map<UUID, List<String>> = getPotentialValuesOfParameterUseCase(database = database, ids = ids)
 
 }

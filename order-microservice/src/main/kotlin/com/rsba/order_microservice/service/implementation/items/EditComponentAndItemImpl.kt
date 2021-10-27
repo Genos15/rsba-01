@@ -17,7 +17,9 @@ interface EditComponentAndItemImpl {
             .first()
             .onErrorResume {
                 println { "addItemAndItemImplFn = ${it.message}" }
-                throw CustomGraphQLError(message = "НЕВОЗМОЖНО ПОЛУЧИТЬ ССЫЛКУ НА СЛЕДУЮЩИЙ ЗАКАЗ. ПОЖАЛУЙСТА, СВЯЖИТЕСЬ СО СЛУЖБОЙ ПОДДЕРЖКИ")
+                if (it is CustomGraphQLError)
+                    throw CustomGraphQLError(message = "НЕВОЗМОЖНО ПОЛУЧИТЬ ССЫЛКУ НА СЛЕДУЮЩИЙ ЗАКАЗ. ПОЖАЛУЙСТА, СВЯЖИТЕСЬ СО СЛУЖБОЙ ПОДДЕРЖКИ")
+                else throw it
             }
             .log()
             .awaitFirst()

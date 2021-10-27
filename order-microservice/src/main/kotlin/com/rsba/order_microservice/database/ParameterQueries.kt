@@ -2,10 +2,12 @@ package  com.rsba.order_microservice.database
 
 
 import com.rsba.order_microservice.domain.input.ParameterInput
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.util.*
 
+@OptIn(ExperimentalSerializationApi::class)
 object ParameterQueries {
 
     fun createOrEdit(input: ParameterInput, token: UUID) =
@@ -28,4 +30,7 @@ object ParameterQueries {
 
     fun retrieveByItemId(itemId: UUID, token: UUID) =
         "SELECT on_retrieve_parameter_by_item_id('$itemId', '$token')"
+
+    fun myPotentialValues(id: UUID, token: UUID) =
+        "SELECT on_retrieve_potential_value_parameter_by_id('$id', '$token')"
 }
