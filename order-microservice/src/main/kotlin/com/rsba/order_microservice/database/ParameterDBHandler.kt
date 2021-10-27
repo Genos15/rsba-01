@@ -1,28 +1,21 @@
 package  com.rsba.order_microservice.database
 
+import com.rsba.order_microservice.configuration.json.JsonHandler
 import com.rsba.order_microservice.domain.model.Parameter
 import io.r2dbc.spi.Row
 import io.r2dbc.spi.RowMetadata
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import java.util.*
 
-
+@OptIn(ExperimentalSerializationApi::class)
 object ParameterDBHandler {
-
-    private val jsonHandler = Json {
-        ignoreUnknownKeys = true
-        isLenient = true
-        prettyPrint = true
-        encodeDefaults = true
-        classDiscriminator = "#class"
-    }
 
     fun all(row: Row?, meta: RowMetadata? = null): List<Parameter> = try {
         if (row != null) {
             val json = row.get(0, String::class.java)
             if (json != null) {
-                jsonHandler.decodeFromString("""$json""")
+                JsonHandler().decodeFromString("""$json""")
             } else {
                 mutableListOf()
             }
@@ -39,7 +32,7 @@ object ParameterDBHandler {
             val json = row.get(0, String::class.java)
             if (json != null) {
                 Optional.ofNullable(
-                    jsonHandler.decodeFromString<List<Parameter>>("""$json""").firstOrNull()
+                    JsonHandler().decodeFromString<List<Parameter>>("""$json""").firstOrNull()
                 )
             } else {
                 Optional.empty()

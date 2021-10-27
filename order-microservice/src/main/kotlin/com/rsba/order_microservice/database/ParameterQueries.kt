@@ -28,6 +28,9 @@ object ParameterQueries {
     fun retrieveByTaskId(taskId: UUID, token: UUID) =
         "SELECT on_retrieve_parameter_by_task_id('$taskId', '$token')"
 
+    fun retrieveById(id: UUID, token: UUID) =
+        "SELECT on_retrieve_parameter_by_id('$id', '$token')"
+
     fun retrieveByItemId(itemId: UUID, token: UUID) =
         "SELECT on_retrieve_parameter_by_item_id('$itemId', '$token')"
 

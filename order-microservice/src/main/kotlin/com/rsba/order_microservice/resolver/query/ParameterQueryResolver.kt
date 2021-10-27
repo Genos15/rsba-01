@@ -20,33 +20,18 @@ class ParameterQueryResolver(
     val cursorUtil: CursorUtil,
     val service: ParameterRepository,
     val logger: KLogger
-) : GraphQLQueryResolver, ITokenImpl {
+) : GraphQLQueryResolver, ITokenImpl, GenericRetrieveConnection(myLogger = logger) {
 
     @AdminSecured
     suspend fun retrieveAllParameters(
         first: Int,
         after: UUID? = null,
         environment: DataFetchingEnvironment
-    ): Connection<Parameter>? {
-        logger.warn { "retrieveAllParameters" }
-        val edges: List<Edge<Parameter>> =
-            service.retrieve(
-                first = first,
-                after = after,
-                token = readToken(environment = environment)
-            ).map {
-                return@map DefaultEdge(it, cursorUtil.createCursorWith(it.id))
-            }.take(first)
-
-        val pageInfo = DefaultPageInfo(
-            cursorUtil.firstCursorFrom(edges),
-            cursorUtil.lastCursorFrom(edges),
-            after != null,
-            edges.size >= first
-        )
-
-        return DefaultConnection(edges, pageInfo)
-    }
+    ): Connection<Parameter>? = retrieveFn(
+        entry = service.retrieve(token = readToken(environment = environment), first = first, after = after),
+        first = first,
+        after = after
+    )
 
     @AdminSecured
     suspend fun searchParameters(
@@ -54,25 +39,16 @@ class ParameterQueryResolver(
         first: Int,
         after: UUID? = null,
         environment: DataFetchingEnvironment
-    ): Connection<Parameter>? {
-        val edges: List<Edge<Parameter>> =
-            service.search(
-                input = input,
-                first = first,
-                after = after,
-                token = readToken(environment = environment)
-            ).map {
-                return@map DefaultEdge(it, cursorUtil.createCursorWith(it.id))
-            }.take(first)
-
-        val pageInfo = DefaultPageInfo(
-            cursorUtil.firstCursorFrom(edges),
-            cursorUtil.lastCursorFrom(edges),
-            after != null,
-            edges.size >= first
-        )
-        return DefaultConnection(edges, pageInfo)
-    }
+    ): Connection<Parameter>? = retrieveFn(
+        entry = service.search(
+            token = readToken(environment = environment),
+            first = first,
+            after = after,
+            input = input
+        ),
+        first = first,
+        after = after
+    )
 
     @AdminSecured
     suspend fun retrieveParametersByTaskId(taskId: UUID, environment: DataFetchingEnvironment): List<Parameter> =
@@ -81,4 +57,8 @@ class ParameterQueryResolver(
     @AdminSecured
     suspend fun retrieveParametersByItemId(itemId: UUID, environment: DataFetchingEnvironment): List<Parameter> =
         service.retrieveByItemId(itemId = itemId, token = readToken(environment = environment))
+
+    @AdminSecured
+    suspend fun retrieveParameterById(id: UUID, environment: DataFetchingEnvironment): Optional<Parameter> =
+        service.retrieveById(id = id, token = readToken(environment = environment))
 }

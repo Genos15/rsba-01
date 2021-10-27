@@ -54,8 +54,10 @@ type Query {
 
     retrieveOrderTypeById (id: ID!): OrderType
 
+    #ElkGraph data
     constructElkGraph(input: ElkGraphInput!): ElkGraphData!
 
+    #Parameters
     retrieveAllParameters (first: Int!, after: ID): ParameterConnection @connection(for: "Parameter")
 
     searchParameters (input: String!, first: Int!, after: ID): ParameterConnection @connection(for: "Parameter")
@@ -63,4 +65,7 @@ type Query {
     retrieveParametersByTaskId (taskId: ID!): [Parameter]!
 
     retrieveParametersByItemId (itemId: ID!): [Parameter]!
+
+    retrieveParameterById (id: ID!): Parameter
+
 }

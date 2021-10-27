@@ -6,12 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="feedback" />
         <module name="file-microservice" />
         <module name="discovery-ms" />
         <module name="order-microservice" />
         <module name="logging-microservice" />
-        <module name="gateway-demo" />
         <module name="notification-microservice" />
         <module name="monitor-ms" />
         <module name="user-microservice" />

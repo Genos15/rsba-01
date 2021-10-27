@@ -18,4 +18,6 @@ interface ParameterRepository {
         ids: Set<UUID>,
         userId: UUID,
     ): Map<UUID, List<String>>
+
+    suspend fun retrieveById(id: UUID, token: UUID): Optional<Parameter>
 }
