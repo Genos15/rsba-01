@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/file-microservice/file-microservice.iml" filepath="$PROJECT_DIR$/file-microservice/file-microservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/gateway-demo/gateway-demo.iml" filepath="$PROJECT_DIR$/gateway-demo/gateway-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/gateway-demo/gateway-microservice.iml" filepath="$PROJECT_DIR$/gateway-demo/gateway-microservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gateway_formentor/gateway_formentor.iml" filepath="$PROJECT_DIR$/gateway_formentor/gateway_formentor.iml" />
       <module fileurl="file://$PROJECT_DIR$/gateway-ms/getaway-ms.iml" filepath="$PROJECT_DIR$/gateway-ms/getaway-ms.iml" />
       <module fileurl="file://$PROJECT_DIR$/logging-microservice/logging-microservice.iml" filepath="$PROJECT_DIR$/logging-microservice/logging-microservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/monitor-ms/monitor-ms.iml" filepath="$PROJECT_DIR$/monitor-ms/monitor-ms.iml" />

@@ -22,7 +22,8 @@ class ParameterMutation(private val service: ParameterRepository) : GraphQLMutat
     suspend fun addOrRemovePotentialValueToParameter(
         input: ParameterInput,
         environment: DataFetchingEnvironment
-    ): Optional<Parameter> = service.createOrEdit(input = input, token = readToken(environment = environment))
+    ): Optional<Parameter> =
+        service.addOrRemovePotentialValue(input = input, token = readToken(environment = environment))
 
     @AdminSecured
     suspend fun deleteParameter(input: UUID, environment: DataFetchingEnvironment): Boolean =

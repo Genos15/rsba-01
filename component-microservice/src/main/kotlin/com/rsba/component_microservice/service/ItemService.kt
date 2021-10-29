@@ -212,4 +212,5 @@ class ItemService(
 
     override suspend fun search(input: String, first: Int, after: UUID?, token: UUID): List<Item> =
         searchItemsImplFn(database = database, first = first, input = input, token = token, after = after)
+
 }

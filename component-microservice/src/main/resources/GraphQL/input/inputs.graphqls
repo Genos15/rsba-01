@@ -2,6 +2,7 @@ input CreateOrEditCategoryOfItemInput {
     id: ID
     name: String
     description: String
+    parentId: ID
 }
 
 input CreateOrEditItemInput {

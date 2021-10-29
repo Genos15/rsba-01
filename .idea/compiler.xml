@@ -6,14 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="file-microservice" />
-        <module name="discovery-ms" />
         <module name="order-microservice" />
-        <module name="logging-microservice" />
-        <module name="notification-microservice" />
-        <module name="monitor-ms" />
-        <module name="user-microservice" />
-        <module name="getaway-ms" />
+        <module name="gateway_formentor" />
+        <module name="component-microservice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -29,6 +24,7 @@
       <module name="file-microservice" target="1.8" />
       <module name="gateway-demo" target="1.8" />
       <module name="gateway-microservice" target="1.8" />
+      <module name="gateway_formentor" target="1.8" />
       <module name="getaway-ms" target="1.8" />
       <module name="logging-microservice" target="1.8" />
       <module name="monitor-ms" target="1.8" />
@@ -51,6 +47,7 @@
       <module name="file-microservice" options="-parameters" />
       <module name="gateway-demo" options="-parameters" />
       <module name="gateway-microservice" options="-parameters" />
+      <module name="gateway_formentor" options="-parameters" />
       <module name="getaway-ms" options="-parameters" />
       <module name="logging-microservice" options="-parameters" />
       <module name="monitor-ms" options="-parameters" />

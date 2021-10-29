@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/discovery-ms/src/main/kotlin" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/discovery-ms/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/feedback_micro/src/main/kotlin" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/file-microservice/src/main/kotlin" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/file-microservice/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/gateway-demo/src/main/kotlin" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/gateway-demo/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/gateway-ms/src/main/kotlin" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/gateway-ms/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/logging-microservice/src/main/kotlin" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/logging-microservice/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/monitor-ms/src/main/kotlin" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/monitor-ms/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/notification-microservice/src/main/kotlin" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/notification-microservice/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/component-microservice/src/main/kotlin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/component-microservice/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway_formentor/src/main/kotlin" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/order-microservice/src/main/kotlin" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/order-microservice/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/user-microservice/src/main/kotlin" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/user-microservice/src/main/resources" charset="UTF-8" />
   </component>
 </project>

@@ -3,17 +3,10 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/gateway-demo/pom.xml" />
         <option value="$PROJECT_DIR$/user-microservie/pom.xml" />
-        <option value="$PROJECT_DIR$/logging-microservice/pom.xml" />
-        <option value="$PROJECT_DIR$/notification-microservice/pom.xml" />
-        <option value="$PROJECT_DIR$/user-microservice/pom.xml" />
         <option value="$PROJECT_DIR$/order-microservice/pom.xml" />
-        <option value="$PROJECT_DIR$/file-microservice/pom.xml" />
-        <option value="$PROJECT_DIR$/discovery-ms/pom.xml" />
-        <option value="$PROJECT_DIR$/gateway-ms/pom.xml" />
-        <option value="$PROJECT_DIR$/monitor-ms/pom.xml" />
-        <option value="$PROJECT_DIR$/feedback_micro/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway_formentor/pom.xml" />
+        <option value="$PROJECT_DIR$/component-microservice/pom.xml" />
       </list>
     </option>
   </component>
