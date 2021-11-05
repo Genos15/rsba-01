@@ -1,7 +1,7 @@
 package com.rsba.component_microservice.resolver.suite
 
-import com.rsba.component_microservice.context.dataloader.DataLoaderRegistryFactory
-import com.rsba.component_microservice.domain.model.CategoryOfItem
+import com.rsba.component_microservice.data.context.dataloader.DataLoaderRegistryFactory
+import com.rsba.component_microservice.domain.model.ItemCategory
 import com.rsba.component_microservice.domain.model.Item
 import com.rsba.component_microservice.domain.model.Operation
 import graphql.kickstart.tools.GraphQLResolver
@@ -21,10 +21,10 @@ class ItemResolver(private val logger: KLogger) : GraphQLResolver<Item> {
         return dataLoader?.load(item.id) ?: CompletableFuture.completedFuture(null)
     }
 
-    fun category(item: Item, env: DataFetchingEnvironment): CompletableFuture<CategoryOfItem?>? {
+    fun category(item: Item, env: DataFetchingEnvironment): CompletableFuture<ItemCategory?>? {
         logger.warn { "+ItemResolver -> category" }
         val dataLoader =
-            env.getDataLoader<UUID, CategoryOfItem>(DataLoaderRegistryFactory.CATEGORY_OF_ITEM_IN_ITEM_DATALOADER)
+            env.getDataLoader<UUID, ItemCategory>(DataLoaderRegistryFactory.CATEGORY_OF_ITEM_IN_ITEM_DATALOADER)
         return dataLoader?.load(item.id) ?: CompletableFuture.completedFuture(null)
     }
 

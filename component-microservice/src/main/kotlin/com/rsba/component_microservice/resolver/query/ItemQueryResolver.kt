@@ -1,10 +1,9 @@
 package com.rsba.component_microservice.resolver.query
 
 import com.rsba.component_microservice.configuration.request_helper.CursorUtil
-import com.rsba.component_microservice.domain.model.CategoryOfItem
 import com.rsba.component_microservice.domain.model.Item
 import com.rsba.component_microservice.aspect.AdminSecured
-import com.rsba.component_microservice.repository.ItemRepository
+import com.rsba.component_microservice.domain.repository.ItemRepository
 import graphql.kickstart.tools.GraphQLQueryResolver
 import graphql.relay.*
 import org.springframework.stereotype.Component
@@ -95,27 +94,6 @@ class ItemQueryResolver(
 
         val edges: List<Edge<Item>> =
             service.onRetrieveItemHavingCategory(first = first, after = after, token = UUID.randomUUID())
-                .map { DefaultEdge(it, cursorUtil.createCursorWith(it.id)) }
-                .take(first)
-        val pageInfo = DefaultPageInfo(
-            cursorUtil.firstCursorFrom(edges),
-            cursorUtil.lastCursorFrom(edges),
-            after != null,
-            edges.size >= first
-        )
-        return DefaultConnection(edges, pageInfo)
-    }
-
-
-    @AdminSecured
-    suspend fun retrieveAllCategoryOfItem(
-        first: Int,
-        after: UUID? = null,
-        env: DataFetchingEnvironment? = null
-    ): Connection<CategoryOfItem>? {
-        logger.warn { "+ItemQueryResolver->retrieveAllCategoryOfItem" }
-        val edges: List<Edge<CategoryOfItem>> =
-            service.onRetrieveCategoryOfItem(first = first, after = after, token = UUID.randomUUID())
                 .map { DefaultEdge(it, cursorUtil.createCursorWith(it.id)) }
                 .take(first)
         val pageInfo = DefaultPageInfo(

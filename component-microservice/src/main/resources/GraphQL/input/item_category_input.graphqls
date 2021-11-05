@@ -1,0 +1,6 @@
+input ItemCategoryInput {
+    id: ID
+    name: String
+    description: String
+    children: [ID!]
+}

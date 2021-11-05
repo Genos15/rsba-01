@@ -1,0 +1,8 @@
+package com.rsba.component_microservice.domain.format
+
+object ModelTypeCase {
+    const val users = "users"
+    const val sellers = "sellers"
+    const val token_models = "token_models"
+    const val item_category = "item_category"
+}

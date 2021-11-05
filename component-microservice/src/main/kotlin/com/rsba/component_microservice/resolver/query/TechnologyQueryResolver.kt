@@ -2,9 +2,9 @@ package com.rsba.component_microservice.resolver.query
 
 import com.rsba.component_microservice.configuration.request_helper.CursorUtil
 import com.rsba.component_microservice.aspect.AdminSecured
-import com.rsba.component_microservice.context.token.TokenImpl
+import com.rsba.component_microservice.data.context.token.TokenImpl
 import com.rsba.component_microservice.domain.model.Technology
-import com.rsba.component_microservice.repository.TechnologyRepository
+import com.rsba.component_microservice.domain.repository.TechnologyRepository
 import graphql.kickstart.tools.GraphQLQueryResolver
 import graphql.relay.*
 import org.springframework.stereotype.Component

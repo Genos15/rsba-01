@@ -1,1 +1,12 @@
 scalar BigDecimal
+scalar DateTime
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type PageInfo {
+    hasPreviousPage: Boolean!
+    hasNextPage: Boolean!
+}

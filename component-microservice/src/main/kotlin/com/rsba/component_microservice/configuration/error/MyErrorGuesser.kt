@@ -1,6 +1,6 @@
 package com.rsba.component_microservice.configuration.error
 
- import com.rsba.component_microservice.exception.DuplicateLoginKeyError
+ import com.rsba.component_microservice.domain.exception.DuplicateLoginKeyError
  import graphql.GraphQLError
 import graphql.kickstart.execution.error.GenericGraphQLError
 import mu.KotlinLogging

@@ -1,6 +1,5 @@
 package com.rsba.component_microservice.configuration.caching
 
-import com.rsba.component_microservice.utils.CacheHelper
 import org.springframework.context.annotation.Configuration
 import org.springframework.cache.annotation.CachingConfigurerSupport
 import org.springframework.cache.CacheManager
@@ -12,10 +11,6 @@ class MultipleCacheManagerConfig : CachingConfigurerSupport() {
 
     @Bean
     fun concurrentCacheManager(): CacheManager {
-        return ConcurrentMapCacheManager(
-            CacheHelper.TOKEN_CACHE_NAME,
-            CacheHelper.USER_CACHE_NAME,
-            CacheHelper.EMAIL_CACHE_NAME
-        )
+        return ConcurrentMapCacheManager("USER-CACHED-RSBA")
     }
 }

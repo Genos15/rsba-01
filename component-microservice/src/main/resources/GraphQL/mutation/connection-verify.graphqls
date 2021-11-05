@@ -1,24 +1,9 @@
-type PageInfo {
-    hasPreviousPage: Boolean!
-    hasNextPage: Boolean!
-}
-
 type ItemEdge {
     cursor: String
     node: Item
 }
 type ItemConnection {
     edges: [ItemEdge]
-    pageInfo: PageInfo
-}
-
-type CategoryOfItemEdge {
-    cursor: String
-    node: CategoryOfItem
-}
-
-type CategoryOfItemConnection {
-    edges: [CategoryOfItemEdge]
     pageInfo: PageInfo
 }
 

@@ -1,0 +1,17 @@
+type ItemCategory {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: DateTime
+    editedAt: DateTime
+}
+
+type ItemCategoryEdge {
+    cursor: String
+    node: ItemCategory
+}
+
+type ItemCategoryConnection {
+    edges: [ItemCategoryEdge]
+    pageInfo: PageInfo
+}

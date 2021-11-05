@@ -10,15 +10,6 @@ type Group {
     isStaging: Boolean
 }
 
-type CategoryOfItem {
-    id: ID!
-    name: String!
-    description: String
-    createdAt: String
-    editedAt: String
-    creator: ID
-}
-
 type Item {
     id: ID!
     name: String!
@@ -28,7 +19,7 @@ type Item {
     editedAt: String
     creator: ID
     operations: [Operation]
-    category: CategoryOfItem
+    category: ItemCategory
     components: [Item]
 }
 

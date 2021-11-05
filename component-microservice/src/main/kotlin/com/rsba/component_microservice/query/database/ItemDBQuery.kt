@@ -1,6 +1,6 @@
 package com.rsba.component_microservice.query.database
 
-import com.rsba.component_microservice.domain.input.CreateOrEditCategoryOfItemInput
+import com.rsba.component_microservice.domain.input.ItemCategoryInput
 import com.rsba.component_microservice.domain.input.CreateOrEditItemInput
 import com.rsba.component_microservice.domain.input.ItemAndOperationInput
 import kotlinx.serialization.encodeToString
@@ -11,7 +11,7 @@ import java.util.*
 @Component
 class ItemDBQuery {
 
-    fun onCreateOrEditCategoryOfItemQuery(input: CreateOrEditCategoryOfItemInput, token: UUID) =
+    fun onCreateOrEditCategoryOfItemQuery(input: ItemCategoryInput, token: UUID) =
         "SELECT on_create_or_edit_category_of_item('${Json.encodeToString(input)}', '$token')"
 
     fun onDeleteCategoryOfItemQuery(input: UUID, token: UUID) =

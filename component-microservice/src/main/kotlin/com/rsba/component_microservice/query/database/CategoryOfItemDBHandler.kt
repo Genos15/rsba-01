@@ -1,6 +1,6 @@
 package  com.rsba.component_microservice.query.database
 
-import com.rsba.component_microservice.domain.model.CategoryOfItem
+import com.rsba.component_microservice.domain.model.ItemCategory
 import io.r2dbc.spi.Row
 import io.r2dbc.spi.RowMetadata
 import kotlinx.serialization.decodeFromString
@@ -18,7 +18,7 @@ object CategoryOfItemDBHandler {
         classDiscriminator = "#class"
     }
 
-    fun all(row: Row?): List<CategoryOfItem> = try {
+    fun all(row: Row?): List<ItemCategory> = try {
         if (row != null) {
             val json = row.get(0, String::class.java)
             if (json != null) {
@@ -35,12 +35,12 @@ object CategoryOfItemDBHandler {
     }
 
 
-    fun one(row: Row?): Optional<CategoryOfItem> = try {
+    fun one(row: Row?): Optional<ItemCategory> = try {
         if (row != null) {
             val json = row.get(0, String::class.java)
             if (json != null) {
                 Optional.ofNullable(
-                    jsonHandler.decodeFromString<List<CategoryOfItem>>("""$json""").firstOrNull()
+                    jsonHandler.decodeFromString<List<ItemCategory>>("""$json""").firstOrNull()
                 )
             } else {
                 Optional.empty()

@@ -1,7 +1,7 @@
 package com.rsba.component_microservice.domain.input
 
 import com.rsba.component_microservice.configuration.scalar.BigDecimalSerializer
-import com.rsba.component_microservice.deserializer.UUIDSerializer
+import com.rsba.component_microservice.configuration.deserializer.UUIDSerializer
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 import java.util.*

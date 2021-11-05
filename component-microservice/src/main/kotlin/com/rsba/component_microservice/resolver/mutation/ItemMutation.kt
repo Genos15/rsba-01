@@ -1,11 +1,10 @@
 package com.rsba.component_microservice.resolver.mutation
 
 import  com.rsba.component_microservice.domain.input.*
-import com.rsba.component_microservice.domain.model.CategoryOfItem
 import com.rsba.component_microservice.domain.model.Item
 import  com.rsba.component_microservice.aspect.AdminSecured
-import com.rsba.component_microservice.context.token.TokenImpl
-import com.rsba.component_microservice.repository.ItemRepository
+import com.rsba.component_microservice.data.context.token.TokenImpl
+import com.rsba.component_microservice.domain.repository.ItemRepository
 import graphql.kickstart.tools.GraphQLMutationResolver
 import graphql.schema.DataFetchingEnvironment
 import mu.KLogger
@@ -20,15 +19,6 @@ class ItemMutation(
 ) : GraphQLMutationResolver {
 
     @AdminSecured
-    suspend fun createOrEditCategoryOfItem(
-        input: CreateOrEditCategoryOfItemInput,
-        environment: DataFetchingEnvironment
-    ): Optional<CategoryOfItem> {
-        logger.warn { "+ItemMutation -> createOrEditCategoryOfItem" }
-        return service.createOrEditCategoryOfItem(input = input, token = tokenImpl.read(environment = environment))
-    }
-
-    @AdminSecured
     suspend fun createOrEditItem(input: CreateOrEditItemInput, environment: DataFetchingEnvironment): Optional<Item> {
         logger.warn { "+ItemMutation -> createOrEditItem" }
         return service.createOrEditItem(input = input, token = tokenImpl.read(environment = environment))
@@ -38,12 +28,6 @@ class ItemMutation(
     suspend fun deleteItem(input: UUID, environment: DataFetchingEnvironment): Int {
         logger.warn { "+ItemMutation -> deleteItem" }
         return service.deleteItem(input = input, token = tokenImpl.read(environment = environment))
-    }
-
-    @AdminSecured
-    suspend fun deleteCategoryOfItem(input: UUID, environment: DataFetchingEnvironment): Int {
-        logger.warn { "+ItemMutation -> deleteCategoryOfItem" }
-        return service.deleteCategoryOfItem(input = input, token = tokenImpl.read(environment = environment))
     }
 
     @AdminSecured

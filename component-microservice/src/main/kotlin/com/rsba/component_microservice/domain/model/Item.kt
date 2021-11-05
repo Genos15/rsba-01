@@ -1,6 +1,6 @@
 package com.rsba.component_microservice.domain.model
 
-import com.rsba.component_microservice.deserializer.UUIDSerializer
+import com.rsba.component_microservice.configuration.deserializer.UUIDSerializer
 import kotlinx.serialization.Serializable
 import java.util.*
 
@@ -14,6 +14,6 @@ data class Item(
     val editedAt: String? = null,
     @Serializable(with = UUIDSerializer::class) val creator: UUID? = null,
     val operations: List<Operation>? = listOf(),
-    val category: CategoryOfItem? = null,
+    val category: ItemCategory? = null,
     val components: List<Item>? = listOf()
 )

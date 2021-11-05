@@ -2,9 +2,9 @@ package com.rsba.component_microservice.resolver.mutation
 
 import  com.rsba.component_microservice.domain.input.*
 import  com.rsba.component_microservice.aspect.AdminSecured
-import com.rsba.component_microservice.context.token.TokenImpl
+import com.rsba.component_microservice.data.context.token.TokenImpl
 import com.rsba.component_microservice.domain.model.Technology
-import com.rsba.component_microservice.repository.TechnologyRepository
+import com.rsba.component_microservice.domain.repository.TechnologyRepository
 import graphql.kickstart.tools.GraphQLMutationResolver
 import graphql.schema.DataFetchingEnvironment
 import mu.KLogger

@@ -1,6 +1,6 @@
 package com.rsba.component_microservice.query.database
 
-import com.rsba.component_microservice.domain.model.CategoryOfItem
+import com.rsba.component_microservice.domain.model.ItemCategory
 import com.rsba.component_microservice.domain.model.Item
 import io.r2dbc.spi.Row
 import io.r2dbc.spi.RowMetadata
@@ -31,7 +31,7 @@ class ItemDataHandler(private val logger: KLogger) {
         mutableListOf()
     }
 
-    fun allCategory(row: Row?, meta: RowMetadata?): MutableList<CategoryOfItem> = try {
+    fun allCategory(row: Row?, meta: RowMetadata?): MutableList<ItemCategory> = try {
         logger.warn { "+----- ItemDataHandler -> allCategory" }
         if (row != null) {
             val json = row.get(0, String::class.java)
@@ -66,13 +66,13 @@ class ItemDataHandler(private val logger: KLogger) {
         Optional.empty()
     }
 
-    fun oneCategory(row: Row?, meta: RowMetadata?): Optional<CategoryOfItem> = try {
+    fun oneCategory(row: Row?, meta: RowMetadata?): Optional<ItemCategory> = try {
         logger.warn { "+----- ItemDataHandler -> onCategory" }
         if (row != null) {
             val json = row.get(0, String::class.java)
             logger.warn { json }
             if (json != null) {
-                Optional.ofNullable(Json{ ignoreUnknownKeys = true  }.decodeFromString<List<CategoryOfItem>>("""$json""").firstOrNull())
+                Optional.ofNullable(Json{ ignoreUnknownKeys = true  }.decodeFromString<List<ItemCategory>>("""$json""").firstOrNull())
             } else {
                 Optional.empty()
             }
