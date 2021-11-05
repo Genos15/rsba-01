@@ -15,7 +15,6 @@ import java.util.*
 @Component
 @OptIn(ExperimentalSerializationApi::class)
 class CreateOrEditUseCaseImpl : CreateOrEditUseCase<ItemCategoryInput, ItemCategory> {
-
     override suspend fun invoke(
         database: DatabaseClient,
         input: ItemCategoryInput,
