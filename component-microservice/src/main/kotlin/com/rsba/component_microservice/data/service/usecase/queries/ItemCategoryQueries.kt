@@ -50,7 +50,7 @@ object ItemCategoryQueries : IBaseQuery<ItemCategoryInput, ItemCategoryDao> {
 
     fun retrieveChildren(id: UUID, first: Int, after: UUID?, token: UUID): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<ItemCategoryDao>(customQuery = "_on_retrieve_children"))
-        append("($id,")
+        append("('$id',")
         append("$first,")
         append("${after?.let { "'$it'" }},")
         append("'$token')")
@@ -58,7 +58,7 @@ object ItemCategoryQueries : IBaseQuery<ItemCategoryInput, ItemCategoryDao> {
 
     fun retrieveChildren(id: UUID, token: UUID): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<ItemCategoryDao>(customQuery = "_on_retrieve_children_dataloader"))
-        append("($id,")
+        append("('$id',")
         append("'$token')")
     }
 
