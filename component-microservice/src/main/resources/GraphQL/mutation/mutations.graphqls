@@ -1,30 +1,35 @@
 type Mutation {
 
     #--------------- item ----------------
+
     createOrEditItem(input: ItemInput!): Item
     attachSubItemToItem(input: ItemInput!): Item
     detachSubItemToItem(input: ItemInput!): Item
-    attachOperationToItem(input: ItemAndOperationInput!): Item
-    detachOperationToItem(input: ItemAndOperationInput!): Item
+    attachOperationToItem(input: ItemInput!): Item
+    detachOperationToItem(input: ItemInput!): Item
     attachTechnologyWithItem(input: ItemTechnologyInput!): Item
-    deleteItem(input: ID!): Int
+    deleteItem(input: ID!): Boolean
 
     #--------------- operation ----------------
+
     createOrEditOperation(input: CreateOrEditOperationInput!): Operation
     deleteOperation(input: ID!): Int
     attachOperationToGroup(input: OperationAndGroupInput!): Operation
     detachOperationToGroup(input: OperationAndGroupInput!): Operation
 
     #--------------- technology ----------------
+
     createOrEditTechnology(input: CreateOrEditTechnologyInput!): Technology
     deleteTechnology(input: ID!): Boolean
     unpinOperationInTechnology(input: [TechnologyAndOperation]): Technology
 
-    #---------------- item's categories --------------
+    #--------------- item's categories --------------
+
     createOrEditItemCategory(input: ItemCategoryInput!): ItemCategory
     deleteItemCategory(input: ID!): Boolean
 
-    #---------------- old version ----------------
+    #--------------- old version ----------------
+
     importItemFromJsonFile: Boolean
     importTechnologyFromJsonFile: Boolean
     importOperationFromJsonFile: Boolean

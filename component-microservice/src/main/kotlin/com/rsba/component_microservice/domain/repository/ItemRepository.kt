@@ -2,7 +2,6 @@ package com.rsba.component_microservice.domain.repository
 
 import com.rsba.component_microservice.domain.model.ItemCategory
 import com.rsba.component_microservice.domain.input.ItemInput
-import com.rsba.component_microservice.domain.input.ItemAndOperationInput
 import com.rsba.component_microservice.domain.input.ItemTechnologyInput
 import com.rsba.component_microservice.domain.model.Item
 import com.rsba.component_microservice.domain.model.Operation
@@ -21,11 +20,17 @@ interface ItemRepository {
 
     suspend fun search(input: String, first: Int, after: UUID?, token: UUID): List<Item>
 
-    suspend fun toAttachOperation(input: ItemAndOperationInput, token: UUID): Optional<Item>
+    suspend fun toAttachOperation(input: ItemInput, token: UUID): Optional<Item>
 
-    suspend fun toDetachOperation(input: ItemAndOperationInput, token: UUID): Optional<Item>
+    suspend fun toAttachSubItem(input: ItemInput, token: UUID): Optional<Item>
+
+    suspend fun toDetachOperation(input: ItemInput, token: UUID): Optional<Item>
+
+    suspend fun toDetachSubItem(input: ItemInput, token: UUID): Optional<Item>
 
     suspend fun operations(ids: Set<UUID>): Map<UUID, List<Operation>>
+
+    suspend fun components(ids: Set<UUID>): Map<UUID, List<Item>>
 
     suspend fun category(ids: Set<UUID>): Map<UUID, Optional<ItemCategory>>
 

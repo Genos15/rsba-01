@@ -2,15 +2,17 @@ package com.rsba.component_microservice.data.service.implementations
 
 import com.rsba.component_microservice.data.context.CustomGraphQLContext
 import com.rsba.component_microservice.domain.input.ItemInput
-import com.rsba.component_microservice.domain.input.ItemAndOperationInput
 import com.rsba.component_microservice.domain.input.ItemTechnologyInput
 import com.rsba.component_microservice.domain.model.*
 import com.rsba.component_microservice.query.database.*
 import com.rsba.component_microservice.domain.repository.ItemRepository
 import com.rsba.component_microservice.domain.usecase.common.*
+import com.rsba.component_microservice.domain.usecase.custom.item.AttachOperationToItemUseCase
+import com.rsba.component_microservice.domain.usecase.custom.item.AttachSubItemToItemUseCase
+import com.rsba.component_microservice.domain.usecase.custom.item.DetachOperationToItemUseCase
+import com.rsba.component_microservice.domain.usecase.custom.item.DetachSubItemToItemUseCase
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.reactive.awaitFirstOrElse
-import mu.KLogger
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import org.json.simple.parser.JSONParser
@@ -25,13 +27,15 @@ import java.util.*
 @Service
 class ItemService(
     private val database: DatabaseClient,
-    private val queryHelper: ItemDBQuery,
-    private val logger: KLogger,
     private val createOrEditUseCase: CreateOrEditUseCase<ItemInput, Item>,
     private val deleteUseCase: DeleteUseCase<Item>,
     private val findUseCase: FindUseCase<Item>,
     private val retrieveUseCase: RetrieveUseCase<Item>,
     private val searchUseCase: SearchUseCase<Item>,
+    private val attachOperationUseCase: AttachOperationToItemUseCase,
+    private val attachSubItemUseCase: AttachSubItemToItemUseCase,
+    private val detachSubItemUseCase: DetachSubItemToItemUseCase,
+    private val detachOperationUseCase: DetachOperationToItemUseCase,
 ) : ItemRepository {
 
     override suspend fun toCreateOrEdit(input: ItemInput, token: UUID): Optional<Item> =
@@ -46,55 +50,29 @@ class ItemService(
     override suspend fun retrieve(first: Int, after: UUID?, token: UUID): List<Item> =
         retrieveUseCase(database = database, first = first, after = after, token = token)
 
-    override suspend fun toAttachOperation(input: ItemAndOperationInput, token: UUID): Optional<Item> =
-        database.sql(queryHelper.onAttachOperationWithItem(input = input, token = token))
-            .map { row -> ItemDBHandler2.one(row = row) }
-            .first()
-            .awaitFirstOrElse { Optional.empty() }
+    override suspend fun toAttachOperation(input: ItemInput, token: UUID): Optional<Item> =
+        attachOperationUseCase(database = database, input = input, token = token)
 
-    override suspend fun toDetachOperation(input: ItemAndOperationInput, token: UUID): Optional<Item> =
-        database.sql(queryHelper.onDetachOperationWithItem(input = input, token = token))
-            .map { row -> ItemDBHandler2.one(row = row) }
-            .first()
-            .awaitFirstOrElse { Optional.empty() }
+    override suspend fun toAttachSubItem(input: ItemInput, token: UUID): Optional<Item> =
+        attachSubItemUseCase(database = database, input = input, token = token)
+
+    override suspend fun toDetachOperation(input: ItemInput, token: UUID): Optional<Item> =
+        detachOperationUseCase(database = database, input = input, token = token)
+
+    override suspend fun toDetachSubItem(input: ItemInput, token: UUID): Optional<Item> =
+        detachSubItemUseCase(database = database, input = input, token = token)
 
     override suspend fun operations(ids: Set<UUID>): Map<UUID, List<Operation>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun components(ids: Set<UUID>): Map<UUID, List<Item>> {
         TODO("Not yet implemented")
     }
 
     override suspend fun category(ids: Set<UUID>): Map<UUID, Optional<ItemCategory>> {
         TODO("Not yet implemented")
     }
-
-//    override suspend fun operations(ids: Set<UUID>): Map<UUID, List<Operation>> = Flux.fromIterable(ids)
-//        .flatMap { id ->
-//            return@flatMap database.sql(queryHelper.onRetrieveOperationsByItemId(itemId = id))
-//                .map { row -> OperationDBHandler2.all(row = row) }
-//                .first()
-//                .map { AbstractMap.SimpleEntry(id, it.toMutableList()) }
-//        }
-//        .collect(Collectors.toList())
-//        .map {
-//            val map = mutableMapOf<UUID, MutableList<Operation>>()
-//            it.forEach { element -> map[element.key] = element.value }
-//            return@map map.toMap()
-//        }
-//        .awaitFirstOrElse { emptyMap() }
-
-//    override suspend fun category(ids: Set<UUID>): Map<UUID, Optional<ItemCategory>> = Flux.fromIterable(ids)
-//        .flatMap { id ->
-//            return@flatMap database.sql(queryHelper.onRetrieveCategoryByItemId(itemId = id))
-//                .map { row -> CategoryOfItemDBHandler.one(row = row) }
-//                .first()
-//                .map { AbstractMap.SimpleEntry(id, it) }
-//        }
-//        .collect(Collectors.toList())
-//        .map {
-//            val map = mutableMapOf<UUID, ItemCategory?>()
-//            it.forEach { element -> map[element.key] = element.value.orElse(null) }
-//            return@map map.toMap()
-//        }
-//        .awaitFirstOrElse { emptyMap() }
 
     override suspend fun toAttachTechnology(input: ItemTechnologyInput, token: UUID): Optional<Item> =
         Flux.fromIterable(input.technologiesIds ?: emptyList())
@@ -110,7 +88,6 @@ class ItemService(
             .collectList()
             .map { it.firstOrNull() ?: Optional.empty() }
             .onErrorResume {
-                logger.warn { "+ItemService->attachTechnology->error = ${it.message}" }
                 throw it
             }
             .awaitFirstOrElse { Optional.empty() }
