@@ -8,7 +8,8 @@ import java.util.*
 class DataLoaderRegistryFactory(
     private val _operation: OperationDataLoaderImpl,
     private val _item: ItemDataLoaderImpl,
-    private val _technology: TechnologyDataLoaderImpl
+    private val _technology: TechnologyDataLoaderImpl,
+    private val _item_category: ItemCategoryDataLoaderImpl
 ) {
 
     companion object {
@@ -16,6 +17,7 @@ class DataLoaderRegistryFactory(
         const val OPERATION_IN_ITEM_DATALOADER = "OPERATION_IN_ITEM_DATALOADER"
         const val CATEGORY_OF_ITEM_IN_ITEM_DATALOADER = "CATEGORY_OF_ITEM_IN_ITEM_DATALOADER"
         const val OPERATION_IN_TECHNOLOGY_DATALOADER = "OPERATION_IN_TECHNOLOGY_DATALOADER"
+        const val SUB_ITEM_CATEGORY_DATALOADER = "SUB_ITEM_CATEGORY_DATALOADER"
     }
 
     fun create(instanceId: UUID): DataLoaderRegistry {
@@ -27,6 +29,7 @@ class DataLoaderRegistryFactory(
             OPERATION_IN_TECHNOLOGY_DATALOADER,
             _technology.dataLoaderOperationInTechnology(userId = instanceId)
         )
+        registry.register(SUB_ITEM_CATEGORY_DATALOADER, _item_category.dataLoaderSubItemCategory(userId = instanceId))
         return registry
     }
 

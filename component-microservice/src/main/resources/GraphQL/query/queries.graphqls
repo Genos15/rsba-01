@@ -3,6 +3,7 @@ type Query {
     searchItemCategory (input: String!, first: Int!, after: ID): ItemCategoryConnection @connection(for: "ItemCategory")
     retrieveItemCategory (first: Int!, after: ID): ItemCategoryConnection @connection(for: "ItemCategory")
     findItemCategory (input: ID!): ItemCategory
+    retrieveItemCategoryChildren (id: ID!, first: Int!, after: ID): ItemCategoryConnection @connection(for: "ItemCategory")
 
     #------------ operation ------------------
     retrieveAllOperation (first: Int!, after: ID): OperationConnection @connection(for: "Operation")

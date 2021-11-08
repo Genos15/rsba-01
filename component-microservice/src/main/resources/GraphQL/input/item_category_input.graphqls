@@ -4,3 +4,8 @@ input ItemCategoryInput {
     description: String
     children: [ID!]
 }
+
+input ItemCategoryIndex  {
+    index: Int!,
+    id: ID!
+}

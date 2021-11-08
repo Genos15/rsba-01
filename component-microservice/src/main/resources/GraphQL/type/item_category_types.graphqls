@@ -4,6 +4,7 @@ type ItemCategory {
     description: String
     createdAt: DateTime
     editedAt: DateTime
+    children: [ItemCategory!]
 }
 
 type ItemCategoryEdge {

@@ -4,17 +4,14 @@ import com.rsba.component_microservice.domain.model.Group
 import com.rsba.component_microservice.domain.repository.OperationRepository
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.future.future
-import mu.KLogger
 import org.dataloader.DataLoader
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 import java.util.*
 
-@Service
-class OperationDataLoaderImpl(private val logger: KLogger, private val service: OperationRepository) {
-    fun dataLoaderGroupInOperation(userId: UUID): DataLoader<UUID, List<Group>> {
-        logger.warn { "+OperationDataLoaderImpl->dataLoaderGroupInOperation" }
-        return DataLoader.newMappedDataLoader { ids, env ->
-            logger.warn { env }
+@Component
+class OperationDataLoaderImpl(private val service: OperationRepository) {
+    fun dataLoaderGroupInOperation(userId: UUID): DataLoader<UUID, List<Group>> =
+        DataLoader.newMappedDataLoader { ids ->
             GlobalScope.future {
                 service.retrieveGroupInOperation(
                     ids = ids,
@@ -24,6 +21,5 @@ class OperationDataLoaderImpl(private val logger: KLogger, private val service: 
                 )
             }
         }
-    }
 
 }

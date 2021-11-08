@@ -5,13 +5,12 @@ import com.rsba.component_microservice.domain.model.Operation
 import com.rsba.component_microservice.domain.repository.ItemRepository
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.future.future
-import mu.KLogger
 import org.dataloader.DataLoader
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 import java.util.*
 
-@Service
-class ItemDataLoaderImpl(private val logger: KLogger, private val service: ItemRepository) {
+@Component
+class ItemDataLoaderImpl(private val service: ItemRepository) {
 
     fun dataLoaderOperationInItem(userId: UUID): DataLoader<UUID, List<Operation>> =
         DataLoader.newMappedDataLoader { ids ->

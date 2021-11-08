@@ -46,4 +46,16 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
 
     suspend fun findItemCategory(id: UUID, environment: DataFetchingEnvironment): Optional<ItemCategory> =
         service.find(id = id, token = deduct(environment = environment))
+
+    suspend fun retrieveItemCategoryChildren(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<ItemCategory>? = perform(
+        entry = service.children(id = id, first = first, after = after, token = deduct(environment = environment)),
+        first = first,
+        after = after
+    )
+
 }

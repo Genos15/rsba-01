@@ -13,14 +13,4 @@ data class ItemCategoryInput(
     val name: String? = null,
     val description: String? = null,
     private val children: List<String>? = emptyList(),
-) /*{
-    val children: List<UUID>
-        get() = childIds?.mapNotNull {
-            try {
-                UUID.fromString(it)
-            } catch (e: IllegalArgumentException) {
-                null
-            }
-        } ?: emptyList()
-}
-*/
+)
