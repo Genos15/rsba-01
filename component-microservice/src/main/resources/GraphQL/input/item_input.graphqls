@@ -1,0 +1,29 @@
+input ItemInput {
+    #field id must be null when creating but mandatory when editing
+    id: ID
+    name: String
+    description: String
+    material: String
+    #diffirent operations attached to the item/nomenclature
+    operations: [ID!]
+    #family of the item/nomenclature (the field itemCategoryId is mandatory when creating)
+    itemCategoryId: ID
+    #diffirent components attached to the item/nomenclature
+    components: [ID!]
+}
+
+input ItemTechnologyInput {
+    itemId: ID!
+    technologiesIds: [ID]
+}
+
+input ItemAndOperationInput {
+    itemId: ID!
+    operationId: ID!
+    estimatedTimeInHour: BigDecimal
+}
+
+input ItemAndSubItemInput {
+    itemId: ID!
+    subItems: [ID!]
+}

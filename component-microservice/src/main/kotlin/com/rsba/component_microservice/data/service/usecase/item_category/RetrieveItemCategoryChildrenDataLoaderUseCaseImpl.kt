@@ -26,18 +26,13 @@ class RetrieveItemCategoryChildrenDataLoaderUseCaseImpl : RetrieveItemCategoryCh
                     .first()
                     .map { it?.mapNotNull { element -> (element as? ItemCategoryDao?)?.to } ?: emptyList() }
                     .map { AbstractMap.SimpleEntry(id, it) }
+                    .onErrorResume { throw it }
             }
             .runOn(Schedulers.parallel())
             .sequential()
             .collectList()
-            .map {
-                val map = mutableMapOf<UUID, List<ItemCategory>>()
-                it.forEach { element -> map[element.key] = element.value ?: emptyList() }
-                map.toMap()
-            }
-            .onErrorResume {
-                throw it
-            }
+            .map { entries -> entries.associateBy({ it.key }, { it.value ?: emptyList() }) }
+            .onErrorResume { throw it }
             .log()
             .awaitFirstOrElse { emptyMap() }
 }

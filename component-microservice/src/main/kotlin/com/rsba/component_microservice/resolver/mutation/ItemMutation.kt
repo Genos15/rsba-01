@@ -19,15 +19,15 @@ class ItemMutation(
 ) : GraphQLMutationResolver {
 
     @AdminSecured
-    suspend fun createOrEditItem(input: CreateOrEditItemInput, environment: DataFetchingEnvironment): Optional<Item> {
+    suspend fun createOrEditItem(input: ItemInput, environment: DataFetchingEnvironment): Optional<Item> {
         logger.warn { "+ItemMutation -> createOrEditItem" }
-        return service.createOrEditItem(input = input, token = tokenImpl.read(environment = environment))
+        return service.toCreateOrEdit(input = input, token = tokenImpl.read(environment = environment))
     }
 
     @AdminSecured
     suspend fun deleteItem(input: UUID, environment: DataFetchingEnvironment): Int {
         logger.warn { "+ItemMutation -> deleteItem" }
-        return service.deleteItem(input = input, token = tokenImpl.read(environment = environment))
+        return service.toDelete(input = input, token = tokenImpl.read(environment = environment))
     }
 
     @AdminSecured
@@ -36,7 +36,7 @@ class ItemMutation(
         environment: DataFetchingEnvironment
     ): Optional<Item> {
         logger.warn { "+ItemMutation -> attachOperationToItem" }
-        return service.attachOperationToItem(input = input, token = tokenImpl.read(environment = environment))
+        return service.toAttachOperation(input = input, token = tokenImpl.read(environment = environment))
     }
 
     @AdminSecured
@@ -45,7 +45,7 @@ class ItemMutation(
         environment: DataFetchingEnvironment
     ): Optional<Item> {
         logger.warn { "+ItemMutation -> detachOperationToItem" }
-        return service.detachOperationToItem(input = input, token = tokenImpl.read(environment = environment))
+        return service.toDetachOperation(input = input, token = tokenImpl.read(environment = environment))
     }
 
     @AdminSecured
@@ -54,10 +54,10 @@ class ItemMutation(
         environment: DataFetchingEnvironment
     ): Optional<Item> {
         logger.warn { "+ItemMutation->attachTechnologyWithItem" }
-        return service.attachTechnology(input = input, token = tokenImpl.read(environment = environment))
+        return service.toAttachTechnology(input = input, token = tokenImpl.read(environment = environment))
     }
 
     suspend fun importItemFromJsonFile(environment: DataFetchingEnvironment): Optional<Boolean> {
-        return service.importItemFromJsonFile(environment = environment)
+        return service.toImportItemFromJsonFile(environment = environment)
     }
 }

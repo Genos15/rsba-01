@@ -2,6 +2,7 @@ package com.rsba.component_microservice.configuration.deserializer
 
 import com.rsba.component_microservice.data.dao.ItemCategoryDao
 import com.rsba.component_microservice.data.dao.AbstractModel
+import com.rsba.component_microservice.data.dao.ItemDao
 import com.rsba.component_microservice.domain.format.ModelTypeCase
 import com.rsba.component_microservice.domain.exception.CustomGraphQLError
 import kotlinx.serialization.DeserializationStrategy
@@ -13,12 +14,14 @@ object AbstractSerializer : JsonContentPolymorphicSerializer<AbstractModel>(Abst
         if (element is JsonArray) {
             return when (element.jsonArray[0].jsonObject["class"]?.jsonPrimitive?.content?.lowercase()) {
                 ModelTypeCase.item_category.lowercase() -> ItemCategoryDao.serializer()
+                ModelTypeCase.items.lowercase() -> ItemDao.serializer()
                 else -> throw  CustomGraphQLError(message = "Unknown Module: key 'type' not found or does not matches any module type")
             }
         }
 
         return when (element.jsonObject["type"]?.jsonPrimitive?.content?.lowercase()) {
             ModelTypeCase.item_category.lowercase() -> ItemCategoryDao.serializer()
+            ModelTypeCase.items.lowercase() -> ItemDao.serializer()
             else -> throw CustomGraphQLError(message = "Unknown Module: key 'type' not found or does not matches any module type")
         }
     }

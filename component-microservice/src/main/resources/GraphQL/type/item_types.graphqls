@@ -1,0 +1,21 @@
+type Item {
+    id: ID!
+    name: String!
+    description: String
+    material: String
+    createdAt: DateTime
+    editedAt: DateTime
+    operations: [Operation!]
+    category: ItemCategory
+    components: [Item!]
+}
+
+type ItemEdge {
+    cursor: String
+    node: Item
+}
+
+type ItemConnection {
+    edges: [ItemEdge]
+    pageInfo: PageInfo
+}

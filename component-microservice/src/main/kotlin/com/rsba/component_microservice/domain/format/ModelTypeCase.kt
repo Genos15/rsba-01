@@ -5,4 +5,5 @@ object ModelTypeCase {
     const val sellers = "sellers"
     const val token_models = "token_models"
     const val item_category = "item_category"
+    const val items = "items"
 }

@@ -28,7 +28,7 @@ class ItemQueryResolver(
     ): Connection<Item>? {
         logger.warn { "+ItemQueryResolver->retrieveAllItem" }
         val edges: List<Edge<Item>> =
-            service.onRetrieveItem(first = first, after = after, token = UUID.randomUUID())
+            service.retrieve(first = first, after = after, token = UUID.randomUUID())
                 .map { DefaultEdge(it, cursorUtil.createCursorWith(it.id)) }
                 .take(first)
         val pageInfo = DefaultPageInfo(

@@ -16,9 +16,6 @@ object ItemCategoryQueries : IBaseQuery<ItemCategoryInput, ItemCategoryDao> {
         append(QueryBuilder.CreateOrEdit.buildRequestDef<ItemCategoryDao>())
         append("('${Json.encodeToString(input)}',")
         append("'$token')")
-
-        println(input)
-        println(this)
     }
 
     override fun delete(input: UUID, token: UUID): String = buildString {

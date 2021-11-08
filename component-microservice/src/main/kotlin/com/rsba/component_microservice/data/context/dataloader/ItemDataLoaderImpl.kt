@@ -15,7 +15,7 @@ class ItemDataLoaderImpl(private val service: ItemRepository) {
     fun dataLoaderOperationInItem(userId: UUID): DataLoader<UUID, List<Operation>> =
         DataLoader.newMappedDataLoader { ids ->
             GlobalScope.future {
-                service.retrieveOperationInItem(
+                service.operations(
                     ids = ids,
                     userId = userId,
                     page = 0,
@@ -27,7 +27,7 @@ class ItemDataLoaderImpl(private val service: ItemRepository) {
     fun dataLoaderCategoryInItem(userId: UUID): DataLoader<UUID, ItemCategory?> =
         DataLoader.newMappedDataLoader { ids ->
             GlobalScope.future {
-                service.retrieveCategoryInItem(
+                service.category(
                     ids = ids,
                     userId = userId,
                     page = 0,

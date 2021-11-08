@@ -10,19 +10,6 @@ type Group {
     isStaging: Boolean
 }
 
-type Item {
-    id: ID!
-    name: String!
-    description: String
-    material: String
-    createdAt: String
-    editedAt: String
-    creator: ID
-    operations: [Operation]
-    category: ItemCategory
-    components: [Item]
-}
-
 type Operation {
     id: ID!
     name: String!

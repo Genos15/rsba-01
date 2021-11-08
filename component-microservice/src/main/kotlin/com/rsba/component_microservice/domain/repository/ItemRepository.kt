@@ -1,7 +1,7 @@
 package com.rsba.component_microservice.domain.repository
 
 import com.rsba.component_microservice.domain.model.ItemCategory
-import com.rsba.component_microservice.domain.input.CreateOrEditItemInput
+import com.rsba.component_microservice.domain.input.ItemInput
 import com.rsba.component_microservice.domain.input.ItemAndOperationInput
 import com.rsba.component_microservice.domain.input.ItemTechnologyInput
 import com.rsba.component_microservice.domain.model.Item
@@ -11,38 +11,28 @@ import java.util.*
 
 interface ItemRepository {
 
-    suspend fun createOrEditItem(input: CreateOrEditItemInput, token: UUID): Optional<Item>
+    suspend fun toCreateOrEdit(input: ItemInput, token: UUID): Optional<Item>
 
-    suspend fun deleteItem(input: UUID, token: UUID): Int
+    suspend fun toDelete(input: UUID, token: UUID): Boolean
 
-    suspend fun onRetrieveItem(first: Int, after: UUID?, token: UUID): List<Item>
+    suspend fun find(id: UUID, token: UUID): Optional<Item>
 
-    suspend fun onRetrieveItemHavingCategory(first: Int, after: UUID?, token: UUID): List<Item>
+    suspend fun retrieve(first: Int, after: UUID?, token: UUID): List<Item>
 
-    suspend fun attachOperationToItem(input: ItemAndOperationInput, token: UUID): Optional<Item>
+    suspend fun search(input: String, first: Int, after: UUID?, token: UUID): List<Item>
 
-    suspend fun detachOperationToItem(input: ItemAndOperationInput, token: UUID): Optional<Item>
+    suspend fun toAttachOperation(input: ItemAndOperationInput, token: UUID): Optional<Item>
 
-    suspend fun retrieveOperationInItem(
-        ids: Set<UUID>,
-        userId: UUID,
-        page: Int,
-        size: Int
-    ): Map<UUID, MutableList<Operation>>
+    suspend fun toDetachOperation(input: ItemAndOperationInput, token: UUID): Optional<Item>
 
-    suspend fun retrieveCategoryInItem(
-        ids: Set<UUID>,
-        userId: UUID,
-        page: Int,
-        size: Int
-    ): Map<UUID, ItemCategory?>
+    suspend fun operations(ids: Set<UUID>): Map<UUID, List<Operation>>
 
-    suspend fun attachTechnology(input: ItemTechnologyInput, token: UUID): Optional<Item>
+    suspend fun category(ids: Set<UUID>): Map<UUID, Optional<ItemCategory>>
+
+    suspend fun toAttachTechnology(input: ItemTechnologyInput, token: UUID): Optional<Item>
 
     suspend fun itemsByCategoryId(categoryId: UUID, first: Int, after: UUID?, token: UUID): List<Item>
 
-    suspend fun importItemFromJsonFile(environment: DataFetchingEnvironment): Optional<Boolean>
-
-    suspend fun search(input: String, first: Int, after: UUID?, token: UUID): List<Item>
+    suspend fun toImportItemFromJsonFile(environment: DataFetchingEnvironment): Optional<Boolean>
 
 }
