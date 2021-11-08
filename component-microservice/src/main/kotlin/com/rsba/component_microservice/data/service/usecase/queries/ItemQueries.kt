@@ -69,4 +69,22 @@ object ItemQueries : IBaseQuery<ItemInput, ItemDao> {
         append("'$token')")
     }
 
+    fun category(id: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_retrieve_category_dataloader"))
+        append("('$id',")
+        append("'$token')")
+    }
+
+    fun operations(id: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_retrieve_operations_dataloader"))
+        append("('$id',")
+        append("'$token')")
+    }
+
+    fun components(id: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_retrieve_components_dataloader"))
+        append("('$id',")
+        append("'$token')")
+    }
+
 }

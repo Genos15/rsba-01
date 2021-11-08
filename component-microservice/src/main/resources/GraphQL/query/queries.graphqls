@@ -14,8 +14,7 @@ type Query {
     searchTechnologies (content: String!): [Technology]
 
     #-------------- items ------------------------------
-    retrieveAllItem (first: Int!, after: ID): ItemConnection @connection(for: "Item")
-    retrieveAllItemHavingCategory (first: Int!, after: ID): ItemConnection @connection(for: "Item")
+    retrieveItems (first: Int!, after: ID): ItemConnection @connection(for: "Item")
     retrieveItemByCategoryId (categoryId: ID!, first: Int!, after: ID): ItemConnection @connection(for: "Item")
     searchItems (input: String!,first: Int!, after: ID): ItemConnection @connection(for: "Item")
 }

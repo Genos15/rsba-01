@@ -7,10 +7,7 @@ import com.rsba.component_microservice.domain.model.*
 import com.rsba.component_microservice.query.database.*
 import com.rsba.component_microservice.domain.repository.ItemRepository
 import com.rsba.component_microservice.domain.usecase.common.*
-import com.rsba.component_microservice.domain.usecase.custom.item.AttachOperationToItemUseCase
-import com.rsba.component_microservice.domain.usecase.custom.item.AttachSubItemToItemUseCase
-import com.rsba.component_microservice.domain.usecase.custom.item.DetachOperationToItemUseCase
-import com.rsba.component_microservice.domain.usecase.custom.item.DetachSubItemToItemUseCase
+import com.rsba.component_microservice.domain.usecase.custom.item.*
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import org.json.simple.JSONArray
@@ -36,6 +33,9 @@ class ItemService(
     private val attachSubItemUseCase: AttachSubItemToItemUseCase,
     private val detachSubItemUseCase: DetachSubItemToItemUseCase,
     private val detachOperationUseCase: DetachOperationToItemUseCase,
+    private val myCategoryUseCase: RetrieveCategoryDataLoaderUseCase,
+    private val myOperationsUseCase: RetrieveOperationDataLoaderUseCase,
+    private val mySubItemsUseCase: RetrieveSubItemDataLoaderUseCase,
 ) : ItemRepository {
 
     override suspend fun toCreateOrEdit(input: ItemInput, token: UUID): Optional<Item> =
@@ -62,17 +62,14 @@ class ItemService(
     override suspend fun toDetachSubItem(input: ItemInput, token: UUID): Optional<Item> =
         detachSubItemUseCase(database = database, input = input, token = token)
 
-    override suspend fun operations(ids: Set<UUID>): Map<UUID, List<Operation>> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun operations(ids: Set<UUID>): Map<UUID, List<Operation>> =
+        myOperationsUseCase(database = database, ids = ids, token = UUID.randomUUID())
 
-    override suspend fun components(ids: Set<UUID>): Map<UUID, List<Item>> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun components(ids: Set<UUID>): Map<UUID, List<Item>> =
+        mySubItemsUseCase(database = database, ids = ids, token = UUID.randomUUID())
 
-    override suspend fun category(ids: Set<UUID>): Map<UUID, Optional<ItemCategory>> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun category(ids: Set<UUID>): Map<UUID, Optional<ItemCategory>> =
+        myCategoryUseCase(database = database, ids = ids, token = UUID.randomUUID())
 
     override suspend fun toAttachTechnology(input: ItemTechnologyInput, token: UUID): Optional<Item> =
         Flux.fromIterable(input.technologiesIds ?: emptyList())

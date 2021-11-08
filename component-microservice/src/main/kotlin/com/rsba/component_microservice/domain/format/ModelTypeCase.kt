@@ -6,4 +6,5 @@ object ModelTypeCase {
     const val token_models = "token_models"
     const val item_category = "item_category"
     const val items = "items"
+    const val operations = "operations"
 }

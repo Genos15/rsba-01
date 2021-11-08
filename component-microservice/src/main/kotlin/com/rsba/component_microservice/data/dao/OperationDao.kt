@@ -1,0 +1,37 @@
+package com.rsba.component_microservice.data.dao
+
+import com.example.ticketApp.deserializer.DateTimeSerializer
+import com.rsba.component_microservice.configuration.deserializer.UUIDSerializer
+import com.rsba.component_microservice.domain.format.ModelType
+import com.rsba.component_microservice.domain.format.ModelTypeCase
+import com.rsba.component_microservice.domain.model.Group
+import com.rsba.component_microservice.domain.model.Operation
+import kotlinx.serialization.Serializable
+import java.time.OffsetDateTime
+import java.util.*
+
+@Serializable
+@ModelType(_class = ModelTypeCase.operations)
+data class OperationDao(
+    @Serializable(with = UUIDSerializer::class) override val id: UUID,
+    val name: String,
+    val description: String? = null,
+    val move: String? = null,
+    val estimatedTimeInHour: Float? = null,
+    @Serializable(with = DateTimeSerializer::class) val createdAt: OffsetDateTime? = null,
+    @Serializable(with = DateTimeSerializer::class) val editedAt: OffsetDateTime? = null,
+    val departments: List<Group>? = listOf()
+) : AbstractModel() {
+
+    val to: Operation
+        get() = Operation(
+            id = id,
+            name = name,
+            description = description,
+            createdAt = createdAt,
+            editedAt = editedAt,
+            estimatedTimeInHour = estimatedTimeInHour,
+            move = move,
+            departments = departments
+        )
+}

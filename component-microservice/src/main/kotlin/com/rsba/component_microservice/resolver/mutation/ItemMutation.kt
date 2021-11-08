@@ -19,34 +19,20 @@ class ItemMutation(
 ) : GraphQLMutationResolver {
 
     @AdminSecured
-    suspend fun createOrEditItem(input: ItemInput, environment: DataFetchingEnvironment): Optional<Item> {
-        logger.warn { "+ItemMutation -> createOrEditItem" }
-        return service.toCreateOrEdit(input = input, token = tokenImpl.read(environment = environment))
-    }
+    suspend fun createOrEditItem(input: ItemInput, environment: DataFetchingEnvironment): Optional<Item> =
+        service.toCreateOrEdit(input = input, token = tokenImpl.read(environment = environment))
 
     @AdminSecured
-    suspend fun deleteItem(input: UUID, environment: DataFetchingEnvironment): Int {
-        logger.warn { "+ItemMutation -> deleteItem" }
-        return service.toDelete(input = input, token = tokenImpl.read(environment = environment))
-    }
+    suspend fun deleteItem(input: UUID, environment: DataFetchingEnvironment): Boolean =
+        service.toDelete(input = input, token = tokenImpl.read(environment = environment))
 
     @AdminSecured
-    suspend fun attachOperationToItem(
-        input: ItemAndOperationInput,
-        environment: DataFetchingEnvironment
-    ): Optional<Item> {
-        logger.warn { "+ItemMutation -> attachOperationToItem" }
-        return service.toAttachOperation(input = input, token = tokenImpl.read(environment = environment))
-    }
+    suspend fun attachOperationToItem(input: ItemInput, environment: DataFetchingEnvironment): Optional<Item> =
+        service.toAttachOperation(input = input, token = tokenImpl.read(environment = environment))
 
     @AdminSecured
-    suspend fun detachOperationToItem(
-        input: ItemAndOperationInput,
-        environment: DataFetchingEnvironment
-    ): Optional<Item> {
-        logger.warn { "+ItemMutation -> detachOperationToItem" }
-        return service.toDetachOperation(input = input, token = tokenImpl.read(environment = environment))
-    }
+    suspend fun detachOperationToItem(input: ItemInput, environment: DataFetchingEnvironment): Optional<Item> =
+        service.toDetachOperation(input = input, token = tokenImpl.read(environment = environment))
 
     @AdminSecured
     suspend fun attachTechnologyWithItem(
