@@ -13,6 +13,7 @@ import kotlinx.coroutines.reactive.awaitFirstOrElse
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import org.json.simple.parser.JSONParser
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
@@ -24,11 +25,11 @@ import java.util.*
 @Service
 class ItemService(
     private val database: DatabaseClient,
-    private val createOrEditUseCase: CreateOrEditUseCase<ItemInput, Item>,
-    private val deleteUseCase: DeleteUseCase<Item>,
-    private val findUseCase: FindUseCase<Item>,
-    private val retrieveUseCase: RetrieveUseCase<Item>,
-    private val searchUseCase: SearchUseCase<Item>,
+    @Qualifier("create_edit_item") private val createOrEditUseCase: CreateOrEditUseCase<ItemInput, Item>,
+    @Qualifier("delete_item") private val deleteUseCase: DeleteUseCase<Item>,
+    @Qualifier("find_item") private val findUseCase: FindUseCase<Item>,
+    @Qualifier("retrieve_item") private val retrieveUseCase: RetrieveUseCase<Item>,
+    @Qualifier("search_item") private val searchUseCase: SearchUseCase<Item>,
     private val attachOperationUseCase: AttachOperationToItemUseCase,
     private val attachSubItemUseCase: AttachSubItemToItemUseCase,
     private val detachSubItemUseCase: DetachSubItemToItemUseCase,
@@ -134,6 +135,8 @@ class ItemService(
             .map {
                 Optional.of(true)
             }.awaitFirstOrElse { Optional.of(false) }
+
+    override suspend fun totalNumber(): Int = 0
 
     override suspend fun search(input: String, first: Int, after: UUID?, token: UUID): List<Item> =
         searchUseCase(database = database, first = first, after = after, token = token, input = input)

@@ -47,25 +47,25 @@ object ItemQueries : IBaseQuery<ItemInput, ItemDao> {
 
     fun attachOperation(input: ItemInput, token: UUID): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_attach_operations"))
-        append("('$input',")
+        append("('${Json.encodeToString(input)}',")
         append("'$token')")
     }
 
     fun detachOperation(input: ItemInput, token: UUID): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_detach_operations"))
-        append("('$input',")
+        append("('${Json.encodeToString(input)}',")
         append("'$token')")
     }
 
     fun attachSubItem(input: ItemInput, token: UUID): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_attach_components"))
-        append("('$input',")
+        append("('${Json.encodeToString(input)}',")
         append("'$token')")
     }
 
     fun detachSubItem(input: ItemInput, token: UUID): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_detach_components"))
-        append("('$input',")
+        append("('${Json.encodeToString(input)}',")
         append("'$token')")
     }
 

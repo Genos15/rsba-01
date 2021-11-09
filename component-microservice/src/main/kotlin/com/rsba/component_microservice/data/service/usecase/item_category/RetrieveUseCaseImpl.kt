@@ -11,7 +11,7 @@ import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Component
 import java.util.*
 
-@Component
+@Component(value = "retrieve_item_category")
 @OptIn(ExperimentalSerializationApi::class)
 class RetrieveUseCaseImpl : RetrieveUseCase<ItemCategory> {
     override suspend fun invoke(database: DatabaseClient, first: Int, after: UUID?, token: UUID): List<ItemCategory> =

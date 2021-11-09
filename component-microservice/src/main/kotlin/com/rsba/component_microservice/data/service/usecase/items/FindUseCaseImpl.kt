@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
 import java.util.*
 
-@Component
+@Component(value = "find_item")
 @OptIn(ExperimentalSerializationApi::class)
 class FindUseCaseImpl : FindUseCase<Item> {
     override suspend fun invoke(database: DatabaseClient, id: UUID, token: UUID): Optional<Item> =

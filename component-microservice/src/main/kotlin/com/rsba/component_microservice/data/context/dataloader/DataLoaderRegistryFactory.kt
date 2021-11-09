@@ -18,13 +18,17 @@ class DataLoaderRegistryFactory(
         const val CATEGORY_OF_ITEM_IN_ITEM_DATALOADER = "CATEGORY_OF_ITEM_IN_ITEM_DATALOADER"
         const val OPERATION_IN_TECHNOLOGY_DATALOADER = "OPERATION_IN_TECHNOLOGY_DATALOADER"
         const val SUB_ITEM_CATEGORY_DATALOADER = "SUB_ITEM_CATEGORY_DATALOADER"
+        const val ITEMS_COMPONENTS_DATALOADER = "ITEMS_COMPONENTS_DATALOADER"
+        const val ITEMS_CATEGORY_DATALOADER = "ITEMS_CATEGORY_DATALOADER"
+
     }
 
     fun create(instanceId: UUID): DataLoaderRegistry {
         val registry = DataLoaderRegistry()
         registry.register(GROUP_IN_OPERATION_DATALOADER, _operation.dataLoaderGroupInOperation(userId = instanceId))
-        registry.register(OPERATION_IN_ITEM_DATALOADER, _item.dataLoaderOperationInItem(userId = instanceId))
-        registry.register(CATEGORY_OF_ITEM_IN_ITEM_DATALOADER, _item.dataLoaderCategoryInItem(userId = instanceId))
+        registry.register(OPERATION_IN_ITEM_DATALOADER, _item.dataLoaderOperation(userId = instanceId))
+        registry.register(ITEMS_COMPONENTS_DATALOADER, _item.dataLoaderComponents(userId = instanceId))
+        registry.register(ITEMS_CATEGORY_DATALOADER, _item.dataLoaderCategory(userId = instanceId))
         registry.register(
             OPERATION_IN_TECHNOLOGY_DATALOADER,
             _technology.dataLoaderOperationInTechnology(userId = instanceId)

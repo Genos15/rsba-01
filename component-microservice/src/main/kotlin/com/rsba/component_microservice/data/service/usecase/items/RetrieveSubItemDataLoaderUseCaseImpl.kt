@@ -1,7 +1,7 @@
 package com.rsba.component_microservice.data.service.usecase.items
 
 import com.rsba.component_microservice.data.dao.ItemDao
-import com.rsba.component_microservice.data.service.usecase.queries.ItemCategoryQueries
+import com.rsba.component_microservice.data.service.usecase.queries.ItemQueries
 import com.rsba.component_microservice.domain.format.QueryCursor
 import com.rsba.component_microservice.domain.model.Item
 import com.rsba.component_microservice.domain.usecase.custom.item.RetrieveSubItemDataLoaderUseCase
@@ -21,7 +21,7 @@ class RetrieveSubItemDataLoaderUseCaseImpl : RetrieveSubItemDataLoaderUseCase {
         Flux.fromIterable(ids)
             .parallel()
             .flatMap { id ->
-                database.sql(ItemCategoryQueries.children(token = token, id = id))
+                database.sql(ItemQueries.components(token = token, id = id))
                     .map { row -> QueryCursor.all(row = row) }
                     .first()
                     .map { it?.mapNotNull { element -> (element as? ItemDao?)?.to } ?: emptyList() }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 @OptIn(ExperimentalSerializationApi::class)
-@Component
+@Component(value = "search_item")
 class SearchUseCaseImpl : SearchUseCase<Item> {
     override suspend fun invoke(
         database: DatabaseClient,

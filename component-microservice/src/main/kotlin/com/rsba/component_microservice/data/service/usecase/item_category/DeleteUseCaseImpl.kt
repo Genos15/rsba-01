@@ -10,7 +10,7 @@ import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Component
 import java.util.*
 
-@Component
+@Component(value = "delete_item_category")
 @OptIn(ExperimentalSerializationApi::class)
 class DeleteUseCaseImpl : DeleteUseCase<ItemCategory> {
     override suspend fun invoke(database: DatabaseClient, input: UUID, token: UUID): Boolean =

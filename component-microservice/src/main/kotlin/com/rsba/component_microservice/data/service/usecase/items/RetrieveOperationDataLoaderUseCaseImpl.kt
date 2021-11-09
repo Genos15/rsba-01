@@ -21,7 +21,7 @@ class RetrieveOperationDataLoaderUseCaseImpl : RetrieveOperationDataLoaderUseCas
         Flux.fromIterable(ids)
             .parallel()
             .flatMap { id ->
-                database.sql(ItemQueries.category(token = token, id = id))
+                database.sql(ItemQueries.operations(token = token, id = id))
                     .map { row -> QueryCursor.all(row = row) }
                     .first()
                     .map { it?.mapNotNull { element -> (element as? OperationDao?)?.to } ?: emptyList() }

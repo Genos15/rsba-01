@@ -1,4 +1,4 @@
-package com.example.ticketApp.deserializer
+package com.rsba.component_microservice.configuration.deserializer
 
 import graphql.language.ObjectValue
 import graphql.language.StringValue

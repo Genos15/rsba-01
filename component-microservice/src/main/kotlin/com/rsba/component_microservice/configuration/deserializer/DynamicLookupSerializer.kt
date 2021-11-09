@@ -1,4 +1,4 @@
-package com.example.ticketApp.deserializer
+package com.rsba.component_microservice.configuration.deserializer
 
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -15,9 +15,5 @@ object DynamicLookupSerializer : KSerializer<Any> {
         encoder.encodeSerializableValue(actualSerializer as KSerializer<Any>, value)
     }
 
-    override fun deserialize(decoder: Decoder): Any {
-//        error("Unsupported")
-        println("Will decode")
-        return decoder
-    }
+    override fun deserialize(decoder: Decoder): Any = decoder
 }

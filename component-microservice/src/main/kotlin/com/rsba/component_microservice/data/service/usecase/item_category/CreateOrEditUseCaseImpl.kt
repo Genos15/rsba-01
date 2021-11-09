@@ -12,7 +12,7 @@ import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Component
 import java.util.*
 
-@Component
+@Component(value = "create_edit_item_category")
 @OptIn(ExperimentalSerializationApi::class)
 class CreateOrEditUseCaseImpl : CreateOrEditUseCase<ItemCategoryInput, ItemCategory> {
     override suspend fun invoke(

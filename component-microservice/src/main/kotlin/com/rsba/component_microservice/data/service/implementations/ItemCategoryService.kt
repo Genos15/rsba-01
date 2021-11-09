@@ -6,6 +6,7 @@ import com.rsba.component_microservice.domain.repository.ItemCategoryRepository
 import com.rsba.component_microservice.domain.usecase.common.*
 import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategoryChildrenDataLoaderUseCase
 import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategoryChildrenUseCase
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
 import java.util.*
@@ -13,11 +14,11 @@ import java.util.*
 @Service
 class ItemCategoryService(
     private val database: DatabaseClient,
-    private val createOrEditUseCase: CreateOrEditUseCase<ItemCategoryInput, ItemCategory>,
-    private val deleteUseCase: DeleteUseCase<ItemCategory>,
-    private val retrieveUseCase: RetrieveUseCase<ItemCategory>,
-    private val searchUseCase: SearchUseCase<ItemCategory>,
-    private val findUseCase: FindUseCase<ItemCategory>,
+    @Qualifier("create_edit_item_category") private val createOrEditUseCase: CreateOrEditUseCase<ItemCategoryInput, ItemCategory>,
+    @Qualifier("delete_item_category") private val deleteUseCase: DeleteUseCase<ItemCategory>,
+    @Qualifier("retrieve_item_category") private val retrieveUseCase: RetrieveUseCase<ItemCategory>,
+    @Qualifier("search_item_category") private val searchUseCase: SearchUseCase<ItemCategory>,
+    @Qualifier("find_item_category") private val findUseCase: FindUseCase<ItemCategory>,
     private val retrieveChildren: RetrieveItemCategoryChildrenUseCase,
     private val retrieveChildrenDataLoader: RetrieveItemCategoryChildrenDataLoaderUseCase,
 ) : ItemCategoryRepository {
@@ -42,4 +43,6 @@ class ItemCategoryService(
 
     override suspend fun children(ids: Set<UUID>): Map<UUID, List<ItemCategory>> =
         retrieveChildrenDataLoader(database = database, ids = ids, token = UUID.randomUUID())
+
+    override suspend fun totalNumber(): Int = 0
 }

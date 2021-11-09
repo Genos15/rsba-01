@@ -14,6 +14,6 @@ data class ItemInput(
     val description: String? = null,
     val material: String? = null,
     val operations: List<String>? = emptyList(),
-    @Serializable(with = UUIDSerializer::class) val itemCategoryId: UUID,
+    @Serializable(with = UUIDSerializer::class) val itemCategoryId: UUID? = null,
     val components: List<String>? = emptyList(),
 )
