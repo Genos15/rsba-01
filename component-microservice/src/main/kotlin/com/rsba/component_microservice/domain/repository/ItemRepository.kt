@@ -40,6 +40,6 @@ interface ItemRepository {
 
     suspend fun toImportItemFromJsonFile(environment: DataFetchingEnvironment): Optional<Boolean>
 
-    suspend fun totalNumber(): Int
+    suspend fun count(token: UUID): Int
 
 }

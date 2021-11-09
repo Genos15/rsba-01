@@ -65,4 +65,7 @@ class ItemQueryResolver(val service: ItemRepository, private val deduct: TokenAn
         after = after
     )
 
+    suspend fun countItems(environment: DataFetchingEnvironment): Int =
+        service.count(token = deduct(environment = environment))
+
 }

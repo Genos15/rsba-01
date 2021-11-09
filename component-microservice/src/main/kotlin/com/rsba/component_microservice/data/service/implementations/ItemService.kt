@@ -30,6 +30,7 @@ class ItemService(
     @Qualifier("find_item") private val findUseCase: FindUseCase<Item>,
     @Qualifier("retrieve_item") private val retrieveUseCase: RetrieveUseCase<Item>,
     @Qualifier("search_item") private val searchUseCase: SearchUseCase<Item>,
+    @Qualifier("count_items") private val countUseCase: CountUseCase,
     private val attachOperationUseCase: AttachOperationToItemUseCase,
     private val attachSubItemUseCase: AttachSubItemToItemUseCase,
     private val detachSubItemUseCase: DetachSubItemToItemUseCase,
@@ -136,7 +137,7 @@ class ItemService(
                 Optional.of(true)
             }.awaitFirstOrElse { Optional.of(false) }
 
-    override suspend fun totalNumber(): Int = 0
+    override suspend fun count(token: UUID): Int = countUseCase(database = database, token = token)
 
     override suspend fun search(input: String, first: Int, after: UUID?, token: UUID): List<Item> =
         searchUseCase(database = database, first = first, after = after, token = token, input = input)

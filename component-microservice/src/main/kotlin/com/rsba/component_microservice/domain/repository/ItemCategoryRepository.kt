@@ -25,6 +25,6 @@ interface ItemCategoryRepository {
 
     suspend fun children(ids: Set<UUID>): Map<UUID, List<ItemCategory>>
 
-    suspend fun totalNumber(): Int
+    suspend fun count(token: UUID): Int
 
 }

@@ -15,4 +15,6 @@ interface IBaseQuery<in I, out R : AbstractModel> {
 
     fun find(id: UUID, token: UUID): String
 
+    fun count(token: UUID): String
+
 }

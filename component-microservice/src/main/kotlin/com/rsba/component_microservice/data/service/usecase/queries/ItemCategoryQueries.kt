@@ -59,4 +59,9 @@ object ItemCategoryQueries : IBaseQuery<ItemCategoryInput, ItemCategoryDao> {
         append("'$token')")
     }
 
+    override fun count(token: UUID): String = buildString {
+        append(QueryBuilder.Count.buildRequestDef<ItemCategoryDao>())
+        append("('$token')")
+    }
+
 }

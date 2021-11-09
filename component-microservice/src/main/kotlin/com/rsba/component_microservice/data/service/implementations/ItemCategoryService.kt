@@ -19,6 +19,7 @@ class ItemCategoryService(
     @Qualifier("retrieve_item_category") private val retrieveUseCase: RetrieveUseCase<ItemCategory>,
     @Qualifier("search_item_category") private val searchUseCase: SearchUseCase<ItemCategory>,
     @Qualifier("find_item_category") private val findUseCase: FindUseCase<ItemCategory>,
+    @Qualifier("count_item_category") private val countUseCase: CountUseCase,
     private val retrieveChildren: RetrieveItemCategoryChildrenUseCase,
     private val retrieveChildrenDataLoader: RetrieveItemCategoryChildrenDataLoaderUseCase,
 ) : ItemCategoryRepository {
@@ -44,5 +45,5 @@ class ItemCategoryService(
     override suspend fun children(ids: Set<UUID>): Map<UUID, List<ItemCategory>> =
         retrieveChildrenDataLoader(database = database, ids = ids, token = UUID.randomUUID())
 
-    override suspend fun totalNumber(): Int = 0
+    override suspend fun count(token: UUID): Int = countUseCase(database = database, token = token)
 }

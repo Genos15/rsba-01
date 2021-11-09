@@ -58,4 +58,7 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
         after = after
     )
 
+    suspend fun countItemCategory(environment: DataFetchingEnvironment): Int =
+        service.count(token = deduct(environment = environment))
+
 }
