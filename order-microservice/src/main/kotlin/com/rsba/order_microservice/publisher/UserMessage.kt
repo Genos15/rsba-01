@@ -1,9 +1,0 @@
-package com.rsba.order_microservice.publisher
-
-import java.util.*
-
-data class UserMessage(
-    val senderId: UUID = UUID.randomUUID(),
-    val receiverId: UUID = UUID.randomUUID(),
-    val message: String = ""
-)

@@ -5,9 +5,9 @@ import com.rsba.component_microservice.domain.input.*
 import com.rsba.component_microservice.domain.model.Operation
 import com.rsba.component_microservice.domain.model.Technology
 import com.rsba.component_microservice.domain.model.TechnologyFromOld
-import com.rsba.component_microservice.query.database.OperationDBHandler2
-import com.rsba.component_microservice.query.database.TechnologyDBHandler
-import com.rsba.component_microservice.query.database.TechnologyQueries
+import com.rsba.component_microservice.database.OperationDBHandler2
+import com.rsba.component_microservice.database.TechnologyDBHandler
+import com.rsba.component_microservice.database.TechnologyQueries
 import com.rsba.component_microservice.domain.repository.TechnologyRepository
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.reactive.awaitFirstOrElse

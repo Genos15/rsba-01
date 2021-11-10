@@ -2,9 +2,9 @@ package  com.rsba.order_microservice.resolver.query
 
 import  com.rsba.order_microservice.aspect.AdminSecured
 import com.rsba.order_microservice.configuration.request_helper.CursorUtil
-import com.rsba.order_microservice.context.token.TokenImpl
+import com.rsba.order_microservice.data.context.token.TokenImpl
 import com.rsba.order_microservice.domain.model.Worklog
-import com.rsba.order_microservice.repository.WorklogRepository
+import com.rsba.order_microservice.domain.repository.WorklogRepository
 import graphql.kickstart.tools.GraphQLQueryResolver
 import graphql.relay.*
 import org.springframework.stereotype.Component

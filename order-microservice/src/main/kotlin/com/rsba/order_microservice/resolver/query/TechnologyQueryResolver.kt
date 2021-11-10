@@ -1,14 +1,14 @@
 package  com.rsba.order_microservice.resolver.query
 
 import  com.rsba.order_microservice.aspect.AdminSecured
-import com.rsba.order_microservice.context.token.TokenImpl
+import com.rsba.order_microservice.data.context.token.TokenImpl
 import com.rsba.order_microservice.domain.input.FindItemAttachedToTechnologyInput
 import com.rsba.order_microservice.domain.input.FindOperationAttachedToTechnologyInput
 import com.rsba.order_microservice.domain.input.FindTaskAttachedToTechnologyInput
 import com.rsba.order_microservice.domain.model.Item
 import com.rsba.order_microservice.domain.model.Operation
 import com.rsba.order_microservice.domain.model.Task
-import com.rsba.order_microservice.repository.TechnologyRepository
+import com.rsba.order_microservice.domain.repository.TechnologyRepository
 import graphql.kickstart.tools.GraphQLQueryResolver
 import org.springframework.stereotype.Component
 

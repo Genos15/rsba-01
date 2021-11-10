@@ -2,11 +2,11 @@ package  com.rsba.component_microservice.data.service.usecase.queries
 
 import com.rsba.component_microservice.data.dao.ItemCategoryDao
 import com.rsba.component_microservice.domain.format.IBaseQuery
+import com.rsba.component_microservice.domain.format.JsonHandlerKotlin
 import com.rsba.component_microservice.domain.format.QueryBuilder
 import com.rsba.component_microservice.domain.input.ItemCategoryInput
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import java.util.*
 
 @ExperimentalSerializationApi
@@ -14,7 +14,7 @@ object ItemCategoryQueries : IBaseQuery<ItemCategoryInput, ItemCategoryDao> {
 
     override fun createOrEdit(input: ItemCategoryInput, token: UUID): String = buildString {
         append(QueryBuilder.CreateOrEdit.buildRequestDef<ItemCategoryDao>())
-        append("('${Json.encodeToString(input)}',")
+        append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
         append("'$token')")
     }
 

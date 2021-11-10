@@ -1,10 +1,10 @@
 package com.rsba.order_microservice.resolver.mutation
 
 import com.rsba.order_microservice.aspect.AdminSecured
-import com.rsba.order_microservice.context.token.ITokenImpl
+import com.rsba.order_microservice.data.context.token.ITokenImpl
 import com.rsba.order_microservice.domain.input.OrderTypeInput
 import com.rsba.order_microservice.domain.model.OrderType
-import com.rsba.order_microservice.repository.OrderTypeRepository
+import com.rsba.order_microservice.domain.repository.OrderTypeRepository
 import graphql.kickstart.tools.GraphQLMutationResolver
 import graphql.schema.DataFetchingEnvironment
 import mu.KLogger

@@ -2,11 +2,11 @@ package  com.rsba.component_microservice.data.service.usecase.queries
 
 import com.rsba.component_microservice.data.dao.ItemDao
 import com.rsba.component_microservice.domain.format.IBaseQuery
+import com.rsba.component_microservice.domain.format.JsonHandlerKotlin
 import com.rsba.component_microservice.domain.format.QueryBuilder
 import com.rsba.component_microservice.domain.input.ItemInput
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import java.util.*
 
 @ExperimentalSerializationApi
@@ -14,7 +14,7 @@ object ItemQueries : IBaseQuery<ItemInput, ItemDao> {
 
     override fun createOrEdit(input: ItemInput, token: UUID): String = buildString {
         append(QueryBuilder.CreateOrEdit.buildRequestDef<ItemDao>())
-        append("('${Json.encodeToString(input)}',")
+        append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
         append("'$token')")
     }
 
@@ -47,25 +47,25 @@ object ItemQueries : IBaseQuery<ItemInput, ItemDao> {
 
     fun attachOperation(input: ItemInput, token: UUID): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_attach_operations"))
-        append("('${Json.encodeToString(input)}',")
+        append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
         append("'$token')")
     }
 
     fun detachOperation(input: ItemInput, token: UUID): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_detach_operations"))
-        append("('${Json.encodeToString(input)}',")
+        append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
         append("'$token')")
     }
 
     fun attachSubItem(input: ItemInput, token: UUID): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_attach_components"))
-        append("('${Json.encodeToString(input)}',")
+        append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
         append("'$token')")
     }
 
     fun detachSubItem(input: ItemInput, token: UUID): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_detach_components"))
-        append("('${Json.encodeToString(input)}',")
+        append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
         append("'$token')")
     }
 

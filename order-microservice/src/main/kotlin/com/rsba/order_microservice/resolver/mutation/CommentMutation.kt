@@ -1,10 +1,10 @@
 package  com.rsba.order_microservice.resolver.mutation
 
 import   com.rsba.order_microservice.aspect.AdminSecured
-import com.rsba.order_microservice.context.token.TokenImpl
+import com.rsba.order_microservice.data.context.token.TokenImpl
 import com.rsba.order_microservice.domain.model.Comment
 import com.rsba.order_microservice.domain.input.CommentTaskInput
-import com.rsba.order_microservice.repository.CommentRepository
+import com.rsba.order_microservice.domain.repository.CommentRepository
 import graphql.kickstart.tools.GraphQLMutationResolver
 import graphql.schema.DataFetchingEnvironment
 import mu.KLogger

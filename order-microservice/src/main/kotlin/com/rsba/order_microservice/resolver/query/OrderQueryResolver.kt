@@ -2,11 +2,11 @@ package  com.rsba.order_microservice.resolver.query
 
 import  com.rsba.order_microservice.domain.model.Order
 import  com.rsba.order_microservice.aspect.AdminSecured
-import com.rsba.order_microservice.context.token.ITokenImpl
+import com.rsba.order_microservice.data.context.token.ITokenImpl
 import com.rsba.order_microservice.domain.model.Item
 import com.rsba.order_microservice.domain.model.OrderLevel
 import com.rsba.order_microservice.domain.model.ProgressionStep
-import  com.rsba.order_microservice.repository.OrderRepository
+import  com.rsba.order_microservice.domain.repository.OrderRepository
 import graphql.kickstart.tools.GraphQLQueryResolver
 import graphql.relay.*
 import org.springframework.stereotype.Component

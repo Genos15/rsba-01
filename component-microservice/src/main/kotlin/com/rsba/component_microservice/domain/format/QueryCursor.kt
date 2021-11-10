@@ -7,23 +7,15 @@ import kotlinx.serialization.json.*
 
 object QueryCursor {
 
-    private val jsonHandler = Json {
-        ignoreUnknownKeys = true
-        isLenient = true
-        prettyPrint = true
-        encodeDefaults = true
-        classDiscriminator = "#class"
-    }
-
     fun all(row: Row): List<AbstractModel> = try {
         val payload = row.get(0, String::class.java)
         if (payload == null) {
             throw CustomGraphQLError(message = "Value is not nullable")
         } else {
             val payloadJson = payload.replace(" ", "").replace("[null]", "[]")
-            val element = jsonHandler.parseToJsonElement(payloadJson)
+            val element = JsonHandlerKotlin.handler.parseToJsonElement(payloadJson)
             require(element is JsonArray)
-            jsonHandler.decodeFromJsonElement(element)
+            JsonHandlerKotlin.handler.decodeFromJsonElement(element)
         }
     } catch (e: Exception) {
         if (e is CustomGraphQLError) {
@@ -36,11 +28,11 @@ object QueryCursor {
     fun one(row: Row): AbstractModel? {
         val payload = row.get(0, String::class.java) ?: throw CustomGraphQLError(message = "Value is not nullable")
         val payloadJson = payload.replace(" ", "").replace("[null]", "[]")
-        var element = jsonHandler.parseToJsonElement(payloadJson)
+        var element = JsonHandlerKotlin.handler.parseToJsonElement(payloadJson)
         if (element is JsonArray && element.jsonArray.isNotEmpty()) {
             element = element.jsonArray[0].jsonObject
         }
-        return jsonHandler.decodeFromJsonElement<AbstractModel?>(element)
+        return JsonHandlerKotlin.handler.decodeFromJsonElement<AbstractModel?>(element)
     }
 
     private inline fun <reified N> meOrNull(row: Row, index: Int): N? = try {

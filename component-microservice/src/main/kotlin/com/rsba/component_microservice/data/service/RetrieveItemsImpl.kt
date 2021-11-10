@@ -1,8 +1,8 @@
 package com.rsba.component_microservice.data.service
 
 import com.rsba.component_microservice.domain.model.Item
-import com.rsba.component_microservice.query.database.ItemDBHandler2
-import com.rsba.component_microservice.query.database.ItemQueries
+import com.rsba.component_microservice.database.ItemDBHandler2
+import com.rsba.component_microservice.database.ItemQueries
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import org.springframework.r2dbc.core.DatabaseClient
 import java.util.*

@@ -3,8 +3,8 @@ package  com.rsba.order_microservice.resolver.mutation
 import   com.rsba.order_microservice.domain.input.*
 import  com.rsba.order_microservice.domain.model.Customer
 import   com.rsba.order_microservice.aspect.AdminSecured
-import com.rsba.order_microservice.context.token.TokenImpl
-import  com.rsba.order_microservice.repository.CustomerRepository
+import com.rsba.order_microservice.data.context.token.TokenImpl
+import  com.rsba.order_microservice.domain.repository.CustomerRepository
 import graphql.kickstart.tools.GraphQLMutationResolver
 import graphql.schema.DataFetchingEnvironment
 import mu.KLogger

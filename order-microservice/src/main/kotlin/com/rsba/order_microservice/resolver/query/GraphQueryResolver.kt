@@ -1,10 +1,10 @@
 package  com.rsba.order_microservice.resolver.query
 
 import  com.rsba.order_microservice.aspect.AdminSecured
-import com.rsba.order_microservice.context.token.TokenImpl
+import com.rsba.order_microservice.data.context.token.TokenImpl
 import com.rsba.order_microservice.domain.input.ElkGraphInput
 import com.rsba.order_microservice.domain.model.ElkGraphData
-import com.rsba.order_microservice.repository.GraphRepository
+import com.rsba.order_microservice.domain.repository.GraphRepository
 import graphql.kickstart.tools.GraphQLQueryResolver
 import org.springframework.stereotype.Component
 

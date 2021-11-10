@@ -1,6 +1,6 @@
 package com.rsba.order_microservice.resolver.suite
 
-import com.rsba.order_microservice.context.dataloader.DataLoaderRegistryFactory
+import com.rsba.order_microservice.data.context.dataloader.DataLoaderRegistryFactory
 import com.rsba.order_microservice.domain.model.Group
 import com.rsba.order_microservice.domain.model.Operation
 import graphql.kickstart.tools.GraphQLResolver

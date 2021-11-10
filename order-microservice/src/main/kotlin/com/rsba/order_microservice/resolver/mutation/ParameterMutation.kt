@@ -1,10 +1,10 @@
 package com.rsba.order_microservice.resolver.mutation
 
 import com.rsba.order_microservice.aspect.AdminSecured
-import com.rsba.order_microservice.context.token.ITokenImpl
+import com.rsba.order_microservice.data.context.token.ITokenImpl
 import com.rsba.order_microservice.domain.input.ParameterInput
 import com.rsba.order_microservice.domain.model.Parameter
-import com.rsba.order_microservice.repository.ParameterRepository
+import com.rsba.order_microservice.domain.repository.ParameterRepository
 import graphql.kickstart.tools.GraphQLMutationResolver
 import graphql.schema.DataFetchingEnvironment
 import org.springframework.stereotype.Component

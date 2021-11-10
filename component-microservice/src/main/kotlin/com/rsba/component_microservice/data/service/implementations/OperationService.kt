@@ -1,6 +1,10 @@
 package com.rsba.component_microservice.data.service.implementations
 
 import com.rsba.component_microservice.data.context.CustomGraphQLContext
+import com.rsba.component_microservice.database.GroupDBHandler
+import com.rsba.component_microservice.database.OperationDBHandler
+import com.rsba.component_microservice.database.OperationDBQuery
+import com.rsba.component_microservice.database.OperationQueries
 import com.rsba.component_microservice.domain.input.*
 import com.rsba.component_microservice.domain.model.Group
 import com.rsba.component_microservice.domain.model.Operation

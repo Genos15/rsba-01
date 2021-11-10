@@ -1,6 +1,8 @@
 package com.rsba.component_microservice.data.service.implementations
 
 import com.rsba.component_microservice.data.context.CustomGraphQLContext
+import com.rsba.component_microservice.database.ItemDBHandler2
+import com.rsba.component_microservice.database.ItemQueries
 import com.rsba.component_microservice.domain.input.ItemInput
 import com.rsba.component_microservice.domain.input.ItemTechnologyInput
 import com.rsba.component_microservice.domain.model.*
