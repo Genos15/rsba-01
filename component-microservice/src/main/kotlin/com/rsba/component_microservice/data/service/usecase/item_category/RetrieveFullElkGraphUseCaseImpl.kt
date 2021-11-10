@@ -37,7 +37,6 @@ class RetrieveFullElkGraphUseCaseImpl : RetrieveFullElkGraphUseCase {
                         node = node.to
                     )
                 }
-
                 val links: List<ElkGraphLink> = entries.flatMap { node ->
                     node.childrenIds?.mapNotNull {
                         try {
@@ -48,6 +47,9 @@ class RetrieveFullElkGraphUseCaseImpl : RetrieveFullElkGraphUseCase {
                     }?.map {
                         ElkGraphLink(id = "", source = node.id, target = it)
                     }?.toList() ?: emptyList()
+                }.mapIndexed { index, node ->
+                    node.id = (index + 1).toString()
+                    node
                 }
                 ElkGraph(nodes = nodes, links = links)
             }

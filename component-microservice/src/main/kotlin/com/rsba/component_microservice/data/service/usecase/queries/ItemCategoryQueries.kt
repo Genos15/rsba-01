@@ -69,7 +69,7 @@ object ItemCategoryQueries : IBaseQuery<ItemCategoryInput, ItemCategoryDao> {
 
     fun elk(token: UUID, from: UUID? = null): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<ItemCategoryDao>(customQuery = "_on_retrieve_elk_elements"))
-        append("('$from',")
+        append("(${from?.let { "'$it'" }},")
         append("'$token')")
     }
 

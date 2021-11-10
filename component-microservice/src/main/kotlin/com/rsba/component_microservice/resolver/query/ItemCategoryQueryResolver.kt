@@ -82,10 +82,10 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
     )
 
     suspend fun buildItemCategoryElk(
-        environment: DataFetchingEnvironment,
         from: UUID?,
         height: Int,
-        width: Int
+        width: Int,
+        environment: DataFetchingEnvironment,
     ): ElkGraph<ElkGraphItemCategoryNode> =
         service.elk(token = deduct(environment = environment), from = from, height = height, width = width)
 

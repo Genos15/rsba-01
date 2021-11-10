@@ -6,7 +6,7 @@ import java.util.*
 
 @Serializable
 data class ElkGraphLink(
-    val id: String,
+    var id: String,
     @Serializable(with = UUIDSerializer::class) val source: UUID,
     @Serializable(with = UUIDSerializer::class) val target: UUID,
 )
