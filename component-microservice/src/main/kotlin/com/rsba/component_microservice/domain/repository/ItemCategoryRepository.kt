@@ -2,6 +2,8 @@ package com.rsba.component_microservice.domain.repository
 
 import com.rsba.component_microservice.domain.model.ItemCategory
 import com.rsba.component_microservice.domain.input.ItemCategoryInput
+import com.rsba.component_microservice.domain.model.ElkGraph
+import com.rsba.component_microservice.domain.model.ElkGraphItemCategoryNode
 import com.rsba.component_microservice.domain.model.Item
 import java.util.*
 
@@ -34,5 +36,12 @@ interface ItemCategoryRepository {
         after: UUID? = null,
         token: UUID = UUID.randomUUID()
     ): Map<UUID, List<Item>>
+
+    suspend fun elk(
+        token: UUID,
+        from: UUID? = null,
+        height: Int,
+        width: Int,
+    ): ElkGraph<ElkGraphItemCategoryNode>
 
 }

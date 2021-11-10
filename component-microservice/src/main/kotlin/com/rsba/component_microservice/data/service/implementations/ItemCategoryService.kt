@@ -1,6 +1,8 @@
 package com.rsba.component_microservice.data.service.implementations
 
 import com.rsba.component_microservice.domain.input.ItemCategoryInput
+import com.rsba.component_microservice.domain.model.ElkGraph
+import com.rsba.component_microservice.domain.model.ElkGraphItemCategoryNode
 import com.rsba.component_microservice.domain.model.Item
 import com.rsba.component_microservice.domain.model.ItemCategory
 import com.rsba.component_microservice.domain.repository.ItemCategoryRepository
@@ -22,9 +24,10 @@ class ItemCategoryService(
     @Qualifier("search_item_category") private val searchUseCase: SearchUseCase<ItemCategory>,
     @Qualifier("find_item_category") private val findUseCase: FindUseCase<ItemCategory>,
     @Qualifier("count_item_category") private val countUseCase: CountUseCase,
-    private val retrieveChildren: RetrieveItemCategoryChildrenUseCase,
-    private val retrieveChildrenDataLoader: RetrieveItemCategoryChildrenDataLoaderUseCase,
-    private val myItems: RetrieveItemCategorySubItemsDataLoaderUseCase
+    private val retrieveChildrenUseCase: RetrieveItemCategoryChildrenUseCase,
+    private val retrieveChildrenDataLoaderUseCase: RetrieveItemCategoryChildrenDataLoaderUseCase,
+    private val myItemsUseCase: RetrieveItemCategorySubItemsDataLoaderUseCase,
+    @Qualifier("item_category_elk") private val elkUseCase: RetrieveFullElkGraphUseCase
 ) : ItemCategoryRepository {
 
     override suspend fun createOrEdit(input: ItemCategoryInput, token: UUID): Optional<ItemCategory> =
@@ -43,13 +46,21 @@ class ItemCategoryService(
         searchUseCase(database = database, first = first, after = after, token = token, input = input)
 
     override suspend fun children(id: UUID, first: Int, after: UUID?, token: UUID): List<ItemCategory> =
-        retrieveChildren(database = database, id = id, first = first, after = after, token = token)
+        retrieveChildrenUseCase(database = database, id = id, first = first, after = after, token = token)
 
     override suspend fun children(ids: Set<UUID>): Map<UUID, List<ItemCategory>> =
-        retrieveChildrenDataLoader(database = database, ids = ids, token = UUID.randomUUID())
+        retrieveChildrenDataLoaderUseCase(database = database, ids = ids, token = UUID.randomUUID())
 
     override suspend fun count(token: UUID): Int = countUseCase(database = database, token = token)
 
     override suspend fun items(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Item>> =
-        myItems(ids = ids, database = database, first = first, after = after, token = token)
+        myItemsUseCase(ids = ids, database = database, first = first, after = after, token = token)
+
+    override suspend fun elk(
+        token: UUID,
+        from: UUID?,
+        height: Int,
+        width: Int,
+    ): ElkGraph<ElkGraphItemCategoryNode> =
+        elkUseCase(database = database, token = token, from = from, height = height, width = width)
 }

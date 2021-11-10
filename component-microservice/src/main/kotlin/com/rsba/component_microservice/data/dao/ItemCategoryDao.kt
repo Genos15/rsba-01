@@ -17,6 +17,7 @@ data class ItemCategoryDao(
     val description: String? = null,
     @Serializable(with = DateTimeSerializer::class) val createdAt: OffsetDateTime? = null,
     @Serializable(with = DateTimeSerializer::class) val editedAt: OffsetDateTime? = null,
+    val childrenIds: List<String>? = emptyList(),
 ) : AbstractModel() {
 
     val to: ItemCategory

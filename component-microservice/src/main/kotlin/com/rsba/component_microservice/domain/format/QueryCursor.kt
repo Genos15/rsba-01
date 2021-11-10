@@ -20,7 +20,8 @@ object QueryCursor {
         if (payload == null) {
             throw CustomGraphQLError(message = "Value is not nullable")
         } else {
-            val element = jsonHandler.parseToJsonElement(payload)
+            val payloadJson = payload.replace(" ", "").replace("[null]", "[]")
+            val element = jsonHandler.parseToJsonElement(payloadJson)
             require(element is JsonArray)
             jsonHandler.decodeFromJsonElement(element)
         }
@@ -34,7 +35,8 @@ object QueryCursor {
 
     fun one(row: Row): AbstractModel? {
         val payload = row.get(0, String::class.java) ?: throw CustomGraphQLError(message = "Value is not nullable")
-        var element = jsonHandler.parseToJsonElement(payload)
+        val payloadJson = payload.replace(" ", "").replace("[null]", "[]")
+        var element = jsonHandler.parseToJsonElement(payloadJson)
         if (element is JsonArray && element.jsonArray.isNotEmpty()) {
             element = element.jsonArray[0].jsonObject
         }

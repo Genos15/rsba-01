@@ -67,6 +67,12 @@ object ItemCategoryQueries : IBaseQuery<ItemCategoryInput, ItemCategoryDao> {
         append("'$token')")
     }
 
+    fun elk(token: UUID, from: UUID? = null): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<ItemCategoryDao>(customQuery = "_on_retrieve_elk_elements"))
+        append("('$from',")
+        append("'$token')")
+    }
+
     override fun count(token: UUID): String = buildString {
         append(QueryBuilder.Count.buildRequestDef<ItemCategoryDao>())
         append("('$token')")

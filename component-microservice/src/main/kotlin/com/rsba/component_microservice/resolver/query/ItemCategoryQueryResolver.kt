@@ -1,6 +1,8 @@
 package com.rsba.component_microservice.resolver.query
 
 
+import com.rsba.component_microservice.domain.model.ElkGraph
+import com.rsba.component_microservice.domain.model.ElkGraphItemCategoryNode
 import com.rsba.component_microservice.domain.model.Item
 import com.rsba.component_microservice.domain.model.ItemCategory
 import com.rsba.component_microservice.domain.repository.ItemCategoryRepository
@@ -78,4 +80,13 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
         after = after,
         id = id
     )
+
+    suspend fun buildItemCategoryElk(
+        environment: DataFetchingEnvironment,
+        from: UUID?,
+        height: Int,
+        width: Int
+    ): ElkGraph<ElkGraphItemCategoryNode> =
+        service.elk(token = deduct(environment = environment), from = from, height = height, width = width)
+
 }
