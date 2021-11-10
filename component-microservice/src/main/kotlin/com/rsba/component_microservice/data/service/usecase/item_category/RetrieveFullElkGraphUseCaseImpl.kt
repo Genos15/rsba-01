@@ -46,7 +46,7 @@ class RetrieveFullElkGraphUseCaseImpl : RetrieveFullElkGraphUseCase {
                         }
                     }?.map {
                         ElkGraphLink(id = "", source = node.id, target = it)
-                    }?.toList()?.distinctBy { it.id.lowercase() } ?: emptyList()
+                    }?.toList() ?: emptyList()
                 }.mapIndexed { index, node ->
                     node.id = (index + 1).toString()
                     node
