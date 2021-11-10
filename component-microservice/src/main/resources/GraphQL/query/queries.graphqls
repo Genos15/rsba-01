@@ -5,6 +5,7 @@ type Query {
     findItemCategory (input: ID!): ItemCategory
     retrieveItemCategoryChildren (id: ID!, first: Int!, after: ID): ItemCategoryConnection @connection(for: "ItemCategory")
     countItemCategory: Int
+    retrieveItemCategorySubItems(id: ID!,first: Int!, after: ID): ItemConnection @connection(for: "Item")
     #------------ operation ------------------
     retrieveAllOperation (first: Int!, after: ID): OperationConnection @connection(for: "Operation")
 
@@ -17,5 +18,8 @@ type Query {
     retrieveItems (first: Int!, after: ID): ItemConnection @connection(for: "Item")
     retrieveItemByCategoryId (categoryId: ID!, first: Int!, after: ID): ItemConnection @connection(for: "Item")
     searchItems (input: String!,first: Int!, after: ID): ItemConnection @connection(for: "Item")
+    retrieveItemOperations (id: ID!,first: Int!, after: ID): OperationConnection @connection(for: "Operation")
+    retrieveItemComponents (id: ID!,first: Int!, after: ID): ItemConnection @connection(for: "Item")
+    findItem (input: ID!): Item
     countItems: Int
 }

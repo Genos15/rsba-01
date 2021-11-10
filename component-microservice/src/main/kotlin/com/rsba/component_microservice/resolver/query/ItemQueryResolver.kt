@@ -2,6 +2,7 @@ package com.rsba.component_microservice.resolver.query
 
 import com.rsba.component_microservice.domain.model.Item
 import com.rsba.component_microservice.aspect.AdminSecured
+import com.rsba.component_microservice.domain.model.Operation
 import com.rsba.component_microservice.domain.repository.ItemRepository
 import com.rsba.component_microservice.domain.security.TokenAnalyzer
 import graphql.kickstart.tools.GraphQLQueryResolver
@@ -22,13 +23,9 @@ class ItemQueryResolver(val service: ItemRepository, private val deduct: TokenAn
         after: UUID? = null,
         environment: DataFetchingEnvironment
     ): Connection<Item>? = perform(
-        entry = service.retrieve(
-            first = first,
-            after = after,
-            token = deduct(environment = environment)
-        ),
+        entries = service.retrieve(first = first, after = after, token = deduct(environment = environment)),
         first = first,
-        after = after
+        after = after,
     )
 
     @AdminSecured
@@ -38,7 +35,7 @@ class ItemQueryResolver(val service: ItemRepository, private val deduct: TokenAn
         after: UUID? = null,
         environment: DataFetchingEnvironment
     ): Connection<Item>? = perform(
-        entry = service.search(
+        entries = service.search(
             input = input,
             first = first,
             after = after,
@@ -55,7 +52,7 @@ class ItemQueryResolver(val service: ItemRepository, private val deduct: TokenAn
         after: UUID? = null,
         environment: DataFetchingEnvironment
     ): Connection<Item>? = perform(
-        entry = service.itemsByCategoryId(
+        entries = service.itemsByCategoryId(
             categoryId = categoryId,
             first = first,
             after = after,
@@ -67,5 +64,42 @@ class ItemQueryResolver(val service: ItemRepository, private val deduct: TokenAn
 
     suspend fun countItems(environment: DataFetchingEnvironment): Int =
         service.count(token = deduct(environment = environment))
+
+    suspend fun findItem(id: UUID, environment: DataFetchingEnvironment): Optional<Item> =
+        service.find(id = id, token = deduct(environment = environment))
+
+    suspend fun retrieveItemOperations(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Operation> = perform(
+        entries = service.operations(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
+    suspend fun retrieveItemComponents(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Item> = perform(
+        entries = service.components(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
 
 }

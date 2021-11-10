@@ -1,6 +1,7 @@
 package com.rsba.component_microservice.resolver.query
 
 
+import com.rsba.component_microservice.domain.model.Item
 import com.rsba.component_microservice.domain.model.ItemCategory
 import com.rsba.component_microservice.domain.repository.ItemCategoryRepository
 import com.rsba.component_microservice.domain.security.TokenAnalyzer
@@ -19,7 +20,7 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
         after: UUID? = null,
         environment: DataFetchingEnvironment
     ): Connection<ItemCategory>? = perform(
-        entry = service.retrieve(
+        entries = service.retrieve(
             first = first,
             after = after,
             token = deduct(environment = environment)
@@ -34,7 +35,7 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
         after: UUID? = null,
         environment: DataFetchingEnvironment
     ): Connection<ItemCategory>? = perform(
-        entry = service.search(
+        entries = service.search(
             input = input,
             first = first,
             after = after,
@@ -53,7 +54,7 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
         after: UUID? = null,
         environment: DataFetchingEnvironment
     ): Connection<ItemCategory>? = perform(
-        entry = service.children(id = id, first = first, after = after, token = deduct(environment = environment)),
+        entries = service.children(id = id, first = first, after = after, token = deduct(environment = environment)),
         first = first,
         after = after
     )
@@ -61,4 +62,20 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
     suspend fun countItemCategory(environment: DataFetchingEnvironment): Int =
         service.count(token = deduct(environment = environment))
 
+    suspend fun retrieveItemCategorySubItems(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Item> = perform(
+        entries = service.items(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
 }

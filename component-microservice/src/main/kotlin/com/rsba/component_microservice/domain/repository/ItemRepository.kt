@@ -28,9 +28,18 @@ interface ItemRepository {
 
     suspend fun toDetachSubItem(input: ItemInput, token: UUID): Optional<Item>
 
-    suspend fun operations(ids: Set<UUID>): Map<UUID, List<Operation>>
+    suspend fun operations(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Operation>>
 
-    suspend fun components(ids: Set<UUID>): Map<UUID, List<Item>>
+    suspend fun components(
+        ids: Set<UUID>, first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Item>>
 
     suspend fun category(ids: Set<UUID>): Map<UUID, Optional<ItemCategory>>
 

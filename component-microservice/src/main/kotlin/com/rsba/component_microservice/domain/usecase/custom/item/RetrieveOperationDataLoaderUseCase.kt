@@ -5,5 +5,11 @@ import org.springframework.r2dbc.core.DatabaseClient
 import java.util.*
 
 interface RetrieveOperationDataLoaderUseCase {
-    suspend operator fun invoke(database: DatabaseClient, ids: Set<UUID>, token: UUID): Map<UUID, List<Operation>>
+    suspend operator fun invoke(
+        database: DatabaseClient,
+        ids: Set<UUID>,
+        first: Int,
+        after: UUID?,
+        token: UUID
+    ): Map<UUID, List<Operation>>
 }

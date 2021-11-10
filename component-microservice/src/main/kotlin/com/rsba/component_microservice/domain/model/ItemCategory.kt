@@ -13,5 +13,6 @@ data class ItemCategory(
     val description: String? = null,
     @Serializable(with = DateTimeSerializer::class) val createdAt: OffsetDateTime? = null,
     @Serializable(with = DateTimeSerializer::class) val editedAt: OffsetDateTime? = null,
-    val children: List<Item>? = emptyList(),
+    val children: List<ItemCategory>? = emptyList(),
+    val subItems: List<Item>? = emptyList(),
 )

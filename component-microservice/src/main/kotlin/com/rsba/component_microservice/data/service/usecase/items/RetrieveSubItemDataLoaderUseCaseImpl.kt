@@ -17,11 +17,17 @@ import java.util.*
 @Component
 @OptIn(ExperimentalSerializationApi::class)
 class RetrieveSubItemDataLoaderUseCaseImpl : RetrieveSubItemDataLoaderUseCase {
-    override suspend fun invoke(database: DatabaseClient, ids: Set<UUID>, token: UUID): Map<UUID, List<Item>> =
+    override suspend fun invoke(
+        database: DatabaseClient,
+        ids: Set<UUID>,
+        first: Int,
+        after: UUID?,
+        token: UUID
+    ): Map<UUID, List<Item>> =
         Flux.fromIterable(ids)
             .parallel()
             .flatMap { id ->
-                database.sql(ItemQueries.components(token = token, id = id))
+                database.sql(ItemQueries.components(token = token, id = id, first = first, after = after))
                     .map { row -> QueryCursor.all(row = row) }
                     .first()
                     .map { it?.mapNotNull { element -> (element as? ItemDao?)?.to } ?: emptyList() }

@@ -2,6 +2,7 @@ package com.rsba.component_microservice.domain.repository
 
 import com.rsba.component_microservice.domain.model.ItemCategory
 import com.rsba.component_microservice.domain.input.ItemCategoryInput
+import com.rsba.component_microservice.domain.model.Item
 import java.util.*
 
 interface ItemCategoryRepository {
@@ -26,5 +27,12 @@ interface ItemCategoryRepository {
     suspend fun children(ids: Set<UUID>): Map<UUID, List<ItemCategory>>
 
     suspend fun count(token: UUID): Int
+
+    suspend fun items(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Item>>
 
 }

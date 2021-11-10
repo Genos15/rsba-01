@@ -5,6 +5,7 @@ type ItemCategory {
     createdAt: DateTime
     editedAt: DateTime
     children: [ItemCategory!]
+    subItems: [Item!]
 }
 
 type ItemCategoryEdge {

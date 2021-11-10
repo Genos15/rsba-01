@@ -59,6 +59,14 @@ object ItemCategoryQueries : IBaseQuery<ItemCategoryInput, ItemCategoryDao> {
         append("'$token')")
     }
 
+    fun items(id: UUID, first: Int, after: UUID?, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<ItemCategoryDao>(customQuery = "_on_retrieve_items_dataloader"))
+        append("('$id',")
+        append("$first,")
+        append("${after?.let { "'$it'" }},")
+        append("'$token')")
+    }
+
     override fun count(token: UUID): String = buildString {
         append(QueryBuilder.Count.buildRequestDef<ItemCategoryDao>())
         append("('$token')")

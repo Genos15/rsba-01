@@ -64,11 +64,11 @@ class ItemService(
     override suspend fun toDetachSubItem(input: ItemInput, token: UUID): Optional<Item> =
         detachSubItemUseCase(database = database, input = input, token = token)
 
-    override suspend fun operations(ids: Set<UUID>): Map<UUID, List<Operation>> =
-        myOperationsUseCase(database = database, ids = ids, token = UUID.randomUUID())
+    override suspend fun operations(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Operation>> =
+        myOperationsUseCase(database = database, ids = ids, token = token, first = first, after = after)
 
-    override suspend fun components(ids: Set<UUID>): Map<UUID, List<Item>> =
-        mySubItemsUseCase(database = database, ids = ids, token = UUID.randomUUID())
+    override suspend fun components(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Item>> =
+        mySubItemsUseCase(database = database, ids = ids, token = token, first = first, after = after)
 
     override suspend fun category(ids: Set<UUID>): Map<UUID, Optional<ItemCategory>> =
         myCategoryUseCase(database = database, ids = ids, token = UUID.randomUUID())

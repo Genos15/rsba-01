@@ -20,6 +20,7 @@ class DataLoaderRegistryFactory(
         const val SUB_ITEM_CATEGORY_DATALOADER = "SUB_ITEM_CATEGORY_DATALOADER"
         const val ITEMS_COMPONENTS_DATALOADER = "ITEMS_COMPONENTS_DATALOADER"
         const val ITEMS_CATEGORY_DATALOADER = "ITEMS_CATEGORY_DATALOADER"
+        const val SUB_ITEMS_IN_ITEM_CATEGORY_DATALOADER = "SUB_ITEMS_IN_ITEM_CATEGORY_DATALOADER"
 
     }
 
@@ -34,6 +35,7 @@ class DataLoaderRegistryFactory(
             _technology.dataLoaderOperationInTechnology(userId = instanceId)
         )
         registry.register(SUB_ITEM_CATEGORY_DATALOADER, _item_category.dataLoaderSubItemCategory(userId = instanceId))
+        registry.register(SUB_ITEMS_IN_ITEM_CATEGORY_DATALOADER, _item_category.dataLoaderSubItem(userId = instanceId))
         return registry
     }
 

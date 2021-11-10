@@ -1,11 +1,13 @@
 package com.rsba.component_microservice.data.service.implementations
 
 import com.rsba.component_microservice.domain.input.ItemCategoryInput
+import com.rsba.component_microservice.domain.model.Item
 import com.rsba.component_microservice.domain.model.ItemCategory
 import com.rsba.component_microservice.domain.repository.ItemCategoryRepository
 import com.rsba.component_microservice.domain.usecase.common.*
 import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategoryChildrenDataLoaderUseCase
 import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategoryChildrenUseCase
+import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategorySubItemsDataLoaderUseCase
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
@@ -22,6 +24,7 @@ class ItemCategoryService(
     @Qualifier("count_item_category") private val countUseCase: CountUseCase,
     private val retrieveChildren: RetrieveItemCategoryChildrenUseCase,
     private val retrieveChildrenDataLoader: RetrieveItemCategoryChildrenDataLoaderUseCase,
+    private val myItems: RetrieveItemCategorySubItemsDataLoaderUseCase
 ) : ItemCategoryRepository {
 
     override suspend fun createOrEdit(input: ItemCategoryInput, token: UUID): Optional<ItemCategory> =
@@ -46,4 +49,7 @@ class ItemCategoryService(
         retrieveChildrenDataLoader(database = database, ids = ids, token = UUID.randomUUID())
 
     override suspend fun count(token: UUID): Int = countUseCase(database = database, token = token)
+
+    override suspend fun items(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Item>> =
+        myItems(ids = ids, database = database, first = first, after = after, token = token)
 }
