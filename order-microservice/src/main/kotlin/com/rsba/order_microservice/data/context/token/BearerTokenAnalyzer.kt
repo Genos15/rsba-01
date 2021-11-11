@@ -1,8 +1,8 @@
-package com.rsba.component_microservice.data.context.token
+package com.rsba.order_microservice.data.context.token
 
-import com.rsba.component_microservice.data.context.CustomGraphQLContext
-import com.rsba.component_microservice.domain.exception.CustomGraphQLError
-import com.rsba.component_microservice.domain.security.TokenAnalyzer
+import com.rsba.order_microservice.data.context.CustomGraphQLContext
+import com.rsba.order_microservice.domain.exception.CustomGraphQLError
+import com.rsba.order_microservice.domain.security.TokenAnalyzer
 import graphql.schema.DataFetchingEnvironment
 import org.springframework.stereotype.Component
 import java.util.*

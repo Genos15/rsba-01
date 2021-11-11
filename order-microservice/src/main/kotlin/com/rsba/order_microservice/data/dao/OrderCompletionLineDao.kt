@@ -1,31 +1,25 @@
-package com.rsba.component_microservice.data.dao
+package com.rsba.order_microservice.data.dao
 
-import com.example.ticketApp.deserializer.DateTimeSerializer
-import com.rsba.component_microservice.configuration.deserializer.UUIDSerializer
-import com.rsba.component_microservice.domain.format.ModelType
-import com.rsba.component_microservice.domain.format.ModelTypeCase
-import com.rsba.component_microservice.domain.model.ItemCategory
+import com.rsba.order_microservice.configuration.deserializer.UUIDSerializer
+import com.rsba.order_microservice.domain.format.ModelType
+import com.rsba.order_microservice.domain.format.ModelTypeCase
+import com.rsba.order_microservice.domain.model.OrderCompletionLine
 import kotlinx.serialization.Serializable
-import java.time.OffsetDateTime
 import java.util.*
 
 @Serializable
-@ModelType(_class = ModelTypeCase.item_category)
-data class ItemCategoryDao(
+@ModelType(_class = ModelTypeCase.orders_completion_line)
+data class OrderCompletionLineDao(
     @Serializable(with = UUIDSerializer::class) override val id: UUID,
-    val name: String,
-    val description: String? = null,
-    @Serializable(with = DateTimeSerializer::class) val createdAt: OffsetDateTime? = null,
-    @Serializable(with = DateTimeSerializer::class) val editedAt: OffsetDateTime? = null,
-    val childrenIds: List<String>? = emptyList(),
+    val created: Map<String, Int>,
+    val delivered: Map<String, Int>,
+    val done: Map<String, Int>,
 ) : AbstractModel() {
 
-    val to: ItemCategory
-        get() = ItemCategory(
-            id = id,
-            name = name,
-            description = description,
-            createdAt = createdAt,
-            editedAt = editedAt,
+    val to: OrderCompletionLine
+        get() = OrderCompletionLine(
+            created = created,
+            delivered = delivered,
+            done = done,
         )
 }

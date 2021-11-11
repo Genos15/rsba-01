@@ -1,4 +1,4 @@
-package com.rsba.component_microservice.configuration.deserializer
+package com.rsba.order_microservice.configuration.deserializer
 
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.SerialDescriptor

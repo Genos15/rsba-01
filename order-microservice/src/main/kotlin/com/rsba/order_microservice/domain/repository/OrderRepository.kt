@@ -106,4 +106,6 @@ interface OrderRepository {
         level: OrderLevel? = null,
     ): List<Order>
 
+    suspend fun completionLineGraph(year: Int, token: UUID): Optional<OrderCompletionLine>
+
 }

@@ -1,6 +1,6 @@
 package com.rsba.order_microservice.configuration.deserializer
 
-import com.rsba.component_microservice.configuration.deserializer.DynamicLookupSerializer
+import com.rsba.order_microservice.configuration.deserializer.DynamicLookupSerializer
 import graphql.language.ObjectValue
 import graphql.language.StringValue
 import kotlinx.serialization.ExperimentalSerializationApi

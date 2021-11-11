@@ -1,12 +1,9 @@
 package  com.rsba.order_microservice.resolver.query
 
-import  com.rsba.order_microservice.domain.model.Order
 import  com.rsba.order_microservice.aspect.AdminSecured
-import com.rsba.order_microservice.data.context.token.ITokenImpl
-import com.rsba.order_microservice.domain.model.Item
-import com.rsba.order_microservice.domain.model.OrderLevel
-import com.rsba.order_microservice.domain.model.ProgressionStep
+import com.rsba.order_microservice.domain.model.*
 import  com.rsba.order_microservice.domain.repository.OrderRepository
+import com.rsba.order_microservice.domain.security.TokenAnalyzer
 import graphql.kickstart.tools.GraphQLQueryResolver
 import graphql.relay.*
 import org.springframework.stereotype.Component
@@ -17,8 +14,11 @@ import java.util.*
 
 
 @Component
-class OrderQueryResolver(private val service: OrderRepository, private val logger: KLogger) : GraphQLQueryResolver,
-    ITokenImpl, GenericRetrieveConnection(myLogger = logger) {
+class OrderQueryResolver(
+    private val service: OrderRepository,
+    private val logger: KLogger,
+    private val deduct: TokenAnalyzer
+) : GraphQLQueryResolver, GenericRetrieveConnection(myLogger = logger) {
 
     @AdminSecured
     suspend fun retrieveAllOrder(
@@ -26,7 +26,7 @@ class OrderQueryResolver(private val service: OrderRepository, private val logge
         after: UUID? = null,
         env: DataFetchingEnvironment
     ): Connection<Order>? = retrieveFn(
-        entry = service.onRetrieveAllOrder(token = readToken(environment = env), first = first, after = after),
+        entry = service.onRetrieveAllOrder(token = deduct(environment = env), first = first, after = after),
         first = first,
         after = after
     )
@@ -34,7 +34,7 @@ class OrderQueryResolver(private val service: OrderRepository, private val logge
     @AdminSecured
     suspend fun retrieveOneOrder(id: UUID, env: DataFetchingEnvironment): Optional<Order> {
         logger.warn { "+OrderQueryResolver->retrieveOneOrder" }
-        return service.retrieveOneOrder(id = id, token = readToken(environment = env))
+        return service.retrieveOneOrder(id = id, token = deduct(environment = env))
     }
 
     @AdminSecured
@@ -43,20 +43,20 @@ class OrderQueryResolver(private val service: OrderRepository, private val logge
         return service.retrieveItemInOrderById(
             itemId = itemId,
             orderId = orderId,
-            token = readToken(environment = env)
+            token = deduct(environment = env)
         )
     }
 
     @AdminSecured
     suspend fun retrieveProgressionStepsByOrderId(orderId: UUID, env: DataFetchingEnvironment): List<ProgressionStep> {
         logger.warn { "+OrderQueryResolver->retrieveProgressionStepsByOrderId" }
-        return service.retrieveProgressionStepsByOrderId(orderId = orderId, token = readToken(environment = env))
+        return service.retrieveProgressionStepsByOrderId(orderId = orderId, token = deduct(environment = env))
     }
 
     @AdminSecured
     suspend fun retrieveNumberOfActiveOrder(env: DataFetchingEnvironment): Optional<Int> {
         logger.warn { "+OrderQueryResolver->retrieveNumberOfActiveOrder" }
-        return service.retrieveNumberOfActiveOrder(token = readToken(environment = env))
+        return service.retrieveNumberOfActiveOrder(token = deduct(environment = env))
     }
 
     @AdminSecured
@@ -68,7 +68,7 @@ class OrderQueryResolver(private val service: OrderRepository, private val logge
     ): Connection<Order>? =
         retrieveFn(
             entry = service.orderByUserToken(
-                token = readToken(environment = env),
+                token = deduct(environment = env),
                 first = first,
                 after = after,
                 level = level
@@ -81,7 +81,7 @@ class OrderQueryResolver(private val service: OrderRepository, private val logge
     suspend fun retrieveNextOrderReference(env: DataFetchingEnvironment): String {
         logger.warn { "+OrderQueryResolver->retrieveNextOrderReference" }
         return service.retrieveNextOrderReference(
-            token = readToken(environment = env),
+            token = deduct(environment = env),
             companyId = UUID.randomUUID()
         )
     }
@@ -92,7 +92,7 @@ class OrderQueryResolver(private val service: OrderRepository, private val logge
         after: UUID? = null,
         env: DataFetchingEnvironment
     ): Connection<Order>? = retrieveFn(
-        entry = service.myCompletedOrders(token = readToken(environment = env), first = first, after = after),
+        entry = service.myCompletedOrders(token = deduct(environment = env), first = first, after = after),
         first = first,
         after = after
     )
@@ -107,11 +107,19 @@ class OrderQueryResolver(private val service: OrderRepository, private val logge
     ): Connection<Order>? = retrieveFn(
         entry = service.myOrdersByDepartmentId(
             departmentId = departmentId,
-            token = readToken(environment = env),
+            token = deduct(environment = env),
             first = first,
             after = after,
             level = level
         ), first = first, after = after
     )
+
+
+    @AdminSecured
+    suspend fun retrieveOrderCompletionLineGraph(
+        year: Int,
+        environment: DataFetchingEnvironment
+    ): Optional<OrderCompletionLine> =
+        service.completionLineGraph(year = year, token = deduct(environment = environment))
 
 }

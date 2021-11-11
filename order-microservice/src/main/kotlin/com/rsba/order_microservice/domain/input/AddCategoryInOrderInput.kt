@@ -1,5 +1,7 @@
 package com.rsba.order_microservice.domain.input
 
+import com.rsba.order_microservice.configuration.deserializer.UUIDSerializer
+
 import kotlinx.serialization.Serializable
 import java.util.*
 

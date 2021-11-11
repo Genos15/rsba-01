@@ -1,5 +1,9 @@
 type Query {
 
+    #    orders -------------------------
+
+    retrieveOrderCompletionLineGraph(year: Int): OrderCompletionLine
+
     retrieveAllOrder (first: Int!, after: ID): OrderConnection @connection(for: "Order")
 
     retrieveCompletedOrders (first: Int!, after: ID): OrderConnection @connection(for: "Order")

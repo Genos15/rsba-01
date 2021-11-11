@@ -1,10 +1,12 @@
 package com.rsba.order_microservice.domain.model
 
+import com.example.ticketApp.deserializer.DateTimeSerializer
 import com.rsba.order_microservice.domain.format.ModelType
 import com.rsba.order_microservice.domain.format.ModelTypeCase
 import kotlinx.serialization.Serializable
 import java.time.OffsetDateTime
 import java.util.*
+import com.rsba.order_microservice.configuration.deserializer.UUIDSerializer
 
 @Serializable
 @ModelType(_class = ModelTypeCase.users)

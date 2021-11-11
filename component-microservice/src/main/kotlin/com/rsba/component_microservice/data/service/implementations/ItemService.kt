@@ -6,7 +6,6 @@ import com.rsba.component_microservice.database.ItemQueries
 import com.rsba.component_microservice.domain.input.ItemInput
 import com.rsba.component_microservice.domain.input.ItemTechnologyInput
 import com.rsba.component_microservice.domain.model.*
-import com.rsba.component_microservice.query.database.*
 import com.rsba.component_microservice.domain.repository.ItemRepository
 import com.rsba.component_microservice.domain.usecase.common.*
 import com.rsba.component_microservice.domain.usecase.custom.item.*

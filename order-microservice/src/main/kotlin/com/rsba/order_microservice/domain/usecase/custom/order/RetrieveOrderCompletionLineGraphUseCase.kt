@@ -1,15 +1,9 @@
-package com.rsba.order_microservice.domain.usecase.custom.item
+package com.rsba.order_microservice.domain.usecase.custom.order
 
-import com.rsba.order_microservice.domain.model.Item
+import com.rsba.order_microservice.domain.model.OrderCompletionLine
 import org.springframework.r2dbc.core.DatabaseClient
 import java.util.*
 
-interface RetrieveSubItemDataLoaderUseCase {
-    suspend operator fun invoke(
-        database: DatabaseClient,
-        ids: Set<UUID>,
-        first: Int,
-        after: UUID?,
-        token: UUID
-    ): Map<UUID, List<Item>>
+interface RetrieveOrderCompletionLineGraphUseCase {
+    suspend operator fun invoke(database: DatabaseClient, year: Int, token: UUID): Optional<OrderCompletionLine>
 }

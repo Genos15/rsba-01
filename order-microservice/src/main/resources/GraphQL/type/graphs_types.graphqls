@@ -1,5 +1,5 @@
-enum OrderLevel {
-    COMPLETED
-    WORKING
-    NOT_STARTED
+type OrderCompletionLine {
+    created: Object
+    delivered: Object
+    done: Object
 }

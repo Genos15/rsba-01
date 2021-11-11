@@ -9,7 +9,6 @@ import com.rsba.component_microservice.domain.input.*
 import com.rsba.component_microservice.domain.model.Group
 import com.rsba.component_microservice.domain.model.Operation
 import com.rsba.component_microservice.domain.model.OperationFromOld
-import com.rsba.component_microservice.query.database.*
 import com.rsba.component_microservice.domain.repository.OperationRepository
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.reactive.awaitFirstOrElse

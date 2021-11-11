@@ -9,6 +9,7 @@ import  com.rsba.order_microservice.domain.repository.OrderRepository
 import com.rsba.order_microservice.data.service.implementation.orders.OrderDataloaderServiceImpl
 import com.rsba.order_microservice.data.service.implementation.orders.ReferenceNumberImpl
 import com.rsba.order_microservice.data.service.implementation.orders.RetrieveOrderImpl
+import com.rsba.order_microservice.domain.usecase.custom.order.RetrieveOrderCompletionLineGraphUseCase
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import mu.KLogger
@@ -32,7 +33,8 @@ class OrderService(
     private val queryHelper: OrderDatabaseQuery,
     private val categoryDataHandler: CategoryDataHandler,
     private val agentDataHandler: AgentDataHandler,
-    private val monitorPublisher: OrderPublisher
+    private val monitorPublisher: OrderPublisher,
+    private val completionLineGraphUseCase: RetrieveOrderCompletionLineGraphUseCase
 ) : OrderRepository, ReferenceNumberImpl, OrderDataloaderServiceImpl, RetrieveOrderImpl {
 
     override suspend fun createOrder(input: CreateOrderInput, token: UUID): Optional<Order> =
@@ -497,4 +499,6 @@ class OrderService(
         level = level
     )
 
+    override suspend fun completionLineGraph(year: Int, token: UUID): Optional<OrderCompletionLine> =
+        completionLineGraphUseCase(database = database, year = year, token = token)
 }
