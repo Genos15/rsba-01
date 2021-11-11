@@ -13,19 +13,19 @@ import java.util.concurrent.CompletableFuture
 @Component
 class ItemResolver : GraphQLResolver<Item> {
 
-    fun operations(item: Item, env: DataFetchingEnvironment): CompletableFuture<List<Operation>?>? {
+    fun operations(item: Item, env: DataFetchingEnvironment): CompletableFuture<List<Operation>> {
         val dataLoader =
             env.getDataLoader<UUID, List<Operation>>(DataLoaderRegistryFactory.OPERATION_IN_ITEM_DATALOADER)
         return dataLoader?.load(item.id) ?: CompletableFuture.completedFuture(emptyList())
     }
 
-    fun category(item: Item, env: DataFetchingEnvironment): CompletableFuture<Optional<ItemCategory>>? {
+    fun category(item: Item, env: DataFetchingEnvironment): CompletableFuture<Optional<ItemCategory>> {
         val dataLoader =
             env.getDataLoader<UUID, Optional<ItemCategory>>(DataLoaderRegistryFactory.ITEMS_CATEGORY_DATALOADER)
         return dataLoader?.load(item.id) ?: CompletableFuture.completedFuture(Optional.empty())
     }
 
-    fun components(item: Item, env: DataFetchingEnvironment): CompletableFuture<List<Item>?>? {
+    fun components(item: Item, env: DataFetchingEnvironment): CompletableFuture<List<Item>> {
         val dataLoader =
             env.getDataLoader<UUID, List<Item>>(DataLoaderRegistryFactory.ITEMS_COMPONENTS_DATALOADER)
         return dataLoader?.load(item.id) ?: CompletableFuture.completedFuture(emptyList())

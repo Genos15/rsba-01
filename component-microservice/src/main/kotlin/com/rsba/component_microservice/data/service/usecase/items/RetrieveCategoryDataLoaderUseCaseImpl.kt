@@ -25,7 +25,7 @@ class RetrieveCategoryDataLoaderUseCaseImpl : RetrieveCategoryDataLoaderUseCase 
             .parallel()
             .flatMap { id ->
                 database.sql(ItemQueries.category(token = token, id = id))
-                    .map { row -> QueryCursor.all(row = row) }
+                    .map { row -> QueryCursor.one(row = row) }
                     .first()
                     .map { Optional.ofNullable((it as? ItemCategoryDao?)?.to) }
                     .map { AbstractMap.SimpleEntry(id, it) }
