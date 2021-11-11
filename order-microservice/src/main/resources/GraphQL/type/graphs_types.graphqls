@@ -1,0 +1,5 @@
+enum OrderLevel {
+    COMPLETED
+    WORKING
+    NOT_STARTED
+}
