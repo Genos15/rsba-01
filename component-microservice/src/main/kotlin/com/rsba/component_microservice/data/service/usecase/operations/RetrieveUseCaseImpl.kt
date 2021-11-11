@@ -1,7 +1,7 @@
 package com.rsba.component_microservice.data.service.usecase.operations
 
 import com.rsba.component_microservice.data.dao.OperationDao
-import com.rsba.component_microservice.data.service.usecase.queries.ItemQueries
+import com.rsba.component_microservice.data.service.usecase.queries.OperationQueries
 import com.rsba.component_microservice.domain.format.QueryCursor
 import com.rsba.component_microservice.domain.model.Operation
 import com.rsba.component_microservice.domain.usecase.common.RetrieveUseCase
@@ -15,7 +15,7 @@ import java.util.*
 @OptIn(ExperimentalSerializationApi::class)
 class RetrieveUseCaseImpl : RetrieveUseCase<Operation> {
     override suspend fun invoke(database: DatabaseClient, first: Int, after: UUID?, token: UUID): List<Operation> =
-        database.sql(ItemQueries.retrieve(token = token, first = first, after = after))
+        database.sql(OperationQueries.retrieve(token = token, first = first, after = after))
             .map { row -> QueryCursor.all(row = row) }
             .first()
             .map { it?.mapNotNull { element -> (element as? OperationDao?)?.to } ?: emptyList() }
