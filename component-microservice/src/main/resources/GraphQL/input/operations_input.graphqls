@@ -1,0 +1,13 @@
+input OperationInput {
+    id: ID
+    name: String
+    description: String
+    move: String
+    estimatedTimeInHour: BigDecimal
+    departments: [ID!]
+}
+
+input OperationAndGroupInput {
+    operationId: ID!
+    groupId: ID!
+}

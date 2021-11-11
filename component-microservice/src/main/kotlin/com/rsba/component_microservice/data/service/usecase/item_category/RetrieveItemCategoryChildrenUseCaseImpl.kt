@@ -21,13 +21,14 @@ class RetrieveItemCategoryChildrenUseCaseImpl : RetrieveItemCategoryChildrenUseC
         first: Int,
         after: UUID?,
         token: UUID
-    ): List<ItemCategory> = database.sql(ItemCategoryQueries.children(token = token, first = first, after = after, id = id))
-        .map { row -> QueryCursor.all(row = row) }
-        .first()
-        .map { it?.mapNotNull { element -> (element as? ItemCategoryDao?)?.to } ?: emptyList() }
-        .onErrorResume {
-            throw it
-        }
-        .log()
-        .awaitFirstOrElse { emptyList() }
+    ): List<ItemCategory> =
+        database.sql(ItemCategoryQueries.children(token = token, first = first, after = after, id = id))
+            .map { row -> QueryCursor.all(row = row) }
+            .first()
+            .map { it?.mapNotNull { element -> (element as? ItemCategoryDao?)?.to } ?: emptyList() }
+            .onErrorResume {
+                throw it
+            }
+            .log()
+            .awaitFirstOrElse { emptyList() }
 }

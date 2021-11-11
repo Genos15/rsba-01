@@ -7,4 +7,5 @@ object ModelTypeCase {
     const val item_category = "item_category"
     const val items = "items"
     const val operations = "operations"
+    const val departments = "departments"
 }

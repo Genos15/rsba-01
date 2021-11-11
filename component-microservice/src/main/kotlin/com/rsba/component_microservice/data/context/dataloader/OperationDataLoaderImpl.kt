@@ -10,15 +10,10 @@ import java.util.*
 
 @Component
 class OperationDataLoaderImpl(private val service: OperationRepository) {
-    fun dataLoaderGroupInOperation(userId: UUID): DataLoader<UUID, List<Group>> =
+    fun dataLoaderDepartmentAndOperation(userId: UUID): DataLoader<UUID, List<Group>> =
         DataLoader.newMappedDataLoader { ids ->
             GlobalScope.future {
-                service.retrieveGroupInOperation(
-                    ids = ids,
-                    userId = userId,
-                    page = 0,
-                    size = 1000
-                )
+                service.departments(ids = ids)
             }
         }
 

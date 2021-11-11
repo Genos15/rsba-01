@@ -5,6 +5,7 @@ import com.rsba.component_microservice.domain.format.IBaseQuery
 import com.rsba.component_microservice.domain.format.JsonHandlerKotlin
 import com.rsba.component_microservice.domain.format.QueryBuilder
 import com.rsba.component_microservice.domain.input.ItemInput
+import com.rsba.component_microservice.domain.model.MutationAction
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
 import java.util.*
@@ -12,7 +13,7 @@ import java.util.*
 @ExperimentalSerializationApi
 object ItemQueries : IBaseQuery<ItemInput, ItemDao> {
 
-    override fun createOrEdit(input: ItemInput, token: UUID): String = buildString {
+    override fun createOrEdit(input: ItemInput, token: UUID, action: MutationAction?): String = buildString {
         append(QueryBuilder.CreateOrEdit.buildRequestDef<ItemDao>())
         append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
         append("'$token')")

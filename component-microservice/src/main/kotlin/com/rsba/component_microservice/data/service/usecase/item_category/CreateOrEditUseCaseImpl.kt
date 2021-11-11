@@ -4,6 +4,7 @@ import com.rsba.component_microservice.data.dao.ItemCategoryDao
 import com.rsba.component_microservice.data.service.usecase.queries.ItemCategoryQueries
 import com.rsba.component_microservice.domain.format.QueryCursor
 import com.rsba.component_microservice.domain.input.ItemCategoryInput
+import com.rsba.component_microservice.domain.model.MutationAction
 import com.rsba.component_microservice.domain.model.ItemCategory
 import com.rsba.component_microservice.domain.usecase.common.CreateOrEditUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
@@ -18,7 +19,8 @@ class CreateOrEditUseCaseImpl : CreateOrEditUseCase<ItemCategoryInput, ItemCateg
     override suspend fun invoke(
         database: DatabaseClient,
         input: ItemCategoryInput,
-        token: UUID
+        token: UUID,
+        action: MutationAction?
     ): Optional<ItemCategory> = database.sql(ItemCategoryQueries.createOrEdit(input = input, token = token))
         .map { row -> QueryCursor.one(row = row) }
         .first()

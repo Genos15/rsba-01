@@ -1,6 +1,6 @@
 package com.rsba.component_microservice.database
 
-import com.rsba.component_microservice.domain.input.CreateOrEditOperationInput
+import com.rsba.component_microservice.domain.input.OperationInput
 import com.rsba.component_microservice.domain.input.OperationAndGroupInput
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -10,7 +10,7 @@ import java.util.*
 @Component
 class OperationDBQuery {
 
-    fun onCreateOrEditOperation(input: CreateOrEditOperationInput, token: UUID) =
+    fun onCreateOrEditOperation(input: OperationInput, token: UUID) =
         "SELECT on_create_or_edit_operation('${Json.encodeToString(input)}', '$token')"
 
     fun onAttachOperationToDepartment(input: OperationAndGroupInput, token: UUID) =

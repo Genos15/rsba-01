@@ -1,34 +1,9 @@
-type Group {
-    id: ID!
-    name: String!
-    description: String
-    createdAt: String
-    editedAt: String
-    parent: Group
-    priority: Int
-    isAnalytic: Boolean
-    isStaging: Boolean
-}
-
-type Operation {
-    id: ID!
-    name: String!
-    description: String
-    move: String
-    estimatedTimeInHour: Float
-    createdAt: String
-    editedAt: String
-    creator: ID
-    departments: [Group]
-}
-
-
 type Technology {
     id: ID!
     name: String!
     description: String
     createdAt: String
     editedAt: String
-    operations: [Operation]
+    operations: [Operation!]
 }
 

@@ -9,7 +9,10 @@ type Query {
     buildItemCategoryElk(from: ID, height: Int!, width: Int!): ElkGraphItemCategory!
 
     #------------ operation ------------------
-    retrieveAllOperation (first: Int!, after: ID): OperationConnection @connection(for: "Operation")
+    retrieveOperations (first: Int!, after: ID): OperationConnection @connection(for: "Operation")
+    searchOperations (input: String!, first: Int!, after: ID): OperationConnection @connection(for: "Operation")
+    retrieveOperationDepartments(id: ID!, first: Int!, after: ID): GroupConnection @connection(for: "Group")
+    findOperation (input: ID!): Operation
 
     #------------ technology ----------------
     retrieveTechnologies (first: Int!, after: ID): TechnologyConnection @connection(for: "Technology")

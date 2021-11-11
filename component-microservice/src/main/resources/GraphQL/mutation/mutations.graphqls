@@ -12,10 +12,8 @@ type Mutation {
 
     #--------------- operation ----------------
 
-    createOrEditOperation(input: CreateOrEditOperationInput!): Operation
+    createOrEditOperation(input: OperationInput!, action: MutationAction): Operation
     deleteOperation(input: ID!): Int
-    attachOperationToGroup(input: OperationAndGroupInput!): Operation
-    detachOperationToGroup(input: OperationAndGroupInput!): Operation
 
     #--------------- technology ----------------
 
@@ -32,6 +30,5 @@ type Mutation {
 
     importItemFromJsonFile: Boolean
     importTechnologyFromJsonFile: Boolean
-    importOperationFromJsonFile: Boolean
 
 }

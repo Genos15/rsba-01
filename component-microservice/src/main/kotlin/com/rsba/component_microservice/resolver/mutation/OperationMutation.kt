@@ -3,6 +3,7 @@ package com.rsba.component_microservice.resolver.mutation
 import  com.rsba.component_microservice.domain.input.*
 import com.rsba.component_microservice.domain.model.Operation
 import  com.rsba.component_microservice.aspect.AdminSecured
+import com.rsba.component_microservice.domain.model.MutationAction
 import com.rsba.component_microservice.domain.repository.OperationRepository
 import com.rsba.component_microservice.domain.security.TokenAnalyzer
 import graphql.kickstart.tools.GraphQLMutationResolver
@@ -16,27 +17,14 @@ class OperationMutation(private val service: OperationRepository, private val de
 
     @AdminSecured
     suspend fun createOrEditOperation(
-        input: CreateOrEditOperationInput,
+        input: OperationInput,
+        action: MutationAction,
         environment: DataFetchingEnvironment
-    ): Optional<Operation> = service.createOrEditOperation(input = input, token = deduct(environment = environment))
+    ): Optional<Operation> =
+        service.toCreateOrEdit(input = input, token = deduct(environment = environment), action = action)
 
     @AdminSecured
-    suspend fun deleteOperation(input: UUID, environment: DataFetchingEnvironment): Int =
-        service.deleteOperation(input = input, token = deduct(environment = environment))
+    suspend fun deleteOperation(input: UUID, environment: DataFetchingEnvironment): Boolean =
+        service.toDelete(input = input, token = deduct(environment = environment))
 
-    @AdminSecured
-    suspend fun attachOperationToGroup(
-        input: OperationAndGroupInput,
-        environment: DataFetchingEnvironment
-    ): Optional<Operation> = service.attachOperationToGroup(input = input, token = deduct(environment = environment))
-
-    @AdminSecured
-    suspend fun detachOperationToGroup(
-        input: OperationAndGroupInput,
-        environment: DataFetchingEnvironment
-    ): Optional<Operation> = service.detachOperationToGroup(input = input, token = deduct(environment = environment))
-
-    suspend fun importOperationFromJsonFile(environment: DataFetchingEnvironment): Optional<Boolean> {
-        return service.importOperationFromJsonFile(environment = environment)
-    }
 }

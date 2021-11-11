@@ -1,52 +1,71 @@
 package com.rsba.component_microservice.resolver.query
 
-import com.rsba.component_microservice.configuration.request_helper.CursorUtil
 import com.rsba.component_microservice.domain.model.Operation
 import com.rsba.component_microservice.aspect.AdminSecured
-import com.rsba.component_microservice.data.context.token.TokenImpl
+import com.rsba.component_microservice.domain.model.Group
 import com.rsba.component_microservice.domain.repository.OperationRepository
+import com.rsba.component_microservice.domain.security.TokenAnalyzer
 import graphql.kickstart.tools.GraphQLQueryResolver
 import graphql.relay.*
 import org.springframework.stereotype.Component
 import java.util.*
 
 import graphql.schema.DataFetchingEnvironment
-import mu.KLogger
 
 
 @Component
-class OperationQueryResolver(
-    val cursorUtil: CursorUtil,
-    val service: OperationRepository,
-    val logger: KLogger,
-    private val tokenImpl: TokenImpl
-) : GraphQLQueryResolver {
+class OperationQueryResolver(val service: OperationRepository, private val deduct: TokenAnalyzer) :
+    GraphQLQueryResolver, GenericRetrieveConnection {
 
     @AdminSecured
-    suspend fun retrieveAllOperation(
+    suspend fun retrieveOperations(
         first: Int,
         after: UUID? = null,
         environment: DataFetchingEnvironment
-    ): Connection<Operation>? {
+    ): Connection<Operation> = perform(
+        entries = service.retrieve(
+            first = first,
+            after = after,
+            token = deduct(environment = environment)
+        ),
+        first = first,
+        after = after
+    )
 
-        logger.warn { "+OperationQueryResolver -> retrieveAllOperation" }
+    @AdminSecured
+    suspend fun searchOperations(
+        input: String,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Operation> = perform(
+        entries = service.search(
+            input = input,
+            first = first,
+            after = after,
+            token = deduct(environment = environment)
+        ),
+        first = first,
+        after = after
+    )
 
-        val edges: List<Edge<Operation>> =
-            service.retrieveAllOperation(
-                first = first,
-                after = after,
-                token = tokenImpl.read(environment = environment)
-            ).map {
-                return@map DefaultEdge(it, cursorUtil.createCursorWith(it.id))
-            }.take(first)
+    suspend fun findOperation(id: UUID, environment: DataFetchingEnvironment): Optional<Operation> =
+        service.find(id = id, token = deduct(environment = environment))
 
-        val pageInfo = DefaultPageInfo(
-            cursorUtil.firstCursorFrom(edges),
-            cursorUtil.lastCursorFrom(edges),
-            after != null,
-            edges.size >= first
-        )
-
-        return DefaultConnection(edges, pageInfo)
-    }
+    suspend fun retrieveOperationDepartments(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Group> = perform(
+        entries = service.departments(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
 }

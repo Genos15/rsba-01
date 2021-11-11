@@ -1,18 +1,4 @@
 
-input CreateOrEditOperationInput {
-    id: ID
-    name: String
-    description: String
-    move: String
-    estimatedTimeInHour: BigDecimal
-    departments: [ID]
-}
-
-input OperationAndGroupInput {
-    operationId: ID!
-    groupId: ID!
-}
-
 input CreateOrEditTechnologyInput {
     id: ID
     name: String

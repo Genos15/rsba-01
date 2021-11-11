@@ -10,3 +10,8 @@ type PageInfo {
     hasPreviousPage: Boolean!
     hasNextPage: Boolean!
 }
+
+enum MutationAction {
+    ATTACH
+    DETACH
+}

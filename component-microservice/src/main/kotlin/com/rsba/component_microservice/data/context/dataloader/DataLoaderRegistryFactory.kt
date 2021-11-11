@@ -26,7 +26,10 @@ class DataLoaderRegistryFactory(
 
     fun create(instanceId: UUID): DataLoaderRegistry {
         val registry = DataLoaderRegistry()
-        registry.register(GROUP_IN_OPERATION_DATALOADER, _operation.dataLoaderGroupInOperation(userId = instanceId))
+        registry.register(
+            GROUP_IN_OPERATION_DATALOADER,
+            _operation.dataLoaderDepartmentAndOperation(userId = instanceId)
+        )
         registry.register(OPERATION_IN_ITEM_DATALOADER, _item.dataLoaderOperation(userId = instanceId))
         registry.register(ITEMS_COMPONENTS_DATALOADER, _item.dataLoaderComponents(userId = instanceId))
         registry.register(ITEMS_CATEGORY_DATALOADER, _item.dataLoaderCategory(userId = instanceId))

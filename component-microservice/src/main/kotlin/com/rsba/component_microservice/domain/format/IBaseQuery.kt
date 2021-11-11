@@ -1,11 +1,12 @@
 package com.rsba.component_microservice.domain.format
 
 import com.rsba.component_microservice.data.dao.AbstractModel
+import com.rsba.component_microservice.domain.model.MutationAction
 import java.util.*
 
 interface IBaseQuery<in I, out R : AbstractModel> {
 
-    fun createOrEdit(input: I, token: UUID): String
+    fun createOrEdit(input: I, token: UUID, action: MutationAction? = null): String
 
     fun delete(input: UUID, token: UUID): String
 

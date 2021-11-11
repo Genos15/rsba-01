@@ -1,0 +1,21 @@
+type Operation {
+    id: ID!
+    name: String!
+    description: String
+    move: String
+    estimatedTimeInHour: Float
+    createdAt: String
+    editedAt: String
+    creator: ID
+    departments: [Group!]
+}
+
+type OperationEdge {
+    cursor: String
+    node: Operation
+}
+
+type OperationConnection {
+    edges: [OperationEdge]
+    pageInfo: PageInfo
+}
