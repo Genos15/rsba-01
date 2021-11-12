@@ -1,5 +1,5 @@
 type Query {
-    #------------ item's category ------------------
+    #------------ item's category -------------
     searchItemCategory (input: String!, first: Int!, after: ID): ItemCategoryConnection @connection(for: "ItemCategory")
     retrieveItemCategory (first: Int!, after: ID): ItemCategoryConnection @connection(for: "ItemCategory")
     findItemCategory (input: ID!): ItemCategory
@@ -23,7 +23,7 @@ type Query {
     searchTechnologies (input: String!, first: Int!, after: ID): TechnologyConnection @connection(for: "Technology")
     retrieveTechnologyOperations(id: ID!, first: Int!, after: ID): OperationConnection @connection(for: "Operation")
 
-    #-------------- items ------------------------------
+    #-------------- items --------------------
     retrieveItems (first: Int!, after: ID): ItemConnection @connection(for: "Item")
     searchItems (input: String!,first: Int!, after: ID): ItemConnection @connection(for: "Item")
     retrieveItemOperations (id: ID!,first: Int!, after: ID): OperationConnection @connection(for: "Operation")
