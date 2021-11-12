@@ -45,23 +45,6 @@ class ItemQueryResolver(val service: ItemRepository, private val deduct: TokenAn
         after = after
     )
 
-    @AdminSecured
-    suspend fun retrieveItemByCategoryId(
-        categoryId: UUID,
-        first: Int,
-        after: UUID? = null,
-        environment: DataFetchingEnvironment
-    ): Connection<Item>? = perform(
-        entries = service.itemsByCategoryId(
-            categoryId = categoryId,
-            first = first,
-            after = after,
-            token = deduct(environment = environment)
-        ),
-        first = first,
-        after = after
-    )
-
     suspend fun countItems(environment: DataFetchingEnvironment): Int =
         service.count(token = deduct(environment = environment))
 

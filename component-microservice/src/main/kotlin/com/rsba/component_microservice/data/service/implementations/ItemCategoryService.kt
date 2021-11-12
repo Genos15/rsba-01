@@ -7,7 +7,6 @@ import com.rsba.component_microservice.domain.model.Item
 import com.rsba.component_microservice.domain.model.ItemCategory
 import com.rsba.component_microservice.domain.repository.ItemCategoryRepository
 import com.rsba.component_microservice.domain.usecase.common.*
-import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategoryChildrenDataLoaderUseCase
 import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategoryChildrenUseCase
 import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategorySubItemsDataLoaderUseCase
 import org.springframework.beans.factory.annotation.Qualifier
@@ -24,8 +23,7 @@ class ItemCategoryService(
     @Qualifier("search_item_category") private val searchUseCase: SearchUseCase<ItemCategory>,
     @Qualifier("find_item_category") private val findUseCase: FindUseCase<ItemCategory>,
     @Qualifier("count_item_category") private val countUseCase: CountUseCase,
-    private val retrieveChildrenUseCase: RetrieveItemCategoryChildrenUseCase,
-    private val retrieveChildrenDataLoaderUseCase: RetrieveItemCategoryChildrenDataLoaderUseCase,
+    private val subCategoriesUseCase: RetrieveItemCategoryChildrenUseCase,
     private val myItemsUseCase: RetrieveItemCategorySubItemsDataLoaderUseCase,
     @Qualifier("item_category_elk") private val elkUseCase: RetrieveFullElkGraphUseCase
 ) : ItemCategoryRepository {
@@ -45,11 +43,13 @@ class ItemCategoryService(
     override suspend fun search(input: String, first: Int, after: UUID?, token: UUID): List<ItemCategory> =
         searchUseCase(database = database, first = first, after = after, token = token, input = input)
 
-    override suspend fun children(id: UUID, first: Int, after: UUID?, token: UUID): List<ItemCategory> =
-        retrieveChildrenUseCase(database = database, id = id, first = first, after = after, token = token)
-
-    override suspend fun children(ids: Set<UUID>): Map<UUID, List<ItemCategory>> =
-        retrieveChildrenDataLoaderUseCase(database = database, ids = ids, token = UUID.randomUUID())
+    override suspend fun subCategories(
+        ids: Set<UUID>,
+        first: Int,
+        after: UUID?,
+        token: UUID
+    ): Map<UUID, List<ItemCategory>> =
+        subCategoriesUseCase(database = database, ids = ids, token = token, first = first, after = after)
 
     override suspend fun count(token: UUID): Int = countUseCase(database = database, token = token)
 

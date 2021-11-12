@@ -16,6 +16,7 @@ object ItemCategoryQueries : IBaseQuery<ItemCategoryInput, ItemCategoryDao> {
     override fun createOrEdit(input: ItemCategoryInput, token: UUID, action: MutationAction?): String = buildString {
         append(QueryBuilder.CreateOrEdit.buildRequestDef<ItemCategoryDao>())
         append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
+        append("${action?.let { "'$it'" }},")
         append("'$token')")
     }
 
@@ -46,17 +47,11 @@ object ItemCategoryQueries : IBaseQuery<ItemCategoryInput, ItemCategoryDao> {
         append("'$token')")
     }
 
-    fun children(id: UUID, first: Int, after: UUID?, token: UUID): String = buildString {
-        append(QueryBuilder.Custom.buildRequestDef<ItemCategoryDao>(customQuery = "_on_retrieve_children"))
+    fun children(id: UUID, first: Int, after: UUID? = null, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<ItemCategoryDao>(customQuery = "_on_retrieve_sub_categories"))
         append("('$id',")
         append("$first,")
         append("${after?.let { "'$it'" }},")
-        append("'$token')")
-    }
-
-    fun children(id: UUID, token: UUID): String = buildString {
-        append(QueryBuilder.Custom.buildRequestDef<ItemCategoryDao>(customQuery = "_on_retrieve_children_dataloader"))
-        append("('$id',")
         append("'$token')")
     }
 

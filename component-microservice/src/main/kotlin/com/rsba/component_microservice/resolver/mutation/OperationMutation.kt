@@ -18,7 +18,7 @@ class OperationMutation(private val service: OperationRepository, private val de
     @AdminSecured
     suspend fun createOrEditOperation(
         input: OperationInput,
-        action: MutationAction,
+        action: MutationAction? = null,
         environment: DataFetchingEnvironment
     ): Optional<Operation> =
         service.toCreateOrEdit(input = input, token = deduct(environment = environment), action = action)

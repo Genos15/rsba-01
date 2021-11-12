@@ -13,7 +13,7 @@ import java.util.*
 class ItemCategoryDataLoaderImpl(private val service: ItemCategoryRepository) {
 
     fun dataLoaderSubItemCategory(userId: UUID): DataLoader<UUID, List<ItemCategory>> =
-        DataLoader.newMappedDataLoader { ids -> GlobalScope.future { service.children(ids = ids) } }
+        DataLoader.newMappedDataLoader { ids -> GlobalScope.future { service.subCategories(ids = ids) } }
 
     fun dataLoaderSubItem(userId: UUID): DataLoader<UUID, List<Item>> =
         DataLoader.newMappedDataLoader { ids -> GlobalScope.future { service.items(ids = ids) } }

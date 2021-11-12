@@ -16,6 +16,7 @@ object ItemQueries : IBaseQuery<ItemInput, ItemDao> {
     override fun createOrEdit(input: ItemInput, token: UUID, action: MutationAction?): String = buildString {
         append(QueryBuilder.CreateOrEdit.buildRequestDef<ItemDao>())
         append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
+        append("${action?.let { "'$it'" }},")
         append("'$token')")
     }
 

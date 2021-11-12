@@ -21,11 +21,12 @@ class CreateOrEditUseCaseImpl : CreateOrEditUseCase<ItemCategoryInput, ItemCateg
         input: ItemCategoryInput,
         token: UUID,
         action: MutationAction?
-    ): Optional<ItemCategory> = database.sql(ItemCategoryQueries.createOrEdit(input = input, token = token))
-        .map { row -> QueryCursor.one(row = row) }
-        .first()
-        .map { Optional.ofNullable((it as? ItemCategoryDao?)?.to) }
-        .onErrorResume { throw it }
-        .log()
-        .awaitFirstOrElse { Optional.empty() }
+    ): Optional<ItemCategory> =
+        database.sql(ItemCategoryQueries.createOrEdit(input = input, token = token, action = action))
+            .map { row -> QueryCursor.one(row = row) }
+            .first()
+            .map { Optional.ofNullable((it as? ItemCategoryDao?)?.to) }
+            .onErrorResume { throw it }
+            .log()
+            .awaitFirstOrElse { Optional.empty() }
 }

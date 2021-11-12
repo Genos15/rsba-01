@@ -3,6 +3,7 @@ package com.rsba.component_microservice.resolver.mutation
 import  com.rsba.component_microservice.domain.input.*
 import  com.rsba.component_microservice.aspect.AdminSecured
 import com.rsba.component_microservice.domain.model.ItemCategory
+import com.rsba.component_microservice.domain.model.MutationAction
 import com.rsba.component_microservice.domain.repository.ItemCategoryRepository
 import com.rsba.component_microservice.domain.security.TokenAnalyzer
 import graphql.kickstart.tools.GraphQLMutationResolver
@@ -17,6 +18,7 @@ class ItemCategoryMutation(private val service: ItemCategoryRepository, private 
     @AdminSecured
     suspend fun createOrEditItemCategory(
         input: ItemCategoryInput,
+        action: MutationAction? = null,
         environment: DataFetchingEnvironment
     ): Optional<ItemCategory> = service.createOrEdit(input = input, token = deduct(environment = environment))
 

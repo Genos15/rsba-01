@@ -26,7 +26,7 @@ class OperationService(
 
     override suspend fun toCreateOrEdit(
         input: OperationInput,
-        action: MutationAction,
+        action: MutationAction?,
         token: UUID
     ): Optional<Operation> =
         createOrEditUseCase(database = database, input = input, token = token, action = action)

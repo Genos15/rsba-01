@@ -2,12 +2,7 @@ type Mutation {
 
     #--------------- item ----------------
 
-    createOrEditItem(input: ItemInput!): Item
-    attachSubItemToItem(input: ItemInput!): Item
-    detachSubItemToItem(input: ItemInput!): Item
-    attachOperationToItem(input: ItemInput!): Item
-    detachOperationToItem(input: ItemInput!): Item
-    attachTechnologyWithItem(input: ItemTechnologyInput!): Item
+    createOrEditItem(input: ItemInput!, action: MutationAction): Item
     deleteItem(input: ID!): Boolean
 
     #--------------- operation ----------------
@@ -22,7 +17,7 @@ type Mutation {
 
     #--------------- item's categories --------------
 
-    createOrEditItemCategory(input: ItemCategoryInput!): ItemCategory
+    createOrEditItemCategory(input: ItemCategoryInput!, action: MutationAction): ItemCategory
     deleteItemCategory(input: ID!): Boolean
 
 }

@@ -22,7 +22,7 @@ class CreateOrEditUseCaseImpl : CreateOrEditUseCase<ItemInput, Item> {
         token: UUID,
         action: MutationAction?
     ): Optional<Item> =
-        database.sql(ItemQueries.createOrEdit(input = input, token = token))
+        database.sql(ItemQueries.createOrEdit(input = input, token = token, action = action))
             .map { row -> QueryCursor.one(row = row) }
             .first()
             .map { Optional.ofNullable((it as? ItemDao?)?.to) }

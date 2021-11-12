@@ -21,7 +21,7 @@ class RetrieveItemCategoryChildrenDataLoaderUseCaseImpl : RetrieveItemCategoryCh
         Flux.fromIterable(ids)
             .parallel()
             .flatMap { id ->
-                database.sql(ItemCategoryQueries.children(token = token, id = id))
+                database.sql(ItemCategoryQueries.children(token = token, id = id, first = 0))
                     .map { row -> QueryCursor.all(row = row) }
                     .first()
                     .map { it?.mapNotNull { element -> (element as? ItemCategoryDao?)?.to } ?: emptyList() }

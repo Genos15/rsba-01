@@ -8,7 +8,7 @@ import java.util.*
 
 interface OperationRepository {
 
-    suspend fun toCreateOrEdit(input: OperationInput, action: MutationAction, token: UUID): Optional<Operation>
+    suspend fun toCreateOrEdit(input: OperationInput, action: MutationAction? = null, token: UUID): Optional<Operation>
 
     suspend fun toDelete(input: UUID, token: UUID): Boolean
 

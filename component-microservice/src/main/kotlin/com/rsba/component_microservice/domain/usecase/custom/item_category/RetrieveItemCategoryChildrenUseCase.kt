@@ -7,9 +7,9 @@ import java.util.*
 interface RetrieveItemCategoryChildrenUseCase {
     suspend operator fun invoke(
         database: DatabaseClient,
-        id: UUID,
+        ids: Set<UUID>,
         first: Int,
         after: UUID?,
         token: UUID
-    ): List<ItemCategory>
+    ): Map<UUID, List<ItemCategory>>
 }

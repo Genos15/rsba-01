@@ -19,14 +19,11 @@ interface ItemCategoryRepository {
 
     suspend fun search(input: String, first: Int, after: UUID?, token: UUID): List<ItemCategory>
 
-    suspend fun children(
-        id: UUID,
-        first: Int,
-        after: UUID?,
-        token: UUID
-    ): List<ItemCategory>
-
-    suspend fun children(ids: Set<UUID>): Map<UUID, List<ItemCategory>>
+    suspend fun subCategories(
+        ids: Set<UUID>, first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<ItemCategory>>
 
     suspend fun count(token: UUID): Int
 
