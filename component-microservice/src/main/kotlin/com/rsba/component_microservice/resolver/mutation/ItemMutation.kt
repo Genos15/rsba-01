@@ -20,7 +20,7 @@ class ItemMutation(private val service: ItemRepository, private val deduct: Toke
         action: MutationAction? = null,
         environment: DataFetchingEnvironment
     ): Optional<Item> =
-        service.toCreateOrEdit(input = input, token = deduct(environment = environment))
+        service.toCreateOrEdit(input = input, token = deduct(environment = environment), action = action)
 
     @AdminSecured
     suspend fun deleteItem(input: UUID, environment: DataFetchingEnvironment): Boolean =

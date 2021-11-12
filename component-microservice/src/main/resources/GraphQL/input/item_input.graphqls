@@ -10,6 +10,9 @@ input ItemInput {
     itemCategoryId: ID
     #diffirent components attached to the item/nomenclature
     components: [ID!]
+
+    technologies: [ID!]
+
 }
 
 input ItemTechnologyInput {

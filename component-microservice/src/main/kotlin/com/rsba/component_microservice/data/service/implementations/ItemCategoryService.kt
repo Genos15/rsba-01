@@ -1,10 +1,7 @@
 package com.rsba.component_microservice.data.service.implementations
 
 import com.rsba.component_microservice.domain.input.ItemCategoryInput
-import com.rsba.component_microservice.domain.model.ElkGraph
-import com.rsba.component_microservice.domain.model.ElkGraphItemCategoryNode
-import com.rsba.component_microservice.domain.model.Item
-import com.rsba.component_microservice.domain.model.ItemCategory
+import com.rsba.component_microservice.domain.model.*
 import com.rsba.component_microservice.domain.repository.ItemCategoryRepository
 import com.rsba.component_microservice.domain.usecase.common.*
 import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategoryChildrenUseCase
@@ -28,8 +25,12 @@ class ItemCategoryService(
     @Qualifier("item_category_elk") private val elkUseCase: RetrieveFullElkGraphUseCase
 ) : ItemCategoryRepository {
 
-    override suspend fun createOrEdit(input: ItemCategoryInput, token: UUID): Optional<ItemCategory> =
-        createOrEditUseCase(database = database, input = input, token = token)
+    override suspend fun createOrEdit(
+        input: ItemCategoryInput,
+        action: MutationAction?,
+        token: UUID
+    ): Optional<ItemCategory> =
+        createOrEditUseCase(database = database, input = input, token = token, action = action)
 
     override suspend fun delete(input: UUID, token: UUID): Boolean =
         deleteUseCase(database = database, input = input, token = token)

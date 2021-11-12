@@ -16,4 +16,5 @@ data class ItemInput(
     val operations: List<String>? = emptyList(),
     @Serializable(with = UUIDSerializer::class) val itemCategoryId: UUID? = null,
     val components: List<String>? = emptyList(),
-): AbstractInput()
+    val technologies: List<String>? = emptyList(),
+) : AbstractInput()

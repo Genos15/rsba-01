@@ -20,7 +20,7 @@ class ItemCategoryMutation(private val service: ItemCategoryRepository, private 
         input: ItemCategoryInput,
         action: MutationAction? = null,
         environment: DataFetchingEnvironment
-    ): Optional<ItemCategory> = service.createOrEdit(input = input, token = deduct(environment = environment))
+    ): Optional<ItemCategory> = service.createOrEdit(input = input, token = deduct(environment = environment), action = action)
 
     @AdminSecured
     suspend fun deleteItemCategory(input: UUID, environment: DataFetchingEnvironment): Boolean =
