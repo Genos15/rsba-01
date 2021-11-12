@@ -1,10 +1,10 @@
-package com.rsba.component_microservice.data.service.usecase.items
+package com.rsba.component_microservice.data.service.usecase.technologies
 
 import com.rsba.component_microservice.data.dao.OperationDao
-import com.rsba.component_microservice.data.service.usecase.queries.ItemQueries
+import com.rsba.component_microservice.data.service.usecase.queries.TechnologyQueries
 import com.rsba.component_microservice.domain.queries.QueryCursor
 import com.rsba.component_microservice.domain.model.Operation
-import com.rsba.component_microservice.domain.usecase.custom.item.RetrieveOperationDataLoaderUseCase
+import com.rsba.component_microservice.domain.usecase.custom.technology.RetrieveOperationTechnologiesUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.springframework.r2dbc.core.DatabaseClient
@@ -13,10 +13,10 @@ import reactor.core.publisher.Flux
 import reactor.core.scheduler.Schedulers
 import java.util.*
 
-
 @Component
 @OptIn(ExperimentalSerializationApi::class)
-class RetrieveOperationDataLoaderUseCaseImpl : RetrieveOperationDataLoaderUseCase {
+class RetrieveOperationTechnologiesUseCaseImpl : RetrieveOperationTechnologiesUseCase {
+
     override suspend fun invoke(
         database: DatabaseClient,
         ids: Set<UUID>,
@@ -27,7 +27,7 @@ class RetrieveOperationDataLoaderUseCaseImpl : RetrieveOperationDataLoaderUseCas
         Flux.fromIterable(ids)
             .parallel()
             .flatMap { id ->
-                database.sql(ItemQueries.operations(token = token, id = id, first = first, after = after))
+                database.sql(TechnologyQueries.operations(token = token, id = id, first = first, after = after))
                     .map { row -> QueryCursor.all(row = row) }
                     .first()
                     .map { it?.mapNotNull { element -> (element as? OperationDao?)?.to } ?: emptyList() }
@@ -37,10 +37,8 @@ class RetrieveOperationDataLoaderUseCaseImpl : RetrieveOperationDataLoaderUseCas
             .runOn(Schedulers.parallel())
             .sequential()
             .collectList()
-            .map { entries -> entries.associateBy({ it.key }, { it.value }) }
+            .map { entries -> entries.associateBy({ it.key }, { it.value ?: emptyList() }) }
             .onErrorResume { throw it }
             .log()
             .awaitFirstOrElse { emptyMap() }
 }
-
-

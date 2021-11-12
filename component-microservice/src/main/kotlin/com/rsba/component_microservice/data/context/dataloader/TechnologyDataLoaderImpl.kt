@@ -13,12 +13,7 @@ class TechnologyDataLoaderImpl(private val service: TechnologyRepository) {
     fun dataLoaderOperationInTechnology(userId: UUID): DataLoader<UUID, List<Operation>> {
         return DataLoader.newMappedDataLoader { ids ->
             GlobalScope.future {
-                service.myOperations(
-                    ids = ids,
-                    userId = userId,
-                    page = 0,
-                    size = 1000
-                )
+                service.operations(ids = ids)
             }
         }
     }

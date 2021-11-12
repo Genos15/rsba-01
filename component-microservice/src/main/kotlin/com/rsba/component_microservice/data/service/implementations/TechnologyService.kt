@@ -1,183 +1,52 @@
 package com.rsba.component_microservice.data.service.implementations
 
-import com.rsba.component_microservice.data.context.CustomGraphQLContext
-import com.rsba.component_microservice.domain.input.*
+import com.rsba.component_microservice.domain.input.TechnologyInput
+import com.rsba.component_microservice.domain.model.MutationAction
 import com.rsba.component_microservice.domain.model.Operation
 import com.rsba.component_microservice.domain.model.Technology
-import com.rsba.component_microservice.domain.model.TechnologyFromOld
-import com.rsba.component_microservice.database.OperationDBHandler2
-import com.rsba.component_microservice.database.TechnologyDBHandler
-import com.rsba.component_microservice.database.TechnologyQueries
 import com.rsba.component_microservice.domain.repository.TechnologyRepository
-import graphql.schema.DataFetchingEnvironment
-import kotlinx.coroutines.reactive.awaitFirstOrElse
-import mu.KLogger
-import org.json.simple.JSONArray
-import org.json.simple.JSONObject
-import org.json.simple.parser.JSONParser
+import com.rsba.component_microservice.domain.usecase.common.*
+import com.rsba.component_microservice.domain.usecase.custom.technology.RetrieveOperationTechnologiesUseCase
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
-import reactor.core.publisher.Flux
-import reactor.core.publisher.SynchronousSink
-import reactor.core.scheduler.Schedulers
-import java.io.File
-import java.io.FileReader
 import java.util.*
 
 @Service
-class TechnologyService(private val database: DatabaseClient, private val logger: KLogger) : TechnologyRepository {
+class TechnologyService(
+    private val database: DatabaseClient,
+    @Qualifier("create_edit_technology") private val createOrEditUseCase: CreateOrEditUseCase<TechnologyInput, Technology>,
+    @Qualifier("delete_technology") private val deleteUseCase: DeleteUseCase<Technology>,
+    @Qualifier("find_technology") private val findUseCase: FindUseCase<Technology>,
+    @Qualifier("retrieve_technology") private val retrieveUseCase: RetrieveUseCase<Technology>,
+    @Qualifier("search_technology") private val searchUseCase: SearchUseCase<Technology>,
+    @Qualifier("count_operation") private val countUseCase: CountUseCase,
+    private val operationsUseCase: RetrieveOperationTechnologiesUseCase
+) : TechnologyRepository {
 
-    override suspend fun createOrEdit(input: CreateOrEditTechnologyInput, token: UUID): Optional<Technology> =
-        database.sql(TechnologyQueries.createOrEdit(input = input, token = token))
-            .map { row, meta -> TechnologyDBHandler.one(row = row, meta = meta) }
-            .first()
-            .handle { single: Optional<Technology>, sink: SynchronousSink<Optional<Technology>> ->
-                if (single.isPresent) {
-                    sink.next(single)
-                } else {
-                    sink.error(RuntimeException("ЧТО-ТО ПОШЛО НЕ ТАК, НЕВОЗМОЖНО СОЗДАТЬ ТЕХНОЛОГИЮ. ПОЖАЛУЙСТА, СВЯЖИТЕСЬ СО СЛУЖБОЙ ПОДДЕРЖКИ"))
-                }
-            }
-            .flatMap { technology ->
-                return@flatMap Flux.fromIterable(input.operationIds ?: emptyList())
-                    .parallel()
-                    .map {
-                        TechnologyAndOperation(
-                            technologyId = technology.get().id,
-                            operationId = UUID.fromString(it)
-                        )
-                    }
-                    .flatMap {
-                        database.sql(TechnologyQueries.addOrReorderOperation(input = it, token = token))
-                            .map { row, meta -> TechnologyDBHandler.one(row = row, meta = meta) }
-                            .first()
-                    }
-                    .runOn(Schedulers.parallel())
-                    .sequential()
-                    .collectList()
-                    .map { technology }
-            }
-            .onErrorResume {
-                logger.warn { "+TaskService->createOrEdit->error = ${it.message}" }
-                throw it
-            }
-            .awaitFirstOrElse { Optional.empty() }
+    override suspend fun toCreateOrEdit(
+        input: TechnologyInput,
+        action: MutationAction?,
+        token: UUID
+    ): Optional<Technology> =
+        createOrEditUseCase(database = database, input = input, action = action, token = token)
 
-    override suspend fun delete(input: UUID, token: UUID): Boolean =
-        database.sql(TechnologyQueries.delete(input = input, token = token))
-            .map { row, meta -> TechnologyDBHandler.count(row = row, meta = meta) }
-            .first()
-            .map { it != null && it > 0 }
-            .onErrorResume {
-                logger.warn { "+TechnologyService->delete->error = ${it.message}" }
-                throw it
-            }
-            .awaitFirstOrElse { false }
+    override suspend fun toDelete(input: UUID, token: UUID): Boolean =
+        deleteUseCase(database = database, input = input, token = token)
+
+    override suspend fun find(id: UUID, token: UUID): Optional<Technology> =
+        findUseCase(database = database, id = id, token = token)
 
     override suspend fun retrieve(first: Int, after: UUID?, token: UUID): List<Technology> =
-        database.sql(TechnologyQueries.retrieve(first = first, after = after, token = token))
-            .map { row, meta -> TechnologyDBHandler.all(row = row, meta = meta) }
-            .first()
-            .onErrorResume {
-                logger.warn { "+TechnologyService->retrieve->error=${it.message}" }
-                throw it
-            }
-            .awaitFirstOrElse { emptyList() }
+        retrieveUseCase(database = database, first = first, after = after, token = token)
 
-    override suspend fun retrieveById(id: UUID, token: UUID): Optional<Technology> =
-        database.sql(TechnologyQueries.retrieveById(input = id, token = token))
-            .map { row, meta -> TechnologyDBHandler.one(row = row, meta = meta) }
-            .first()
-            .onErrorResume {
-                logger.warn { "+TechnologyService->retrieveById->error=${it.message}" }
-                throw it
-            }
-            .awaitFirstOrElse { Optional.empty() }
+    override suspend fun search(input: String, first: Int, after: UUID?, token: UUID): List<Technology> =
+        searchUseCase(database = database, first = first, after = after, token = token, input = input)
 
-    override suspend fun unpinOperation(input: List<TechnologyAndOperation>, token: UUID): Optional<Technology> =
-        Flux.fromIterable(input)
-            .parallel()
-            .flatMap {
-                database.sql(TechnologyQueries.unpinOperation(input = it, token = token))
-                    .map { row, meta -> TechnologyDBHandler.one(row = row, meta = meta) }
-                    .first()
-            }
-            .runOn(Schedulers.parallel())
-            .sequential()
-            .collectList()
-            .map { it.firstOrNull() ?: Optional.empty() }
-            .onErrorResume {
-                logger.warn { "+TaskService->createOrEdit->error = ${it.message}" }
-                throw it
-            }
-            .awaitFirstOrElse { Optional.empty() }
+    override suspend fun count(token: UUID): Int =
+        countUseCase(database = database, token = token)
 
-    override suspend fun search(content: String, token: UUID): List<Technology> =
-        database.sql(TechnologyQueries.search(content = content, token = token))
-            .map { row, meta -> TechnologyDBHandler.all(row = row, meta = meta) }
-            .first()
-            .onErrorResume {
-                logger.warn { "+TechnologyService->retrieve->error=${it.message}" }
-                throw it
-            }
-            .awaitFirstOrElse { emptyList() }
-
-    override suspend fun myOperations(ids: Set<UUID>, userId: UUID, page: Int, size: Int): Map<UUID, List<Operation>> =
-        Flux.fromIterable(ids)
-            .parallel()
-            .flatMap { id ->
-                return@flatMap database.sql(TechnologyQueries.myOperations(technologyId = id))
-                    .map { row -> OperationDBHandler2.all(row = row) }
-                    .first()
-                    .map { AbstractMap.SimpleEntry(id, it) }
-            }
-            .runOn(Schedulers.parallel())
-            .sequential()
-            .collectList()
-            .map {
-                val map = mutableMapOf<UUID, List<Operation>>()
-                it.forEach { element -> map[element.key] = element.value ?: emptyList() }
-                return@map map.toMap()
-            }
-            .onErrorResume {
-                logger.warn { "+TechnologyService->myOperations->error = ${it.message}" }
-                throw it
-            }
-            .awaitFirstOrElse { emptyMap() }
-
-    override suspend fun importTechnologyFromJsonFile(environment: DataFetchingEnvironment): Optional<Boolean> =
-        Flux.just(environment)
-            .map {
-                val context: CustomGraphQLContext = it.getContext()
-                if (context.fileParts.isEmpty() || context.fileParts.firstOrNull() == null) {
-                    throw RuntimeException("FILE NOT FOUND")
-                }
-                val part = context.fileParts.first()
-                val file = File("filename")
-                file.writeBytes(part.inputStream.readBytes())
-                val reader = FileReader(file)
-                val jsonParser = JSONParser()
-                val obj: Any = jsonParser.parse(reader)
-                val list: List<TechnologyFromOld> = (obj as JSONArray).map { emp ->
-                    TechnologyFromOld(
-                        name = (emp as JSONObject)["name"] as String,
-                        description = emp["description"] as String?
-                    )
-                }
-
-                Flux.fromIterable(list)
-            }
-            .parallel()
-            .flatMap {
-                it.flatMap { elt ->
-                    database.sql(TechnologyQueries.addOldTechnology(input = elt, token = UUID.randomUUID()))
-                        .map { row -> row }
-                        .first()
-                }
-            }
-            .runOn(Schedulers.parallel())
-            .map {
-                Optional.of(true)
-            }.awaitFirstOrElse { Optional.of(false) }
+    override suspend fun operations(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Operation>> =
+        operationsUseCase(database = database, ids = ids, token = token, first = first, after = after)
 
 }

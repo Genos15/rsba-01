@@ -8,4 +8,5 @@ object ModelTypeCase {
     const val items = "items"
     const val operations = "operations"
     const val departments = "departments"
+    const val technologies = "technologies"
 }

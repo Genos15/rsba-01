@@ -13,22 +13,16 @@ type Mutation {
     #--------------- operation ----------------
 
     createOrEditOperation(input: OperationInput!, action: MutationAction): Operation
-    deleteOperation(input: ID!): Int
+    deleteOperation(input: ID!): Boolean
 
     #--------------- technology ----------------
 
-    createOrEditTechnology(input: CreateOrEditTechnologyInput!): Technology
+    createOrEditTechnology(input: TechnologyInput!, action: MutationAction): Technology
     deleteTechnology(input: ID!): Boolean
-    unpinOperationInTechnology(input: [TechnologyAndOperation]): Technology
 
     #--------------- item's categories --------------
 
     createOrEditItemCategory(input: ItemCategoryInput!): ItemCategory
     deleteItemCategory(input: ID!): Boolean
-
-    #--------------- old version ----------------
-
-    importItemFromJsonFile: Boolean
-    importTechnologyFromJsonFile: Boolean
 
 }

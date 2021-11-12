@@ -2,6 +2,7 @@ package com.rsba.component_microservice.resolver.mutation
 
 import  com.rsba.component_microservice.domain.input.*
 import  com.rsba.component_microservice.aspect.AdminSecured
+import com.rsba.component_microservice.domain.model.MutationAction
 import com.rsba.component_microservice.domain.model.Technology
 import com.rsba.component_microservice.domain.repository.TechnologyRepository
 import com.rsba.component_microservice.domain.security.TokenAnalyzer
@@ -16,22 +17,14 @@ class TechnologyMutation(private val service: TechnologyRepository, private val 
 
     @AdminSecured
     suspend fun createOrEditTechnology(
-        input: CreateOrEditTechnologyInput,
+        input: TechnologyInput,
+        action: MutationAction? = null,
         environment: DataFetchingEnvironment
     ): Optional<Technology> =
-        service.createOrEdit(input = input, token = deduct(environment = environment))
+        service.toCreateOrEdit(input = input, token = deduct(environment = environment), action = action)
 
     @AdminSecured
     suspend fun deleteTechnology(input: UUID, environment: DataFetchingEnvironment): Boolean =
-        service.delete(input = input, token = deduct(environment = environment))
+        service.toDelete(input = input, token = deduct(environment = environment))
 
-    @AdminSecured
-    suspend fun unpinOperationInTechnology(
-        input: List<TechnologyAndOperation>? = null,
-        environment: DataFetchingEnvironment
-    ): Optional<Technology> =
-        service.unpinOperation(input = input ?: emptyList(), token = deduct(environment = environment))
-
-    suspend fun importTechnologyFromJsonFile(environment: DataFetchingEnvironment): Optional<Boolean> =
-        service.importTechnologyFromJsonFile(environment = environment)
 }

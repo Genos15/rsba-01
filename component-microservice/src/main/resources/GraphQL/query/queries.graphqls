@@ -13,11 +13,15 @@ type Query {
     searchOperations (input: String!, first: Int!, after: ID): OperationConnection @connection(for: "Operation")
     retrieveOperationDepartments(id: ID!, first: Int!, after: ID): GroupConnection @connection(for: "Group")
     findOperation (input: ID!): Operation
+    countOperations: Int
 
     #------------ technology ----------------
+
     retrieveTechnologies (first: Int!, after: ID): TechnologyConnection @connection(for: "Technology")
-    retrieveTechnologyById (id: ID!): Technology
-    searchTechnologies (content: String!): [Technology]
+    findTechnology(input: ID!): Technology
+    countTechnologies: Int
+    searchTechnologies (input: String!, first: Int!, after: ID): TechnologyConnection @connection(for: "Technology")
+    retrieveTechnologyOperations(id: ID!, first: Int!, after: ID): OperationConnection @connection(for: "Operation")
 
     #-------------- items ------------------------------
     retrieveItems (first: Int!, after: ID): ItemConnection @connection(for: "Item")

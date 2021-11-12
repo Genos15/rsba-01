@@ -2,7 +2,7 @@ package com.rsba.component_microservice.data.service.usecase.item_category
 
 import com.rsba.component_microservice.data.dao.ItemDao
 import com.rsba.component_microservice.data.service.usecase.queries.ItemCategoryQueries
-import com.rsba.component_microservice.domain.format.QueryCursor
+import com.rsba.component_microservice.domain.queries.QueryCursor
 import com.rsba.component_microservice.domain.model.Item
 import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategorySubItemsDataLoaderUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse

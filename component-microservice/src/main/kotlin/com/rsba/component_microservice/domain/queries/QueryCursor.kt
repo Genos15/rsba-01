@@ -1,7 +1,8 @@
-package com.rsba.component_microservice.domain.format
+package com.rsba.component_microservice.domain.queries
 
 import com.rsba.component_microservice.data.dao.AbstractModel
 import com.rsba.component_microservice.domain.exception.CustomGraphQLError
+import com.rsba.component_microservice.domain.format.JsonHandlerKotlin
 import io.r2dbc.spi.Row
 import kotlinx.serialization.json.*
 

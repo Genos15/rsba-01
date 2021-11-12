@@ -9,8 +9,8 @@ import java.util.*
 @Serializable
 @ModelType(_class = ModelTypeCase.item_category)
 data class ItemCategoryInput(
-    @Serializable(with = UUIDSerializer::class) val id: UUID? = null,
+    @Serializable(with = UUIDSerializer::class) override val id: UUID? = null,
     val name: String? = null,
     val description: String? = null,
     private val children: List<String>? = emptyList(),
-)
+) : AbstractInput()

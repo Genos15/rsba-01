@@ -1,11 +1,12 @@
-package com.rsba.component_microservice.data.service.usecase.items
+package com.rsba.component_microservice.data.service.usecase.technologies
 
-import com.rsba.component_microservice.data.dao.ItemDao
-import com.rsba.component_microservice.data.service.usecase.queries.ItemQueries
+import com.rsba.component_microservice.data.dao.TechnologyDao
 import com.rsba.component_microservice.domain.queries.QueryCursor
-import com.rsba.component_microservice.domain.input.ItemInput
+import com.rsba.component_microservice.domain.input.TechnologyInput
 import com.rsba.component_microservice.domain.model.MutationAction
-import com.rsba.component_microservice.domain.model.Item
+import com.rsba.component_microservice.domain.model.Technology
+import com.rsba.component_microservice.domain.queries.IQueryGuesser
+import com.rsba.component_microservice.domain.queries.query
 import com.rsba.component_microservice.domain.usecase.common.CreateOrEditUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -13,19 +14,19 @@ import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Component
 import java.util.*
 
-@Component(value = "create_edit_item")
+@Component(value = "create_edit_technology")
 @OptIn(ExperimentalSerializationApi::class)
-class CreateOrEditUseCaseImpl : CreateOrEditUseCase<ItemInput, Item> {
+class CreateOrEditUseCaseImpl : CreateOrEditUseCase<TechnologyInput, Technology>, IQueryGuesser {
     override suspend fun invoke(
         database: DatabaseClient,
-        input: ItemInput,
+        input: TechnologyInput,
         token: UUID,
         action: MutationAction?
-    ): Optional<Item> =
-        database.sql(ItemQueries.createOrEdit(input = input, token = token))
+    ): Optional<Technology> =
+        database.sql(query<TechnologyDao>().createOrEdit(input = input, token = token, action = action))
             .map { row -> QueryCursor.one(row = row) }
             .first()
-            .map { Optional.ofNullable((it as? ItemDao?)?.to) }
+            .map { Optional.ofNullable((it as? TechnologyDao?)?.to) }
             .onErrorResume { throw it }
             .log()
             .awaitFirstOrElse { Optional.empty() }

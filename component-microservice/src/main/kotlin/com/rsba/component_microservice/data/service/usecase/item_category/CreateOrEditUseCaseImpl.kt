@@ -2,7 +2,7 @@ package com.rsba.component_microservice.data.service.usecase.item_category
 
 import com.rsba.component_microservice.data.dao.ItemCategoryDao
 import com.rsba.component_microservice.data.service.usecase.queries.ItemCategoryQueries
-import com.rsba.component_microservice.domain.format.QueryCursor
+import com.rsba.component_microservice.domain.queries.QueryCursor
 import com.rsba.component_microservice.domain.input.ItemCategoryInput
 import com.rsba.component_microservice.domain.model.MutationAction
 import com.rsba.component_microservice.domain.model.ItemCategory

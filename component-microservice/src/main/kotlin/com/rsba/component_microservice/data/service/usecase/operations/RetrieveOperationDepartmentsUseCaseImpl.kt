@@ -2,7 +2,7 @@ package com.rsba.component_microservice.data.service.usecase.operations
 
 import com.rsba.component_microservice.data.dao.DepartmentDao
 import com.rsba.component_microservice.data.service.usecase.queries.OperationQueries
-import com.rsba.component_microservice.domain.format.QueryCursor
+import com.rsba.component_microservice.domain.queries.QueryCursor
 import com.rsba.component_microservice.domain.model.Group
 import com.rsba.component_microservice.domain.usecase.custom.operation.RetrieveOperationDepartmentsUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse

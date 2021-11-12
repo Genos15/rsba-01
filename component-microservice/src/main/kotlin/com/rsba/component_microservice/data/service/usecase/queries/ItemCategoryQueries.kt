@@ -1,9 +1,9 @@
 package  com.rsba.component_microservice.data.service.usecase.queries
 
 import com.rsba.component_microservice.data.dao.ItemCategoryDao
-import com.rsba.component_microservice.domain.format.IBaseQuery
+import com.rsba.component_microservice.domain.queries.IBaseQuery
 import com.rsba.component_microservice.domain.format.JsonHandlerKotlin
-import com.rsba.component_microservice.domain.format.QueryBuilder
+import com.rsba.component_microservice.domain.queries.QueryBuilder
 import com.rsba.component_microservice.domain.input.ItemCategoryInput
 import com.rsba.component_microservice.domain.model.MutationAction
 import kotlinx.serialization.ExperimentalSerializationApi

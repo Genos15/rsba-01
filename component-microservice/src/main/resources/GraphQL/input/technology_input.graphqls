@@ -1,9 +1,8 @@
-
-input CreateOrEditTechnologyInput {
+input TechnologyInput {
     id: ID
     name: String
     description: String
-    operationIds: [ID]
+    operations: [ID!]
 }
 
 input TechnologyAndOperation {

@@ -1,64 +1,72 @@
 package com.rsba.component_microservice.resolver.query
 
-import com.rsba.component_microservice.configuration.request_helper.CursorUtil
 import com.rsba.component_microservice.aspect.AdminSecured
-import com.rsba.component_microservice.data.context.token.TokenImpl
+import com.rsba.component_microservice.domain.model.Operation
 import com.rsba.component_microservice.domain.model.Technology
 import com.rsba.component_microservice.domain.repository.TechnologyRepository
+import com.rsba.component_microservice.domain.security.TokenAnalyzer
 import graphql.kickstart.tools.GraphQLQueryResolver
-import graphql.relay.*
+import graphql.relay.Connection
+import graphql.schema.DataFetchingEnvironment
 import org.springframework.stereotype.Component
 import java.util.*
 
-import graphql.schema.DataFetchingEnvironment
-import mu.KLogger
-
-
 @Component
-class TechnologyQueryResolver(
-    val cursorUtil: CursorUtil,
-    val service: TechnologyRepository,
-    val logger: KLogger,
-    private val tokenImpl: TokenImpl
-) : GraphQLQueryResolver {
+class TechnologyQueryResolver(val service: TechnologyRepository, private val deduct: TokenAnalyzer) :
+    GraphQLQueryResolver, GenericRetrieveConnection {
 
     @AdminSecured
     suspend fun retrieveTechnologies(
         first: Int,
         after: UUID? = null,
         environment: DataFetchingEnvironment
-    ): Connection<Technology>? {
-
-        logger.warn { "+TechnologyQueryResolver->retrieveTechnologies" }
-
-        val edges: List<Edge<Technology>> =
-            service.retrieve(
-                first = first,
-                after = after,
-                token = tokenImpl.read(environment = environment)
-            ).map {
-                return@map DefaultEdge(it, cursorUtil.createCursorWith(it.id))
-            }.take(first)
-
-        val pageInfo = DefaultPageInfo(
-            cursorUtil.firstCursorFrom(edges),
-            cursorUtil.lastCursorFrom(edges),
-            after != null,
-            edges.size >= first
-        )
-
-        return DefaultConnection(edges, pageInfo)
-    }
+    ): Connection<Technology> = perform(
+        entries = service.retrieve(
+            first = first,
+            after = after,
+            token = deduct(environment = environment)
+        ),
+        first = first,
+        after = after
+    )
 
     @AdminSecured
-    suspend fun searchTechnologies(content: String, environment: DataFetchingEnvironment): List<Technology>? {
-        logger.warn { "+TechnologyQueryResolver->searchTechnologies" }
-        return service.search(content = content, token = tokenImpl.read(environment = environment))
-    }
+    suspend fun searchTechnologies(
+        input: String,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Technology> = perform(
+        entries = service.search(
+            input = input,
+            first = first,
+            after = after,
+            token = deduct(environment = environment)
+        ),
+        first = first,
+        after = after
+    )
 
-    @AdminSecured
-    suspend fun retrieveTechnologyById(id: UUID, environment: DataFetchingEnvironment): Optional<Technology> {
-        logger.warn { "+TechnologyQueryResolver->retrieveTechnologyById" }
-        return service.retrieveById(id = id, token = tokenImpl.read(environment = environment))
-    }
+    suspend fun findTechnology(id: UUID, environment: DataFetchingEnvironment): Optional<Technology> =
+        service.find(id = id, token = deduct(environment = environment))
+
+    suspend fun retrieveTechnologyOperations(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Operation> = perform(
+        entries = service.operations(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
+    suspend fun countTechnologies(environment: DataFetchingEnvironment): Int =
+        service.count(token = deduct(environment = environment))
 }

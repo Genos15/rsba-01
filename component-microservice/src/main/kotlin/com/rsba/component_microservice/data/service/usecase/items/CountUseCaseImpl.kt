@@ -1,7 +1,7 @@
 package com.rsba.component_microservice.data.service.usecase.items
 
 import com.rsba.component_microservice.data.service.usecase.queries.ItemQueries
-import com.rsba.component_microservice.domain.format.QueryCursor
+import com.rsba.component_microservice.domain.queries.QueryCursor
 import com.rsba.component_microservice.domain.usecase.common.CountUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi

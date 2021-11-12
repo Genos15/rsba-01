@@ -68,4 +68,7 @@ class OperationQueryResolver(val service: OperationRepository, private val deduc
         after = after,
         id = id
     )
+
+    suspend fun countOperations(environment: DataFetchingEnvironment): Int =
+        service.count(token = deduct(environment = environment))
 }

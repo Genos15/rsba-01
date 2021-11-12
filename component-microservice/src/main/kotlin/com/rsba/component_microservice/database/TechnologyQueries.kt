@@ -1,7 +1,7 @@
 package  com.rsba.component_microservice.database
 
 
-import com.rsba.component_microservice.domain.input.CreateOrEditTechnologyInput
+import com.rsba.component_microservice.domain.input.TechnologyInput
 import com.rsba.component_microservice.domain.input.TechnologyAndOperation
 import com.rsba.component_microservice.domain.model.TechnologyFromOld
 import kotlinx.serialization.encodeToString
@@ -10,7 +10,7 @@ import java.util.*
 
 object TechnologyQueries {
 
-    fun createOrEdit(input: CreateOrEditTechnologyInput, token: UUID) =
+    fun createOrEdit(input: TechnologyInput, token: UUID) =
         "SELECT on_create_or_edit_technology('${Json.encodeToString(input)}', '$token')"
 
     fun addOrReorderOperation(input: TechnologyAndOperation, token: UUID) =

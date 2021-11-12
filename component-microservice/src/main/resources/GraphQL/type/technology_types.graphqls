@@ -2,8 +2,8 @@ type Technology {
     id: ID!
     name: String!
     description: String
-    createdAt: String
-    editedAt: String
+    createdAt: DateTime
+    editedAt: DateTime
     operations: [Operation!]
 }
 
