@@ -20,7 +20,7 @@ class TechnologyService(
     @Qualifier("find_technology") private val findUseCase: FindUseCase<Technology>,
     @Qualifier("retrieve_technology") private val retrieveUseCase: RetrieveUseCase<Technology>,
     @Qualifier("search_technology") private val searchUseCase: SearchUseCase<Technology>,
-    @Qualifier("count_operation") private val countUseCase: CountUseCase,
+    @Qualifier("count_technology") private val countUseCase: CountUseCase,
     private val operationsUseCase: RetrieveOperationTechnologiesUseCase
 ) : TechnologyRepository {
 
