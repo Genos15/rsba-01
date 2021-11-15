@@ -1,5 +1,7 @@
 package com.rsba.component_microservice.domain.usecase.common
 
+import com.rsba.component_microservice.domain.model.Edition
+import com.rsba.component_microservice.domain.model.EditionCase
 import com.rsba.component_microservice.domain.model.MutationAction
 import org.springframework.r2dbc.core.DatabaseClient
 import java.util.*
@@ -9,6 +11,7 @@ interface CreateOrEditUseCase<I, T> {
         database: DatabaseClient,
         input: I,
         token: UUID,
-        action: MutationAction? = null
+        action: MutationAction? = null,
+        case: Edition<EditionCase>? = null,
     ): Optional<T>
 }

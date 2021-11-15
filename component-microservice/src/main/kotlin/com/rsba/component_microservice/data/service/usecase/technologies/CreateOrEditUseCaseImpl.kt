@@ -3,6 +3,8 @@ package com.rsba.component_microservice.data.service.usecase.technologies
 import com.rsba.component_microservice.data.dao.TechnologyDao
 import com.rsba.component_microservice.domain.queries.QueryCursor
 import com.rsba.component_microservice.domain.input.TechnologyInput
+import com.rsba.component_microservice.domain.model.Edition
+import com.rsba.component_microservice.domain.model.EditionCase
 import com.rsba.component_microservice.domain.model.MutationAction
 import com.rsba.component_microservice.domain.model.Technology
 import com.rsba.component_microservice.domain.queries.IQueryGuesser
@@ -21,9 +23,10 @@ class CreateOrEditUseCaseImpl : CreateOrEditUseCase<TechnologyInput, Technology>
         database: DatabaseClient,
         input: TechnologyInput,
         token: UUID,
-        action: MutationAction?
+        action: MutationAction?,
+        case: Edition<EditionCase>?,
     ): Optional<Technology> =
-        database.sql(query<TechnologyDao>().createOrEdit(input = input, token = token, action = action))
+        database.sql(query<TechnologyDao>().createOrEdit(input = input, token = token, action = action, case = case))
             .map { row -> QueryCursor.one(row = row) }
             .first()
             .map { Optional.ofNullable((it as? TechnologyDao?)?.to) }

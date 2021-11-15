@@ -19,3 +19,13 @@ type OperationConnection {
     edges: [OperationEdge]
     pageInfo: PageInfo
 }
+
+enum OperationEditionCase{
+    OPERATION
+    TECHNOLOGY
+}
+
+input OperationEdition {
+    hostId: ID!
+    case: OperationEditionCase!
+}

@@ -7,7 +7,7 @@ type Mutation {
 
     #--------------- operation ----------------
 
-    createOrEditOperation(input: OperationInput!, action: MutationAction): Operation
+    createOrEditOperation(input: OperationInput!, action: MutationAction, case: OperationEdition): Operation
     deleteOperation(input: ID!): Boolean
 
     #--------------- technology ----------------

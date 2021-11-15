@@ -4,6 +4,8 @@ import com.rsba.component_microservice.data.dao.ItemDao
 import com.rsba.component_microservice.data.service.usecase.queries.ItemQueries
 import com.rsba.component_microservice.domain.queries.QueryCursor
 import com.rsba.component_microservice.domain.input.ItemInput
+import com.rsba.component_microservice.domain.model.Edition
+import com.rsba.component_microservice.domain.model.EditionCase
 import com.rsba.component_microservice.domain.model.MutationAction
 import com.rsba.component_microservice.domain.model.Item
 import com.rsba.component_microservice.domain.usecase.common.CreateOrEditUseCase
@@ -20,9 +22,10 @@ class CreateOrEditUseCaseImpl : CreateOrEditUseCase<ItemInput, Item> {
         database: DatabaseClient,
         input: ItemInput,
         token: UUID,
-        action: MutationAction?
+        action: MutationAction?,
+        case: Edition<EditionCase>?,
     ): Optional<Item> =
-        database.sql(ItemQueries.createOrEdit(input = input, token = token, action = action))
+        database.sql(ItemQueries.createOrEdit(input = input, token = token, action = action, case = case))
             .map { row -> QueryCursor.one(row = row) }
             .first()
             .map { Optional.ofNullable((it as? ItemDao?)?.to) }

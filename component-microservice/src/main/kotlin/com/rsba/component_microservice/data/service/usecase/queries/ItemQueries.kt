@@ -5,6 +5,8 @@ import com.rsba.component_microservice.domain.queries.IBaseQuery
 import com.rsba.component_microservice.domain.format.JsonHandlerKotlin
 import com.rsba.component_microservice.domain.queries.QueryBuilder
 import com.rsba.component_microservice.domain.input.ItemInput
+import com.rsba.component_microservice.domain.model.Edition
+import com.rsba.component_microservice.domain.model.EditionCase
 import com.rsba.component_microservice.domain.model.MutationAction
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
@@ -13,12 +15,18 @@ import java.util.*
 @ExperimentalSerializationApi
 object ItemQueries : IBaseQuery<ItemInput, ItemDao> {
 
-    override fun createOrEdit(input: ItemInput, token: UUID, action: MutationAction?): String = buildString {
-        append(QueryBuilder.CreateOrEdit.buildRequestDef<ItemDao>())
-        append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
-        append("${action?.let { "'$it'" }},")
-        append("'$token')")
-    }
+    override fun createOrEdit(
+        input: ItemInput,
+        token: UUID,
+        action: MutationAction?,
+        case: Edition<EditionCase>?
+    ): String =
+        buildString {
+            append(QueryBuilder.CreateOrEdit.buildRequestDef<ItemDao>())
+            append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
+            append("${action?.let { "'$it'" }},")
+            append("'$token')")
+        }
 
     override fun delete(input: UUID, token: UUID): String = buildString {
         append(QueryBuilder.Delete.buildRequestDef<ItemDao>())

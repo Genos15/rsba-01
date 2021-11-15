@@ -1,9 +1,7 @@
 package com.rsba.component_microservice.data.service.implementations
 
 import com.rsba.component_microservice.domain.input.*
-import com.rsba.component_microservice.domain.model.MutationAction
-import com.rsba.component_microservice.domain.model.Group
-import com.rsba.component_microservice.domain.model.Operation
+import com.rsba.component_microservice.domain.model.*
 import com.rsba.component_microservice.domain.repository.OperationRepository
 import com.rsba.component_microservice.domain.usecase.common.*
 import com.rsba.component_microservice.domain.usecase.custom.operation.RetrieveOperationDepartmentsUseCase
@@ -27,9 +25,10 @@ class OperationService(
     override suspend fun toCreateOrEdit(
         input: OperationInput,
         action: MutationAction?,
+        case: Edition<OperationEditionCase>?,
         token: UUID
     ): Optional<Operation> =
-        createOrEditUseCase(database = database, input = input, token = token, action = action)
+        createOrEditUseCase(database = database, input = input, token = token, action = action, case = case)
 
     override suspend fun toDelete(input: UUID, token: UUID): Boolean =
         deleteUseCase(database = database, input = input, token = token)

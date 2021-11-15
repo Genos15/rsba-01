@@ -1,14 +1,17 @@
 package com.rsba.component_microservice.domain.repository
 
 import com.rsba.component_microservice.domain.input.*
-import com.rsba.component_microservice.domain.model.MutationAction
-import com.rsba.component_microservice.domain.model.Group
-import com.rsba.component_microservice.domain.model.Operation
+import com.rsba.component_microservice.domain.model.*
 import java.util.*
 
 interface OperationRepository {
 
-    suspend fun toCreateOrEdit(input: OperationInput, action: MutationAction? = null, token: UUID): Optional<Operation>
+    suspend fun toCreateOrEdit(
+        input: OperationInput,
+        action: MutationAction? = null,
+        case: Edition<OperationEditionCase>? = null,
+        token: UUID
+    ): Optional<Operation>
 
     suspend fun toDelete(input: UUID, token: UUID): Boolean
 

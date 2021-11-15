@@ -5,6 +5,8 @@ import com.rsba.component_microservice.domain.queries.IBaseQuery
 import com.rsba.component_microservice.domain.format.JsonHandlerKotlin
 import com.rsba.component_microservice.domain.queries.QueryBuilder
 import com.rsba.component_microservice.domain.input.TechnologyInput
+import com.rsba.component_microservice.domain.model.Edition
+import com.rsba.component_microservice.domain.model.EditionCase
 import com.rsba.component_microservice.domain.model.MutationAction
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
@@ -13,7 +15,12 @@ import java.util.*
 @ExperimentalSerializationApi
 object TechnologyQueries : IBaseQuery<TechnologyInput, TechnologyDao> {
 
-    override fun createOrEdit(input: TechnologyInput, token: UUID, action: MutationAction?): String = buildString {
+    override fun createOrEdit(
+        input: TechnologyInput,
+        token: UUID,
+        action: MutationAction?,
+        case: Edition<EditionCase>?
+    ): String = buildString {
         append(QueryBuilder.CreateOrEdit.buildRequestDef<TechnologyDao>())
         append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
         append("${action?.let { "'$it'" }},")
