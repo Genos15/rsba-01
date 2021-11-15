@@ -23,7 +23,7 @@ class CreateOrEditUseCaseImpl : CreateOrEditUseCase<ItemCategoryInput, ItemCateg
         input: ItemCategoryInput,
         token: UUID,
         action: MutationAction?,
-        case: Edition<EditionCase>?,
+        case: Edition?,
     ): Optional<ItemCategory> =
         database.sql(ItemCategoryQueries.createOrEdit(input = input, token = token, action = action, case = case))
             .map { row -> QueryCursor.one(row = row) }

@@ -9,7 +9,7 @@ interface OperationRepository {
     suspend fun toCreateOrEdit(
         input: OperationInput,
         action: MutationAction? = null,
-        case: Edition<OperationEditionCase>? = null,
+        case: OperationEdition? = null,
         token: UUID
     ): Optional<Operation>
 

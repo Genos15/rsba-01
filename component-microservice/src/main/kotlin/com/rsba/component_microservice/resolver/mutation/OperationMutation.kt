@@ -1,11 +1,8 @@
 package com.rsba.component_microservice.resolver.mutation
 
 import  com.rsba.component_microservice.domain.input.*
-import com.rsba.component_microservice.domain.model.Operation
 import  com.rsba.component_microservice.aspect.AdminSecured
-import com.rsba.component_microservice.domain.model.Edition
-import com.rsba.component_microservice.domain.model.MutationAction
-import com.rsba.component_microservice.domain.model.OperationEditionCase
+import com.rsba.component_microservice.domain.model.*
 import com.rsba.component_microservice.domain.repository.OperationRepository
 import com.rsba.component_microservice.domain.security.TokenAnalyzer
 import graphql.kickstart.tools.GraphQLMutationResolver
@@ -21,7 +18,7 @@ class OperationMutation(private val service: OperationRepository, private val de
     suspend fun createOrEditOperation(
         input: OperationInput,
         action: MutationAction? = null,
-        case: Edition<OperationEditionCase>? = null,
+        case: OperationEdition? = null,
         environment: DataFetchingEnvironment
     ): Optional<Operation> =
         service.toCreateOrEdit(input = input, token = deduct(environment = environment), action = action, case = case)

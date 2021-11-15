@@ -19,7 +19,7 @@ object TechnologyQueries : IBaseQuery<TechnologyInput, TechnologyDao> {
         input: TechnologyInput,
         token: UUID,
         action: MutationAction?,
-        case: Edition<EditionCase>?
+        case: Edition?
     ): String = buildString {
         append(QueryBuilder.CreateOrEdit.buildRequestDef<TechnologyDao>())
         append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")

@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 import java.util.*
 
 @Serializable
-sealed class Edition {
-    @Serializable(with = UUIDSerializer::class)
-    abstract val hostId: UUID
-}
+data class OperationEdition(
+    @Serializable(with = UUIDSerializer::class) override val hostId: UUID,
+    val case: OperationEditionCase
+) : Edition()

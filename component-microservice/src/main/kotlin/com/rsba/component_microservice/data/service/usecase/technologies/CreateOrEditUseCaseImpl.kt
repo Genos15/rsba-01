@@ -24,7 +24,7 @@ class CreateOrEditUseCaseImpl : CreateOrEditUseCase<TechnologyInput, Technology>
         input: TechnologyInput,
         token: UUID,
         action: MutationAction?,
-        case: Edition<EditionCase>?,
+        case: Edition?,
     ): Optional<Technology> =
         database.sql(query<TechnologyDao>().createOrEdit(input = input, token = token, action = action, case = case))
             .map { row -> QueryCursor.one(row = row) }

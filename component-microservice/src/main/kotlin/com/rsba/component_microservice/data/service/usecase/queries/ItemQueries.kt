@@ -6,7 +6,6 @@ import com.rsba.component_microservice.domain.format.JsonHandlerKotlin
 import com.rsba.component_microservice.domain.queries.QueryBuilder
 import com.rsba.component_microservice.domain.input.ItemInput
 import com.rsba.component_microservice.domain.model.Edition
-import com.rsba.component_microservice.domain.model.EditionCase
 import com.rsba.component_microservice.domain.model.MutationAction
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
@@ -19,7 +18,7 @@ object ItemQueries : IBaseQuery<ItemInput, ItemDao> {
         input: ItemInput,
         token: UUID,
         action: MutationAction?,
-        case: Edition<EditionCase>?
+        case: Edition?
     ): String =
         buildString {
             append(QueryBuilder.CreateOrEdit.buildRequestDef<ItemDao>())

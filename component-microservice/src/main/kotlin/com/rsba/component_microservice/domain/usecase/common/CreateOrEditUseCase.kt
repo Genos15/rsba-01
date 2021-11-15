@@ -12,6 +12,6 @@ interface CreateOrEditUseCase<I, T> {
         input: I,
         token: UUID,
         action: MutationAction? = null,
-        case: Edition<EditionCase>? = null,
+        case: Edition? = null,
     ): Optional<T>
 }

@@ -13,7 +13,7 @@ interface IBaseQuery<out I : AbstractInput, out R : AbstractModel> {
         input: @UnsafeVariance I,
         token: UUID,
         action: MutationAction? = null,
-        case: Edition<EditionCase>? = null
+        case: Edition? = null
     ): String
 
     fun delete(input: UUID, token: UUID): String
