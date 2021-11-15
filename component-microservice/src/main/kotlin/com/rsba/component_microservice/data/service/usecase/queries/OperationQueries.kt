@@ -24,7 +24,7 @@ object OperationQueries : IBaseQuery<OperationInput, OperationDao> {
             append(QueryBuilder.CreateOrEdit.buildRequestDef<OperationDao>())
             append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
             append("${action?.let { "'$it'" }},")
-            append("${action?.let { "'${JsonHandlerKotlin.handler.encodeToString(case)}'" }},")
+            append("${case?.let { "'${JsonHandlerKotlin.handler.encodeToString(case)}'" }},")
             append("'$token')")
         }
 
