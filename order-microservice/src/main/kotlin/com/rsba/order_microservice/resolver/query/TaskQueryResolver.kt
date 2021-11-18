@@ -20,7 +20,7 @@ class TaskQueryResolver(
     private val service: TaskRepository,
     private val logger: KLogger,
     private val tokenImpl: TokenImpl
-) : GraphQLQueryResolver, GenericRetrieveConnection(myLogger = logger) {
+) : GraphQLQueryResolver, GenericRetrieveConnection {
 
     @AdminSecured
     suspend fun retrieveTasksByGroupId(id: UUID, env: DataFetchingEnvironment): Optional<DraggableMap> {
@@ -34,67 +34,67 @@ class TaskQueryResolver(
         return service.retrieveTasksById(input = id, token = tokenImpl.read(environment = env))
     }
 
-    @AdminSecured
-    suspend fun retrieveTasksByUserId(
-        userId: UUID,
-        first: Int,
-        after: UUID? = null,
-        env: DataFetchingEnvironment
-    ): Connection<Task>? = retrieveFn(
-        entry = service.retrieveTasksByUserId(
-            token = tokenImpl.read(environment = env),
-            first = first,
-            after = after,
-            userId = userId
-        ), first = first, after = after
-    )
-
-    @AdminSecured
-    suspend fun retrieveTasksByUserToken(
-        first: Int,
-        after: UUID? = null,
-        level: TaskLevel? = null,
-        env: DataFetchingEnvironment
-    ): Connection<Task>? = retrieveFn(
-        entry = service.retrieveTasksByUserToken(
-            token = tokenImpl.read(environment = env),
-            first = first,
-            after = after,
-            level = level
-        ), first = first, after = after
-    )
-
-    @AdminSecured
-    suspend fun retrieveTasksByDepartmentId(
-        departmentId: UUID,
-        first: Int,
-        after: UUID? = null,
-        level: TaskLevel? = null,
-        env: DataFetchingEnvironment
-    ): Connection<Task>? = retrieveFn(
-        entry = service.retrieveTasksByDepartmentId(
-            token = tokenImpl.read(environment = env),
-            first = first,
-            after = after,
-            level = level, departmentId = departmentId
-        ), first = first, after = after
-    )
-
-    @AdminSecured
-    suspend fun retrieveTasksByWorkingCenterId(
-        workingCenterId: UUID,
-        first: Int,
-        after: UUID? = null,
-        level: TaskLevel? = null,
-        env: DataFetchingEnvironment
-    ): Connection<Task>? = retrieveFn(
-        entry = service.retrieveTasksByWorkingCenterId(
-            token = tokenImpl.read(environment = env),
-            first = first,
-            after = after,
-            level = level, workingCenterId = workingCenterId
-        ), first = first, after = after
-    )
+//    @AdminSecured
+//    suspend fun retrieveTasksByUserId(
+//        userId: UUID,
+//        first: Int,
+//        after: UUID? = null,
+//        env: DataFetchingEnvironment
+//    ): Connection<Task> = perform(
+//        entry = service.retrieveTasksByUserId(
+//            token = tokenImpl.read(environment = env),
+//            first = first,
+//            after = after,
+//            userId = userId
+//        ), first = first, after = after
+//    )
+//
+//    @AdminSecured
+//    suspend fun retrieveTasksByUserToken(
+//        first: Int,
+//        after: UUID? = null,
+//        level: TaskLevel? = null,
+//        env: DataFetchingEnvironment
+//    ): Connection<Task>? = perform(
+//        entry = service.retrieveTasksByUserToken(
+//            token = tokenImpl.read(environment = env),
+//            first = first,
+//            after = after,
+//            level = level
+//        ), first = first, after = after
+//    )
+//
+//    @AdminSecured
+//    suspend fun retrieveTasksByDepartmentId(
+//        departmentId: UUID,
+//        first: Int,
+//        after: UUID? = null,
+//        level: TaskLevel? = null,
+//        env: DataFetchingEnvironment
+//    ): Connection<Task>? = perform(
+//        entry = service.retrieveTasksByDepartmentId(
+//            token = tokenImpl.read(environment = env),
+//            first = first,
+//            after = after,
+//            level = level, departmentId = departmentId
+//        ), first = first, after = after
+//    )
+//
+//    @AdminSecured
+//    suspend fun retrieveTasksByWorkingCenterId(
+//        workingCenterId: UUID,
+//        first: Int,
+//        after: UUID? = null,
+//        level: TaskLevel? = null,
+//        env: DataFetchingEnvironment
+//    ): Connection<Task>? = perform(
+//        entry = service.retrieveTasksByWorkingCenterId(
+//            token = tokenImpl.read(environment = env),
+//            first = first,
+//            after = after,
+//            level = level, workingCenterId = workingCenterId
+//        ), first = first, after = after
+//    )
 
     @AdminSecured
     suspend fun retrieveNumberOfTaskByUserId(userId: UUID, env: DataFetchingEnvironment): Optional<Int> {

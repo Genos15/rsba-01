@@ -9,117 +9,180 @@ import graphql.relay.*
 import org.springframework.stereotype.Component
 
 import graphql.schema.DataFetchingEnvironment
-import mu.KLogger
 import java.util.*
 
 
 @Component
-class OrderQueryResolver(
-    private val service: OrderRepository,
-    private val logger: KLogger,
-    private val deduct: TokenAnalyzer
-) : GraphQLQueryResolver, GenericRetrieveConnection(myLogger = logger) {
+class OrderQueryResolver(private val service: OrderRepository, private val deduct: TokenAnalyzer) :
+    GraphQLQueryResolver, GenericRetrieveConnection {
 
     @AdminSecured
-    suspend fun retrieveAllOrder(
+    suspend fun retrieveOrders(
         first: Int,
         after: UUID? = null,
-        env: DataFetchingEnvironment
-    ): Connection<Order>? = retrieveFn(
-        entry = service.onRetrieveAllOrder(token = deduct(environment = env), first = first, after = after),
-        first = first,
-        after = after
-    )
-
-    @AdminSecured
-    suspend fun retrieveOneOrder(id: UUID, env: DataFetchingEnvironment): Optional<Order> {
-        logger.warn { "+OrderQueryResolver->retrieveOneOrder" }
-        return service.retrieveOneOrder(id = id, token = deduct(environment = env))
-    }
-
-    @AdminSecured
-    suspend fun retrieveItemInOrderById(itemId: UUID, orderId: UUID, env: DataFetchingEnvironment): Optional<Item> {
-        logger.warn { "+OrderQueryResolver->retrieveItemInOrderById" }
-        return service.retrieveItemInOrderById(
-            itemId = itemId,
-            orderId = orderId,
-            token = deduct(environment = env)
-        )
-    }
-
-    @AdminSecured
-    suspend fun retrieveProgressionStepsByOrderId(orderId: UUID, env: DataFetchingEnvironment): List<ProgressionStep> {
-        logger.warn { "+OrderQueryResolver->retrieveProgressionStepsByOrderId" }
-        return service.retrieveProgressionStepsByOrderId(orderId = orderId, token = deduct(environment = env))
-    }
-
-    @AdminSecured
-    suspend fun retrieveNumberOfActiveOrder(env: DataFetchingEnvironment): Optional<Int> {
-        logger.warn { "+OrderQueryResolver->retrieveNumberOfActiveOrder" }
-        return service.retrieveNumberOfActiveOrder(token = deduct(environment = env))
-    }
-
-    @AdminSecured
-    suspend fun retrieveOrderByUserToken(
-        first: Int,
-        after: UUID? = null,
-        level: OrderLevel?,
-        env: DataFetchingEnvironment
-    ): Connection<Order>? =
-        retrieveFn(
-            entry = service.orderByUserToken(
-                token = deduct(environment = env),
-                first = first,
-                after = after,
-                level = level
-            ),
-            first = first,
-            after = after
-        )
-
-    @AdminSecured
-    suspend fun retrieveNextOrderReference(env: DataFetchingEnvironment): String {
-        logger.warn { "+OrderQueryResolver->retrieveNextOrderReference" }
-        return service.retrieveNextOrderReference(
-            token = deduct(environment = env),
-            companyId = UUID.randomUUID()
-        )
-    }
-
-    @AdminSecured
-    suspend fun retrieveCompletedOrders(
-        first: Int,
-        after: UUID? = null,
-        env: DataFetchingEnvironment
-    ): Connection<Order>? = retrieveFn(
-        entry = service.myCompletedOrders(token = deduct(environment = env), first = first, after = after),
-        first = first,
-        after = after
-    )
-
-    @AdminSecured
-    suspend fun retrieveOrdersByDepartmentId(
-        departmentId: UUID,
-        first: Int,
-        after: UUID? = null,
-        level: OrderLevel?,
-        env: DataFetchingEnvironment
-    ): Connection<Order>? = retrieveFn(
-        entry = service.myOrdersByDepartmentId(
-            departmentId = departmentId,
-            token = deduct(environment = env),
+        status: OrderStatus? = null,
+        layer: OrderLayer? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Order>? = perform(
+        entries = service.retrieve(
             first = first,
             after = after,
-            level = level
-        ), first = first, after = after
+            token = deduct(environment = environment),
+            status = status,
+            layer = layer
+        ),
+        first = first,
+        after = after,
     )
 
-
     @AdminSecured
-    suspend fun retrieveOrderCompletionLineGraph(
-        year: Int,
+    suspend fun searchOrders(
+        input: String,
+        first: Int,
+        after: UUID? = null,
+        status: OrderStatus? = null,
+        layer: OrderLayer? = null,
         environment: DataFetchingEnvironment
-    ): Optional<OrderCompletionLine> =
-        service.completionLineGraph(year = year, token = deduct(environment = environment))
+    ): Connection<Order> = perform(
+        entries = service.search(
+            input = input,
+            first = first,
+            after = after,
+            token = deduct(environment = environment),
+            status = status,
+            layer = layer
+        ),
+        first = first,
+        after = after
+    )
+
+    suspend fun findOrder(id: UUID, environment: DataFetchingEnvironment): Optional<Order> =
+        service.find(id = id, token = deduct(environment = environment))
+
+    suspend fun countOrders(status: OrderStatus? = null, environment: DataFetchingEnvironment): Int =
+        service.count(token = deduct(environment = environment), status = status)
+
+    suspend fun retrieveOrderItems(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Item> = perform(
+        entries = service.items(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
+    suspend fun retrieveOrderTasks(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Task> = perform(
+        entries = service.tasks(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
+    suspend fun retrieveOrderTechnologies(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Technology> = perform(
+        entries = service.technologies(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
+    suspend fun retrieveOrderParameters(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Parameter> = perform(
+        entries = service.parameters(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
+    suspend fun retrieveOrderCategories(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<ItemCategory> = perform(
+        entries = service.categories(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
+    suspend fun retrieveOrderWorklogs(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Worklog> = perform(
+        entries = service.worklogs(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
+    suspend fun findOrderCustomer(id: UUID, environment: DataFetchingEnvironment): Optional<Customer> = perform(
+        entries = service.customer(ids = setOf(id), token = deduct(environment = environment)),
+        id = id
+    )
+
+    suspend fun findOrderManager(id: UUID, environment: DataFetchingEnvironment): Optional<Agent> = perform(
+        entries = service.manager(ids = setOf(id), token = deduct(environment = environment)),
+        id = id
+    )
+
+    suspend fun findOrderAgent(id: UUID, environment: DataFetchingEnvironment): Optional<Agent> = perform(
+        entries = service.agent(ids = setOf(id), token = deduct(environment = environment)),
+        id = id
+    )
+
+    suspend fun findOrderType(id: UUID, environment: DataFetchingEnvironment): Optional<OrderType> = perform(
+        entries = service.type(ids = setOf(id), token = deduct(environment = environment)),
+        id = id
+    )
+
 
 }

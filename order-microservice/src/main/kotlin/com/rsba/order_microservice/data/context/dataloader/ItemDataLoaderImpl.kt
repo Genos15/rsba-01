@@ -40,7 +40,7 @@ class ItemDataLoaderImpl(private val logger: KLogger, private val service: ItemR
         }
     }
 
-    fun dataLoaderCategoryInItem(userId: UUID): DataLoader<Item, CategoryOfItem?> {
+    fun dataLoaderCategoryInItem(userId: UUID): DataLoader<Item, ItemCategory?> {
         logger.warn { "+ItemDataLoaderImpl -> dataLoaderCategoryInItem" }
         return DataLoader.newMappedDataLoader { ids ->
             GlobalScope.future {

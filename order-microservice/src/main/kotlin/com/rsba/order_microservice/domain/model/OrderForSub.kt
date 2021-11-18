@@ -1,6 +1,6 @@
 package  com.rsba.order_microservice.domain.model
 
-import com.example.ticketApp.deserializer.DateTimeSerializer
+import com.rsba.order_microservice.configuration.deserializer.DateTimeSerializer
 import kotlinx.serialization.Serializable
 import java.time.OffsetDateTime
 import java.util.*
@@ -21,26 +21,26 @@ data class OrderForSub(
     @Serializable(with = DateTimeSerializer::class) val estimatedAt: OffsetDateTime? = null,
     val progress: Float? = 0f,
     val status: String? = null,
-    var categories: List<CategoryOfItem>? = listOf(),
+    var categories: List<ItemCategory>? = listOf(),
     val deleted: Boolean? = false
 ) {
 
-    constructor(order: Order) : this(
-        id = order.id,
-        description = order.description,
-        referenceNumber = order.referenceNumber,
-        createdAt = order.createdAt,
-        editedAt = order.editedAt,
-        creator = order.creator,
-        customer = order.customer,
-        manager = order.manager,
-        agent = order.agent,
-        startAt = order.startAt,
-        estimatedAt = order.estimatedAt,
-        progress = order.progress,
-        status = order.status,
-//        categories = order.categories,
-        categories = emptyList(),
-        deleted = order.deleted
-    )
+//    constructor(order: Order) : this(
+//        id = order.id,
+//        description = order.description,
+//        referenceNumber = order.referenceNumber,
+//        createdAt = order.createdAt,
+//        editedAt = order.editedAt,
+//        creator = order.creator,
+//        customer = order.customer,
+//        manager = order.manager,
+//        agent = order.agent,
+//        startAt = order.startAt,
+//        estimatedAt = order.estimatedAt,
+//        progress = order.progress,
+//        status = order.status,
+////        categories = order.categories,
+//        categories = emptyList(),
+//        deleted = order.deleted
+//    )
 }

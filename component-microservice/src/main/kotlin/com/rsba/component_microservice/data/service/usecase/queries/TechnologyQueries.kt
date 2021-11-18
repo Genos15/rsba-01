@@ -6,7 +6,6 @@ import com.rsba.component_microservice.domain.format.JsonHandlerKotlin
 import com.rsba.component_microservice.domain.queries.QueryBuilder
 import com.rsba.component_microservice.domain.input.TechnologyInput
 import com.rsba.component_microservice.domain.model.Edition
-import com.rsba.component_microservice.domain.model.EditionCase
 import com.rsba.component_microservice.domain.model.MutationAction
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString

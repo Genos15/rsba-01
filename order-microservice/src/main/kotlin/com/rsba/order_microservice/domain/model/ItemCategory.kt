@@ -1,13 +1,13 @@
 package  com.rsba.order_microservice.domain.model
 
-import com.example.ticketApp.deserializer.DateTimeSerializer
+import com.rsba.order_microservice.configuration.deserializer.DateTimeSerializer
 import kotlinx.serialization.Serializable
 import java.time.OffsetDateTime
 import java.util.*
 import com.rsba.order_microservice.configuration.deserializer.UUIDSerializer
 
 @Serializable
-data class CategoryOfItem(
+data class ItemCategory(
     @Serializable(with = UUIDSerializer::class) val id: UUID,
     val name: String,
     val description: String? = null,

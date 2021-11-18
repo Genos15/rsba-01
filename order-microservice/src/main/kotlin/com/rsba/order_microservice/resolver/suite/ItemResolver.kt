@@ -26,10 +26,10 @@ class ItemResolver(private val logger: KLogger) : GraphQLResolver<Item> {
         return dataLoader?.load(instance) ?: CompletableFuture.completedFuture(emptyList())
     }
 
-    fun category(instance: Item, env: DataFetchingEnvironment): CompletableFuture<CategoryOfItem?>? {
+    fun category(instance: Item, env: DataFetchingEnvironment): CompletableFuture<ItemCategory?>? {
         logger.warn { "+ItemResolver->category" }
         val dataLoader =
-            env.getDataLoader<Item, CategoryOfItem?>(DataLoaderRegistryFactory.CATEGORY_IN_ITEM)
+            env.getDataLoader<Item, ItemCategory?>(DataLoaderRegistryFactory.CATEGORY_IN_ITEM)
         return dataLoader?.load(instance) ?: CompletableFuture.completedFuture(null)
     }
 

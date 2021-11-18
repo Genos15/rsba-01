@@ -1,0 +1,22 @@
+type ItemCategory {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: DateTime
+    editedAt: DateTime
+    orderId: ID
+    items: [Item]
+    color: String
+    progress: Float!
+}
+
+type ItemCategoryEdge {
+    cursor: String
+    node: ItemCategory
+}
+
+type ItemCategoryConnection {
+    edges: [ItemCategoryEdge]
+    pageInfo: PageInfo
+}
+

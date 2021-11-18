@@ -45,7 +45,7 @@ class ItemService(private val logger: KLogger, private val database: DatabaseCli
         }
         .awaitFirstOrElse { emptyMap() }
 
-    override suspend fun myCategory(ids: Set<Item>, userId: UUID, page: Int, size: Int): Map<Item, CategoryOfItem?> =
+    override suspend fun myCategory(ids: Set<Item>, userId: UUID, page: Int, size: Int): Map<Item, ItemCategory?> =
         Flux.fromIterable(ids)
             .parallel()
             .flatMap { id ->
@@ -58,7 +58,7 @@ class ItemService(private val logger: KLogger, private val database: DatabaseCli
             .sequential()
             .collectList()
             .map {
-                val map = mutableMapOf<Item, CategoryOfItem?>()
+                val map = mutableMapOf<Item, ItemCategory?>()
                 it.forEach { element -> map[element.key] = element.value.orElse(null) }
                 return@map map.toMap()
             }

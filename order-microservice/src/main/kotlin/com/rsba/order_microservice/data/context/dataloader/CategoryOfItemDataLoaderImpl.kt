@@ -1,6 +1,6 @@
 package com.rsba.order_microservice.data.context.dataloader
 
-import com.rsba.order_microservice.domain.model.CategoryOfItem
+import com.rsba.order_microservice.domain.model.ItemCategory
 import com.rsba.order_microservice.domain.model.CategoryOfItemInOrder
 import com.rsba.order_microservice.domain.model.Item
 import com.rsba.order_microservice.domain.repository.OrderRepository
@@ -29,7 +29,7 @@ class CategoryOfItemDataLoaderImpl(private val logger: KLogger, private val serv
         }
     }
 
-    fun dataLoaderItemsInOrder(userId: UUID): DataLoader<CategoryOfItem, List<Item>> {
+    fun dataLoaderItemsInOrder(userId: UUID): DataLoader<ItemCategory, List<Item>> {
         logger.warn { "+--- CategoryOfItemDataLoaderImpl -> dataLoaderItemsInOrder" }
         return DataLoader.newMappedDataLoader { ids, env ->
             logger.warn { env }

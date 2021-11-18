@@ -1,5 +1,49 @@
-enum OrderLevel {
-    COMPLETED
-    WORKING
-    NOT_STARTED
+type Order {
+    id: ID!
+    referenceNumber: String!
+    description: String
+    createdAt: DateTime!
+    editedAt: DateTime!
+    customer: Customer
+    manager: Agent
+    agent: Agent
+    startAt: DateTime
+    estimatedAt: DateTime
+    progress: Float
+    type: OrderType
+    deliveryStartAt: DateTime!
+    deliveryEndAt: DateTime!
+    deliveryAt: DateTime
+    packagingAt: DateTime
+    receptionAt: DateTime
+    items: [Item!]
+    tasks: [Task!]
+    technologies: [Technology!]
+    parameters: [Parameter!]
+    categories: [ItemCategory!]
+    worklogs: [Worklog!]
+    status: OrderStatus!
+}
+
+type OrderConnection {
+    edges: [OrderEdge]
+    pageInfo: PageInfo
+}
+
+type OrderEdge {
+    cursor: String
+    node: Order
+}
+
+enum OrderStatus {
+    DRAFT
+    SUSPENDED
+    ANALYZING
+    PRODUCTION
+    DELIVERED
+}
+
+enum OrderLayer {
+    USER
+    DEPARTMENT
 }

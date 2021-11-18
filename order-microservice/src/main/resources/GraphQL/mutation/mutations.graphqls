@@ -7,7 +7,7 @@ type Mutation {
     addCategoriesInOrder(input: AttachCategoryWithOrderInput!): Order
     editCategoryOfOrder(input: EditCategoryOfOrderInput!): Order
     deleteCustomer(input: ID!): Int
-    deleteOrder(input: ID!): Int
+    #    deleteOrder(input: ID!): Int
     removeEntityOfCustomer(input: RemoveEntityOfCustomerInput!): Customer
 
     addItemsInOrder(input: ItemInOrder): Order
@@ -21,7 +21,7 @@ type Mutation {
     unpinWorkingCentersInTask(input: WorkingCenterWithTask): Task
     unpinUsersInTask(input: UserWithTask): Task
 
-    #    CommentInput
+    #commentInput
     createOrEditCommentOfTask(input: CommentTaskInput!): Comment
     deleteComment(input: ID!): Boolean
 
@@ -31,7 +31,6 @@ type Mutation {
     editTask(input: TaskInput!): Task
     terminateAnalysis(input: ID!): Order
     terminateTask(input: ID!): Task
-
 
     #type of order implementation
     createOrEditOrderType(input: OrderTypeInput!): OrderType
@@ -46,9 +45,13 @@ type Mutation {
     addOrRemovePotentialValueToParameter(input: ParameterInput): Parameter
     deleteParameter(input: ID!): Boolean
 
-
-
     #other
     importOrderFromJsonFile: Boolean
+
+
+
+    #------------------ order -------------------
+    createOrEditOrder(input: OrderInput!, action: MutationAction): Order
+    deleteOrder(input: ID!): Boolean
 
 }

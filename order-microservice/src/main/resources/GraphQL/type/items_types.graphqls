@@ -1,14 +1,3 @@
-type CategoryOfItem {
-    id: ID!
-    name: String!
-    description: String
-    createdAt: DateTime
-    editedAt: DateTime
-    orderId: ID
-    items: [Item]
-    color: String
-    progress: Float!
-}
 
 type Item {
     id: ID!
@@ -19,7 +8,7 @@ type Item {
     editedAt: DateTime
     operations: [Operation]
     tasks: [Task]
-    category: CategoryOfItem
+    category: ItemCategory
     components: [Item]
     quantity: Float!
     progress: Float!

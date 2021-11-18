@@ -9,4 +9,5 @@ object ModelTypeCase {
     const val operations = "operations"
     const val departments = "departments"
     const val technologies = "technologies"
+    const val orders = "orders"
 }

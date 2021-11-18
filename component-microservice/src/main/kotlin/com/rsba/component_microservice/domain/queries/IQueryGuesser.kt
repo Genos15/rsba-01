@@ -6,7 +6,7 @@ import com.rsba.component_microservice.domain.input.AbstractInput
 
 interface IQueryGuesser
 
-inline fun <reified T : AbstractModel> IQueryGuesser.query(): IBaseQuery<AbstractInput, AbstractModel> =
+inline fun <reified T : AbstractModel> query(): IBaseQuery<AbstractInput, AbstractModel> =
     when (T::class) {
         TechnologyDao::class -> QueryPicker.Technology.pick()
         OperationDao::class -> QueryPicker.Operation.pick()

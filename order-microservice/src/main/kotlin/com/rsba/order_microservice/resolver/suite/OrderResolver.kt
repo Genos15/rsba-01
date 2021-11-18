@@ -4,46 +4,72 @@ import com.rsba.order_microservice.data.context.dataloader.DataLoaderRegistryFac
 import com.rsba.order_microservice.domain.model.*
 import graphql.kickstart.tools.GraphQLResolver
 import graphql.schema.DataFetchingEnvironment
-import mu.KLogger
 import org.springframework.stereotype.Component
 import java.util.*
 import java.util.concurrent.CompletableFuture
 
 @Component
-class OrderResolver(
-    private val logger: KLogger,
-) : GraphQLResolver<Order> {
+class OrderResolver : GraphQLResolver<Order> {
 
-    fun customer(order: Order, env: DataFetchingEnvironment): CompletableFuture<Customer?>? {
-        logger.warn { "+OrderResolver -> customer" }
-        val dataLoader = env.getDataLoader<UUID, Customer>(DataLoaderRegistryFactory.CUSTOMER_OF_ORDER)
-        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(null)
-    }
-
-    fun agent(order: Order, env: DataFetchingEnvironment): CompletableFuture<Agent?>? {
-        logger.warn { "+OrderResolver -> agent" }
-        val dataLoader = env.getDataLoader<UUID, Agent>(DataLoaderRegistryFactory.AGENT_OF_ORDER)
-        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(null)
-    }
-
-    fun manager(order: Order, env: DataFetchingEnvironment): CompletableFuture<Agent?>? {
-        logger.warn { "+OrderResolver -> manager" }
-        val dataLoader = env.getDataLoader<UUID, Agent>(DataLoaderRegistryFactory.MANAGER_OF_ORDER)
-        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(null)
-    }
-
-    fun items(order: Order, env: DataFetchingEnvironment): CompletableFuture<List<Item>>? {
-        logger.warn { "+OrderResolver -> items" }
+    fun customer(order: Order, env: DataFetchingEnvironment): CompletableFuture<Optional<Customer>> {
         val dataLoader =
-            env.getDataLoader<UUID, List<Item>>(DataLoaderRegistryFactory.ITEM_IN_ORDER)
-        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(listOf())
+            env.getDataLoader<UUID, Optional<Customer>>(DataLoaderRegistryFactory.LOADER_FACTORY_CUSTOMER_OF_ORDER)
+        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(Optional.empty())
+    }
+
+    fun manager(order: Order, env: DataFetchingEnvironment): CompletableFuture<Optional<Agent>> {
+        val dataLoader =
+            env.getDataLoader<UUID, Optional<Agent>>(DataLoaderRegistryFactory.LOADER_FACTORY_MANAGER_OF_ORDER)
+        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(Optional.empty())
+    }
+
+    fun agent(order: Order, env: DataFetchingEnvironment): CompletableFuture<Optional<Agent>> {
+        val dataLoader =
+            env.getDataLoader<UUID, Optional<Agent>>(DataLoaderRegistryFactory.LOADER_FACTORY_AGENT_OF_ORDER)
+        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(Optional.empty())
     }
 
     fun type(order: Order, env: DataFetchingEnvironment): CompletableFuture<Optional<OrderType>> {
-        logger.warn { "+OrderResolver -> type" }
         val dataLoader =
-            env.getDataLoader<UUID, Optional<OrderType>>(DataLoaderRegistryFactory.TYPE_OF_ORDER_DATALOADER)
+            env.getDataLoader<UUID, Optional<OrderType>>(DataLoaderRegistryFactory.LOADER_FACTORY_TYPE_OF_ORDER)
         return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(Optional.empty())
     }
+
+    fun items(order: Order, env: DataFetchingEnvironment): CompletableFuture<List<Item>> {
+        val dataLoader =
+            env.getDataLoader<UUID, List<Item>>(DataLoaderRegistryFactory.LOADER_FACTORY_ITEMS_OF_ORDER)
+        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(emptyList())
+    }
+
+    fun tasks(order: Order, env: DataFetchingEnvironment): CompletableFuture<List<Task>> {
+        val dataLoader =
+            env.getDataLoader<UUID, List<Task>>(DataLoaderRegistryFactory.LOADER_FACTORY_TASKS_OF_ORDER)
+        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(emptyList())
+    }
+
+    fun technologies(order: Order, env: DataFetchingEnvironment): CompletableFuture<List<Technology>> {
+        val dataLoader =
+            env.getDataLoader<UUID, List<Technology>>(DataLoaderRegistryFactory.LOADER_FACTORY_TECHNOLOGIES_OF_ORDER)
+        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(emptyList())
+    }
+
+    fun parameters(order: Order, env: DataFetchingEnvironment): CompletableFuture<List<Parameter>> {
+        val dataLoader =
+            env.getDataLoader<UUID, List<Parameter>>(DataLoaderRegistryFactory.LOADER_FACTORY_PARAMETERS_OF_ORDER)
+        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(emptyList())
+    }
+
+    fun categories(order: Order, env: DataFetchingEnvironment): CompletableFuture<List<ItemCategory>> {
+        val dataLoader =
+            env.getDataLoader<UUID, List<ItemCategory>>(DataLoaderRegistryFactory.LOADER_FACTORY_CATEGORIES_OF_ORDER)
+        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(emptyList())
+    }
+
+    fun worklogs(order: Order, env: DataFetchingEnvironment): CompletableFuture<List<Worklog>> {
+        val dataLoader =
+            env.getDataLoader<UUID, List<Worklog>>(DataLoaderRegistryFactory.LOADER_FACTORY_WORKLOGS_OF_ORDER)
+        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(emptyList())
+    }
+
 
 }

@@ -87,7 +87,6 @@ type Agent {
     email: String
 }
 
-
 type Operation {
     id: ID!
     name: String!
@@ -97,33 +96,6 @@ type Operation {
     createdAt: String
     editedAt: String
     departments: [Group!]
-}
-
-type Order {
-    id: ID!
-    referenceNumber: String!
-    description: String
-    createdAt: String
-    editedAt: String
-    creator: ID
-    customer: Customer
-    manager: Agent
-    agent: Agent
-    startAt: String
-    estimatedAt: DateTime
-    progress: Float
-    status: String
-    #    categories: [CategoryOfItemInOrder!]
-    #    categories: [CategoryOfItem!]
-    isAnalyzing: Boolean
-    items: [Item!]
-    deleted: Boolean
-    type: OrderType
-
-    packagingAt: DateTime
-    deliveryAt: DateTime
-    receptionAt: DateTime
-    isSuspended: Boolean!
 }
 
 type OrderForSub {
@@ -140,7 +112,7 @@ type OrderForSub {
     estimatedAt: String
     progress: Float
     status: String
-    categories: [CategoryOfItem!]
+    categories: [ItemCategory!]
     #    categories: [CategoryOfItemInOrder!]
     deleted: Boolean
 }

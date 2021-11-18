@@ -6,6 +6,7 @@ import com.rsba.order_microservice.configuration.request_helper.CursorUtil
 import com.rsba.order_microservice.data.context.token.ITokenImpl
 import com.rsba.order_microservice.domain.model.Parameter
 import com.rsba.order_microservice.domain.repository.ParameterRepository
+import com.rsba.order_microservice.domain.security.TokenAnalyzer
 import graphql.kickstart.tools.GraphQLQueryResolver
 import graphql.relay.*
 import org.springframework.stereotype.Component
@@ -19,16 +20,21 @@ import mu.KLogger
 class ParameterQueryResolver(
     val cursorUtil: CursorUtil,
     val service: ParameterRepository,
+    private val deduct: TokenAnalyzer,
     val logger: KLogger
-) : GraphQLQueryResolver, ITokenImpl, GenericRetrieveConnection(myLogger = logger) {
+) : GraphQLQueryResolver, ITokenImpl, GenericRetrieveConnection {
 
     @AdminSecured
     suspend fun retrieveAllParameters(
         first: Int,
         after: UUID? = null,
         environment: DataFetchingEnvironment
-    ): Connection<Parameter>? = retrieveFn(
-        entry = service.retrieve(token = readToken(environment = environment), first = first, after = after),
+    ): Connection<Parameter>? = perform(
+        entries = service.retrieve(
+            first = first,
+            after = after,
+            token = deduct(environment = environment)
+        ),
         first = first,
         after = after
     )
@@ -39,12 +45,12 @@ class ParameterQueryResolver(
         first: Int,
         after: UUID? = null,
         environment: DataFetchingEnvironment
-    ): Connection<Parameter>? = retrieveFn(
-        entry = service.search(
-            token = readToken(environment = environment),
+    ): Connection<Parameter>? = perform(
+        entries = service.search(
+            input = input,
             first = first,
             after = after,
-            input = input
+            token = deduct(environment = environment)
         ),
         first = first,
         after = after

@@ -1,18 +1,3 @@
-type OrderConnection {
-    edges: [OrderEdge]
-    pageInfo: PageInfo
-}
-
-type OrderEdge {
-    cursor: String
-    node: Order
-}
-
-type PageInfo {
-    hasPreviousPage: Boolean!
-    hasNextPage: Boolean!
-}
-
 type CustomerConnection {
     edges: [CustomerEdge]
     pageInfo: PageInfo

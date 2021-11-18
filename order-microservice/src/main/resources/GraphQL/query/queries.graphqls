@@ -1,75 +1,19 @@
 type Query {
 
-    #    orders -------------------------
-
-    retrieveOrderCompletionLineGraph(year: Int): OrderCompletionLine
-
-    retrieveAllOrder (first: Int!, after: ID): OrderConnection @connection(for: "Order")
-
-    retrieveCompletedOrders (first: Int!, after: ID): OrderConnection @connection(for: "Order")
-
-    retrieveOrdersByDepartmentId (departmentId: ID!, first: Int!, after: ID, level: OrderLevel): OrderConnection @connection(for: "Order")
-
-    retrieveOrderByUserToken (first: Int!, after: ID, level: OrderLevel): OrderConnection @connection(for: "Order")
-
-    retrieveOneOrder(id: ID!): Order
-
-    retrieveOneCustomer(id: ID!): Customer
-
-    retrieveAllCustomer(first: Int!, after: ID): CustomerConnection @connection(for: "Customer")
-
-    retrieveTasksByGroupId(id: ID!): DraggableMap
-
-    retrieveCommentsByTaskId(taskId: ID!, first: Int!, after: ID): CommentConnection @connection(for: "Comment")
-
-    retrieveTaskById(id:ID!): Task
-
-    retrieveItemInOrderById(itemId:ID!, orderId:ID!): Item
-
-    retrieveTasksByUserId(userId: ID!, first: Int!, after: ID): TaskConnection @connection(for: "Task")
-
-    retrieveTasksByUserToken(first: Int!, after: ID, level: TaskLevel): TaskConnection @connection(for: "Task")
-
-    retrieveTasksByDepartmentId(departmentId: ID, first: Int!, after: ID, level: TaskLevel): TaskConnection @connection(for: "Task")
-
-    retrieveTasksByWorkingCenterId(workingCenterId: ID, first: Int!, after: ID, level: TaskLevel): TaskConnection @connection(for: "Task")
-
-    retrieveWorklogsByTaskId(taskId: ID!, first: Int!, after: ID): WorklogConnection @connection(for: "Worklog")
-
-    retrieveProgressionStepsByOrderId(orderId: ID!): [ProgressionStep]
-
-    retrieveNumberOfActiveOrder: Int
-
-    retrieveNumberOfTaskByUserId(userId: ID!): Int
-
-    retrieveDetailOfItemInOrder(orderId: ID!, itemId: ID!): DetailItemInOrder
-
-    tasksAttachedTechnologyInOrder(input: FindTaskAttachedToTechnologyInput!): [Task]
-
-    operationsAttachedTechnologyInOrder(input: FindOperationAttachedToTechnologyInput!): [Operation]
-
-    itemsAttachedTechnologyInOrder(input: FindItemAttachedToTechnologyInput!): [Item]
-
-    retrieveNextOrderReference: String!
-
-    retrieveAllOrderType (first: Int!, after: ID): OrderTypeConnection @connection(for: "OrderType")
-
-    searchOrderType (input: String!, first: Int!, after: ID): OrderTypeConnection @connection(for: "OrderType")
-
-    retrieveOrderTypeById (id: ID!): OrderType
-
-    #ElkGraph data
-    constructElkGraph(input: ElkGraphInput!): ElkGraphData!
-
-    #Parameters
-    retrieveAllParameters (first: Int!, after: ID): ParameterConnection @connection(for: "Parameter")
-
-    searchParameters (input: String!, first: Int!, after: ID): ParameterConnection @connection(for: "Parameter")
-
-    retrieveParametersByTaskId (taskId: ID!): [Parameter]!
-
-    retrieveParametersByItemId (itemId: ID!): [Parameter]!
-
-    retrieveParameterById (id: ID!): Parameter
+    #------------------------ orders -------------------------
+    retrieveOrders (first: Int!, after: ID, status: OrderStatus, layer: OrderLayer): OrderConnection @connection(for: "Order")
+    searchOrders (input: String!, first: Int!, after: ID, status: OrderStatus, layer: OrderLayer): OrderConnection @connection(for: "Order")
+    findOrder (input: ID!): Order
+    retrieveOrderItems (id: ID!, first: Int!, after: ID): ItemConnection @connection(for: "Item")
+    retrieveOrderTasks (id: ID!, first: Int!, after: ID): TaskConnection @connection(for: "Task")
+    retrieveOrderTechnologies (id: ID!, first: Int!, after: ID): TechnologyConnection @connection(for: "Technology")
+    retrieveOrderParameters (id: ID!, first: Int!, after: ID): ParameterConnection @connection(for: "Parameter")
+    retrieveOrderCategories (id: ID!, first: Int!, after: ID): ItemCategoryConnection @connection(for: "ItemCategory")
+    retrieveOrderWorklogs (id: ID!, first: Int!, after: ID): WorklogConnection @connection(for: "Worklog")
+    findOrderCustomer (id: ID!): Customer
+    findOrderManager (id: ID!): Agent
+    findOrderAgent(id: ID!): Agent
+    findOrderType(id: ID!): OrderType
+    countOrders(status: OrderStatus): Int
 
 }

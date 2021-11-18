@@ -9,6 +9,7 @@ import  com.rsba.order_microservice.domain.repository.OrderRepository
 import com.rsba.order_microservice.data.service.implementation.orders.OrderDataloaderServiceImpl
 import com.rsba.order_microservice.data.service.implementation.orders.ReferenceNumberImpl
 import com.rsba.order_microservice.data.service.implementation.orders.RetrieveOrderImpl
+import com.rsba.order_microservice.domain.usecase.common.*
 import com.rsba.order_microservice.domain.usecase.custom.order.RetrieveOrderCompletionLineGraphUseCase
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.reactive.awaitFirstOrElse
@@ -16,6 +17,7 @@ import mu.KLogger
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import org.json.simple.parser.JSONParser
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
@@ -34,7 +36,13 @@ class OrderService(
     private val categoryDataHandler: CategoryDataHandler,
     private val agentDataHandler: AgentDataHandler,
     private val monitorPublisher: OrderPublisher,
-    private val completionLineGraphUseCase: RetrieveOrderCompletionLineGraphUseCase
+    private val completionLineGraphUseCase: RetrieveOrderCompletionLineGraphUseCase,
+    @Qualifier("create_edit_order") private val createOrEditUseCase: CreateOrEditUseCase<OrderInput, Order>,
+    @Qualifier("delete_order") private val deleteUseCase: DeleteUseCase<Order>,
+    @Qualifier("find_order") private val findUseCase: FindUseCase<Order>,
+    @Qualifier("retrieve_order") private val retrieveUseCase: RetrieveUseCase<Order>,
+    @Qualifier("search_order") private val searchUseCase: SearchUseCase<Order>,
+    @Qualifier("count_order") private val countUseCase: CountUseCase,
 ) : OrderRepository, ReferenceNumberImpl, OrderDataloaderServiceImpl, RetrieveOrderImpl {
 
     override suspend fun createOrder(input: CreateOrderInput, token: UUID): Optional<Order> =
@@ -43,7 +51,7 @@ class OrderService(
             .first()
             .handle { single: Optional<Order>, sink: SynchronousSink<Optional<Order>> ->
                 if (single.isPresent) {
-                    monitorPublisher.publish(order = OrderForSub(order = single.get()))
+//                    monitorPublisher.publish(order = OrderForSub(order = single.get()))
                     sink.next(single)
                 } else {
                     sink.error(RuntimeException("НЕВОЗМОЖНО СОЗДАТЬ ЗАКАЗ"))
@@ -177,7 +185,7 @@ class OrderService(
         userId: UUID,
         page: Int,
         size: Int
-    ): Map<UUID, List<CategoryOfItem>> = Flux.fromIterable(ids)
+    ): Map<UUID, List<ItemCategory>> = Flux.fromIterable(ids)
         .flatMap { id ->
             return@flatMap database.sql(queryHelper.onRetrieveCategoriesInOrder(input = id))
                 .map { row, meta -> categoryDataHandler.all(row = row, meta = meta) }
@@ -186,7 +194,7 @@ class OrderService(
         }
         .collect(Collectors.toList())
         .map {
-            val map = mutableMapOf<UUID, List<CategoryOfItem>>()
+            val map = mutableMapOf<UUID, List<ItemCategory>>()
             it.forEach { element -> map[element.key] = element.value ?: emptyList() }
             return@map map.toMap()
         }
@@ -220,7 +228,7 @@ class OrderService(
         }
         .awaitFirstOrElse { emptyMap() }
 
-    override fun retrieveCategoriesOfOneOrder(id: UUID): Mono<MutableList<CategoryOfItem>> =
+    override fun retrieveCategoriesOfOneOrder(id: UUID): Mono<MutableList<ItemCategory>> =
         database.sql(queryHelper.onRetrieveCategoriesOfOrder(input = id))
             .map { row, meta -> categoryDataHandler.all(row = row, meta = meta) }
             .first()
@@ -235,7 +243,7 @@ class OrderService(
             .first()
             .handle { single: Optional<Order>, sink: SynchronousSink<Optional<Order>> ->
                 if (single.isPresent) {
-                    monitorPublisher.publish(order = OrderForSub(order = single.get()))
+//                    monitorPublisher.publish(order = OrderForSub(order = single.get()))
                     sink.next(single)
                 } else {
                     sink.error(RuntimeException("НЕВОЗМОЖНОСТЬ РЕДАКТИРОВАНИЯ ЗАКАЗА"))
@@ -261,7 +269,7 @@ class OrderService(
             }.last()
             .handle { single: Optional<Order>, sink: SynchronousSink<Optional<Order>> ->
                 if (single.isPresent) {
-                    monitorPublisher.publish(order = OrderForSub(order = single.get()))
+//                    monitorPublisher.publish(order = OrderForSub(order = single.get()))
                     sink.next(single)
                 } else {
                     sink.error(RuntimeException("НЕВОЗМОЖНО ДОБАВИТЬ КАТЕГОРИЮ ПО ПОРЯДКУ"))
@@ -281,7 +289,7 @@ class OrderService(
         .first()
         .handle { single: Optional<Order>, sink: SynchronousSink<Optional<Order>> ->
             if (single.isPresent) {
-                monitorPublisher.publish(order = OrderForSub(order = single.get()))
+//                monitorPublisher.publish(order = OrderForSub(order = single.get()))
                 sink.next(single)
             } else {
                 sink.error(RuntimeException("НЕВОЗМОЖНОСТЬ РЕДАКТИРОВАНИЯ КАТЕГОРИИ ПО ПОРЯДКУ"))
@@ -303,11 +311,11 @@ class OrderService(
             }.awaitFirstOrElse { Optional.empty() }
 
     override suspend fun onRetrieveItemsInCategoriesOfOrder(
-        ids: Set<CategoryOfItem>,
+        ids: Set<ItemCategory>,
         moduleId: UUID,
         page: Int,
         size: Int
-    ): Map<CategoryOfItem, List<Item>> = Flux.fromIterable(ids)
+    ): Map<ItemCategory, List<Item>> = Flux.fromIterable(ids)
         .filter { it?.orderId != null }
         .flatMap { ins ->
             return@flatMap database.sql(
@@ -321,7 +329,7 @@ class OrderService(
         }
         .collect(Collectors.toList())
         .map {
-            val map = mutableMapOf<CategoryOfItem, List<Item>>()
+            val map = mutableMapOf<ItemCategory, List<Item>>()
             it.forEach { element -> map[element.key] = element.value }
             return@map map.toMap()
         }
@@ -501,4 +509,72 @@ class OrderService(
 
     override suspend fun completionLineGraph(year: Int, token: UUID): Optional<OrderCompletionLine> =
         completionLineGraphUseCase(database = database, year = year, token = token)
+
+    override suspend fun toCreateOrEdit(input: OrderInput, action: MutationAction?, token: UUID): Optional<Order> =
+        createOrEditUseCase(database = database, input = input, token = token, action = action)
+
+    override suspend fun toDelete(input: UUID, token: UUID): Boolean =
+        deleteUseCase(database = database, input = input, token = token)
+
+    override suspend fun find(id: UUID, token: UUID): Optional<Order> =
+        findUseCase(database = database, id = id, token = token)
+
+    override suspend fun retrieve(
+        first: Int,
+        after: UUID?,
+        status: OrderStatus?,
+        layer: OrderLayer?,
+        token: UUID
+    ): List<Order> =
+        retrieveUseCase(database = database, first = first, after = after, token = token, layer = layer)
+
+    override suspend fun search(
+        input: String,
+        first: Int,
+        after: UUID?,
+        status: OrderStatus?,
+        layer: OrderLayer?,
+        token: UUID
+    ): List<Order> =
+        searchUseCase(database = database, first = first, after = after, token = token, input = input, layer = layer)
+
+    override suspend fun count(token: UUID, status: OrderStatus?): Int =
+        countUseCase(database = database, token = token, status = status)
+
+    override suspend fun items(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Item>> =
+        emptyMap()
+
+    override suspend fun tasks(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Task>> =
+        emptyMap()
+
+    override suspend fun technologies(
+        ids: Set<UUID>,
+        first: Int,
+        after: UUID?,
+        token: UUID
+    ): Map<UUID, List<Technology>> = emptyMap()
+
+    override suspend fun parameters(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Parameter>> =
+        emptyMap()
+
+    override suspend fun categories(
+        ids: Set<UUID>,
+        first: Int,
+        after: UUID?,
+        token: UUID
+    ): Map<UUID, List<ItemCategory>> = emptyMap()
+
+    override suspend fun worklogs(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Worklog>> =
+        emptyMap()
+
+    override suspend fun customer(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Customer>> = emptyMap()
+
+    override suspend fun manager(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Agent>> =
+        emptyMap()
+
+    override suspend fun agent(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Agent>> =
+        emptyMap()
+
+    override suspend fun type(ids: Set<UUID>, token: UUID): Map<UUID, Optional<OrderType>> =
+        emptyMap()
 }

@@ -18,7 +18,7 @@ interface ItemRepository {
         userId: UUID,
         page: Int,
         size: Int
-    ): Map<Item, CategoryOfItem?>
+    ): Map<Item, ItemCategory?>
 
     suspend fun myItems(
         ids: Set<Item>,

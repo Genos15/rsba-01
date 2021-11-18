@@ -1,6 +1,6 @@
 package  com.rsba.order_microservice.domain.input
 
-import com.example.ticketApp.deserializer.DateTimeSerializer
+import com.rsba.order_microservice.configuration.deserializer.DateTimeSerializer
 import kotlinx.serialization.Serializable
 import java.time.OffsetDateTime
 import java.util.*

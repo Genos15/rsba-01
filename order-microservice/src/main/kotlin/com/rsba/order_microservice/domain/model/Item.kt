@@ -1,6 +1,6 @@
 package  com.rsba.order_microservice.domain.model
 
-import com.example.ticketApp.deserializer.DateTimeSerializer
+import com.rsba.order_microservice.configuration.deserializer.DateTimeSerializer
 import kotlinx.serialization.Serializable
 import java.time.OffsetDateTime
 import java.util.*
@@ -18,7 +18,7 @@ data class Item(
     val tasks: List<Task>? = emptyList(),
     val quantity: Float,
     val progress: Float,
-    val category: CategoryOfItem? = null,
+    val category: ItemCategory? = null,
     @Serializable(with = UUIDSerializer::class) val orderId: UUID,
     val components: List<Item>? = emptyList(),
 ) {

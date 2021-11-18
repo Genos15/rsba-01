@@ -2,8 +2,8 @@ package com.rsba.order_microservice.data.service.usecase.orders
 
 import com.rsba.order_microservice.data.dao.OrderCompletionLineDao
 import com.rsba.order_microservice.data.service.usecase.queries.OrderQueries
-import com.rsba.order_microservice.domain.format.QueryCursor
 import com.rsba.order_microservice.domain.model.OrderCompletionLine
+import com.rsba.order_microservice.domain.queries.QueryCursor
 import com.rsba.order_microservice.domain.usecase.custom.order.RetrieveOrderCompletionLineGraphUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi

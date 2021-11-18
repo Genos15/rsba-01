@@ -1,6 +1,6 @@
 package  com.rsba.order_microservice.database
 
-import com.rsba.order_microservice.domain.model.CategoryOfItem
+import com.rsba.order_microservice.domain.model.ItemCategory
 import io.r2dbc.spi.Row
 import io.r2dbc.spi.RowMetadata
 import kotlinx.serialization.decodeFromString
@@ -18,7 +18,7 @@ object CategoryDBHandler {
         classDiscriminator = "#class"
     }
 
-    fun all(row: Row?, meta: RowMetadata? = null): List<CategoryOfItem> = try {
+    fun all(row: Row?, meta: RowMetadata? = null): List<ItemCategory> = try {
         if (row != null) {
             val json = row.get(0, String::class.java)
             if (json != null) {
@@ -35,12 +35,12 @@ object CategoryDBHandler {
     }
 
 
-    fun one(row: Row?, meta: RowMetadata? = null): Optional<CategoryOfItem> = try {
+    fun one(row: Row?, meta: RowMetadata? = null): Optional<ItemCategory> = try {
         if (row != null) {
             val json = row.get(0, String::class.java)
             if (json != null) {
                 Optional.ofNullable(
-                    jsonHandler.decodeFromString<List<CategoryOfItem>>("""$json""").firstOrNull()
+                    jsonHandler.decodeFromString<List<ItemCategory>>("""$json""").firstOrNull()
                 )
             } else {
                 Optional.empty()

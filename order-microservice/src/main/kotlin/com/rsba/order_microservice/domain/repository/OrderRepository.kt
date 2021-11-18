@@ -47,7 +47,7 @@ interface OrderRepository {
         userId: UUID,
         page: Int,
         size: Int
-    ): Map<UUID, List<CategoryOfItem>>
+    ): Map<UUID, List<ItemCategory>>
 
     suspend fun retrieveItemsInOrder(
         ids: Set<UUID>,
@@ -56,7 +56,7 @@ interface OrderRepository {
         size: Int
     ): Map<UUID, List<Item>>
 
-    fun retrieveCategoriesOfOneOrder(id: UUID): Mono<MutableList<CategoryOfItem>>
+    fun retrieveCategoriesOfOneOrder(id: UUID): Mono<MutableList<ItemCategory>>
 
     suspend fun editOrder(input: EditOrderInput, token: UUID): Optional<Order>
 
@@ -67,11 +67,11 @@ interface OrderRepository {
     suspend fun retrieveOneOrder(id: UUID, token: UUID): Optional<Order>
 
     suspend fun onRetrieveItemsInCategoriesOfOrder(
-        ids: Set<CategoryOfItem>,
+        ids: Set<ItemCategory>,
         moduleId: UUID,
         page: Int,
         size: Int
-    ): Map<CategoryOfItem, List<Item>>
+    ): Map<ItemCategory, List<Item>>
 
     suspend fun addItemsInOrder(input: ItemInOrder, token: UUID): Optional<Order>
 
@@ -106,6 +106,82 @@ interface OrderRepository {
         level: OrderLevel? = null,
     ): List<Order>
 
+
     suspend fun completionLineGraph(year: Int, token: UUID): Optional<OrderCompletionLine>
+
+    suspend fun toCreateOrEdit(input: OrderInput, action: MutationAction? = null, token: UUID): Optional<Order>
+
+    suspend fun toDelete(input: UUID, token: UUID): Boolean
+
+    suspend fun find(id: UUID, token: UUID): Optional<Order>
+
+    suspend fun retrieve(
+        first: Int,
+        after: UUID? = null,
+        status: OrderStatus? = null,
+        layer: OrderLayer? = null,
+        token: UUID
+    ): List<Order>
+
+    suspend fun search(
+        input: String,
+        first: Int,
+        after: UUID? = null,
+        status: OrderStatus? = null,
+        layer: OrderLayer? = null,
+        token: UUID
+    ): List<Order>
+
+    suspend fun count(token: UUID, status: OrderStatus? = null): Int
+
+    suspend fun items(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Item>>
+
+    suspend fun tasks(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Task>>
+
+    suspend fun technologies(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Technology>>
+
+    suspend fun parameters(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Parameter>>
+
+    suspend fun categories(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<ItemCategory>>
+
+    suspend fun worklogs(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Worklog>>
+
+    suspend fun customer(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Customer>>
+
+    suspend fun manager(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Agent>>
+
+    suspend fun agent(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Agent>>
+
+    suspend fun type(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<OrderType>>
 
 }

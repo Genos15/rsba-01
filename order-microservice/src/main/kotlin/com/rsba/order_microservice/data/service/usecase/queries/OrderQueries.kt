@@ -1,125 +1,81 @@
 package  com.rsba.order_microservice.data.service.usecase.queries
 
 import com.rsba.order_microservice.data.dao.OrderDao
-import com.rsba.order_microservice.domain.format.IBaseQuery
-import com.rsba.order_microservice.domain.format.QueryBuilder
-import com.rsba.order_microservice.domain.input.CreateOrderInput
+import com.rsba.order_microservice.domain.format.JsonHandlerKotlin
+import com.rsba.order_microservice.domain.input.OrderInput
+import com.rsba.order_microservice.domain.model.AbstractLayer
+import com.rsba.order_microservice.domain.model.AbstractStatus
+import com.rsba.order_microservice.domain.model.Edition
+import com.rsba.order_microservice.domain.model.MutationAction
+import com.rsba.order_microservice.domain.queries.IBaseQuery
+import com.rsba.order_microservice.domain.queries.QueryBuilder
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.encodeToString
 import java.util.*
 
 @ExperimentalSerializationApi
-object OrderQueries : IBaseQuery<CreateOrderInput, OrderDao> {
-
-    //    override fun createOrEdit(input: ItemInput, token: UUID): String = buildString {
-//        append(QueryBuilder.CreateOrEdit.buildRequestDef<ItemDao>())
-//        append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
-//        append("'$token')")
-//    }
-//
-//    override fun delete(input: UUID, token: UUID): String = buildString {
-//        append(QueryBuilder.Delete.buildRequestDef<ItemDao>())
-//        append("('$input',")
-//        append("'$token')")
-//    }
-//
-//    override fun retrieve(first: Int, after: UUID?, token: UUID): String = buildString {
-//        append(QueryBuilder.Retrieve.buildRequestDef<ItemDao>())
-//        append("($first,")
-//        append("${after?.let { "'$it'" }},")
-//        append("'$token')")
-//    }
-//
-//    override fun search(input: String, first: Int, after: UUID?, token: UUID): String = buildString {
-//        append(QueryBuilder.Search.buildRequestDef<ItemDao>())
-//        append("('$input',")
-//        append("$first,")
-//        append("${after?.let { "'$it'" }},")
-//        append("'$token')")
-//    }
-//
-//    override fun find(id: UUID, token: UUID): String = buildString {
-//        append(QueryBuilder.Find.buildRequestDef<ItemDao>())
-//        append("('$id',")
-//        append("'$token')")
-//    }
-//
-//    fun attachOperation(input: ItemInput, token: UUID): String = buildString {
-//        append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_attach_operations"))
-//        append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
-//        append("'$token')")
-//    }
-//
-//    fun detachOperation(input: ItemInput, token: UUID): String = buildString {
-//        append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_detach_operations"))
-//        append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
-//        append("'$token')")
-//    }
-//
-//    fun attachSubItem(input: ItemInput, token: UUID): String = buildString {
-//        append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_attach_components"))
-//        append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
-//        append("'$token')")
-//    }
-//
-//    fun detachSubItem(input: ItemInput, token: UUID): String = buildString {
-//        append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_detach_components"))
-//        append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
-//        append("'$token')")
-//    }
-//
-//    fun category(id: UUID, token: UUID): String = buildString {
-//        append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_retrieve_category_dataloader"))
-//        append("('$id',")
-//        append("'$token')")
-//    }
-//
-//    fun operations(id: UUID, first: Int, after: UUID?, token: UUID): String = buildString {
-//        append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_retrieve_operations_dataloader"))
-//        append("('$id',")
-//        append("$first,")
-//        append("${after?.let { "'$it'" }},")
-//        append("'$token')")
-//    }
-//
-//    fun components(id: UUID, first: Int, after: UUID?, token: UUID): String = buildString {
-//        append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_retrieve_components_dataloader"))
-//        append("('$id',")
-//        append("$first,")
-//        append("${after?.let { "'$it'" }},")
-//        append("'$token')")
-//    }
-//
-//    override fun count(token: UUID): String = buildString {
-//        append(QueryBuilder.Count.buildRequestDef<ItemDao>())
-//        append("('$token')")
-//    }
-    override fun createOrEdit(input: CreateOrderInput, token: UUID): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun delete(input: UUID, token: UUID): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun retrieve(first: Int, after: UUID?, token: UUID): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun search(input: String, first: Int, after: UUID?, token: UUID): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun find(id: UUID, token: UUID): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun count(token: UUID): String {
-        TODO("Not yet implemented")
-    }
+object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
 
     fun completionLineGraph(year: Int, token: UUID): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_completion_line_graph"))
         append("($year,")
+        append("'$token')")
+    }
+
+    override fun createOrEdit(input: OrderInput, token: UUID, action: MutationAction?, case: Edition?): String =
+        buildString {
+            append(QueryBuilder.CreateOrEdit.buildRequestDef<OrderDao>())
+            append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
+            append("${action?.let { "'$it'" }},")
+            append("'$token')")
+        }
+
+    override fun delete(input: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Delete.buildRequestDef<OrderDao>())
+        append("('$input',")
+        append("'$token')")
+    }
+
+    override fun search(
+        input: String,
+        first: Int,
+        after: UUID?,
+        layer: AbstractLayer?,
+        status: AbstractStatus?,
+        token: UUID
+    ): String = buildString {
+        append(QueryBuilder.Search.buildRequestDef<OrderDao>())
+        append("('$input',")
+        append("$first,")
+        append("${after?.let { "'$it'" }},")
+        append("${layer?.let { "'$it'" }},")
+        append("${status?.let { "'$it'" }},")
+        append("'$token')")
+    }
+
+    override fun find(id: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Find.buildRequestDef<OrderDao>())
+        append("('$id',")
+        append("'$token')")
+    }
+
+    override fun count(token: UUID, status: AbstractStatus?): String = buildString {
+        append(QueryBuilder.Count.buildRequestDef<OrderDao>())
+        append("(${status?.let { "'$it'" }}, '$token')")
+    }
+
+    override fun retrieve(
+        first: Int,
+        after: UUID?,
+        token: UUID,
+        layer: AbstractLayer?,
+        status: AbstractStatus?
+    ): String = buildString {
+        append(QueryBuilder.Retrieve.buildRequestDef<OrderDao>())
+        append("($first,")
+        append("${after?.let { "'$it'" }},")
+        append("${layer?.let { "'$it'" }},")
+        append("${status?.let { "'$it'" }},")
         append("'$token')")
     }
 

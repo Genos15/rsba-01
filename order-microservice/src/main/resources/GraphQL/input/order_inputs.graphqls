@@ -1,0 +1,35 @@
+input HostInput {
+    hostId: ID
+    #the field hostId is mandatory when adding or removing tasks, parameters but optional when adding items in root layer of order
+    id: ID!
+}
+
+input OrderInput {
+    id: ID
+    customerId: ID
+    #the field customerId is mandatory when creating new order
+    typeId: ID
+    #the field typeId is mandatory when creating new order
+    referenceNumber: Int
+    agentId: ID #this is a reference to user
+    managerId: ID #this is a reference to user
+    #this must be in format RFC 3339, ex: 2002-10-02T10:00:00-05:00
+    estimatedAt: DateTime
+    description: String
+    packagingAt: DateTime
+    #this must be in format RFC 3339, ex: 2002-10-02T10:00:00-05:00
+    deliveryStartAt: DateTime
+    #the field deliveryStartAt is mandatory when creating new order
+    #this must be in format RFC 3339, ex: 2002-10-02T10:00:00-05:00
+    deliveryAt: DateTime
+    #this must be in format RFC 3339, ex: 2002-10-02T10:00:00-05:00
+    deliveryEndAt: DateTime
+    #the field deliveryEndAt is mandatory when creating new order
+    #this must be in format RFC 3339, ex: 2002-10-02T10:00:00-05:00
+    receptionAt: DateTime
+    items: [HostInput!]
+    tasks: [HostInput!]
+    technologies: [HostInput!]
+    parameters: [HostInput!]
+    status: OrderStatus
+}

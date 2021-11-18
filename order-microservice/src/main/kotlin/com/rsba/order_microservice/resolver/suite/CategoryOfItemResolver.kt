@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component
 import java.util.concurrent.CompletableFuture
 
 @Component
-class CategoryOfItemResolver(private val logger: KLogger) : GraphQLResolver<CategoryOfItem> {
+class CategoryOfItemResolver(private val logger: KLogger) : GraphQLResolver<ItemCategory> {
     fun items(
-        module: CategoryOfItem,
+        module: ItemCategory,
         env: DataFetchingEnvironment
     ): CompletableFuture<List<Item>>? {
         logger.warn { "+CategoryOfItemResolver -> items" }
         val dataLoader =
-            env.getDataLoader<CategoryOfItem, List<Item>>(DataLoaderRegistryFactory.ITEM_IN_ORDER)
+            env.getDataLoader<ItemCategory, List<Item>>(DataLoaderRegistryFactory.ITEM_IN_ORDER)
         return dataLoader?.load(module) ?: CompletableFuture.completedFuture(mutableListOf())
     }
 }
