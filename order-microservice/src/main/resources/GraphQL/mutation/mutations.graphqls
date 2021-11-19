@@ -1,6 +1,10 @@
 type Mutation {
 
-    createOrEditCustomer(input: CreateOrEditCustomerInput!): Customer
+    #--------------- customer ----------------
+
+    createOrEditCustomer(input: CustomerInput!, action: MutationAction): Customer
+    deleteCustomer(input: ID!): Boolean
+
     #    addEntityToCustomer(input: AddEntityToCustomerInput!): Customer
     #    createOrder(input: CreateOrderInput!): Order
     #    editOrder(input: EditOrderInput!): Order

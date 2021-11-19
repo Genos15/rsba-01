@@ -1,0 +1,22 @@
+type Customer {
+    id: ID!
+    name: String!
+    description: String
+    email: String
+    phone: String
+    createdAt: DateTime!
+    editedAt: DateTime!
+    activeProductCount: Int
+    representativeName: String
+    entities: [Customer!]
+}
+
+type CustomerConnection {
+    edges: [CustomerEdge]
+    pageInfo: PageInfo
+}
+
+type CustomerEdge {
+    cursor: String
+    node: Customer
+}

@@ -6,7 +6,7 @@ import java.util.*
 
 @Component
 class DataLoaderRegistryFactory(
-    private val forCustomer: CustomerDataLoaderImpl,
+    private val _customer: CustomerDataLoaderImpl,
     private val forCategory: CategoryOfItemDataLoaderImpl,
     private val _order: OrderDataLoaderImpl,
     private val _item: ItemDataLoaderImpl,
@@ -22,8 +22,6 @@ class DataLoaderRegistryFactory(
 ) {
 
     companion object {
-        const val CUSTOMERS_IN_CUSTOMER = "CUSTOMERS_IN_CUSTOMER"
-
 
         const val CATEGORY_OF_ITEM_IN_ORDER = "CATEGORY_OF_ITEM_IN_ORDER"
 
@@ -58,12 +56,11 @@ class DataLoaderRegistryFactory(
 
         const val TECHNOLOGIES_IN_DETAIL_OF_ORDER_DATALOADER = "TECHNOLOGIES_IN_DETAIL_OF_ORDER_DATALOADER"
 
-        const val TYPE_OF_ORDER_DATALOADER = "TYPE_OF_ORDER_DATALOADER"
-
         const val ITEM_IN_ITEM_DATALOADER = "ITEM_IN_ITEM_DATALOADER"
 
         const val POTENTIAL_VALUES_PARAMETER_DATALOADER = "POTENTIAL_VALUES_PARAMETER_DATALOADER"
 
+        // order references
         const val LOADER_FACTORY_CUSTOMER_OF_ORDER = "CUSTOMER_OF_ORDER"
         const val LOADER_FACTORY_MANAGER_OF_ORDER = "MANAGER_OF_ORDER"
         const val LOADER_FACTORY_AGENT_OF_ORDER = "AGENT_OF_ORDER"
@@ -74,6 +71,9 @@ class DataLoaderRegistryFactory(
         const val LOADER_FACTORY_CATEGORIES_OF_ORDER = "CATEGORIES_OF_ORDER"
         const val LOADER_FACTORY_WORKLOGS_OF_ORDER = "WORKLOGS_OF_ORDER"
         const val LOADER_FACTORY_TYPE_OF_ORDER = "TYPE_OF_ORDER"
+
+        // customer references
+        const val LOADER_FACTORY_ENTITIES_OF_CUSTOMER = "ENTITIES_OF_CUSTOMER"
 
     }
 
@@ -93,7 +93,7 @@ class DataLoaderRegistryFactory(
         registry.register(LOADER_FACTORY_TYPE_OF_ORDER, _order.typeLoader(userId = instanceId))
 
 
-        registry.register(CUSTOMERS_IN_CUSTOMER, forCustomer.dataLoaderEntitiesOfCustomer(userId = instanceId))
+        registry.register(LOADER_FACTORY_ENTITIES_OF_CUSTOMER, _customer.entitiesLoader(userId = instanceId))
 //        registry.register(CUSTOMER_OF_ORDER, forCustomer.dataLoaderCustomerOfOrder(userId = instanceId))
 //        registry.register(AGENT_OF_ORDER, forAgent.dataLoaderAgentOfUser(userId = instanceId))
 //        registry.register(MANAGER_OF_ORDER, forAgent.dataLoaderManagerOfOrder(userId = instanceId))

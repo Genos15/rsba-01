@@ -2,34 +2,32 @@ package  com.rsba.order_microservice.domain.repository
 
 import  com.rsba.order_microservice.domain.input.*
 import  com.rsba.order_microservice.domain.model.Customer
+import com.rsba.order_microservice.domain.model.MutationAction
 import java.util.*
 
 interface CustomerRepository {
 
-    suspend fun createOrEditCustomer(input: CreateOrEditCustomerInput, token: UUID): Optional<Customer>
+    suspend fun toCreateOrEdit(
+        input: CustomerInput,
+        action: MutationAction? = null,
+        token: UUID
+    ): Optional<Customer>
 
-    suspend fun addEntityToCustomer(input: AddEntityToCustomerInput, token: UUID): Optional<Customer>
+    suspend fun toDelete(input: UUID, token: UUID): Boolean
 
-    suspend fun removeEntityOfCustomer(input: RemoveEntityOfCustomerInput, token: UUID): Optional<Customer>
+    suspend fun find(id: UUID, token: UUID): Optional<Customer>
 
-    suspend fun deleteCustomer(input: UUID, token: UUID): Int
+    suspend fun retrieve(first: Int, after: UUID?, token: UUID): List<Customer>
 
-    suspend fun retrieveAllCustomer(first: Int, after: UUID?, token: UUID): MutableList<Customer>
+    suspend fun search(input: String, first: Int, after: UUID?, token: UUID): List<Customer>
 
-    suspend fun retrieveCustomerOfOrder(
+    suspend fun count(token: UUID): Int
+
+    suspend fun entities(
         ids: Set<UUID>,
-        userId: UUID,
-        page: Int,
-        size: Int
-    ): Map<UUID, Customer?>
-
-    suspend fun retrieveEntitiesOfCustomer(
-        ids: Set<UUID>,
-        userId: UUID,
-        page: Int,
-        size: Int
-    ): Map<UUID, MutableList<Customer>>
-
-    suspend fun retrieveOneCustomer(id: UUID, token: UUID): Optional<Customer>
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Customer>>
 
 }

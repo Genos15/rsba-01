@@ -1,54 +1,71 @@
 package  com.rsba.order_microservice.resolver.query
 
-import  com.rsba.order_microservice.configuration.request_helper.CursorUtil
-import  com.rsba.order_microservice.domain.model.Customer
-import  com.rsba.order_microservice.aspect.AdminSecured
-import com.rsba.order_microservice.data.context.token.TokenImpl
+import com.rsba.order_microservice.aspect.AdminSecured
+import com.rsba.order_microservice.domain.model.Customer
 import  com.rsba.order_microservice.domain.repository.CustomerRepository
+import com.rsba.order_microservice.domain.security.TokenAnalyzer
 import graphql.kickstart.tools.GraphQLQueryResolver
-import graphql.relay.*
+import graphql.relay.Connection
+import graphql.schema.DataFetchingEnvironment
 import org.springframework.stereotype.Component
 import java.util.*
 
-import graphql.schema.DataFetchingEnvironment
-import mu.KLogger
-
-
 @Component
-class CustomerQueryResolver(
-    private val cursorUtil: CursorUtil,
-    private val service: CustomerRepository,
-    private val logger: KLogger,
-    private val tokenImpl: TokenImpl
-) : GraphQLQueryResolver {
+class CustomerQueryResolver(private val service: CustomerRepository, private val deduct: TokenAnalyzer) :
+    GraphQLQueryResolver, GenericRetrieveConnection {
 
     @AdminSecured
-    suspend fun retrieveAllCustomer(
+    suspend fun retrieveCustomers(
         first: Int,
         after: UUID? = null,
-        env: DataFetchingEnvironment
-    ): Connection<Customer>? {
-
-        logger.warn { "+----- CustomerQueryResolver -> retrieveAllCustomer" }
-
-        val edges: List<Edge<Customer>> =
-            service.retrieveAllCustomer(token = tokenImpl.read(environment = env), first = first, after = after).map {
-                return@map DefaultEdge(it, cursorUtil.createCursorWith(it.id))
-            }.take(first)
-
-        val pageInfo = DefaultPageInfo(
-            cursorUtil.firstCursorFrom(edges),
-            cursorUtil.lastCursorFrom(edges),
-            after != null,
-            edges.size >= first
-        )
-
-        return DefaultConnection(edges, pageInfo)
-    }
+        environment: DataFetchingEnvironment
+    ): Connection<Customer> = perform(
+        entries = service.retrieve(
+            first = first,
+            after = after,
+            token = deduct(environment = environment)
+        ),
+        first = first,
+        after = after
+    )
 
     @AdminSecured
-    suspend fun retrieveOneCustomer(id: UUID, env: DataFetchingEnvironment): Optional<Customer> {
-        logger.warn { "+----- CustomerQueryResolver -> retrieveOneOrder" }
-        return service.retrieveOneCustomer(id = id, token = tokenImpl.read(environment = env))
-    }
+    suspend fun searchCustomers(
+        input: String,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Customer> = perform(
+        entries = service.search(
+            input = input,
+            first = first,
+            after = after,
+            token = deduct(environment = environment)
+        ),
+        first = first,
+        after = after
+    )
+
+    suspend fun findCustomer(id: UUID, environment: DataFetchingEnvironment): Optional<Customer> =
+        service.find(id = id, token = deduct(environment = environment))
+
+    suspend fun retrieveCustomerEntities(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Customer> = perform(
+        entries = service.entities(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
+    suspend fun countCustomers(environment: DataFetchingEnvironment): Int =
+        service.count(token = deduct(environment = environment))
 }
