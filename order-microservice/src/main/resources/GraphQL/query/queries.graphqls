@@ -20,7 +20,7 @@ type Query {
 
     #------------ customer ----------------
     retrieveCustomers (first: Int!, after: ID): CustomerConnection @connection(for: "Customer")
-    findCustomer(input: ID!): Technology
+    findCustomer(input: ID!): Customer
     countCustomers: Int
     searchCustomers (input: String!, first: Int!, after: ID): CustomerConnection @connection(for: "Customer")
     retrieveCustomerEntities(id: ID!, first: Int!, after: ID): CustomerConnection @connection(for: "Customer")
