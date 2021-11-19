@@ -31,6 +31,7 @@ class RetrieveOperationDepartmentsUseCaseImpl : RetrieveOperationDepartmentsUseC
                     .map { row -> QueryCursor.all(row = row) }
                     .first()
                     .map { it?.mapNotNull { element -> (element as? DepartmentDao?)?.to } ?: emptyList() }
+                    .doOnNext { println(it) }
                     .map { AbstractMap.SimpleEntry(id, it) }
                     .onErrorResume { throw it }
             }
@@ -39,6 +40,6 @@ class RetrieveOperationDepartmentsUseCaseImpl : RetrieveOperationDepartmentsUseC
             .collectList()
             .map { entries -> entries.associateBy({ it.key }, { it.value ?: emptyList() }) }
             .onErrorResume { throw it }
-            .log()
+            .log("RetrieveOperationDepartmentsUseCase")
             .awaitFirstOrElse { emptyMap() }
 }

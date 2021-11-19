@@ -19,7 +19,7 @@ class OperationService(
     @Qualifier("retrieve_operation") private val retrieveUseCase: RetrieveUseCase<Operation>,
     @Qualifier("search_operation") private val searchUseCase: SearchUseCase<Operation>,
     @Qualifier("count_operation") private val countUseCase: CountUseCase,
-    private val operationsUseCase: RetrieveOperationDepartmentsUseCase
+    private val departmentsUseCase: RetrieveOperationDepartmentsUseCase
 ) : OperationRepository {
 
     override suspend fun toCreateOrEdit(
@@ -46,6 +46,6 @@ class OperationService(
         countUseCase(database = database, token = token)
 
     override suspend fun departments(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Group>> =
-        operationsUseCase(database = database, ids = ids, token = token, first = first, after = after)
+        departmentsUseCase(database = database, ids = ids, token = token, first = first, after = after)
 
 }
