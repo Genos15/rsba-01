@@ -26,7 +26,7 @@ data class OrderDao(
     @Serializable(with = DateTimeSerializer::class) val deliveryAt: OffsetDateTime? = null,
     @Serializable(with = DateTimeSerializer::class) val packagingAt: OffsetDateTime? = null,
     @Serializable(with = DateTimeSerializer::class) val receptionAt: OffsetDateTime? = null,
-    val status: OrderStatus,
+    val status: String
 ) : AbstractModel() {
 
     val to: Order
@@ -44,7 +44,7 @@ data class OrderDao(
             deliveryAt = deliveryAt,
             packagingAt = packagingAt,
             receptionAt = receptionAt,
-            status = status
+            status = OrderStatus.fromString(src = status)
         )
 
 }

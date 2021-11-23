@@ -1,6 +1,8 @@
 type Query {
 
     #------------------------ orders -------------------------
+
+
     retrieveOrders (first: Int!, after: ID, status: OrderStatus, layer: OrderLayer): OrderConnection @connection(for: "Order")
     searchOrders (input: String!, first: Int!, after: ID, status: OrderStatus, layer: OrderLayer): OrderConnection @connection(for: "Order")
     findOrder (input: ID!): Order
@@ -17,8 +19,9 @@ type Query {
     countOrders(status: OrderStatus): Int
 
 
+    #------------------------ customers ------------------------
 
-    #------------ customer ----------------
+
     retrieveCustomers (first: Int!, after: ID): CustomerConnection @connection(for: "Customer")
     findCustomer(input: ID!): Customer
     countCustomers: Int

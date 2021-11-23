@@ -1,61 +1,11 @@
 type Mutation {
 
     #--------------- customer ----------------
-
     createOrEditCustomer(input: CustomerInput!, action: MutationAction): Customer
     deleteCustomer(input: ID!): Boolean
 
-    #    addEntityToCustomer(input: AddEntityToCustomerInput!): Customer
-    #    createOrder(input: CreateOrderInput!): Order
-    #    editOrder(input: EditOrderInput!): Order
-    #    addCategoriesInOrder(input: AttachCategoryWithOrderInput!): Order
-    #    editCategoryOfOrder(input: EditCategoryOfOrderInput!): Order
-    #    deleteCustomer(input: ID!): Int
-    #    #    deleteOrder(input: ID!): Int
-    #    removeEntityOfCustomer(input: RemoveEntityOfCustomerInput!): Customer
-    #
-    #    addItemsInOrder(input: ItemInOrder): Order
-    #    editItemInOrder(input: EditItemInOrderInput): Order
-    #    deleteItemsInOrder(input: ItemInOrder): Order
-    #
-    #    pinDepartmentsInTask(input: DepartmentWithTask): Task
-    #    pinWorkingCentersInTask(input: WorkingCenterWithTask): Task
-    #    pinUsersInTask(input: UserWithTask): Task
-    #    unpinDepartmentsInTask(input: DepartmentWithTask): Task
-    #    unpinWorkingCentersInTask(input: WorkingCenterWithTask): Task
-    #    unpinUsersInTask(input: UserWithTask): Task
-    #
-    #    #commentInput
-    #    createOrEditCommentOfTask(input: CommentTaskInput!): Comment
-    #    deleteComment(input: ID!): Boolean
-    #
-    #    #task implementation
-    #    createOrEditTask(input: TaskInput!): Task
-    #    deleteTask(input: TaskInput!): Order
-    #    editTask(input: TaskInput!): Task
-    #    terminateAnalysis(input: ID!): Order
-    #    terminateTask(input: ID!): Task
-    #
-    #    #type of order implementation
-    #    createOrEditOrderType(input: OrderTypeInput!): OrderType
-    #    deleteOrderType(input: ID!): Boolean
-    #
-    #    #items and subItems implementation
-    #    addOrEditComponentInItem(input: ItemAndItemInput): Item
-    #    removeComponentInItem(input: ItemAndItemInput): Item
-    #
-    #    #parameters implementation
-    #    createOrEditParameter(input: ParameterInput): Parameter
-    #    addOrRemovePotentialValueToParameter(input: ParameterInput): Parameter
-    #    deleteParameter(input: ID!): Boolean
-    #
-    #    #other
-    #    importOrderFromJsonFile: Boolean
-    #
-    #
-    #
-    #    #------------------ order -------------------
-    #    createOrEditOrder(input: OrderInput!, action: MutationAction): Order
-    #    deleteOrder(input: ID!): Boolean
+    #--------------- order ----------------
+    createOrEditOrder(input: OrderInput!, action: MutationAction): Order
+    deleteOrder(input: ID!): Boolean
 
 }
