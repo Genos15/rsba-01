@@ -2,7 +2,6 @@ type Query {
 
     #------------------------ orders -------------------------
 
-
     retrieveOrders (first: Int!, after: ID, status: OrderStatus, layer: OrderLayer): OrderConnection @connection(for: "Order")
     searchOrders (input: String!, first: Int!, after: ID, status: OrderStatus, layer: OrderLayer): OrderConnection @connection(for: "Order")
     findOrder (input: ID!): Order
@@ -17,6 +16,7 @@ type Query {
     findOrderAgent(id: ID!): Agent
     findOrder__Type(id: ID!): OrderType
     countOrders(status: OrderStatus): Int
+    potentialReferenceNumber: String
 
     #------------------------ customers ------------------------
 

@@ -22,6 +22,12 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
         append("'$token')")
     }
 
+    fun potentialReferenceNumber(companyId: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_potential_reference"))
+        append("($companyId,")
+        append("'$token')")
+    }
+
     override fun createOrEdit(input: OrderInput, token: UUID, action: MutationAction?, case: Edition?): String =
         buildString {
             append(QueryBuilder.CreateOrEdit.buildRequestDef<OrderDao>())

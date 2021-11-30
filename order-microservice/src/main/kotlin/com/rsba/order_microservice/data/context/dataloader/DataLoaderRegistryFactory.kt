@@ -7,7 +7,7 @@ import java.util.*
 @Component
 class DataLoaderRegistryFactory(
     private val _customer: CustomerDataLoaderImpl,
-    private val forCategory: CategoryOfItemDataLoaderImpl,
+//    private val forCategory: CategoryOfItemDataLoaderImpl,
     private val _order: OrderDataLoaderImpl,
     private val _item: ItemDataLoaderImpl,
     private val forOperation: OperationDataLoaderImpl,
@@ -97,7 +97,7 @@ class DataLoaderRegistryFactory(
 //        registry.register(CUSTOMER_OF_ORDER, forCustomer.dataLoaderCustomerOfOrder(userId = instanceId))
 //        registry.register(AGENT_OF_ORDER, forAgent.dataLoaderAgentOfUser(userId = instanceId))
 //        registry.register(MANAGER_OF_ORDER, forAgent.dataLoaderManagerOfOrder(userId = instanceId))
-        registry.register(CATEGORY_OF_ITEM_IN_ORDER, forCategory.dataLoaderCategoriesOfItemInOrder(userId = instanceId))
+//        registry.register(CATEGORY_OF_ITEM_IN_ORDER, forCategory.dataLoaderCategoriesOfItemInOrder(userId = instanceId))
 
 //        registry.register(ITEM_IN_ORDER, orderImpl.dataLoaderItemsInOrder(userId = instanceId))
         registry.register(OPERATIONS_IN_ITEM, _item.dataLoaderOperationOfItem(userId = instanceId))

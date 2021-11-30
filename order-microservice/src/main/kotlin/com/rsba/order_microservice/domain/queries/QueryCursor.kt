@@ -50,6 +50,14 @@ object QueryCursor {
         }
     }
 
+    fun countAsString(row: Row): String? {
+        return try {
+            meOrNull(row = row, index = 0)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     fun isTrue(row: Row): Boolean {
         return try {
             (meOrNull(row = row, index = 0) ?: 0) > 0

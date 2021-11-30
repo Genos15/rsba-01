@@ -14,33 +14,33 @@ import java.util.*
 @Component
 class CategoryOfItemDataLoaderImpl(private val logger: KLogger, private val service: OrderRepository) {
 
-    fun dataLoaderCategoriesOfItemInOrder(userId: UUID): DataLoader<UUID, List<CategoryOfItemInOrder>> {
-        logger.warn { "+--- CategoryOfItemDataLoaderImpl -> dataLoaderCategoriesOfItemInOrder" }
-        return DataLoader.newMappedDataLoader { ids, env ->
-            logger.warn { env }
-            GlobalScope.future {
-                service.retrieveCategoriesOfOrder(
-                    orderIds = ids,
-                    userId = userId,
-                    page = 0,
-                    size = 1000
-                )
-            }
-        }
-    }
+//    fun dataLoaderCategoriesOfItemInOrder(userId: UUID): DataLoader<UUID, List<CategoryOfItemInOrder>> {
+//        logger.warn { "+--- CategoryOfItemDataLoaderImpl -> dataLoaderCategoriesOfItemInOrder" }
+//        return DataLoader.newMappedDataLoader { ids, env ->
+//            logger.warn { env }
+//            GlobalScope.future {
+//                service.retrieveCategoriesOfOrder(
+//                    orderIds = ids,
+//                    userId = userId,
+//                    page = 0,
+//                    size = 1000
+//                )
+//            }
+//        }
+//    }
 
-    fun dataLoaderItemsInOrder(userId: UUID): DataLoader<ItemCategory, List<Item>> {
-        logger.warn { "+--- CategoryOfItemDataLoaderImpl -> dataLoaderItemsInOrder" }
-        return DataLoader.newMappedDataLoader { ids, env ->
-            logger.warn { env }
-            GlobalScope.future {
-                service.onRetrieveItemsInCategoriesOfOrder(
-                    ids = ids,
-                    moduleId = userId,
-                    page = 0,
-                    size = 1000
-                )
-            }
-        }
-    }
+//    fun dataLoaderItemsInOrder(userId: UUID): DataLoader<ItemCategory, List<Item>> {
+//        logger.warn { "+--- CategoryOfItemDataLoaderImpl -> dataLoaderItemsInOrder" }
+//        return DataLoader.newMappedDataLoader { ids, env ->
+//            logger.warn { env }
+//            GlobalScope.future {
+//                service.onRetrieveItemsInCategoriesOfOrder(
+//                    ids = ids,
+//                    moduleId = userId,
+//                    page = 0,
+//                    size = 1000
+//                )
+//            }
+//        }
+//    }
 }

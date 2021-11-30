@@ -184,5 +184,7 @@ class OrderQueryResolver(private val service: OrderRepository, private val deduc
         id = id
     )
 
+    suspend fun potentialReferenceNumber(environment: DataFetchingEnvironment): String =
+        service.potentialReferenceNumber(token = deduct(environment = environment))
 
 }
