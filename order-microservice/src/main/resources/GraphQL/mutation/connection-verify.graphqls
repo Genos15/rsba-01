@@ -37,14 +37,3 @@ type WorklogEdge {
     cursor: String
     node: Worklog
 }
-
-type OrderTypeEdge {
-    cursor: String
-    node: OrderType
-}
-
-type OrderTypeConnection {
-    edges: [OrderTypeEdge]
-    pageInfo: PageInfo
-}
-

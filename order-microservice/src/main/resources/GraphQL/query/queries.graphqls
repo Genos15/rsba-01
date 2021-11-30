@@ -18,14 +18,19 @@ type Query {
     findOrderType(id: ID!): OrderType
     countOrders(status: OrderStatus): Int
 
-
     #------------------------ customers ------------------------
-
 
     retrieveCustomers (first: Int!, after: ID): CustomerConnection @connection(for: "Customer")
     findCustomer(input: ID!): Customer
     countCustomers: Int
     searchCustomers (input: String!, first: Int!, after: ID): CustomerConnection @connection(for: "Customer")
     retrieveCustomerEntities(id: ID!, first: Int!, after: ID): CustomerConnection @connection(for: "Customer")
+
+    #------------------------ types of orders ------------------------
+
+    retrieveOrderTypes (first: Int!, after: ID): OrderTypeConnection @connection(for: "OrderType")
+    findOrderType(input: ID!): OrderType
+    countOrderTypes: Int
+    searchOrderTypes (input: String!, first: Int!, after: ID): OrderTypeConnection @connection(for: "OrderType")
 
 }

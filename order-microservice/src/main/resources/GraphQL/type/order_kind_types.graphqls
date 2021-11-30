@@ -4,3 +4,13 @@ type OrderType {
     description: String
     isDefault: Boolean!
 }
+
+type OrderTypeEdge {
+    cursor: String
+    node: OrderType
+}
+
+type OrderTypeConnection {
+    edges: [OrderTypeEdge]
+    pageInfo: PageInfo
+}

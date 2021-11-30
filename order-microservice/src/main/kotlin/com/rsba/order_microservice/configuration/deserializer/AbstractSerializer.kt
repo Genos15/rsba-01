@@ -1,9 +1,6 @@
 package com.rsba.order_microservice.configuration.deserializer
 
-import com.rsba.order_microservice.data.dao.AbstractModel
-import com.rsba.order_microservice.data.dao.CustomerDao
-import com.rsba.order_microservice.data.dao.OrderCompletionLineDao
-import com.rsba.order_microservice.data.dao.OrderDao
+import com.rsba.order_microservice.data.dao.*
 import com.rsba.order_microservice.domain.exception.CustomGraphQLError
 import com.rsba.order_microservice.domain.format.ModelTypeCase
 import kotlinx.serialization.DeserializationStrategy
@@ -17,6 +14,7 @@ object AbstractSerializer : JsonContentPolymorphicSerializer<AbstractModel>(Abst
                 ModelTypeCase.orders_completion_line.lowercase() -> OrderCompletionLineDao.serializer()
                 ModelTypeCase.orders.lowercase() -> OrderDao.serializer()
                 ModelTypeCase.customers.lowercase() -> CustomerDao.serializer()
+                ModelTypeCase.order_types.lowercase() -> OrderTypeDao.serializer()
                 else -> throw  CustomGraphQLError(message = "Unknown Module: key 'type' not found or does not matches any module type")
             }
         }
@@ -25,6 +23,7 @@ object AbstractSerializer : JsonContentPolymorphicSerializer<AbstractModel>(Abst
             ModelTypeCase.orders_completion_line.lowercase() -> OrderCompletionLineDao.serializer()
             ModelTypeCase.orders.lowercase() -> OrderDao.serializer()
             ModelTypeCase.customers.lowercase() -> CustomerDao.serializer()
+            ModelTypeCase.order_types.lowercase() -> OrderTypeDao.serializer()
             else -> throw CustomGraphQLError(message = "Unknown Module: key 'type' not found or does not matches any module type")
         }
     }
