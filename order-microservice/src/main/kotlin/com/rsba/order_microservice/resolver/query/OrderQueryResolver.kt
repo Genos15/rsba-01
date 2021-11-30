@@ -179,7 +179,7 @@ class OrderQueryResolver(private val service: OrderRepository, private val deduc
         id = id
     )
 
-    suspend fun findOrderType(id: UUID, environment: DataFetchingEnvironment): Optional<OrderType> = perform(
+    suspend fun findOrder__Type(id: UUID, environment: DataFetchingEnvironment): Optional<OrderType> = perform(
         entries = service.type(ids = setOf(id), token = deduct(environment = environment)),
         id = id
     )

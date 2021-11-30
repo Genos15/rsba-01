@@ -15,7 +15,7 @@ type Query {
     #    findOrderCustomer (id: ID!): Customer
     #    findOrderManager (id: ID!): Agent
     findOrderAgent(id: ID!): Agent
-    #    findOrder__Type(id: ID!): OrderType
+    findOrder__Type(id: ID!): OrderType
     countOrders(status: OrderStatus): Int
 
     #------------------------ customers ------------------------
