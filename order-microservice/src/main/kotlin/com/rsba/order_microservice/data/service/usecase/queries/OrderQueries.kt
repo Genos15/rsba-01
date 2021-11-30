@@ -22,9 +22,9 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
         append("'$token')")
     }
 
-    fun potentialReferenceNumber(companyId: UUID, token: UUID): String = buildString {
+    fun potentialReferenceNumber(companyId: UUID?, token: UUID): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_potential_reference"))
-        append("($companyId,")
+        append("(${companyId?.let { "'$it'" }},")
         append("'$token')")
     }
 
