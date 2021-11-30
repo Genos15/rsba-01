@@ -9,7 +9,7 @@ type Mutation {
     deleteOrder(input: ID!): Boolean
 
     #--------------- type of orders ----------------
-    createOrEditOrderType(input: OrderTypeInput!): OrderType
+    createOrEditOrderType(input: OrderTypeInput!, action: MutationAction): OrderType
     deleteOrderType(input: ID!): Boolean
 
 }
