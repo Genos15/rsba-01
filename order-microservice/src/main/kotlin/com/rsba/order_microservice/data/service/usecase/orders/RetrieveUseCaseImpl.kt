@@ -39,5 +39,6 @@ class RetrieveUseCaseImpl : RetrieveUseCase<Order>, IQueryGuesser {
             .onErrorResume {
                 throw it
             }
+            .log()
             .awaitFirstOrElse { emptyList() }
 }

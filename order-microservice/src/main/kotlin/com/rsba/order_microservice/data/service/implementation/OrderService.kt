@@ -43,7 +43,14 @@ class OrderService(
         layer: OrderLayer?,
         token: UUID
     ): List<Order> =
-        retrieveUseCase(database = database, first = first, after = after, token = token, layer = layer)
+        retrieveUseCase(
+            database = database,
+            first = first,
+            after = after,
+            token = token,
+            layer = layer,
+            status = status
+        )
 
     override suspend fun search(
         input: String,
@@ -53,7 +60,15 @@ class OrderService(
         layer: OrderLayer?,
         token: UUID
     ): List<Order> =
-        searchUseCase(database = database, first = first, after = after, token = token, input = input, layer = layer)
+        searchUseCase(
+            database = database,
+            first = first,
+            after = after,
+            token = token,
+            input = input,
+            layer = layer,
+            status = status
+        )
 
     override suspend fun count(token: UUID, status: OrderStatus?): Int =
         countUseCase(database = database, token = token, status = status)

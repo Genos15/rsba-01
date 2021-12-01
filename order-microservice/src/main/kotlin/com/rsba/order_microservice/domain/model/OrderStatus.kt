@@ -16,9 +16,7 @@ enum class OrderStatus : AbstractStatus {
             "analyzing" -> ANALYZING
             "production" -> PRODUCTION
             "delivered" -> DELIVERED
-            else -> {
-                DRAFT
-            }
+            else -> DRAFT
         }
     }
 }

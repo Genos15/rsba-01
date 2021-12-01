@@ -41,5 +41,6 @@ class SearchUseCaseImpl : SearchUseCase<Order>, IQueryGuesser {
             .onErrorResume {
                 throw it
             }
+            .log()
             .awaitFirstOrElse { emptyList() }
 }
