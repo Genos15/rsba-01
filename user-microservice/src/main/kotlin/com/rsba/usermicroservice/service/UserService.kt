@@ -247,7 +247,7 @@ class UserService(
         logger.warn { "+-- UserService -> onLogOut" }
         val context: CustomGraphQLContext = environment.getContext()
         val request: HttpServletRequest = context.httpServletRequest
-        val h1 = request.getHeader("Authorization")?.toLowerCase()
+        val h1 = request.getHeader("Authorization")?.lowercase()
         val h2 = h1?.replace("bearer ", "")
         return try {
             h2?.let {
