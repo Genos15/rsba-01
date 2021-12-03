@@ -6,4 +6,5 @@ object ModelTypeCase {
     const val customers = "customers"
     const val order_types = "order_types"
     const val orders_completion_line = "orders_completion_line"
+    const val agents = "agents"
 }
