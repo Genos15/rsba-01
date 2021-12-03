@@ -27,7 +27,8 @@ object QueryCursor {
     }
 
     fun one(row: Row): AbstractModel? {
-        val payload = row.get(0, String::class.java) ?: throw CustomGraphQLError(message = "Value is not nullable")
+        val payload = row.get(0, String::class.java)
+            ?: return null/* ?: throw CustomGraphQLError(message = "Value is not nullable")*/
         val payloadJson = payload.replace(" ", "").replace("[null]", "[]")
         var element = JsonHandlerKotlin.handler.parseToJsonElement(payloadJson)
         if (element is JsonArray && element.jsonArray.isNotEmpty()) {
