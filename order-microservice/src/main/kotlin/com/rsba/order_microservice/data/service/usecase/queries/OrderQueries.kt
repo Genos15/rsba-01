@@ -85,4 +85,36 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
         append("'$token')")
     }
 
+//    fun entities(id: UUID, first: Int, after: UUID?, token: UUID): String = buildString {
+//        append(QueryBuilder.Custom.buildRequestDef<CustomerDao>(customQuery = "_on_retrieve_entities"))
+//        append("('$id',")
+//        append("$first,")
+//        append("${after?.let { "'$it'" }},")
+//        append("'$token')")
+//    }
+
+    fun customer(id: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_retrieve_customer"))
+        append("('$id',")
+        append("'$token')")
+    }
+
+    fun agent(id: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_retrieve_agent"))
+        append("('$id',")
+        append("'$token')")
+    }
+
+    fun manager(id: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_retrieve_manager"))
+        append("('$id',")
+        append("'$token')")
+    }
+
+    fun type(id: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_retrieve_type"))
+        append("('$id',")
+        append("'$token')")
+    }
+
 }

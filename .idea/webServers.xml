@@ -72,6 +72,13 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
+      <webServer id="d72038d7-edb7-443a-8eb8-77de08739aa9" name="rs.staging.server">
+        <fileTransfer rootFolder="/home" accessType="SFTP" host="165.232.71.237" port="22" sshConfigId="f536c4f4-e0be-43e3-8f80-5e3eb81eaf4c" sshConfig="rs.staging.source">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
     </option>
     <groups>
       <group>
@@ -92,6 +99,12 @@
           <name value="rs.users.notification.production" />
           <name value="rs.orders.components.production" />
           <name value="rs.feedback.production" />
+        </servers>
+      </group>
+      <group>
+        <name>rs.staging.configuration</name>
+        <servers>
+          <name value="rs.staging.server" />
         </servers>
       </group>
     </groups>

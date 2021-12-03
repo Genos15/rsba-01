@@ -4,8 +4,7 @@ import com.rsba.order_microservice.domain.input.*
 import com.rsba.order_microservice.domain.model.*
 import  com.rsba.order_microservice.domain.repository.OrderRepository
 import com.rsba.order_microservice.domain.usecase.common.*
-import com.rsba.order_microservice.domain.usecase.custom.order.PotentialReferenceNumberUseCase
-import com.rsba.order_microservice.domain.usecase.custom.order.RetrieveOrderCompletionLineGraphUseCase
+import com.rsba.order_microservice.domain.usecase.custom.order.*
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
@@ -21,7 +20,12 @@ class OrderService(
     @Qualifier("retrieve_order") private val retrieveUseCase: RetrieveUseCase<Order>,
     @Qualifier("search_order") private val searchUseCase: SearchUseCase<Order>,
     @Qualifier("count_order") private val countUseCase: CountUseCase,
-    private val potentialReferenceNumberUseCase: PotentialReferenceNumberUseCase
+    private val potentialReferenceNumberUseCase: PotentialReferenceNumberUseCase,
+    private val itemsUseCase: RetrieveItemsUseCase,
+    private val agentUseCase: RetrieveAgentUseCase,
+    private val managerUseCase: RetrieveManagerUseCase,
+    private val customerUseCase: RetrieveCustomerUseCase,
+    private val typeUseCase: RetrieveTypeUseCase
 ) : OrderRepository {
 
     override suspend fun completionLineGraph(year: Int, token: UUID): Optional<OrderCompletionLine> =
@@ -74,7 +78,7 @@ class OrderService(
         countUseCase(database = database, token = token, status = status)
 
     override suspend fun items(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Item>> =
-        emptyMap()
+        itemsUseCase(ids = ids, first = first, after = after, token = token, database = database)
 
     override suspend fun tasks(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Task>> =
         emptyMap()
@@ -99,16 +103,17 @@ class OrderService(
     override suspend fun worklogs(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Worklog>> =
         emptyMap()
 
-    override suspend fun customer(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Customer>> = emptyMap()
+    override suspend fun customer(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Customer>> =
+        customerUseCase(ids = ids, token = token, database = database)
 
     override suspend fun manager(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Agent>> =
-        emptyMap()
+        managerUseCase(ids = ids, token = token, database = database)
 
     override suspend fun agent(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Agent>> =
-        emptyMap()
+        agentUseCase(ids = ids, token = token, database = database)
 
     override suspend fun type(ids: Set<UUID>, token: UUID): Map<UUID, Optional<OrderType>> =
-        emptyMap()
+        typeUseCase(ids = ids, token = token, database = database)
 
     override suspend fun potentialReferenceNumber(companyId: UUID, token: UUID): String =
         potentialReferenceNumberUseCase(token = token, database = database)

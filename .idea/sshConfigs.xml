@@ -29,6 +29,9 @@
       <sshConfig authType="PASSWORD" host="159.89.9.131" id="81caf1d9-dc0b-46af-8be5-cb1a24cb1d4b" port="22" customName="rs.orders.components.prod.source" nameFormat="CUSTOM" username="root">
         <option name="customName" value="rs.orders.components.prod.source" />
       </sshConfig>
+      <sshConfig authType="PASSWORD" host="165.232.71.237" id="f536c4f4-e0be-43e3-8f80-5e3eb81eaf4c" port="22" customName="rs.staging.source" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
+        <option name="customName" value="rs.staging.source" />
+      </sshConfig>
     </configs>
   </component>
 </project>
