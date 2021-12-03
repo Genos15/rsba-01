@@ -5,7 +5,7 @@ type Query {
     retrieveOrders (first: Int!, after: ID, status: OrderStatus, layer: OrderLayer): OrderConnection @connection(for: "Order")
     searchOrders (input: String!, first: Int!, after: ID, status: OrderStatus, layer: OrderLayer): OrderConnection @connection(for: "Order")
     findOrder (input: ID!): Order
-    retrieveOrderItems (id: ID!, first: Int!, after: ID): ItemConnection @connection(for: "Item")
+    retrieveOrderItems (id: ID!, first: Int!, parentId: ID, after: ID): ItemConnection @connection(for: "Item")
     retrieveOrderTasks (id: ID!, first: Int!, after: ID): TaskConnection @connection(for: "Task")
     retrieveOrderTechnologies (id: ID!, first: Int!, after: ID): TechnologyConnection @connection(for: "Technology")
     retrieveOrderParameters (id: ID!, first: Int!, after: ID): ParameterConnection @connection(for: "Parameter")
@@ -15,10 +15,11 @@ type Query {
     findOrderAgent(id: ID!): Agent
     findOrderManager(id: ID!): Agent
     findOrder__Type(id: ID!): OrderType
+    #this is related to the type in the order instance
     countOrders(status: OrderStatus): Int
     potentialReferenceNumber: String
 
-    #------------------------ customers ------------------------
+    #------------------------ customers -----------------------
 
     retrieveCustomers (first: Int!, after: ID): CustomerConnection @connection(for: "Customer")
     findCustomer(input: ID!): Customer
@@ -26,7 +27,7 @@ type Query {
     searchCustomers (input: String!, first: Int!, after: ID): CustomerConnection @connection(for: "Customer")
     retrieveCustomerEntities(id: ID!, first: Int!, after: ID): CustomerConnection @connection(for: "Customer")
 
-    #------------------------ types of orders ------------------------
+    #------------------------ types of orders -------------------
 
     retrieveOrderTypes (first: Int!, after: ID): OrderTypeConnection @connection(for: "OrderType")
     findOrderType(input: ID!): OrderType

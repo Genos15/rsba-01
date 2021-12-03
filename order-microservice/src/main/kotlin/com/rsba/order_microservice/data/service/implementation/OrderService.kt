@@ -77,8 +77,14 @@ class OrderService(
     override suspend fun count(token: UUID, status: OrderStatus?): Int =
         countUseCase(database = database, token = token, status = status)
 
-    override suspend fun items(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Item>> =
-        itemsUseCase(ids = ids, first = first, after = after, token = token, database = database)
+    override suspend fun items(
+        ids: Set<UUID>,
+        first: Int,
+        parentId: UUID?,
+        after: UUID?,
+        token: UUID
+    ): Map<UUID, List<Item>> =
+        itemsUseCase(ids = ids, first = first, after = after, token = token, database = database, parentId = parentId)
 
     override suspend fun tasks(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Task>> =
         emptyMap()

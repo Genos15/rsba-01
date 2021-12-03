@@ -9,7 +9,8 @@ interface RetrieveItemsUseCase {
         database: DatabaseClient,
         ids: Set<UUID>,
         first: Int,
-        after: UUID?,
+        parentId: UUID? = null,
+        after: UUID? = null,
         token: UUID
     ): Map<UUID, List<Item>>
 }

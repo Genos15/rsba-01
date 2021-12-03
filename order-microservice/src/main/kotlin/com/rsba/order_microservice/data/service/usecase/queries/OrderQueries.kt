@@ -85,13 +85,14 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
         append("'$token')")
     }
 
-//    fun entities(id: UUID, first: Int, after: UUID?, token: UUID): String = buildString {
-//        append(QueryBuilder.Custom.buildRequestDef<CustomerDao>(customQuery = "_on_retrieve_entities"))
-//        append("('$id',")
-//        append("$first,")
-//        append("${after?.let { "'$it'" }},")
-//        append("'$token')")
-//    }
+    fun items(id: UUID, first: Int, after: UUID? = null, token: UUID, parentId: UUID? = null): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_retrieve_items"))
+        append("('$id',")
+        append("$first,")
+        append("${parentId?.let { "'$it'" }},")
+        append("${after?.let { "'$it'" }},")
+        append("'$token')")
+    }
 
     fun customer(id: UUID, token: UUID): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_retrieve_customer"))

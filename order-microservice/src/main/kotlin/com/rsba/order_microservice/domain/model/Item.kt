@@ -14,7 +14,7 @@ data class Item(
     val material: String? = null,
     @Serializable(with = DateTimeSerializer::class) val createdAt: OffsetDateTime? = null,
     @Serializable(with = DateTimeSerializer::class) val editedAt: OffsetDateTime? = null,
-    val operations: MutableList<Operation>? = mutableListOf(),
+    val operations: List<Operation>? = emptyList(),
     val tasks: List<Task>? = emptyList(),
     val quantity: Float,
     val progress: Float,

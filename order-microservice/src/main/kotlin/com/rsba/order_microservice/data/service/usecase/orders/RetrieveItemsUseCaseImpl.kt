@@ -1,11 +1,9 @@
 package com.rsba.order_microservice.data.service.usecase.orders
 
-import com.rsba.order_microservice.data.dao.CustomerDao
-import com.rsba.order_microservice.data.service.usecase.queries.CustomerQueries
-import com.rsba.order_microservice.domain.model.Customer
+import com.rsba.order_microservice.data.dao.ItemDao
+import com.rsba.order_microservice.data.service.usecase.queries.OrderQueries
 import com.rsba.order_microservice.domain.model.Item
 import com.rsba.order_microservice.domain.queries.QueryCursor
-import com.rsba.order_microservice.domain.usecase.custom.customer.RetrieveCustomerEntitiesUseCase
 import com.rsba.order_microservice.domain.usecase.custom.order.RetrieveItemsUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -23,24 +21,32 @@ class RetrieveItemsUseCaseImpl : RetrieveItemsUseCase {
         database: DatabaseClient,
         ids: Set<UUID>,
         first: Int,
+        parentId: UUID?,
         after: UUID?,
         token: UUID
-    ): Map<UUID, List<Item>> = emptyMap()
-//        Flux.fromIterable(ids)
-//            .parallel()
-//            .flatMap { id ->
-//                database.sql(CustomerQueries.entities(token = token, id = id, first = first, after = after))
-//                    .map { row -> QueryCursor.all(row = row) }
-//                    .first()
-//                    .map { it?.mapNotNull { element -> (element as? CustomerDao?)?.to } ?: emptyList() }
-//                    .map { AbstractMap.SimpleEntry(id, it) }
-//                    .onErrorResume { throw it }
-//            }
-//            .runOn(Schedulers.parallel())
-//            .sequential()
-//            .collectList()
-//            .map { entries -> entries.associateBy({ it.key }, { it.value ?: emptyList() }) }
-//            .onErrorResume { throw it }
-//            .log()
-//            .awaitFirstOrElse { emptyMap() }
+    ): Map<UUID, List<Item>> =
+        Flux.fromIterable(ids)
+            .parallel()
+            .flatMap { id ->
+                database.sql(
+                    OrderQueries.items(
+                        token = token,
+                        id = id,
+                        first = first,
+                        after = after,
+                        parentId = parentId
+                    )
+                ).map { row -> QueryCursor.all(row = row) }
+                    .first()
+                    .map { it?.mapNotNull { element -> (element as? ItemDao?)?.to } ?: emptyList() }
+                    .map { AbstractMap.SimpleEntry(id, it) }
+                    .onErrorResume { throw it }
+            }
+            .runOn(Schedulers.parallel())
+            .sequential()
+            .collectList()
+            .map { entries -> entries.associateBy({ it.key }, { it.value ?: emptyList() }) }
+            .onErrorResume { throw it }
+            .log()
+            .awaitFirstOrElse { emptyMap() }
 }
