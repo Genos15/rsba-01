@@ -28,7 +28,7 @@ class RetrieveTypeUseCaseImpl : RetrieveTypeUseCase {
                 database.sql(OrderQueries.type(token = token, id = id))
                     .map { row -> QueryCursor.one(row = row) }
                     .first()
-                    .map { Optional.ofNullable((it as? OrderTypeDao?)?.to) }
+                    .map { Optional.ofNullable((it.orElseGet { null } as? OrderTypeDao?)?.to) }
                     .map { AbstractMap.SimpleEntry(id, it) }
                     .onErrorResume { throw it }
             }

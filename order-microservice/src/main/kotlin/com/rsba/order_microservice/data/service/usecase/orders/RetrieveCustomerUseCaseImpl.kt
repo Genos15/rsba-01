@@ -27,7 +27,7 @@ class RetrieveCustomerUseCaseImpl : RetrieveCustomerUseCase {
             database.sql(OrderQueries.customer(token = token, id = id))
                 .map { row -> QueryCursor.one(row = row) }
                 .first()
-                .map { Optional.ofNullable((it as? CustomerDao?)?.to) }
+                .map { Optional.ofNullable((it.orElseGet { null } as? CustomerDao?)?.to) }
                 .map { AbstractMap.SimpleEntry(id, it) }
                 .onErrorResume { throw it }
         }

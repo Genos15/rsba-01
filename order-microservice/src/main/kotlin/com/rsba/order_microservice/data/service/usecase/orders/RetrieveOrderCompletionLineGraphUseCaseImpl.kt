@@ -19,7 +19,7 @@ class RetrieveOrderCompletionLineGraphUseCaseImpl : RetrieveOrderCompletionLineG
         database.sql(OrderQueries.completionLineGraph(year = year, token = token))
             .map { row -> QueryCursor.one(row = row) }
             .first()
-            .map { Optional.ofNullable((it as? OrderCompletionLineDao?)?.to) }
+            .map { Optional.ofNullable((it.orElseGet { null } as? OrderCompletionLineDao?)?.to) }
             .onErrorResume { throw it }
             .log()
             .awaitFirstOrElse { Optional.empty() }

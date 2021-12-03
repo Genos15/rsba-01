@@ -28,7 +28,7 @@ class CreateOrEditUseCaseImpl : CreateOrEditUseCase<OrderInput, Order>, IQueryGu
         database.sql(query<OrderDao>().createOrEdit(input = input, token = token, action = action, case = case))
             .map { row -> QueryCursor.one(row = row) }
             .first()
-            .map { Optional.ofNullable((it as? OrderDao?)?.to) }
+            .map { Optional.ofNullable((it.orElseGet { null } as? OrderDao?)?.to) }
             .onErrorResume { throw it }
             .log()
             .awaitFirstOrElse { Optional.empty() }

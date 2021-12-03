@@ -27,7 +27,7 @@ class RetrieveManagerUseCaseImpl : RetrieveManagerUseCase {
             database.sql(OrderQueries.manager(token = token, id = id))
                 .map { row -> QueryCursor.one(row = row) }
                 .first()
-                .map { Optional.ofNullable((it as? AgentDao?)?.to) }
+                .map { Optional.ofNullable((it.orElseGet { null } as? AgentDao?)?.to) }
                 .map { AbstractMap.SimpleEntry(id, it) }
                 .onErrorResume { throw it }
         }

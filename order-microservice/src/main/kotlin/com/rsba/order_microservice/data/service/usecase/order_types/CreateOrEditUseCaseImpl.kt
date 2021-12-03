@@ -28,7 +28,7 @@ class CreateOrEditUseCaseImpl : CreateOrEditUseCase<OrderTypeInput, OrderType>, 
         database.sql(query<OrderTypeDao>().createOrEdit(input = input, token = token, action = action, case = case))
             .map { row -> QueryCursor.one(row = row) }
             .first()
-            .map { Optional.ofNullable((it as? OrderTypeDao?)?.to) }
+            .map { Optional.ofNullable((it.orElseGet { null } as? OrderTypeDao?)?.to) }
             .onErrorResume { throw it }
             .log()
             .awaitFirstOrElse { Optional.empty() }

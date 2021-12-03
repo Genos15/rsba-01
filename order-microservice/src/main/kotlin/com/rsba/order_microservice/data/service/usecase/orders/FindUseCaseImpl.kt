@@ -21,7 +21,7 @@ class FindUseCaseImpl : FindUseCase<Order>, IQueryGuesser {
         database.sql(query<OrderDao>().find(id = id, token = token))
             .map { row -> QueryCursor.one(row = row) }
             .first()
-            .map { Optional.ofNullable((it as? OrderDao?)?.to) }
+            .map { Optional.ofNullable((it.orElseGet { null } as? OrderDao?)?.to) }
             .onErrorResume {
                 if (it is CustomGraphQLError) {
                     Mono.empty()

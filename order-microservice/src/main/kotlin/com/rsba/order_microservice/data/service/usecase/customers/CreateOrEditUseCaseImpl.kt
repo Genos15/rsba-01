@@ -28,7 +28,7 @@ class CreateOrEditUseCaseImpl : CreateOrEditUseCase<CustomerInput, Customer>, IQ
         database.sql(query<CustomerDao>().createOrEdit(input = input, token = token, action = action, case = case))
             .map { row -> QueryCursor.one(row = row) }
             .first()
-            .map { Optional.ofNullable((it as? CustomerDao?)?.to) }
+            .map { Optional.ofNullable((it.orElseGet { null } as? CustomerDao?)?.to) }
             .onErrorResume { throw it }
             .log()
             .awaitFirstOrElse { Optional.empty() }
