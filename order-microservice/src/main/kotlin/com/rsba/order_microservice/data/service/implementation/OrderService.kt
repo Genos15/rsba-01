@@ -22,6 +22,7 @@ class OrderService(
     @Qualifier("count_order") private val countUseCase: CountUseCase,
     private val potentialReferenceNumberUseCase: PotentialReferenceNumberUseCase,
     private val itemsUseCase: RetrieveItemsUseCase,
+    private val tasksUseCase: RetrieveTasksUseCase,
     private val agentUseCase: RetrieveAgentUseCase,
     private val managerUseCase: RetrieveManagerUseCase,
     private val customerUseCase: RetrieveCustomerUseCase,
@@ -86,8 +87,14 @@ class OrderService(
     ): Map<UUID, List<Item>> =
         itemsUseCase(ids = ids, first = first, after = after, token = token, database = database, parentId = parentId)
 
-    override suspend fun tasks(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Task>> =
-        emptyMap()
+    override suspend fun tasks(
+        ids: Set<UUID>,
+        first: Int,
+        parentId: UUID?,
+        after: UUID?,
+        token: UUID
+    ): Map<UUID, List<Task>> =
+        tasksUseCase(ids = ids, first = first, after = after, token = token, database = database, parentId = parentId)
 
     override suspend fun technologies(
         ids: Set<UUID>,

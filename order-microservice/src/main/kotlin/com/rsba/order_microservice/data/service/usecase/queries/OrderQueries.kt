@@ -94,6 +94,15 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
         append("'$token')")
     }
 
+    fun tasks(id: UUID, first: Int, after: UUID? = null, token: UUID, parentId: UUID? = null): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_retrieve_tasks"))
+        append("('$id',")
+        append("$first,")
+        append("${parentId?.let { "'$it'" }},")
+        append("${after?.let { "'$it'" }},")
+        append("'$token')")
+    }
+
     fun customer(id: UUID, token: UUID): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_retrieve_customer"))
         append("('$id',")

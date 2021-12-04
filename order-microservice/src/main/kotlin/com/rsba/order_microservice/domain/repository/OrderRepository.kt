@@ -44,6 +44,7 @@ interface OrderRepository {
     suspend fun tasks(
         ids: Set<UUID>,
         first: Int = 1000,
+        parentId: UUID? = null,
         after: UUID? = null,
         token: UUID = UUID.randomUUID()
     ): Map<UUID, List<Task>>
