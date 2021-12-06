@@ -26,7 +26,9 @@ class OrderService(
     private val agentUseCase: RetrieveAgentUseCase,
     private val managerUseCase: RetrieveManagerUseCase,
     private val customerUseCase: RetrieveCustomerUseCase,
-    private val typeUseCase: RetrieveTypeUseCase
+    private val typeUseCase: RetrieveTypeUseCase,
+    private val taskUseCase: FindTaskUseCase,
+    private val itemUseCase: FindItemUseCase,
 ) : OrderRepository {
 
     override suspend fun completionLineGraph(year: Int, token: UUID): Optional<OrderCompletionLine> =
@@ -118,6 +120,12 @@ class OrderService(
 
     override suspend fun customer(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Customer>> =
         customerUseCase(ids = ids, token = token, database = database)
+
+    override suspend fun item(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Item>> =
+        itemUseCase(ids = ids, token = token, database = database)
+
+    override suspend fun task(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Task>> =
+        taskUseCase(ids = ids, token = token, database = database)
 
     override suspend fun manager(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Agent>> =
         managerUseCase(ids = ids, token = token, database = database)

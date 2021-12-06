@@ -173,6 +173,16 @@ class OrderQueryResolver(private val service: OrderRepository, private val deduc
         id = id
     )
 
+    suspend fun findOrderItem(id: UUID, environment: DataFetchingEnvironment): Optional<Item> = perform(
+        entries = service.item(ids = setOf(id), token = deduct(environment = environment)),
+        id = id
+    )
+
+    suspend fun findOrderTask(id: UUID, environment: DataFetchingEnvironment): Optional<Task> = perform(
+        entries = service.task(ids = setOf(id), token = deduct(environment = environment)),
+        id = id
+    )
+
     suspend fun findOrderManager(id: UUID, environment: DataFetchingEnvironment): Optional<Agent> = perform(
         entries = service.manager(ids = setOf(id), token = deduct(environment = environment)),
         id = id

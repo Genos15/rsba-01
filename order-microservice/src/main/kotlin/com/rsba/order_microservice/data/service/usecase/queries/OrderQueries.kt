@@ -127,4 +127,16 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
         append("'$token')")
     }
 
+    fun item(id: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_find_item"))
+        append("('$id',")
+        append("'$token')")
+    }
+
+    fun task(id: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_find_task"))
+        append("('$id',")
+        append("'$token')")
+    }
+
 }

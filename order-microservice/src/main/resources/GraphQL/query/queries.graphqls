@@ -13,6 +13,8 @@ type Query {
     retrieveOrderWorklogs (id: ID!, first: Int!, after: ID): WorklogConnection @connection(for: "Worklog")
     findOrderCustomer (id: ID!): Customer
     findOrderAgent(id: ID!): Agent
+    findOrderItem(id: ID!): Item
+    findOrderTask(id: ID!): Task
     findOrderManager(id: ID!): Agent
     findOrder__Type(id: ID!): OrderType
     #this is related to the type in the order instance

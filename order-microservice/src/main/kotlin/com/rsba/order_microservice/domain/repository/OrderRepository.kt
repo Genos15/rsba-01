@@ -79,6 +79,10 @@ interface OrderRepository {
 
     suspend fun customer(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Customer>>
 
+    suspend fun item(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Item>>
+
+    suspend fun task(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Task>>
+
     suspend fun manager(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Agent>>
 
     suspend fun agent(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Agent>>
