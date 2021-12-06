@@ -19,6 +19,7 @@ data class OperationDao(
     val estimatedTimeInHour: Float? = null,
     @Serializable(with = DateTimeSerializer::class) val createdAt: OffsetDateTime? = null,
     @Serializable(with = DateTimeSerializer::class) val editedAt: OffsetDateTime? = null,
+    val priority: Int? = null,
 ) : AbstractModel() {
 
     val to: Operation
@@ -30,5 +31,6 @@ data class OperationDao(
             editedAt = editedAt,
             estimatedTimeInHour = estimatedTimeInHour,
             move = move,
+            priority = priority,
         )
 }

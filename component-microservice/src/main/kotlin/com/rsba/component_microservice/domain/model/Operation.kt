@@ -16,5 +16,6 @@ data class Operation(
     @Serializable(with = DateTimeSerializer::class) val createdAt: OffsetDateTime? = null,
     @Serializable(with = DateTimeSerializer::class) val editedAt: OffsetDateTime? = null,
     @Serializable(with = UUIDSerializer::class) val creator: UUID? = null,
-    val departments: List<Group>? = listOf()
+    val departments: List<Group>? = listOf(),
+    val priority: Int? = null,
 )

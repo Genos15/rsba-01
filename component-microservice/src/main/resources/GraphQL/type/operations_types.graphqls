@@ -8,6 +8,7 @@ type Operation {
     editedAt: String
     creator: ID
     departments: [Group!]
+    priority: Int
 }
 
 type OperationEdge {
