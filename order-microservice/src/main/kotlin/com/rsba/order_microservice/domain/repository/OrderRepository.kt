@@ -2,6 +2,7 @@ package  com.rsba.order_microservice.domain.repository
 
 import com.rsba.order_microservice.domain.input.*
 import com.rsba.order_microservice.domain.model.*
+import graphql.relay.Connection
 import java.util.*
 
 interface OrderRepository {
@@ -91,5 +92,30 @@ interface OrderRepository {
     suspend fun type(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<OrderType>>
 
     suspend fun potentialReferenceNumber(companyId: UUID = UUID.randomUUID(), token: UUID): String
+
+    suspend fun searchGlobal(
+        input: OrderSearchInputValue,
+        token: UUID = UUID.randomUUID()
+    ): OrderSearchInstance
+
+    suspend fun searchGlobalItems(
+        ids: Set<OrderSearchInputValue>,
+        token: UUID = UUID.randomUUID()
+    ): Map<OrderSearchInputValue, Connection<Item>>
+
+    suspend fun searchGlobalTasks(
+        ids: Set<OrderSearchInputValue>,
+        token: UUID = UUID.randomUUID()
+    ): Map<OrderSearchInputValue, Connection<Task>>
+
+    suspend fun searchGlobalTechnologies(
+        ids: Set<OrderSearchInputValue>,
+        token: UUID = UUID.randomUUID()
+    ): Map<OrderSearchInputValue, Connection<Technology>>
+
+    suspend fun searchGlobalParameters(
+        ids: Set<OrderSearchInputValue>,
+        token: UUID = UUID.randomUUID()
+    ): Map<OrderSearchInputValue, Connection<Parameter>>
 
 }

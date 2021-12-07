@@ -47,3 +47,18 @@ enum OrderLayer {
     USER
     DEPARTMENT
 }
+
+type OrderSearchInputValue {
+    id:ID!
+    input: [String!]!
+    first: Int
+    after: ID
+}
+
+type OrderSearchInstance {
+    input: OrderSearchInputValue!
+    items: ItemConnection @connection(for: "Item")
+    tasks: TaskConnection @connection(for: "Task")
+    technologies: TechnologyConnection @connection(for: "Technology")
+    parameters: ParameterConnection @connection(for: "Parameter")
+}

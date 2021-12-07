@@ -72,6 +72,11 @@ class DataLoaderRegistryFactory(
         const val LOADER_FACTORY_WORKLOGS_OF_ORDER = "WORKLOGS_OF_ORDER"
         const val LOADER_FACTORY_TYPE_OF_ORDER = "TYPE_OF_ORDER"
 
+        const val LOADER_FACTORY_GLOBAL_SEARCH_ITEMS = "GLOBAL_SEARCH_ITEMS"
+        const val LOADER_FACTORY_GLOBAL_SEARCH_TASKS = "GLOBAL_SEARCH_TASKS"
+        const val LOADER_FACTORY_GLOBAL_SEARCH_TECHNOLOGIES = "GLOBAL_SEARCH_TECHNOLOGIES"
+        const val LOADER_FACTORY_GLOBAL_SEARCH_PARAMETERS = "GLOBAL_SEARCH_PARAMETERS"
+
         // customer references
         const val LOADER_FACTORY_ENTITIES_OF_CUSTOMER = "ENTITIES_OF_CUSTOMER"
 
@@ -92,6 +97,13 @@ class DataLoaderRegistryFactory(
         registry.register(LOADER_FACTORY_WORKLOGS_OF_ORDER, _order.worklogsLoader(userId = instanceId))
         registry.register(LOADER_FACTORY_TYPE_OF_ORDER, _order.typeLoader(userId = instanceId))
 
+        registry.register(LOADER_FACTORY_GLOBAL_SEARCH_ITEMS, _order.itemsSearchedLoader(userId = instanceId))
+        registry.register(LOADER_FACTORY_GLOBAL_SEARCH_TASKS, _order.tasksSearchedLoader(userId = instanceId))
+        registry.register(
+            LOADER_FACTORY_GLOBAL_SEARCH_TECHNOLOGIES,
+            _order.technologiesSearchedLoader(userId = instanceId)
+        )
+        registry.register(LOADER_FACTORY_GLOBAL_SEARCH_PARAMETERS, _order.parametersSearchedLoader(userId = instanceId))
 
         registry.register(LOADER_FACTORY_ENTITIES_OF_CUSTOMER, _customer.entitiesLoader(userId = instanceId))
 //        registry.register(CUSTOMER_OF_ORDER, forCustomer.dataLoaderCustomerOfOrder(userId = instanceId))

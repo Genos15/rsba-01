@@ -33,3 +33,10 @@ input OrderInput {
     parameters: [HostInput!]
     status: OrderStatus
 }
+
+input OrderSearchInput {
+    id:ID!
+    input: [String!]!
+    first: Int
+    after: ID
+}

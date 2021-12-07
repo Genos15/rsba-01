@@ -5,6 +5,7 @@ import com.rsba.order_microservice.domain.model.*
 import  com.rsba.order_microservice.domain.repository.OrderRepository
 import com.rsba.order_microservice.domain.usecase.common.*
 import com.rsba.order_microservice.domain.usecase.custom.order.*
+import graphql.relay.Connection
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
@@ -105,7 +106,14 @@ class OrderService(
         parentId: UUID?,
         after: UUID?,
         token: UUID
-    ): Map<UUID, List<Technology>> = technologiesUseCase(ids = ids, first = first, after = after, token = token, database = database, parentId = parentId)
+    ): Map<UUID, List<Technology>> = technologiesUseCase(
+        ids = ids,
+        first = first,
+        after = after,
+        token = token,
+        database = database,
+        parentId = parentId
+    )
 
     override suspend fun parameters(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Parameter>> =
         emptyMap()
@@ -140,4 +148,31 @@ class OrderService(
 
     override suspend fun potentialReferenceNumber(companyId: UUID, token: UUID): String =
         potentialReferenceNumberUseCase(token = token, database = database)
+
+    override suspend fun searchGlobal(input: OrderSearchInputValue, token: UUID): OrderSearchInstance =
+        OrderSearchInstance(input = input)
+
+    override suspend fun searchGlobalItems(
+        ids: Set<OrderSearchInputValue>,
+        token: UUID
+    ): Map<OrderSearchInputValue, Connection<Item>> =
+        emptyMap()
+
+    override suspend fun searchGlobalTasks(
+        ids: Set<OrderSearchInputValue>,
+        token: UUID
+    ): Map<OrderSearchInputValue, Connection<Task>> =
+        emptyMap()
+
+    override suspend fun searchGlobalTechnologies(
+        ids: Set<OrderSearchInputValue>,
+        token: UUID
+    ): Map<OrderSearchInputValue, Connection<Technology>> =
+        emptyMap()
+
+    override suspend fun searchGlobalParameters(
+        ids: Set<OrderSearchInputValue>,
+        token: UUID
+    ): Map<OrderSearchInputValue, Connection<Parameter>> =
+        emptyMap()
 }

@@ -2,6 +2,7 @@ package com.rsba.order_microservice.data.context.dataloader
 
 import com.rsba.order_microservice.domain.model.*
 import com.rsba.order_microservice.domain.repository.OrderRepository
+import graphql.relay.Connection
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.future.future
 import org.dataloader.DataLoader
@@ -78,6 +79,34 @@ class OrderDataLoaderImpl(private val service: OrderRepository) {
         DataLoader.newMappedDataLoader { ids ->
             GlobalScope.future {
                 service.worklogs(ids = ids)
+            }
+        }
+
+    fun itemsSearchedLoader(userId: UUID): DataLoader<OrderSearchInputValue, Connection<Item>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future {
+                service.searchGlobalItems(ids = ids)
+            }
+        }
+
+    fun tasksSearchedLoader(userId: UUID): DataLoader<OrderSearchInputValue, Connection<Task>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future {
+                service.searchGlobalTasks(ids = ids)
+            }
+        }
+
+    fun technologiesSearchedLoader(userId: UUID): DataLoader<OrderSearchInputValue, Connection<Technology>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future {
+                service.searchGlobalTechnologies(ids = ids)
+            }
+        }
+
+    fun parametersSearchedLoader(userId: UUID): DataLoader<OrderSearchInputValue, Connection<Parameter>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future {
+                service.searchGlobalParameters(ids = ids)
             }
         }
 

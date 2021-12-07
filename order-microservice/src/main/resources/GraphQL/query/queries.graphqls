@@ -4,6 +4,7 @@ type Query {
 
     retrieveOrders (first: Int!, after: ID, status: OrderStatus, layer: OrderLayer): OrderConnection @connection(for: "Order")
     searchOrders (input: String!, first: Int!, after: ID, status: OrderStatus, layer: OrderLayer): OrderConnection @connection(for: "Order")
+    searchOrdersGlobal (id: ID!, input: [String!]!, first: Int!, after: ID): OrderSearchInstance
     findOrder (input: ID!): Order
     retrieveOrderItems (id: ID!, first: Int!, parentId: ID, after: ID): ItemConnection @connection(for: "Item")
     retrieveOrderTasks (id: ID!, first: Int!, parentId: ID, after: ID): TaskConnection @connection(for: "Task")
