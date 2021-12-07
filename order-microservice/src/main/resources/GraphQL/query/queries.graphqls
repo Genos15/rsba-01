@@ -7,7 +7,7 @@ type Query {
     findOrder (input: ID!): Order
     retrieveOrderItems (id: ID!, first: Int!, parentId: ID, after: ID): ItemConnection @connection(for: "Item")
     retrieveOrderTasks (id: ID!, first: Int!, parentId: ID, after: ID): TaskConnection @connection(for: "Task")
-    retrieveOrderTechnologies (id: ID!, first: Int!, after: ID): TechnologyConnection @connection(for: "Technology")
+    retrieveOrderTechnologies (id: ID!, first: Int!, parentId: ID, after: ID): TechnologyConnection @connection(for: "Technology")
     retrieveOrderParameters (id: ID!, first: Int!, after: ID): ParameterConnection @connection(for: "Parameter")
     retrieveOrderCategories (id: ID!, first: Int!, after: ID): ItemCategoryConnection @connection(for: "ItemCategory")
     retrieveOrderWorklogs (id: ID!, first: Int!, after: ID): WorklogConnection @connection(for: "Worklog")
