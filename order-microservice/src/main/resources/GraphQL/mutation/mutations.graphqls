@@ -12,7 +12,6 @@ type Mutation {
     createOrEditOrderType(input: OrderTypeInput!, action: MutationAction): OrderType
     deleteOrderType(input: ID!): Boolean
 
-
     #***************** task's edition **********************
     editTask(input: TaskInput!, action: MutationAction): Task
     #***************** item's edition **********************

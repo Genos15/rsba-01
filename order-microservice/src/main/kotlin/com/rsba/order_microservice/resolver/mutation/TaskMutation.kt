@@ -72,11 +72,11 @@ class TaskMutation(
         return service.unpinUsersInTask(input = input, token = tokenImpl.read(environment = environment))
     }
 
-    @AdminSecured
-    suspend fun editTask(input: TaskInput, environment: DataFetchingEnvironment): Optional<Task> {
-        logger.warn { "+TaskMutation -> editTask" }
-        return service.editTask(input = input, token = tokenImpl.read(environment = environment))
-    }
+//    @AdminSecured
+//    suspend fun editTask(input: TaskInput, environment: DataFetchingEnvironment): Optional<Task> {
+//        logger.warn { "+TaskMutation -> editTask" }
+//        return service.editTask(input = input, token = tokenImpl.read(environment = environment))
+//    }
 
     @AdminSecured
     suspend fun terminateTask(input: UUID, environment: DataFetchingEnvironment): Optional<Task> {
