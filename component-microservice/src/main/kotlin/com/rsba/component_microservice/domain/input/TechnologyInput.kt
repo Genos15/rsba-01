@@ -9,5 +9,5 @@ data class TechnologyInput(
     @Serializable(with = UUIDSerializer::class) override val id: UUID? = null,
     val name: String? = null,
     val description: String? = null,
-    val operations: List<String>? = emptyList()
+    val operations: List<TechnologyAndOperation>? = emptyList()
 ) : AbstractInput()

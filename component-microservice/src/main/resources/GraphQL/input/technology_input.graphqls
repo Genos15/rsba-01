@@ -2,7 +2,7 @@ input TechnologyInput {
     id: ID
     name: String
     description: String
-    operations: [ID!]
+    operations: [TechnologyAndOperation!]
 }
 
 input TechnologyAndOperation {
