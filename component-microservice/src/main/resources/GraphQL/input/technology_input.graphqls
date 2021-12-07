@@ -6,7 +6,6 @@ input TechnologyInput {
 }
 
 input TechnologyAndOperation {
-    technologyId: ID
     operationId: ID
     priority: Int
 }

@@ -6,7 +6,6 @@ import java.util.*
 
 @Serializable
 data class TechnologyAndOperation(
-    @Serializable(with = UUIDSerializer::class) val technologyId: UUID? = null,
     @Serializable(with = UUIDSerializer::class) val operationId: UUID? = null,
     val priority: Int? = null
 )
