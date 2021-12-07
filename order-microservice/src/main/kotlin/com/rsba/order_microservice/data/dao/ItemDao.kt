@@ -16,6 +16,7 @@ data class ItemDao(
     val name: String,
     val description: String? = null,
     val material: String? = null,
+    val quantity: Float? = null,
     @Serializable(with = DateTimeSerializer::class) val createdAt: OffsetDateTime? = null,
     @Serializable(with = DateTimeSerializer::class) val editedAt: OffsetDateTime? = null,
 ) : AbstractModel() {
@@ -30,6 +31,6 @@ data class ItemDao(
             material = material,
             orderId = UUID.randomUUID(),
             progress = 0f,
-            quantity = 0f
+            quantity = quantity ?: 0f
         )
 }
