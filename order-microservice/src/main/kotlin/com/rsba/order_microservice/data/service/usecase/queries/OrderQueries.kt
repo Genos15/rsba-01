@@ -3,10 +3,7 @@ package  com.rsba.order_microservice.data.service.usecase.queries
 import com.rsba.order_microservice.data.dao.OrderDao
 import com.rsba.order_microservice.domain.format.JsonHandlerKotlin
 import com.rsba.order_microservice.domain.input.OrderInput
-import com.rsba.order_microservice.domain.model.AbstractLayer
-import com.rsba.order_microservice.domain.model.AbstractStatus
-import com.rsba.order_microservice.domain.model.Edition
-import com.rsba.order_microservice.domain.model.MutationAction
+import com.rsba.order_microservice.domain.model.*
 import com.rsba.order_microservice.domain.queries.IBaseQuery
 import com.rsba.order_microservice.domain.queries.QueryBuilder
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -94,14 +91,15 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
         append("'$token')")
     }
 
-    fun technologies(id: UUID, first: Int, after: UUID? = null, token: UUID, parentId: UUID? = null): String = buildString {
-        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_retrieve_technologies"))
-        append("('$id',")
-        append("$first,")
-        append("${parentId?.let { "'$it'" }},")
-        append("${after?.let { "'$it'" }},")
-        append("'$token')")
-    }
+    fun technologies(id: UUID, first: Int, after: UUID? = null, token: UUID, parentId: UUID? = null): String =
+        buildString {
+            append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_retrieve_technologies"))
+            append("('$id',")
+            append("$first,")
+            append("${parentId?.let { "'$it'" }},")
+            append("${after?.let { "'$it'" }},")
+            append("'$token')")
+        }
 
     fun tasks(id: UUID, first: Int, after: UUID? = null, token: UUID, parentId: UUID? = null): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_retrieve_tasks"))
@@ -147,5 +145,26 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
         append("('$id',")
         append("'$token')")
     }
+
+    fun searchItems(input: OrderSearchInputValue): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_search_global_items"))
+        append("('${JsonHandlerKotlin.handler.encodeToString(input)}')")
+    }
+
+    fun searchTasks(input: OrderSearchInputValue): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_search_global_tasks"))
+        append("('${JsonHandlerKotlin.handler.encodeToString(input)}')")
+    }
+
+    fun searchTechnologies(input: OrderSearchInputValue): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_search_global_technologies"))
+        append("('${JsonHandlerKotlin.handler.encodeToString(input)}')")
+    }
+
+    fun searchParameters(input: OrderSearchInputValue): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_search_global_parameters"))
+        append("('${JsonHandlerKotlin.handler.encodeToString(input)}')")
+    }
+
 
 }

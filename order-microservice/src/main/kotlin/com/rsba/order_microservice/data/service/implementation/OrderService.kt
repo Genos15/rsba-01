@@ -30,7 +30,11 @@ class OrderService(
     private val typeUseCase: RetrieveTypeUseCase,
     private val taskUseCase: FindTaskUseCase,
     private val itemUseCase: FindItemUseCase,
-    private val technologiesUseCase: RetrieveTechnologiesUseCase
+    private val technologiesUseCase: RetrieveTechnologiesUseCase,
+    private val searchGlobalParametersUseCase: SearchGlobalParametersUseCase,
+    private val searchGlobalItemsUseCase: SearchGlobalItemsUseCase,
+    private val searchGlobalTasksUseCase: SearchGlobalTasksUseCase,
+    private val searchGlobalTechnologiesUseCase: SearchGlobalTechnologiesUseCase
 ) : OrderRepository {
 
     override suspend fun completionLineGraph(year: Int, token: UUID): Optional<OrderCompletionLine> =
@@ -156,23 +160,23 @@ class OrderService(
         ids: Set<OrderSearchInputValue>,
         token: UUID
     ): Map<OrderSearchInputValue, Connection<Item>> =
-        emptyMap()
+        searchGlobalItemsUseCase(database = database, ids = ids, token = token)
 
     override suspend fun searchGlobalTasks(
         ids: Set<OrderSearchInputValue>,
         token: UUID
     ): Map<OrderSearchInputValue, Connection<Task>> =
-        emptyMap()
+        searchGlobalTasksUseCase(database = database, ids = ids, token = token)
 
     override suspend fun searchGlobalTechnologies(
         ids: Set<OrderSearchInputValue>,
         token: UUID
     ): Map<OrderSearchInputValue, Connection<Technology>> =
-        emptyMap()
+        searchGlobalTechnologiesUseCase(database = database, ids = ids, token = token)
 
     override suspend fun searchGlobalParameters(
         ids: Set<OrderSearchInputValue>,
         token: UUID
     ): Map<OrderSearchInputValue, Connection<Parameter>> =
-        emptyMap()
+        searchGlobalParametersUseCase(database = database, ids = ids, token = token)
 }
