@@ -1,0 +1,25 @@
+type Task {
+    id: ID!
+    quantity: Float!
+    estimatedTimeInHour: Float!
+    description: String
+    estimatedEndDate: DateTime
+    createdAt: DateTime
+    editedAt: DateTime
+    operation: Operation
+    item: Item
+    departments: [Department!]
+    comments: [Comment!]
+    users: [User!]
+    order: Order
+}
+
+type TaskEdge {
+    cursor: String
+    node: Task
+}
+
+type TaskConnection {
+    edges: [TaskEdge]
+    pageInfo: PageInfo
+}

@@ -93,16 +93,6 @@ input CommentTaskInput {
     comment: String
 }
 
-input TaskInput {
-    id: ID
-    orderId: ID
-    operationId: ID
-    itemId: ID
-    quantity: Float
-    estimatedTimeInHour: Float
-    description: String
-}
-
 input CreateOrEditTechnologyInput {
     id: ID
     name: String

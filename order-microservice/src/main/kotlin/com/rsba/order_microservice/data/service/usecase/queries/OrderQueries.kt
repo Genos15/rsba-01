@@ -2,7 +2,9 @@ package  com.rsba.order_microservice.data.service.usecase.queries
 
 import com.rsba.order_microservice.data.dao.OrderDao
 import com.rsba.order_microservice.domain.format.JsonHandlerKotlin
+import com.rsba.order_microservice.domain.input.ItemInput
 import com.rsba.order_microservice.domain.input.OrderInput
+import com.rsba.order_microservice.domain.input.TaskInput
 import com.rsba.order_microservice.domain.model.*
 import com.rsba.order_microservice.domain.queries.IBaseQuery
 import com.rsba.order_microservice.domain.queries.QueryBuilder
@@ -166,5 +168,20 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
         append("('${JsonHandlerKotlin.handler.encodeToString(input)}')")
     }
 
+    fun editTask(input: TaskInput, token: UUID, action: MutationAction?): String =
+        buildString {
+            append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_edit_task"))
+            append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
+            append("${action?.let { "'$it'" }},")
+            append("'$token')")
+        }
+
+    fun editItem(input: ItemInput, token: UUID, action: MutationAction?): String =
+        buildString {
+            append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_edit_item"))
+            append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
+            append("${action?.let { "'$it'" }},")
+            append("'$token')")
+        }
 
 }

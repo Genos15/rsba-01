@@ -34,7 +34,9 @@ class OrderService(
     private val searchGlobalParametersUseCase: SearchGlobalParametersUseCase,
     private val searchGlobalItemsUseCase: SearchGlobalItemsUseCase,
     private val searchGlobalTasksUseCase: SearchGlobalTasksUseCase,
-    private val searchGlobalTechnologiesUseCase: SearchGlobalTechnologiesUseCase
+    private val searchGlobalTechnologiesUseCase: SearchGlobalTechnologiesUseCase,
+    private val editItemUseCase: EditItemUseCase,
+    private val editTaskUseCase: EditTaskUseCase
 ) : OrderRepository {
 
     override suspend fun completionLineGraph(year: Int, token: UUID): Optional<OrderCompletionLine> =
@@ -179,4 +181,10 @@ class OrderService(
         token: UUID
     ): Map<OrderSearchInputValue, Connection<Parameter>> =
         searchGlobalParametersUseCase(database = database, ids = ids, token = token)
+
+    override suspend fun toEditTask(input: TaskInput, action: MutationAction?, token: UUID): Optional<Task> =
+        editTaskUseCase(database = database, input = input, token = token, action = action)
+
+    override suspend fun toEditItem(input: ItemInput, action: MutationAction?, token: UUID): Optional<Item> =
+        editItemUseCase(database = database, input = input, token = token)
 }

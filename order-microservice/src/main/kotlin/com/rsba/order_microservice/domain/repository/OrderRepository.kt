@@ -118,4 +118,8 @@ interface OrderRepository {
         token: UUID = UUID.randomUUID()
     ): Map<OrderSearchInputValue, Connection<Parameter>>
 
+    suspend fun toEditTask(input: TaskInput, action: MutationAction? = null, token: UUID): Optional<Task>
+
+    suspend fun toEditItem(input: ItemInput, action: MutationAction? = null, token: UUID): Optional<Item>
+
 }

@@ -5,3 +5,11 @@ input ItemAndItemInput {
     childId: ID!
     quantity: Float
 }
+
+input ItemInput {
+    id: ID!
+    name: String
+    description: String
+    material: String
+    quantity: BigDecimal
+}

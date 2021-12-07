@@ -18,15 +18,6 @@ type CommentEdge {
     node: Comment
 }
 
-type TaskConnection {
-    edges: [TaskEdge]
-    pageInfo: PageInfo
-}
-
-type TaskEdge {
-    cursor: String
-    node: Task
-}
 
 type WorklogConnection {
     edges: [WorklogEdge]
