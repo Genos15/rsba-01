@@ -1,0 +1,17 @@
+type Technology {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: DateTime
+    editedAt: DateTime
+}
+
+type TechnologyEdge {
+    cursor: String
+    node: Technology
+}
+
+type TechnologyConnection {
+    edges: [TechnologyEdge]
+    pageInfo: PageInfo
+}

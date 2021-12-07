@@ -103,6 +103,7 @@ class OrderQueryResolver(private val service: OrderRepository, private val deduc
     suspend fun retrieveOrderTechnologies(
         id: UUID,
         first: Int,
+        parentId: UUID? = null,
         after: UUID? = null,
         environment: DataFetchingEnvironment
     ): Connection<Technology> = perform(
@@ -110,7 +111,8 @@ class OrderQueryResolver(private val service: OrderRepository, private val deduc
             ids = setOf(id),
             token = deduct(environment = environment),
             first = first,
-            after = after
+            after = after,
+            parentId = parentId
         ),
         first = first,
         after = after,

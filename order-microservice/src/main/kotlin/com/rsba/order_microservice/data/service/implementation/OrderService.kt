@@ -29,6 +29,7 @@ class OrderService(
     private val typeUseCase: RetrieveTypeUseCase,
     private val taskUseCase: FindTaskUseCase,
     private val itemUseCase: FindItemUseCase,
+    private val technologiesUseCase: RetrieveTechnologiesUseCase
 ) : OrderRepository {
 
     override suspend fun completionLineGraph(year: Int, token: UUID): Optional<OrderCompletionLine> =
@@ -101,9 +102,10 @@ class OrderService(
     override suspend fun technologies(
         ids: Set<UUID>,
         first: Int,
+        parentId: UUID?,
         after: UUID?,
         token: UUID
-    ): Map<UUID, List<Technology>> = emptyMap()
+    ): Map<UUID, List<Technology>> = technologiesUseCase(ids = ids, first = first, after = after, token = token, database = database, parentId = parentId)
 
     override suspend fun parameters(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Parameter>> =
         emptyMap()

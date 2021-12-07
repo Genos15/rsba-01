@@ -152,15 +152,6 @@ type ProgressionStep {
     isDone: Boolean!
 }
 
-type Technology {
-    id: ID!
-    name: String!
-    description: String
-    createdAt: String
-    editedAt: String
-    operations: [Operation]
-}
-
 type DetailItemInOrder {
     orderId: ID!
     itemId: ID!

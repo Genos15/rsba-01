@@ -52,6 +52,7 @@ interface OrderRepository {
     suspend fun technologies(
         ids: Set<UUID>,
         first: Int = 1000,
+        parentId: UUID?,
         after: UUID? = null,
         token: UUID = UUID.randomUUID()
     ): Map<UUID, List<Technology>>

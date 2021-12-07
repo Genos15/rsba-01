@@ -1,4 +1,3 @@
-
 type Item {
     id: ID!
     name: String!
@@ -25,3 +24,14 @@ type GraphItem {
     orderId: ID!
     parentId: ID
 }
+
+type ItemEdge {
+    cursor: String
+    node: Item
+}
+
+type ItemConnection {
+    edges: [Item]
+    pageInfo: PageInfo
+}
+
