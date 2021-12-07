@@ -203,4 +203,18 @@ class OrderQueryResolver(private val service: OrderRepository, private val deduc
     suspend fun potentialReferenceNumber(environment: DataFetchingEnvironment): String =
         service.potentialReferenceNumber(token = deduct(environment = environment))
 
+    suspend fun searchOrdersGlobal(
+        id: UUID,
+        input: List<String> = emptyList(),
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): OrderSearchInstance = service.searchGlobal(
+        input = OrderSearchInputValue(
+            id = id,
+            input = input,
+            first = first,
+            after = after
+        ), token = deduct(environment = environment)
+    )
 }
