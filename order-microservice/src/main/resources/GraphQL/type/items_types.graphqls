@@ -31,7 +31,7 @@ type ItemEdge {
 }
 
 type ItemConnection {
-    edges: [Item]
+    edges: [ItemEdge]
     pageInfo: PageInfo
 }
 
