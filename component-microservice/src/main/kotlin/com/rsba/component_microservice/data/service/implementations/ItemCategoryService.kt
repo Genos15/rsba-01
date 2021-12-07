@@ -4,11 +4,14 @@ import com.rsba.component_microservice.domain.input.ItemCategoryInput
 import com.rsba.component_microservice.domain.model.*
 import com.rsba.component_microservice.domain.repository.ItemCategoryRepository
 import com.rsba.component_microservice.domain.usecase.common.*
+import com.rsba.component_microservice.domain.usecase.custom.item_category.FindItemCategoryUsageUseCase
 import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategoryChildrenUseCase
 import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategorySubItemsDataLoaderUseCase
+import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategoryUsageUseCase
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
+import java.time.OffsetDateTime
 import java.util.*
 
 @Service
@@ -22,7 +25,9 @@ class ItemCategoryService(
     @Qualifier("count_item_category") private val countUseCase: CountUseCase,
     private val subCategoriesUseCase: RetrieveItemCategoryChildrenUseCase,
     private val myItemsUseCase: RetrieveItemCategorySubItemsDataLoaderUseCase,
-    @Qualifier("item_category_elk") private val elkUseCase: RetrieveFullElkGraphUseCase
+    @Qualifier("item_category_elk") private val elkUseCase: RetrieveFullElkGraphUseCase,
+    private val retrieveItemCategoryUsageUseCase: RetrieveItemCategoryUsageUseCase,
+    private val findItemCategoryUsageUseCase: FindItemCategoryUsageUseCase
 ) : ItemCategoryRepository {
 
     override suspend fun createOrEdit(
@@ -64,4 +69,28 @@ class ItemCategoryService(
         width: Int,
     ): ElkGraph<ElkGraphItemCategoryNode> =
         elkUseCase(database = database, token = token, from = from, height = height, width = width)
+
+    override suspend fun usages(
+        first: Int,
+        after: UUID?,
+        from: OffsetDateTime?,
+        to: OffsetDateTime?,
+        token: UUID
+    ): List<ItemCategoryUsage> =
+        retrieveItemCategoryUsageUseCase(
+            database = database,
+            first = first,
+            after = after,
+            from = from,
+            to = to,
+            token = token
+        )
+
+    override suspend fun usage(
+        input: UUID,
+        from: OffsetDateTime?,
+        to: OffsetDateTime?,
+        token: UUID
+    ): Optional<ItemCategoryUsage> =
+        findItemCategoryUsageUseCase(database = database, from = from, to = to, token = token, input = input)
 }

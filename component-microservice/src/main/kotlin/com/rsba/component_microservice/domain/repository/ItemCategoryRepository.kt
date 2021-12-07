@@ -2,6 +2,7 @@ package com.rsba.component_microservice.domain.repository
 
 import com.rsba.component_microservice.domain.input.ItemCategoryInput
 import com.rsba.component_microservice.domain.model.*
+import java.time.OffsetDateTime
 import java.util.*
 
 interface ItemCategoryRepository {
@@ -41,5 +42,20 @@ interface ItemCategoryRepository {
         height: Int,
         width: Int,
     ): ElkGraph<ElkGraphItemCategoryNode>
+
+    suspend fun usages(
+        first: Int, after: UUID?,
+        from: OffsetDateTime? = null,
+        to: OffsetDateTime? = null,
+        token: UUID
+    ): List<ItemCategoryUsage>
+
+    suspend fun usage(
+        input: UUID,
+        from: OffsetDateTime? = null,
+        to: OffsetDateTime? = null,
+        token: UUID
+    ): Optional<ItemCategoryUsage>
+
 
 }

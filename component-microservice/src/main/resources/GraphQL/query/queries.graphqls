@@ -7,6 +7,9 @@ type Query {
     countItemCategory: Int
     retrieveItemCategorySubItems(id: ID!,first: Int!, after: ID): ItemConnection @connection(for: "Item")
     buildItemCategoryElk(from: ID, height: Int!, width: Int!): ElkGraphItemCategory!
+    #****************usage-statistics**************************
+    retrieveItemCategoryUsage (first: Int!, after: ID, from: DateTime, to: DateTime): ItemCategoryUsageConnection @connection(for: "ItemCategoryUsage")
+    findItemCategoryUsage (input: ID!, from: DateTime, to: DateTime): ItemCategoryUsage
 
     #------------ operation ------------------
     retrieveOperations (first: Int!, after: ID): OperationConnection @connection(for: "Operation")

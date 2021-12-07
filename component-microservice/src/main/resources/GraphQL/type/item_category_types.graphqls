@@ -8,6 +8,15 @@ type ItemCategory {
     subItems: [Item!]
 }
 
+type ItemCategoryUsage {
+    id: ID!
+    name: String!
+    description: String
+    from: DateTime
+    to: DateTime
+    usage: Int!
+}
+
 type ItemCategoryEdge {
     cursor: String
     node: ItemCategory
@@ -15,5 +24,15 @@ type ItemCategoryEdge {
 
 type ItemCategoryConnection {
     edges: [ItemCategoryEdge]
+    pageInfo: PageInfo
+}
+
+type ItemCategoryUsageEdge {
+    cursor: String
+    node: ItemCategoryUsage
+}
+
+type ItemCategoryUsageConnection {
+    edges: [ItemCategoryUsageEdge]
     pageInfo: PageInfo
 }

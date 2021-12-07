@@ -9,6 +9,7 @@ import com.rsba.component_microservice.domain.model.Edition
 import com.rsba.component_microservice.domain.model.MutationAction
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
+import java.time.OffsetDateTime
 import java.util.*
 
 @ExperimentalSerializationApi
@@ -78,6 +79,34 @@ object ItemCategoryQueries : IBaseQuery<ItemCategoryInput, ItemCategoryDao> {
     override fun count(token: UUID): String = buildString {
         append(QueryBuilder.Count.buildRequestDef<ItemCategoryDao>())
         append("('$token')")
+    }
+
+    fun usages(
+        first: Int,
+        after: UUID?,
+        from: OffsetDateTime? = null,
+        to: OffsetDateTime? = null,
+        token: UUID
+    ): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<ItemCategoryDao>(customQuery = "_on_retrieve_usages"))
+        append("($first,")
+        append("${after?.let { "'$it'" }},")
+        append("${from?.let { "'$it'" }},")
+        append("${to?.let { "'$it'" }},")
+        append("'$token')")
+    }
+
+    fun usage(
+        input: UUID,
+        from: OffsetDateTime? = null,
+        to: OffsetDateTime? = null,
+        token: UUID
+    ): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<ItemCategoryDao>(customQuery = "_on_find_usage"))
+        append("($input,")
+        append("${from?.let { "'$it'" }},")
+        append("${to?.let { "'$it'" }},")
+        append("'$token')")
     }
 
 }

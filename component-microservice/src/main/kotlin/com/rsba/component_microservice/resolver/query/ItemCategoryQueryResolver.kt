@@ -1,10 +1,7 @@
 package com.rsba.component_microservice.resolver.query
 
 
-import com.rsba.component_microservice.domain.model.ElkGraph
-import com.rsba.component_microservice.domain.model.ElkGraphItemCategoryNode
-import com.rsba.component_microservice.domain.model.Item
-import com.rsba.component_microservice.domain.model.ItemCategory
+import com.rsba.component_microservice.domain.model.*
 import com.rsba.component_microservice.domain.repository.ItemCategoryRepository
 import com.rsba.component_microservice.domain.security.TokenAnalyzer
 import graphql.kickstart.tools.GraphQLQueryResolver
@@ -12,6 +9,7 @@ import graphql.relay.*
 import org.springframework.stereotype.Component
 import java.util.*
 import graphql.schema.DataFetchingEnvironment
+import java.time.OffsetDateTime
 
 @Component
 class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, private val deduct: TokenAnalyzer) :
@@ -26,6 +24,24 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
             first = first,
             after = after,
             token = deduct(environment = environment)
+        ),
+        first = first,
+        after = after
+    )
+
+    suspend fun retrieveItemCategoryUsage(
+        first: Int,
+        after: UUID? = null,
+        from: OffsetDateTime? = null,
+        to: OffsetDateTime? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<ItemCategoryUsage> = perform(
+        entries = service.usages(
+            first = first,
+            after = after,
+            token = deduct(environment = environment),
+            from = from,
+            to = to
         ),
         first = first,
         after = after
@@ -49,6 +65,14 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
 
     suspend fun findItemCategory(id: UUID, environment: DataFetchingEnvironment): Optional<ItemCategory> =
         service.find(id = id, token = deduct(environment = environment))
+
+    suspend fun findItemCategoryUsage(
+        input: UUID,
+        from: OffsetDateTime? = null,
+        to: OffsetDateTime? = null,
+        environment: DataFetchingEnvironment
+    ): Optional<ItemCategoryUsage> =
+        service.usage(input = input, from = from, to = to, token = deduct(environment = environment))
 
     suspend fun retrieveItemCategorySubCategories(
         id: UUID,
