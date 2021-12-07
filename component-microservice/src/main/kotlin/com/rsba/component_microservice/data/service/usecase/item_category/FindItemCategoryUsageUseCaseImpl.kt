@@ -9,10 +9,12 @@ import com.rsba.component_microservice.domain.usecase.custom.item_category.FindI
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.springframework.r2dbc.core.DatabaseClient
+import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
 import java.time.OffsetDateTime
 import java.util.*
 
+@Component
 @OptIn(ExperimentalSerializationApi::class)
 class FindItemCategoryUsageUseCaseImpl : FindItemCategoryUsageUseCase {
     override suspend fun invoke(
