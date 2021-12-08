@@ -1,0 +1,23 @@
+type Department {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: DateTime
+    editedAt: DateTime
+    priority: Int
+    isAnalytic: Boolean
+    isStaging: Boolean
+    #    workingCenters: [WorkingCenter]
+    #    managers: [User!]
+    #    taskId: ID!
+}
+
+type DepartmentEdge {
+    cursor: String
+    node: Department
+}
+
+type DepartmentConnection {
+    edges: [DepartmentEdge]
+    pageInfo: PageInfo
+}

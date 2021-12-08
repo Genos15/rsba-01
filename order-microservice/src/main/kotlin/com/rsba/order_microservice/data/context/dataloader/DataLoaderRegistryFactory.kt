@@ -11,7 +11,7 @@ class DataLoaderRegistryFactory(
     private val _order: OrderDataLoaderImpl,
     private val _item: ItemDataLoaderImpl,
     private val forOperation: OperationDataLoaderImpl,
-    private val forTask: TaskDataLoaderImpl,
+    private val _task: TaskDataLoaderImpl,
     private val forUser: UserDataLoaderImpl,
     private val forComment: CommentDataLoaderImpl,
     private val forDepartment: DepartmentDataLoaderImpl,
@@ -23,8 +23,6 @@ class DataLoaderRegistryFactory(
 
     companion object {
 
-        const val CATEGORY_OF_ITEM_IN_ORDER = "CATEGORY_OF_ITEM_IN_ORDER"
-
         //        const val CATEGORY_OF_ITEM_IN_ORDER_POST_MVP = "CATEGORY_OF_ITEM_IN_ORDER_POST_MVP"
         const val ITEM_IN_ORDER = "ITEM_IN_ORDER"
         const val OPERATIONS_IN_ITEM = "OPERATIONS_IN_ITEM"
@@ -33,12 +31,12 @@ class DataLoaderRegistryFactory(
         const val TASK_IN_ITEM_DATALOADER = "TASK_IN_ITEM_DATALOADER"
 
 
-        const val OPERATION_IN_TASK_DATALOADER = "OPERATION_IN_TASK_DATALOADER"
-        const val DEPARTMENTS_IN_TASK_DATALOADER = "DEPARTMENTS_IN_TASK_DATALOADER"
-        const val COMMENTS_IN_TASK_DATALOADER = "COMMENTS_IN_TASK_DATALOADER"
-        const val ITEM_IN_TASK_DATALOADER = "ITEM_IN_TASK_DATALOADER"
-
-        const val ORDER_IN_TASK_DATALOADER = "ORDER_IN_TASK_DATALOADER"
+//        const val OPERATION_IN_TASK_DATALOADER = "OPERATION_IN_TASK_DATALOADER"
+//        const val DEPARTMENTS_IN_TASK_DATALOADER = "DEPARTMENTS_IN_TASK_DATALOADER"
+//        const val COMMENTS_IN_TASK_DATALOADER = "COMMENTS_IN_TASK_DATALOADER"
+//        const val ITEM_IN_TASK_DATALOADER = "ITEM_IN_TASK_DATALOADER"
+//
+//        const val ORDER_IN_TASK_DATALOADER = "ORDER_IN_TASK_DATALOADER"
 
         const val PERSONAL_INFO_OF_USER_DATALOADER = "PERSONAL_INFO_OF_USER_DATALOADER"
         const val CONTACT_INFO_OF_USER_DATALOADER = "CONTACT_INFO_OF_USER_DATALOADER"
@@ -47,7 +45,7 @@ class DataLoaderRegistryFactory(
 
         const val WORKCENTER_OF_DEPARTMENT_IN_TASK_DATALOADER = "WORKCENTER_OF_DEPARTMENT_IN_TASK_DATALOADER"
         const val USER_IN_WORK_CENTER_WORKING_IN_TASK_DATALOADER = "USER_IN_WORK_CENTER_WORKING_IN_TASK_DATALOADER"
-        const val USER_IN_TASK_DATALOADER = "USER_IN_TASK_DATALOADER"
+//        const val USER_IN_TASK_DATALOADER = "USER_IN_TASK_DATALOADER"
 
         const val ACTOR_IN_WORKLOG_DATALOADER = "ACTOR_IN_WORKLOG_DATALOADER"
         const val OPERATION_IN_TECHNOLOGY_DATALOADER = "OPERATION_IN_TECHNOLOGY_DATALOADER"
@@ -72,6 +70,7 @@ class DataLoaderRegistryFactory(
         const val LOADER_FACTORY_WORKLOGS_OF_ORDER = "WORKLOGS_OF_ORDER"
         const val LOADER_FACTORY_TYPE_OF_ORDER = "TYPE_OF_ORDER"
 
+        // ********** search references *************
         const val LOADER_FACTORY_GLOBAL_SEARCH_ITEMS = "GLOBAL_SEARCH_ITEMS"
         const val LOADER_FACTORY_GLOBAL_SEARCH_TASKS = "GLOBAL_SEARCH_TASKS"
         const val LOADER_FACTORY_GLOBAL_SEARCH_TECHNOLOGIES = "GLOBAL_SEARCH_TECHNOLOGIES"
@@ -79,6 +78,12 @@ class DataLoaderRegistryFactory(
 
         // customer references
         const val LOADER_FACTORY_ENTITIES_OF_CUSTOMER = "ENTITIES_OF_CUSTOMER"
+
+        // task references
+        const val LOADER_FACTORY_OPERATION_OF_TASK = "OPERATION_OF_TASK"
+        const val LOADER_FACTORY_ITEM_OF_TASK = "ITEM_OF_TASK"
+        const val LOADER_FACTORY_ORDER_OF_TASK = "ORDER_OF_TASK"
+        const val LOADER_FACTORY_DEPARTMENTS_OF_TASK = "DEPARTMENTS_OF_TASK"
 
     }
 
@@ -116,12 +121,18 @@ class DataLoaderRegistryFactory(
         registry.register(CATEGORY_IN_ITEM, _item.dataLoaderCategoryInItem(userId = instanceId))
         registry.register(GROUP_IN_OPERATION_DATALOADER, forOperation.dataLoaderGroupInOperation(userId = instanceId))
         registry.register(TASK_IN_ITEM_DATALOADER, _item.dataLoaderTaskOfItem(userId = instanceId))
+//
+//        registry.register(OPERATION_IN_TASK_DATALOADER, _task.dataLoaderOperationInTask(userId = instanceId))
+//        registry.register(DEPARTMENTS_IN_TASK_DATALOADER, _task.dataLoaderDepartmentsInTask(userId = instanceId))
+//        registry.register(COMMENTS_IN_TASK_DATALOADER, _task.dataLoaderCommentsInTask(userId = instanceId))
+//        registry.register(ITEM_IN_TASK_DATALOADER, _task.dataLoaderItemInTask(userId = instanceId))
+//        registry.register(ORDER_IN_TASK_DATALOADER, _task.dataLoaderOrderInTask(userId = instanceId))
 
-        registry.register(OPERATION_IN_TASK_DATALOADER, forTask.dataLoaderOperationInTask(userId = instanceId))
-        registry.register(DEPARTMENTS_IN_TASK_DATALOADER, forTask.dataLoaderDepartmentsInTask(userId = instanceId))
-        registry.register(COMMENTS_IN_TASK_DATALOADER, forTask.dataLoaderCommentsInTask(userId = instanceId))
-        registry.register(ITEM_IN_TASK_DATALOADER, forTask.dataLoaderItemInTask(userId = instanceId))
-        registry.register(ORDER_IN_TASK_DATALOADER, forTask.dataLoaderOrderInTask(userId = instanceId))
+        registry.register(LOADER_FACTORY_OPERATION_OF_TASK, _task.operationLoader(userId = instanceId))
+        registry.register(LOADER_FACTORY_ITEM_OF_TASK, _task.itemLoader(userId = instanceId))
+        registry.register(LOADER_FACTORY_ORDER_OF_TASK, _task.orderLoader(userId = instanceId))
+        registry.register(LOADER_FACTORY_DEPARTMENTS_OF_TASK, _task.departmentsLoader(userId = instanceId))
+//        registry.register(ORDER_IN_TASK_DATALOADER, _task.dataLoaderOrderInTask(userId = instanceId))
 
         registry.register(CONTACT_INFO_OF_USER_DATALOADER, forUser.dataLoaderContactInfoOfUser(userId = instanceId))
         registry.register(PERSONAL_INFO_OF_USER_DATALOADER, forUser.dataLoaderPersonalInfoOfUser(userId = instanceId))
@@ -137,7 +148,7 @@ class DataLoaderRegistryFactory(
             forWorkcenter.dataLoaderUserInWorkingCenterWorkingInTask(userId = instanceId)
         )
 
-        registry.register(USER_IN_TASK_DATALOADER, forTask.dataLoaderUsersInTask(userId = instanceId))
+//        registry.register(USER_IN_TASK_DATALOADER, _task.dataLoaderUsersInTask(userId = instanceId))
         registry.register(ACTOR_IN_WORKLOG_DATALOADER, forWorklog.dataLoaderActorInWorklog(userId = instanceId))
 
         registry.register(

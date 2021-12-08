@@ -5,6 +5,9 @@ import com.rsba.order_microservice.domain.input.*
 import com.rsba.order_microservice.domain.model.*
 import com.rsba.order_microservice.domain.repository.TaskRepository
 import com.rsba.order_microservice.data.service.implementation.tasks.RetrieveTaskImpl
+import com.rsba.order_microservice.domain.usecase.custom.task.FindItemUseCase
+import com.rsba.order_microservice.domain.usecase.custom.task.FindOperationUseCase
+import com.rsba.order_microservice.domain.usecase.custom.task.RetrieveDepartmentsUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import mu.KLogger
 import org.springframework.r2dbc.core.DatabaseClient
@@ -14,7 +17,13 @@ import reactor.core.publisher.Mono
 import java.util.*
 
 @Service
-class TaskService(private val logger: KLogger, private val database: DatabaseClient) : TaskRepository,
+class TaskService(
+    private val logger: KLogger,
+    private val database: DatabaseClient,
+    private val findItemUseCase: FindItemUseCase,
+    private val findOperationUseCase: FindOperationUseCase,
+    private val retrieveDepartmentsUseCase: RetrieveDepartmentsUseCase
+) : TaskRepository,
     RetrieveTaskImpl {
 
     override suspend fun myPersonalInfo(
@@ -528,5 +537,22 @@ class TaskService(private val logger: KLogger, private val database: DatabaseCli
                 throw it
             }
             .awaitFirstOrElse { Optional.empty() }
+
+    override suspend fun departments(
+        ids: Set<UUID>,
+        first: Int,
+        after: UUID?,
+        token: UUID
+    ): Map<UUID, List<Group>> =
+        retrieveDepartmentsUseCase(database = database, ids = ids, token = token, first = first, after = after)
+
+    override suspend fun item(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Item>> =
+        findItemUseCase(database = database, ids = ids, token = token)
+
+    override suspend fun operation(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Operation>> =
+        findOperationUseCase(database = database, ids = ids, token = token)
+
+    override suspend fun order(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Order>> =
+        emptyMap()
 
 }

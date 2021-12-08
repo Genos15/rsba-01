@@ -112,4 +112,17 @@ interface TaskRepository {
     suspend fun retrieveNumberOfTaskByUserId(userId: UUID, token: UUID): Optional<Int>
     suspend fun createOrEdit(input: TaskInput, token: UUID): Optional<Task>
     suspend fun delete(input: TaskInput, token: UUID): Optional<Order>
+
+
+    suspend fun departments(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Group>>
+
+    suspend fun item(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Item>>
+    suspend fun operation(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Operation>>
+    suspend fun order(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Order>>
+
 }

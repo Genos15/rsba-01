@@ -82,6 +82,7 @@ type Operation {
     createdAt: String
     editedAt: String
     departments: [Group!]
+    priority: Int
 }
 
 type OrderForSub {

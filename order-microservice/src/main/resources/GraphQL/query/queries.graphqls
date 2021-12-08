@@ -37,4 +37,10 @@ type Query {
     countOrderTypes: Int
     searchOrderTypes (input: String!, first: Int!, after: ID): OrderTypeConnection @connection(for: "OrderType")
 
+    #------------------------ tasks -------------------
+
+    retrieveTaskDepartments (id: ID!, first: Int!, after: ID): DepartmentConnection @connection(for: "Department")
+    findTaskOperation(input: ID!): Operation
+    findTaskItem(input: ID!): Item
+
 }

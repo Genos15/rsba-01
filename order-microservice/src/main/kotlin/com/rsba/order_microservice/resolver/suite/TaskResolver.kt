@@ -4,53 +4,48 @@ import com.rsba.order_microservice.data.context.dataloader.DataLoaderRegistryFac
 import com.rsba.order_microservice.domain.model.*
 import graphql.kickstart.tools.GraphQLResolver
 import graphql.schema.DataFetchingEnvironment
-import mu.KLogger
 import org.springframework.stereotype.Component
 import java.util.*
 import java.util.concurrent.CompletableFuture
 
 @Component
-class TaskResolver(private val logger: KLogger) : GraphQLResolver<Task> {
+class TaskResolver : GraphQLResolver<Task> {
 
-    fun operation(instance: Task, env: DataFetchingEnvironment): CompletableFuture<Operation>? {
-        logger.warn { "+TaskResolver -> operation" }
+    fun operation(instance: Task, env: DataFetchingEnvironment): CompletableFuture<Optional<Operation>> {
         val dataLoader =
-            env.getDataLoader<UUID, Operation>(DataLoaderRegistryFactory.OPERATION_IN_TASK_DATALOADER)
-        return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(null)
+            env.getDataLoader<UUID, Optional<Operation>>(DataLoaderRegistryFactory.LOADER_FACTORY_OPERATION_OF_TASK)
+        return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(Optional.empty())
     }
 
-    fun users(instance: Task, env: DataFetchingEnvironment): CompletableFuture<List<User>>? {
-        logger.warn { "+TaskResolver -> users" }
+//    fun users(instance: Task, env: DataFetchingEnvironment): CompletableFuture<List<User>>? {
+//        logger.warn { "+TaskResolver -> users" }
+//        val dataLoader =
+//            env.getDataLoader<UUID, List<User>>(DataLoaderRegistryFactory.USER_IN_TASK_DATALOADER)
+//        return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(null)
+//    }
+
+    fun departments(instance: Task, env: DataFetchingEnvironment): CompletableFuture<List<Department>> {
         val dataLoader =
-            env.getDataLoader<UUID, List<User>>(DataLoaderRegistryFactory.USER_IN_TASK_DATALOADER)
-        return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(null)
+            env.getDataLoader<UUID, List<Department>>(DataLoaderRegistryFactory.LOADER_FACTORY_DEPARTMENTS_OF_TASK)
+        return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(emptyList())
     }
 
-    fun departments(instance: Task, env: DataFetchingEnvironment): CompletableFuture<List<Department>>? {
-        logger.warn { "+TaskResolver -> departments" }
+//    fun comments(order: Task, env: DataFetchingEnvironment): CompletableFuture<List<Comment>>? {
+//        logger.warn { "+TaskResolver -> comments" }
+//        val dataLoader =
+//            env.getDataLoader<UUID, List<Comment>>(DataLoaderRegistryFactory.COMMENTS_IN_TASK_DATALOADER)
+//        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(null)
+//    }
+
+    fun item(instance: Task, env: DataFetchingEnvironment): CompletableFuture<Optional<Item>> {
         val dataLoader =
-            env.getDataLoader<UUID, List<Department>>(DataLoaderRegistryFactory.DEPARTMENTS_IN_TASK_DATALOADER)
-        return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(null)
+            env.getDataLoader<UUID, Optional<Item>>(DataLoaderRegistryFactory.LOADER_FACTORY_ITEM_OF_TASK)
+        return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(Optional.empty())
     }
 
-    fun comments(order: Task, env: DataFetchingEnvironment): CompletableFuture<List<Comment>>? {
-        logger.warn { "+TaskResolver -> comments" }
+    fun order(instance: Task, env: DataFetchingEnvironment): CompletableFuture<Optional<Order>> {
         val dataLoader =
-            env.getDataLoader<UUID, List<Comment>>(DataLoaderRegistryFactory.COMMENTS_IN_TASK_DATALOADER)
-        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(null)
-    }
-
-    fun item(instance: Task, env: DataFetchingEnvironment): CompletableFuture<Item>? {
-        logger.warn { "+TaskResolver -> item" }
-        val dataLoader =
-            env.getDataLoader<UUID, Item>(DataLoaderRegistryFactory.ITEM_IN_TASK_DATALOADER)
-        return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(null)
-    }
-
-    fun order(instance: Task, env: DataFetchingEnvironment): CompletableFuture<Order>? {
-        logger.warn { "+TaskResolver -> order" }
-        val dataLoader =
-            env.getDataLoader<UUID, Order>(DataLoaderRegistryFactory.ORDER_IN_TASK_DATALOADER)
-        return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(null)
+            env.getDataLoader<UUID, Optional<Order>>(DataLoaderRegistryFactory.LOADER_FACTORY_ORDER_OF_TASK)
+        return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(Optional.empty())
     }
 }
