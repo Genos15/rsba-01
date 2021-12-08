@@ -13,7 +13,7 @@ import reactor.core.publisher.Flux
 import reactor.core.scheduler.Schedulers
 import java.util.*
 
-@Component
+@Component("find_task_item")
 @OptIn(ExperimentalSerializationApi::class)
 class FindItemUseCaseImpl : FindItemUseCase {
 

@@ -29,7 +29,7 @@ class OrderService(
     private val customerUseCase: RetrieveCustomerUseCase,
     private val typeUseCase: RetrieveTypeUseCase,
     private val taskUseCase: FindTaskUseCase,
-    private val itemUseCase: FindItemUseCase,
+    @Qualifier("find_order_item") private val itemUseCase: FindItemUseCase,
     private val technologiesUseCase: RetrieveTechnologiesUseCase,
     private val searchGlobalParametersUseCase: SearchGlobalParametersUseCase,
     private val searchGlobalItemsUseCase: SearchGlobalItemsUseCase,

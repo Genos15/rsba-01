@@ -10,6 +10,7 @@ import com.rsba.order_microservice.domain.usecase.custom.task.FindOperationUseCa
 import com.rsba.order_microservice.domain.usecase.custom.task.RetrieveDepartmentsUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import mu.KLogger
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
@@ -20,7 +21,7 @@ import java.util.*
 class TaskService(
     private val logger: KLogger,
     private val database: DatabaseClient,
-    private val findItemUseCase: FindItemUseCase,
+    @Qualifier("find_task_item") private val findItemUseCase: FindItemUseCase,
     private val findOperationUseCase: FindOperationUseCase,
     private val retrieveDepartmentsUseCase: RetrieveDepartmentsUseCase
 ) : TaskRepository,
