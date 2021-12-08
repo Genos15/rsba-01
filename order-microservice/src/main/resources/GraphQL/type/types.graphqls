@@ -1,14 +1,14 @@
-type Group {
-    id: ID!
-    name: String!
-    description: String
-    createdAt: String
-    editedAt: String
-    parent: Group
-    priority: Int
-    isAnalytic: Boolean
-    isStaging: Boolean
-}
+#type Group {
+#    id: ID!
+#    name: String!
+#    description: String
+#    createdAt: String
+#    editedAt: String
+#    parent: Group
+#    priority: Int
+#    isAnalytic: Boolean
+#    isStaging: Boolean
+#}
 
 type ContactInfo {
     id: ID!
@@ -51,20 +51,6 @@ type WorkingCenter {
     taskId: ID!
 }
 
-type Department {
-    id: ID!
-    name: String!
-    description: String
-    createdAt: DateTime
-    editedAt: DateTime
-    priority: Int
-    isAnalytic: Boolean
-    isStaging: Boolean
-    workingCenters: [WorkingCenter]
-    managers: [User!]
-    taskId: ID!
-}
-
 type Agent {
     firstName: String
     lastName: String
@@ -81,7 +67,7 @@ type Operation {
     estimatedTimeInHour: Float
     createdAt: String
     editedAt: String
-    departments: [Group!]
+    departments: [Department!]
     priority: Int
 }
 
