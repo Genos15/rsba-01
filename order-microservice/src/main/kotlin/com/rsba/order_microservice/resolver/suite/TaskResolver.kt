@@ -24,9 +24,9 @@ class TaskResolver : GraphQLResolver<Task> {
 //        return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(null)
 //    }
 
-    fun departments(instance: Task, env: DataFetchingEnvironment): CompletableFuture<List<Department>> {
+    fun departments(instance: Task, env: DataFetchingEnvironment): CompletableFuture<List<Group>> {
         val dataLoader =
-            env.getDataLoader<UUID, List<Department>>(DataLoaderRegistryFactory.LOADER_FACTORY_DEPARTMENTS_OF_TASK)
+            env.getDataLoader<UUID, List<Group>>(DataLoaderRegistryFactory.LOADER_FACTORY_DEPARTMENTS_OF_TASK)
         return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(emptyList())
     }
 
