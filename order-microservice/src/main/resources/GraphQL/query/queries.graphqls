@@ -22,6 +22,10 @@ type Query {
     countOrders(status: OrderStatus): Int
     potentialReferenceNumber: String
 
+    findOrderStatistics (id: ID!): OrderStatistics
+    retrieveOrderDepartmentStatistics (id: ID!, first: Int!, after: ID): DepartmentStatisticsConnection @connection(for: "DepartmentStatistics")
+    retrieveOrderItemCategoryStatistics (id: ID!, first: Int!, after: ID): ItemCategoryStatisticsConnection @connection(for: "ItemCategoryStatistics")
+
     #------------------------ customers -----------------------
 
     retrieveCustomers (first: Int!, after: ID): CustomerConnection @connection(for: "Customer")

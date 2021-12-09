@@ -122,4 +122,19 @@ interface OrderRepository {
 
     suspend fun toEditItem(input: ItemInput, action: MutationAction? = null, token: UUID): Optional<Item>
 
+    suspend fun statistics(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<OrderStatistics>>
+
+    suspend fun departmentStatistics(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<DepartmentStatistics>>
+
+    suspend fun itemCategoryStatistics(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<ItemCategoryStatistics>>
 }

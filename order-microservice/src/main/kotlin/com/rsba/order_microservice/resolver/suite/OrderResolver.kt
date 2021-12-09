@@ -71,5 +71,11 @@ class OrderResolver : GraphQLResolver<Order> {
         return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(emptyList())
     }
 
+    fun statistics(instance: Order, env: DataFetchingEnvironment): CompletableFuture<Optional<OrderStatistics>> {
+        val dataLoader =
+            env.getDataLoader<UUID, Optional<OrderStatistics>>(DataLoaderRegistryFactory.LOADER_FACTORY_STATISTICS_OF_ORDER)
+        return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(Optional.empty())
+    }
+
 
 }

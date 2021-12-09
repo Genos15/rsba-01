@@ -110,4 +110,20 @@ class OrderDataLoaderImpl(private val service: OrderRepository) {
             }
         }
 
+    fun statisticsLoader(userId: UUID): DataLoader<UUID, Optional<OrderStatistics>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future { service.statistics(ids = ids) }
+        }
+
+    fun departmentsStatisticsLoader(userId: UUID): DataLoader<UUID, List<DepartmentStatistics>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future { service.departmentStatistics(ids = ids) }
+        }
+
+    fun itemCategoryStatisticsLoader(userId: UUID): DataLoader<UUID, List<ItemCategoryStatistics>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future { service.itemCategoryStatistics(ids = ids) }
+        }
+
+
 }

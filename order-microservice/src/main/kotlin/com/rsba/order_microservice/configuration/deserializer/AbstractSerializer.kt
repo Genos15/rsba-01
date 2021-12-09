@@ -23,6 +23,8 @@ object AbstractSerializer : JsonContentPolymorphicSerializer<AbstractModel>(Abst
                 ModelTypeCase.operations.lowercase() -> OperationDao.serializer()
                 ModelTypeCase.items_statistics.lowercase() -> ItemStatisticsDao.serializer()
                 ModelTypeCase.users.lowercase() -> UserDao.serializer()
+                ModelTypeCase.departments_statistics.lowercase() -> DepartmentStatisticsDao.serializer()
+                ModelTypeCase.item_category_statistics.lowercase() -> ItemCategoryStatisticsDao.serializer()
                 else -> throw  CustomGraphQLError(message = "Unknown Module: key 'type' not found or does not matches any module type")
             }
         }
@@ -40,6 +42,8 @@ object AbstractSerializer : JsonContentPolymorphicSerializer<AbstractModel>(Abst
             ModelTypeCase.operations.lowercase() -> OperationDao.serializer()
             ModelTypeCase.items_statistics.lowercase() -> ItemStatisticsDao.serializer()
             ModelTypeCase.users.lowercase() -> UserDao.serializer()
+            ModelTypeCase.departments_statistics.lowercase() -> DepartmentStatisticsDao.serializer()
+            ModelTypeCase.item_category_statistics.lowercase() -> ItemCategoryStatisticsDao.serializer()
             else -> throw CustomGraphQLError(message = "Unknown Module: key 'type' not found or does not matches any module type")
         }
     }

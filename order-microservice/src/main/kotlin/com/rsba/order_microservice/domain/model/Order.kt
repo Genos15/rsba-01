@@ -35,4 +35,5 @@ data class Order(
     val categories: List<ItemCategory>? = emptyList(),
     val worklogs: List<Worklog>? = emptyList(),
     val status: OrderStatus,
+    val statistics: OrderStatistics? = null
 )

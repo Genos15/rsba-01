@@ -217,4 +217,45 @@ class OrderQueryResolver(private val service: OrderRepository, private val deduc
             after = after
         ), token = deduct(environment = environment)
     )
+
+    suspend fun findOrderStatistics(id: UUID, environment: DataFetchingEnvironment): Optional<OrderStatistics> =
+        perform(
+            entries = service.statistics(ids = setOf(id), token = deduct(environment = environment)),
+            id = id
+        )
+
+    suspend fun retrieveOrderDepartmentStatistics(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<DepartmentStatistics> = perform(
+        entries = service.departmentStatistics(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
+    suspend fun retrieveOrderItemCategoryStatistics(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<ItemCategoryStatistics> = perform(
+        entries = service.itemCategoryStatistics(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after,
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
 }

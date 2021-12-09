@@ -23,6 +23,7 @@ type Order {
     categories: [ItemCategory!]
     worklogs: [Worklog!]
     status: OrderStatus!
+    statistics: OrderStatistics
 }
 
 type OrderConnection {
@@ -61,4 +62,48 @@ type OrderSearchInstance {
     tasks: TaskConnection @connection(for: "Task")
     technologies: TechnologyConnection @connection(for: "Technology")
     parameters: ParameterConnection @connection(for: "Parameter")
+}
+
+type ItemCategoryStatistics {
+    id: ID!
+    numberOfItems: Int!
+    progress: Float!
+    name: String!
+}
+
+type ItemCategoryStatisticsConnection {
+    edges: [ItemCategoryStatisticsEdge]
+    pageInfo: PageInfo
+}
+
+type ItemCategoryStatisticsEdge {
+    cursor: String
+    node: ItemCategoryStatistics
+}
+
+type DepartmentStatistics {
+    id: ID!
+    name: String!
+    description: String
+    priority: Int!
+    rowIndex: Int!
+    isActive: Boolean!
+    isDone: Boolean!
+    progress: Float!
+}
+
+type DepartmentStatisticsConnection {
+    edges: [DepartmentStatisticsEdge]
+    pageInfo: PageInfo
+}
+
+type DepartmentStatisticsEdge {
+    cursor: String
+    node: DepartmentStatistics
+}
+
+type OrderStatistics {
+    id: ID!
+    itemCategory: [ItemCategoryStatistics!]
+    departments: [DepartmentStatistics!]
 }

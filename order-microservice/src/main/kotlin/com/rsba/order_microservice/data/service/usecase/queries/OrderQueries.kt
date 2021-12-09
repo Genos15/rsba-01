@@ -184,4 +184,28 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
             append("'$token')")
         }
 
+    fun statistics(id: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_find_statistics"))
+        append("('$id',")
+        append("'$token')")
+    }
+
+    fun departmentStatistics(id: UUID, first: Int, after: UUID? = null, token: UUID): String =
+        buildString {
+            append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_retrieve_departments_statistics"))
+            append("('$id',")
+            append("$first,")
+            append("${after?.let { "'$it'" }},")
+            append("'$token')")
+        }
+
+    fun itemCategoryStatistics(id: UUID, first: Int, after: UUID? = null, token: UUID): String =
+        buildString {
+            append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_retrieve_item_category_statistics"))
+            append("('$id',")
+            append("$first,")
+            append("${after?.let { "'$it'" }},")
+            append("'$token')")
+        }
+
 }

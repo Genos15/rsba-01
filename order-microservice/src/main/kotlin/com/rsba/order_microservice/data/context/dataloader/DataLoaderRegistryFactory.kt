@@ -70,6 +70,10 @@ class DataLoaderRegistryFactory(
         const val LOADER_FACTORY_WORKLOGS_OF_ORDER = "WORKLOGS_OF_ORDER"
         const val LOADER_FACTORY_TYPE_OF_ORDER = "TYPE_OF_ORDER"
 
+        const val LOADER_FACTORY_STATISTICS_OF_ORDER = "STATISTICS_OF_ORDER"
+        const val LOADER_FACTORY_DEPARTMENTS_STATISTICS_OF_ORDER = "DEPARTMENTS_STATISTICS_OF_ORDER"
+        const val LOADER_FACTORY_ITEM_CATEGORIES_STATISTICS_OF_ORDER = "ITEM_CATEGORIES_STATISTICS_OF_ORDER"
+
         // ********** search references *************
         const val LOADER_FACTORY_GLOBAL_SEARCH_ITEMS = "GLOBAL_SEARCH_ITEMS"
         const val LOADER_FACTORY_GLOBAL_SEARCH_TASKS = "GLOBAL_SEARCH_TASKS"
@@ -106,6 +110,9 @@ class DataLoaderRegistryFactory(
         registry.register(LOADER_FACTORY_CATEGORIES_OF_ORDER, _order.categoriesLoader(userId = instanceId))
         registry.register(LOADER_FACTORY_WORKLOGS_OF_ORDER, _order.worklogsLoader(userId = instanceId))
         registry.register(LOADER_FACTORY_TYPE_OF_ORDER, _order.typeLoader(userId = instanceId))
+        registry.register(LOADER_FACTORY_STATISTICS_OF_ORDER, _order.statisticsLoader(userId = instanceId))
+        registry.register(LOADER_FACTORY_DEPARTMENTS_STATISTICS_OF_ORDER, _order.departmentsStatisticsLoader(userId = instanceId))
+        registry.register(LOADER_FACTORY_ITEM_CATEGORIES_STATISTICS_OF_ORDER, _order.itemCategoryStatisticsLoader(userId = instanceId))
 
         registry.register(LOADER_FACTORY_GLOBAL_SEARCH_ITEMS, _order.itemsSearchedLoader(userId = instanceId))
         registry.register(LOADER_FACTORY_GLOBAL_SEARCH_TASKS, _order.tasksSearchedLoader(userId = instanceId))

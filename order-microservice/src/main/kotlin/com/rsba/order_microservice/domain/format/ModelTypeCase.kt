@@ -10,6 +10,8 @@ object ModelTypeCase {
     const val agents = "agents"
     const val items = "items"
     const val items_statistics = "items_statistics"
+    const val departments_statistics = "departments_statistics"
+    const val item_category_statistics = "item_category_statistics"
     const val tasks = "tasks"
     const val departments = "departments"
     const val technologies = "technologies"

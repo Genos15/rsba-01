@@ -36,7 +36,10 @@ class OrderService(
     private val searchGlobalTasksUseCase: SearchGlobalTasksUseCase,
     private val searchGlobalTechnologiesUseCase: SearchGlobalTechnologiesUseCase,
     private val editItemUseCase: EditItemUseCase,
-    private val editTaskUseCase: EditTaskUseCase
+    private val editTaskUseCase: EditTaskUseCase,
+    private val findOrderStatisticsUseCase: FindOrderStatisticsUseCase,
+    private val retrieveDepartmentStatisticsUseCase: RetrieveDepartmentStatisticsUseCase,
+    private val retrieveItemCategoryStatisticsUseCase: RetrieveItemCategoryStatisticsUseCase
 ) : OrderRepository {
 
     override suspend fun completionLineGraph(year: Int, token: UUID): Optional<OrderCompletionLine> =
@@ -187,4 +190,35 @@ class OrderService(
 
     override suspend fun toEditItem(input: ItemInput, action: MutationAction?, token: UUID): Optional<Item> =
         editItemUseCase(database = database, input = input, token = token)
+
+    override suspend fun statistics(ids: Set<UUID>, token: UUID): Map<UUID, Optional<OrderStatistics>> =
+        findOrderStatisticsUseCase(database = database, ids = ids, token = token)
+
+    override suspend fun departmentStatistics(
+        ids: Set<UUID>,
+        first: Int,
+        after: UUID?,
+        token: UUID
+    ): Map<UUID, List<DepartmentStatistics>> =
+        retrieveDepartmentStatisticsUseCase(
+            ids = ids,
+            first = first,
+            after = after,
+            token = token,
+            database = database
+        )
+
+    override suspend fun itemCategoryStatistics(
+        ids: Set<UUID>,
+        first: Int,
+        after: UUID?,
+        token: UUID
+    ): Map<UUID, List<ItemCategoryStatistics>> =
+        retrieveItemCategoryStatisticsUseCase(
+            ids = ids,
+            first = first,
+            after = after,
+            token = token,
+            database = database
+        )
 }
