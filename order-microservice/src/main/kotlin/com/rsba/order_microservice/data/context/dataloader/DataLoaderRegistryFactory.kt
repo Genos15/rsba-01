@@ -85,6 +85,11 @@ class DataLoaderRegistryFactory(
         const val LOADER_FACTORY_ORDER_OF_TASK = "ORDER_OF_TASK"
         const val LOADER_FACTORY_DEPARTMENTS_OF_TASK = "DEPARTMENTS_OF_TASK"
 
+        // item references
+        const val LOADER_FACTORY_STATISTICS_OF_ITEM = "STATISTICS_OF_ITEM"
+        const val LOADER_FACTORY_WHO_ADDED_OF_ITEM = "WHO_ADDED_OF_ITEM"
+        const val LOADER_FACTORY_TECHNOLOGIES_OF_ITEM = "TECHNOLOGIES_OF_ITEM"
+
     }
 
     fun create(instanceId: UUID): DataLoaderRegistry {
@@ -132,6 +137,13 @@ class DataLoaderRegistryFactory(
         registry.register(LOADER_FACTORY_ITEM_OF_TASK, _task.itemLoader(userId = instanceId))
         registry.register(LOADER_FACTORY_ORDER_OF_TASK, _task.orderLoader(userId = instanceId))
         registry.register(LOADER_FACTORY_DEPARTMENTS_OF_TASK, _task.departmentsLoader(userId = instanceId))
+
+
+
+
+        registry.register(LOADER_FACTORY_STATISTICS_OF_ITEM, _item.statisticsLoader(userId = instanceId))
+        registry.register(LOADER_FACTORY_WHO_ADDED_OF_ITEM, _item.whoAddedLoader(userId = instanceId))
+        registry.register(LOADER_FACTORY_TECHNOLOGIES_OF_ITEM, _item.technologiesLoader(userId = instanceId))
 //        registry.register(ORDER_IN_TASK_DATALOADER, _task.dataLoaderOrderInTask(userId = instanceId))
 
         registry.register(CONTACT_INFO_OF_USER_DATALOADER, forUser.dataLoaderContactInfoOfUser(userId = instanceId))

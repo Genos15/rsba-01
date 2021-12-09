@@ -12,6 +12,7 @@ type Item {
     quantity: Float!
     progress: Float!
     orderId: ID
+    statistics: ItemStatistics
 }
 
 type GraphItem {
@@ -23,6 +24,17 @@ type GraphItem {
     editedAt: DateTime
     orderId: ID!
     parentId: ID
+}
+
+type ItemStatistics {
+    id: ID!
+    addedInOrderAt: DateTime!
+    createdAt: DateTime!
+    editedAt: DateTime!
+    whoAdded: User
+    technologies: [Technology]
+    totalNumberOfTasks: Int!
+    totalNumberOfTasksDone: Int!
 }
 
 type ItemEdge {

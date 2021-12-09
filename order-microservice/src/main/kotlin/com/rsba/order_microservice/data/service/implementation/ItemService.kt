@@ -6,8 +6,12 @@ import com.rsba.order_microservice.domain.model.*
 import com.rsba.order_microservice.domain.repository.ItemRepository
 import com.rsba.order_microservice.data.service.implementation.items.EditComponentAndItemImpl
 import com.rsba.order_microservice.data.service.implementation.items.RetrieveComponentAndItemImpl
+import com.rsba.order_microservice.domain.usecase.custom.item.FindItemStatisticsUseCase
+import com.rsba.order_microservice.domain.usecase.custom.item.FindWhoAddedUseCase
+import com.rsba.order_microservice.domain.usecase.custom.item.RetrieveTechnologiesUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import mu.KLogger
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
@@ -15,7 +19,13 @@ import reactor.core.scheduler.Schedulers
 import java.util.*
 
 @Service
-class ItemService(private val logger: KLogger, private val database: DatabaseClient) : ItemRepository,
+class ItemService(
+    private val logger: KLogger,
+    private val database: DatabaseClient,
+    private val findItemStatisticsUseCase: FindItemStatisticsUseCase,
+    private val findWhoAddedUseCase: FindWhoAddedUseCase,
+    @Qualifier("retrieve_technologies_item") private val retrieveTechnologiesUseCase: RetrieveTechnologiesUseCase
+) : ItemRepository,
     EditComponentAndItemImpl, RetrieveComponentAndItemImpl {
 
     override suspend fun myOperations(
@@ -174,6 +184,20 @@ class ItemService(private val logger: KLogger, private val database: DatabaseCli
 
     override suspend fun removeComponentInItem(input: ItemAndItemInput, token: UUID): Optional<Item> =
         removeItemAndItemImplFn(input = input, token = token, database = database)
+
+    override suspend fun statistics(ids: Set<UUID>, token: UUID): Map<UUID, Optional<ItemStatistics>> =
+        findItemStatisticsUseCase(ids = ids, token = token, database = database)
+
+    override suspend fun whoAdded(ids: Set<UUID>, token: UUID): Map<UUID, Optional<User>> =
+        findWhoAddedUseCase(ids = ids, token = token, database = database)
+
+    override suspend fun technologies(
+        ids: Set<UUID>,
+        first: Int,
+        after: UUID?,
+        token: UUID
+    ): Map<UUID, List<Technology>> =
+        retrieveTechnologiesUseCase(database = database, first = first, after = after, token = token, ids = ids)
 
     override suspend fun myItems(ids: Set<Item>, userId: UUID): Map<Item, List<Item>> =
         retrieveComponentInItemsFn(items = ids, token = UUID.randomUUID(), database = database)

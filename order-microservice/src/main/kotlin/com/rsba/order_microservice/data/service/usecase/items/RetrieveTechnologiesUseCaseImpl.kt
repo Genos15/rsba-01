@@ -1,10 +1,10 @@
-package com.rsba.order_microservice.data.service.usecase.orders
+package com.rsba.order_microservice.data.service.usecase.items
 
 import com.rsba.order_microservice.data.dao.TechnologyDao
-import com.rsba.order_microservice.data.service.usecase.queries.OrderQueries
+import com.rsba.order_microservice.data.service.usecase.queries.ItemQueries
 import com.rsba.order_microservice.domain.model.Technology
 import com.rsba.order_microservice.domain.queries.QueryCursor
-import com.rsba.order_microservice.domain.usecase.custom.order.RetrieveTechnologiesUseCase
+import com.rsba.order_microservice.domain.usecase.custom.item.RetrieveTechnologiesUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.springframework.r2dbc.core.DatabaseClient
@@ -13,7 +13,7 @@ import reactor.core.publisher.Flux
 import reactor.core.scheduler.Schedulers
 import java.util.*
 
-@Component("retrieve_technologies_order")
+@Component("retrieve_technologies_item")
 @OptIn(ExperimentalSerializationApi::class)
 class RetrieveTechnologiesUseCaseImpl : RetrieveTechnologiesUseCase {
 
@@ -21,7 +21,6 @@ class RetrieveTechnologiesUseCaseImpl : RetrieveTechnologiesUseCase {
         database: DatabaseClient,
         ids: Set<UUID>,
         first: Int,
-        parentId: UUID?,
         after: UUID?,
         token: UUID
     ): Map<UUID, List<Technology>> =
@@ -29,12 +28,11 @@ class RetrieveTechnologiesUseCaseImpl : RetrieveTechnologiesUseCase {
             .parallel()
             .flatMap { id ->
                 database.sql(
-                    OrderQueries.technologies(
+                    ItemQueries.technologies(
                         token = token,
                         id = id,
                         first = first,
                         after = after,
-                        parentId = parentId
                     )
                 ).map { row -> QueryCursor.all(row = row) }
                     .first()

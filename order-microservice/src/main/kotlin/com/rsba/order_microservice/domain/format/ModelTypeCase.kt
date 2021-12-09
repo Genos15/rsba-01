@@ -9,6 +9,7 @@ object ModelTypeCase {
     const val orders_completion_line = "orders_completion_line"
     const val agents = "agents"
     const val items = "items"
+    const val items_statistics = "items_statistics"
     const val tasks = "tasks"
     const val departments = "departments"
     const val technologies = "technologies"

@@ -65,8 +65,8 @@ type Operation {
     description: String
     move: String
     estimatedTimeInHour: Float
-    createdAt: String
-    editedAt: String
+    createdAt: DateTime
+    editedAt: DateTime
     departments: [Department!]
     priority: Int
 }

@@ -39,4 +39,9 @@ class ItemResolver(private val logger: KLogger) : GraphQLResolver<Item> {
         return dataLoader?.load(instance) ?: CompletableFuture.completedFuture(emptyList())
     }
 
+    fun statistics(instance: Item, env: DataFetchingEnvironment): CompletableFuture<Optional<ItemStatistics>> {
+        val dataLoader =
+            env.getDataLoader<UUID, Optional<ItemStatistics>>(DataLoaderRegistryFactory.LOADER_FACTORY_STATISTICS_OF_ITEM)
+        return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(Optional.empty())
+    }
 }

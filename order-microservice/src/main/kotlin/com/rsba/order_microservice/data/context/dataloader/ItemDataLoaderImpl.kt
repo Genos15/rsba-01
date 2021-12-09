@@ -89,4 +89,19 @@ class ItemDataLoaderImpl(private val logger: KLogger, private val service: ItemR
         }
     }
 
+    fun statisticsLoader(userId: UUID): DataLoader<UUID, Optional<ItemStatistics>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future { service.statistics(ids = ids) }
+        }
+
+    fun whoAddedLoader(userId: UUID): DataLoader<UUID, Optional<User>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future { service.whoAdded(ids = ids) }
+        }
+
+    fun technologiesLoader(userId: UUID): DataLoader<UUID, List<Technology>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future { service.technologies(ids = ids) }
+        }
+
 }

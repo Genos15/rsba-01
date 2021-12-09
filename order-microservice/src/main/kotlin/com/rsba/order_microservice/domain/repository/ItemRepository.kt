@@ -53,4 +53,13 @@ interface ItemRepository {
 
     suspend fun removeComponentInItem(input: ItemAndItemInput, token: UUID): Optional<Item>
 
+    suspend fun statistics(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<ItemStatistics>>
+    suspend fun whoAdded(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<User>>
+    suspend fun technologies(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Technology>>
+
 }
