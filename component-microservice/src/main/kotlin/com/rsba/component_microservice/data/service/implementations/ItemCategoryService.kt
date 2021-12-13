@@ -4,10 +4,7 @@ import com.rsba.component_microservice.domain.input.ItemCategoryInput
 import com.rsba.component_microservice.domain.model.*
 import com.rsba.component_microservice.domain.repository.ItemCategoryRepository
 import com.rsba.component_microservice.domain.usecase.common.*
-import com.rsba.component_microservice.domain.usecase.custom.item_category.FindItemCategoryUsageUseCase
-import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategoryChildrenUseCase
-import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategorySubItemsDataLoaderUseCase
-import com.rsba.component_microservice.domain.usecase.custom.item_category.RetrieveItemCategoryUsageUseCase
+import com.rsba.component_microservice.domain.usecase.custom.item_category.*
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
@@ -27,7 +24,8 @@ class ItemCategoryService(
     private val myItemsUseCase: RetrieveItemCategorySubItemsDataLoaderUseCase,
     @Qualifier("item_category_elk") private val elkUseCase: RetrieveFullElkGraphUseCase,
     private val retrieveItemCategoryUsageUseCase: RetrieveItemCategoryUsageUseCase,
-    private val findItemCategoryUsageUseCase: FindItemCategoryUsageUseCase
+    private val findItemCategoryUsageUseCase: FindItemCategoryUsageUseCase,
+    private val searchItemCategoryUsageUseCase: SearchItemCategoryUsageUseCase
 ) : ItemCategoryRepository {
 
     override suspend fun createOrEdit(
@@ -84,6 +82,24 @@ class ItemCategoryService(
             from = from,
             to = to,
             token = token
+        )
+
+    override suspend fun usages(
+        input: String,
+        first: Int,
+        after: UUID?,
+        from: OffsetDateTime?,
+        to: OffsetDateTime?,
+        token: UUID
+    ): List<ItemCategoryUsage> =
+        searchItemCategoryUsageUseCase(
+            database = database,
+            first = first,
+            after = after,
+            from = from,
+            to = to,
+            token = token,
+            input = input,
         )
 
     override suspend fun usage(

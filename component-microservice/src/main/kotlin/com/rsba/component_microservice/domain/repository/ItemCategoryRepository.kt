@@ -50,6 +50,14 @@ interface ItemCategoryRepository {
         token: UUID
     ): List<ItemCategoryUsage>
 
+    suspend fun usages(
+        input: String,
+        first: Int, after: UUID?,
+        from: OffsetDateTime? = null,
+        to: OffsetDateTime? = null,
+        token: UUID
+    ): List<ItemCategoryUsage>
+
     suspend fun usage(
         input: UUID,
         from: OffsetDateTime? = null,

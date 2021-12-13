@@ -96,6 +96,22 @@ object ItemCategoryQueries : IBaseQuery<ItemCategoryInput, ItemCategoryDao> {
         append("'$token')")
     }
 
+    fun usages(
+        input: String,
+        first: Int,
+        after: UUID?,
+        from: OffsetDateTime? = null,
+        to: OffsetDateTime? = null,
+        token: UUID
+    ): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<ItemCategoryDao>(customQuery = "_on_search_usages"))
+        append("($first,")
+        append("${after?.let { "'$it'" }},")
+        append("${from?.let { "'$it'" }},")
+        append("${to?.let { "'$it'" }},")
+        append("'$token')")
+    }
+
     fun usage(
         input: UUID,
         from: OffsetDateTime? = null,

@@ -47,6 +47,26 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
         after = after
     )
 
+    suspend fun searchItemCategoryUsage(
+        input: String,
+        first: Int,
+        after: UUID? = null,
+        from: OffsetDateTime? = null,
+        to: OffsetDateTime? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<ItemCategoryUsage> = perform(
+        entries = service.usages(
+            first = first,
+            after = after,
+            token = deduct(environment = environment),
+            from = from,
+            to = to,
+            input = input
+        ),
+        first = first,
+        after = after
+    )
+
     suspend fun searchItemCategory(
         input: String,
         first: Int,

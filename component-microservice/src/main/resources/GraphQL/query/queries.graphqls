@@ -9,6 +9,7 @@ type Query {
     buildItemCategoryElk(from: ID, height: Int!, width: Int!): ElkGraphItemCategory!
     #****************usage-statistics**************************
     retrieveItemCategoryUsage (first: Int!, after: ID, from: DateTime, to: DateTime): ItemCategoryUsageConnection @connection(for: "ItemCategoryUsage")
+    searchItemCategoryUsage (input: String!,first: Int!, after: ID, from: DateTime, to: DateTime): ItemCategoryUsageConnection @connection(for: "ItemCategoryUsage")
     findItemCategoryUsage (input: ID!, from: DateTime, to: DateTime): ItemCategoryUsage
 
     #------------ operation ------------------
