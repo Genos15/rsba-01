@@ -40,3 +40,8 @@ input OrderSearchInput {
     first: Int
     after: ID
 }
+
+input OrderLayer {
+    type: OrderLayerType!
+    id: ID!
+}

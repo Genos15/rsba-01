@@ -53,7 +53,7 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
         append("('$input',")
         append("$first,")
         append("${after?.let { "'$it'" }},")
-        append("${layer?.let { "'$it'" }},")
+        append("'${JsonHandlerKotlin.handler.encodeToString(layer)}',")
         append("${status?.let { "'$it'" }},")
         append("'$token')")
     }
@@ -79,7 +79,7 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
         append(QueryBuilder.Retrieve.buildRequestDef<OrderDao>())
         append("($first,")
         append("${after?.let { "'$it'" }},")
-        append("${layer?.let { "'$it'" }},")
+        append("'${JsonHandlerKotlin.handler.encodeToString(layer)}',")
         append("${status?.let { "'$it'" }},")
         append("'$token')")
     }
