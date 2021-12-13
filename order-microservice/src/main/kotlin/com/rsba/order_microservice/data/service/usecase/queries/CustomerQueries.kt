@@ -3,10 +3,7 @@ package  com.rsba.order_microservice.data.service.usecase.queries
 import com.rsba.order_microservice.data.dao.CustomerDao
 import com.rsba.order_microservice.domain.format.JsonHandlerKotlin
 import com.rsba.order_microservice.domain.input.CustomerInput
-import com.rsba.order_microservice.domain.model.AbstractLayer
-import com.rsba.order_microservice.domain.model.AbstractStatus
-import com.rsba.order_microservice.domain.model.Edition
-import com.rsba.order_microservice.domain.model.MutationAction
+import com.rsba.order_microservice.domain.model.*
 import com.rsba.order_microservice.domain.queries.IBaseQuery
 import com.rsba.order_microservice.domain.queries.QueryBuilder
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -44,7 +41,7 @@ object CustomerQueries : IBaseQuery<CustomerInput, CustomerDao> {
         first: Int,
         after: UUID?,
         token: UUID,
-        layer: AbstractLayer?,
+        layer: OrderLayer?,
         status: AbstractStatus?
     ): String = buildString {
         append(QueryBuilder.Retrieve.buildRequestDef<CustomerDao>())
@@ -57,7 +54,7 @@ object CustomerQueries : IBaseQuery<CustomerInput, CustomerDao> {
         input: String,
         first: Int,
         after: UUID?,
-        layer: AbstractLayer?,
+        layer: OrderLayer?,
         status: AbstractStatus?,
         token: UUID
     ): String = buildString {

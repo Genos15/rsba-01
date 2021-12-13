@@ -1,7 +1,7 @@
 package com.rsba.order_microservice.domain.usecase.common
 
-import com.rsba.order_microservice.domain.model.AbstractLayer
-import com.rsba.order_microservice.domain.model.AbstractStatus
+ import com.rsba.order_microservice.domain.model.AbstractStatus
+import com.rsba.order_microservice.domain.model.OrderLayer
 import org.springframework.r2dbc.core.DatabaseClient
 import java.util.*
 
@@ -11,7 +11,7 @@ interface SearchUseCase<T> {
         input: String,
         first: Int,
         after: UUID? = null,
-        layer: AbstractLayer? = null,
+        layer: OrderLayer? = null,
         status: AbstractStatus? = null,
         token: UUID
     ): List<T>

@@ -1,3 +1,6 @@
 package com.rsba.order_microservice.domain.model
 
-sealed interface AbstractLayer
+import kotlinx.serialization.Serializable
+
+@Serializable
+sealed class AbstractLayer

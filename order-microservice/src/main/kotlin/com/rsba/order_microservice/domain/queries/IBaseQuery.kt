@@ -2,10 +2,7 @@ package com.rsba.order_microservice.domain.queries
 
 import com.rsba.order_microservice.data.dao.AbstractModel
 import com.rsba.order_microservice.domain.input.AbstractInput
-import com.rsba.order_microservice.domain.model.AbstractLayer
-import com.rsba.order_microservice.domain.model.AbstractStatus
-import com.rsba.order_microservice.domain.model.Edition
-import com.rsba.order_microservice.domain.model.MutationAction
+import com.rsba.order_microservice.domain.model.*
 import java.util.*
 
 interface IBaseQuery<out I : AbstractInput, out R : AbstractModel> {
@@ -23,7 +20,7 @@ interface IBaseQuery<out I : AbstractInput, out R : AbstractModel> {
         first: Int,
         after: UUID?,
         token: UUID,
-        layer: AbstractLayer? = null,
+        layer: OrderLayer? = null,
         status: AbstractStatus? = null,
     ): String
 
@@ -31,7 +28,7 @@ interface IBaseQuery<out I : AbstractInput, out R : AbstractModel> {
         input: String,
         first: Int,
         after: UUID?,
-        layer: AbstractLayer? = null,
+        layer: OrderLayer? = null,
         status: AbstractStatus? = null,
         token: UUID
     ): String

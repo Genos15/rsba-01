@@ -12,4 +12,4 @@ import java.util.*
 data class OrderLayer(
     val type: OrderLayerType,
     @Serializable(with = UUIDSerializer::class) override val id: UUID,
-) : AbstractInput(), AbstractLayer
+) : AbstractInput()

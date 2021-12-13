@@ -1,9 +1,9 @@
 package com.rsba.order_microservice.data.service.usecase.customers
 
 import com.rsba.order_microservice.data.dao.CustomerDao
-import com.rsba.order_microservice.domain.model.AbstractLayer
 import com.rsba.order_microservice.domain.model.AbstractStatus
 import com.rsba.order_microservice.domain.model.Customer
+import com.rsba.order_microservice.domain.model.OrderLayer
 import com.rsba.order_microservice.domain.queries.IQueryGuesser
 import com.rsba.order_microservice.domain.queries.QueryCursor
 import com.rsba.order_microservice.domain.queries.query
@@ -22,7 +22,7 @@ class SearchUseCaseImpl : SearchUseCase<Customer>, IQueryGuesser {
         input: String,
         first: Int,
         after: UUID?,
-        layer: AbstractLayer?,
+        layer: OrderLayer?,
         status: AbstractStatus?,
         token: UUID
     ): List<Customer> =

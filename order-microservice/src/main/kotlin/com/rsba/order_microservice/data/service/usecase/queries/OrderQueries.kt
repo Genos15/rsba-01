@@ -45,7 +45,7 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
         input: String,
         first: Int,
         after: UUID?,
-        layer: AbstractLayer?,
+        layer: OrderLayer?,
         status: AbstractStatus?,
         token: UUID
     ): String = buildString {
@@ -73,7 +73,7 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
         first: Int,
         after: UUID?,
         token: UUID,
-        layer: AbstractLayer?,
+        layer: OrderLayer?,
         status: AbstractStatus?
     ): String = buildString {
         append(QueryBuilder.Retrieve.buildRequestDef<OrderDao>())
