@@ -34,7 +34,20 @@ class ItemService(
     ): Map<UUID, List<Technology>> =
         retrieveTechnologiesUseCase(database = database, first = first, after = after, token = token, ids = ids)
 
-    override suspend fun elk(token: UUID, from: UUID?, height: Int, width: Int): ElkGraph<ElkGraphItemNode> =
-        retrieveItemElkGraphUseCase(database = database, token = token, from = from, height = height, width = width)
+    override suspend fun elk(
+        token: UUID,
+        from: UUID?,
+        orderId: UUID?,
+        height: Int,
+        width: Int
+    ): ElkGraph<ElkGraphItemNode> =
+        retrieveItemElkGraphUseCase(
+            database = database,
+            token = token,
+            from = from,
+            height = height,
+            width = width,
+            orderId = orderId
+        )
 
 }

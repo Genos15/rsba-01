@@ -22,10 +22,11 @@ class RetrieveItemElkGraphUseCaseImpl : RetrieveItemElkGraphUseCase {
         database: DatabaseClient,
         token: UUID,
         from: UUID?,
+        orderId: UUID?,
         height: Int,
         width: Int,
     ): ElkGraph<ElkGraphItemNode> =
-        database.sql(ItemQueries.elk(token = token, from = from))
+        database.sql(ItemQueries.elk(token = token, from = from, orderId = orderId))
             .map { row -> QueryCursor.all(row = row) }
             .first()
             .map { it?.mapNotNull { element -> (element as? ItemDao?) } ?: emptyList() }

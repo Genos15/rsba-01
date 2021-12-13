@@ -11,6 +11,7 @@ interface RetrieveItemElkGraphUseCase {
         database: DatabaseClient,
         token: UUID,
         from: UUID? = null,
+        orderId: UUID? = null,
         height: Int,
         width: Int,
     ): ElkGraph<ElkGraphItemNode>

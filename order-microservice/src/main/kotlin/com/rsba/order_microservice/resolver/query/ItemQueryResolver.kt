@@ -17,11 +17,18 @@ class ItemQueryResolver(private val service: ItemRepository, private val deduct:
 
     suspend fun buildItemElk(
         from: UUID?,
+        orderId: UUID?,
         height: Int,
         width: Int,
         environment: DataFetchingEnvironment,
     ): ElkGraph<ElkGraphItemNode> =
-        service.elk(token = deduct(environment = environment), from = from, height = height, width = width)
+        service.elk(
+            token = deduct(environment = environment),
+            from = from,
+            height = height,
+            width = width,
+            orderId = orderId
+        )
 
     suspend fun findItemStatistics(id: UUID, environment: DataFetchingEnvironment): Optional<ItemStatistics> = perform(
         entries = service.statistics(ids = setOf(id), token = deduct(environment = environment)),
