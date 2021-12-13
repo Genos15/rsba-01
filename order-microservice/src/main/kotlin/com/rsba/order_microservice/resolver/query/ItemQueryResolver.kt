@@ -15,7 +15,7 @@ import java.util.*
 class ItemQueryResolver(private val service: ItemRepository, private val deduct: TokenAnalyzer) : GraphQLQueryResolver,
     GenericRetrieveConnection {
 
-    suspend fun buildItemCategoryElk(
+    suspend fun buildItemElk(
         from: UUID?,
         height: Int,
         width: Int,
