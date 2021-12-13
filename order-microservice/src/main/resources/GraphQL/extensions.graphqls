@@ -5,7 +5,7 @@ scalar BigDecimal
 schema {
     query: Query
     mutation: Mutation
-    subscription: Subscription
+    #    subscription: Subscription
 }
 
 type PageInfo {
