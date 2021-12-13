@@ -1,8 +1,6 @@
 package  com.rsba.order_microservice.resolver.query
 
-import com.rsba.order_microservice.domain.model.ItemStatistics
-import com.rsba.order_microservice.domain.model.Technology
-import com.rsba.order_microservice.domain.model.User
+import com.rsba.order_microservice.domain.model.*
 import com.rsba.order_microservice.domain.repository.ItemRepository
 import com.rsba.order_microservice.domain.security.TokenAnalyzer
 import graphql.kickstart.tools.GraphQLQueryResolver
@@ -17,18 +15,13 @@ import java.util.*
 class ItemQueryResolver(private val service: ItemRepository, private val deduct: TokenAnalyzer) : GraphQLQueryResolver,
     GenericRetrieveConnection {
 
-//    @AdminSecured
-//    suspend fun retrieveDetailOfItemInOrder(
-//        orderId: UUID,
-//        itemId: UUID,
-//        environment: DataFetchingEnvironment
-//    ): Optional<DetailItemInOrder> {
-//        return service.myDetails(
-//            token = deduct(environment = environment),
-//            orderId = orderId,
-//            itemId = itemId,
-//        )
-//    }
+    suspend fun buildItemCategoryElk(
+        from: UUID?,
+        height: Int,
+        width: Int,
+        environment: DataFetchingEnvironment,
+    ): ElkGraph<ElkGraphItemNode> =
+        service.elk(token = deduct(environment = environment), from = from, height = height, width = width)
 
     suspend fun findItemStatistics(id: UUID, environment: DataFetchingEnvironment): Optional<ItemStatistics> = perform(
         entries = service.statistics(ids = setOf(id), token = deduct(environment = environment)),

@@ -129,10 +129,10 @@ class DataLoaderRegistryFactory(
 //        registry.register(CATEGORY_OF_ITEM_IN_ORDER, forCategory.dataLoaderCategoriesOfItemInOrder(userId = instanceId))
 
 //        registry.register(ITEM_IN_ORDER, orderImpl.dataLoaderItemsInOrder(userId = instanceId))
-        registry.register(OPERATIONS_IN_ITEM, _item.dataLoaderOperationOfItem(userId = instanceId))
-        registry.register(CATEGORY_IN_ITEM, _item.dataLoaderCategoryInItem(userId = instanceId))
+//        registry.register(OPERATIONS_IN_ITEM, _item.dataLoaderOperationOfItem(userId = instanceId))
+//        registry.register(CATEGORY_IN_ITEM, _item.dataLoaderCategoryInItem(userId = instanceId))
         registry.register(GROUP_IN_OPERATION_DATALOADER, forOperation.dataLoaderGroupInOperation(userId = instanceId))
-        registry.register(TASK_IN_ITEM_DATALOADER, _item.dataLoaderTaskOfItem(userId = instanceId))
+//        registry.register(TASK_IN_ITEM_DATALOADER, _item.dataLoaderTaskOfItem(userId = instanceId))
 //
 //        registry.register(OPERATION_IN_TASK_DATALOADER, _task.dataLoaderOperationInTask(userId = instanceId))
 //        registry.register(DEPARTMENTS_IN_TASK_DATALOADER, _task.dataLoaderDepartmentsInTask(userId = instanceId))
@@ -175,18 +175,18 @@ class DataLoaderRegistryFactory(
             _technology.dataLoaderOperationInTechnology(userId = instanceId)
         )
 
-        registry.register(
-            ACTOR_IN_DETAIL_OF_ORDER_DATALOADER,
-            _item.dataLoaderDetailActor(userId = instanceId)
-        )
+//        registry.register(
+//            ACTOR_IN_DETAIL_OF_ORDER_DATALOADER,
+//            _item.dataLoaderDetailActor(userId = instanceId)
+//        )
 
-        registry.register(
-            TECHNOLOGIES_IN_DETAIL_OF_ORDER_DATALOADER,
-            _item.dataLoaderDetailTechnologies(userId = instanceId)
-        )
+//        registry.register(
+//            TECHNOLOGIES_IN_DETAIL_OF_ORDER_DATALOADER,
+//            _item.dataLoaderDetailTechnologies(userId = instanceId)
+//        )
 
 //        registry.register(TYPE_OF_ORDER_DATALOADER, orderImpl.dataLoaderTypeOfOrder(userId = instanceId))
-        registry.register(ITEM_IN_ITEM_DATALOADER, _item.dataLoaderItemAndItem(userId = instanceId))
+//        registry.register(ITEM_IN_ITEM_DATALOADER, _item.dataLoaderItemAndItem(userId = instanceId))
 
         registry.register(
             POTENTIAL_VALUES_PARAMETER_DATALOADER,

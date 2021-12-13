@@ -1,13 +1,12 @@
 package com.rsba.order_microservice.domain.model
 
+import com.rsba.order_microservice.configuration.deserializer.UUIDSerializer
 import kotlinx.serialization.Serializable
 import java.util.*
-import com.rsba.order_microservice.configuration.deserializer.UUIDSerializer
 
 @Serializable
-data class ElkGraphNode(
-    @Serializable(with = UUIDSerializer::class) val id: UUID,
-    val height: Int,
-    val width: Int,
-    val payload: Item.GraphItem
+abstract class ElkGraphNode(
+    @Serializable(with = UUIDSerializer::class) open val id: UUID,
+    open val height: Int,
+    open val width: Int
 )

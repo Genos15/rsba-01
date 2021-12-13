@@ -19,6 +19,7 @@ data class ItemDao(
     val quantity: Float? = null,
     @Serializable(with = DateTimeSerializer::class) val createdAt: OffsetDateTime? = null,
     @Serializable(with = DateTimeSerializer::class) val editedAt: OffsetDateTime? = null,
+    val childrenIds: List<String>? = emptyList(),
 ) : AbstractModel() {
 
     val to: Item

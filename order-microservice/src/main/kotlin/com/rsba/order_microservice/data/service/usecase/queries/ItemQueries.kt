@@ -76,4 +76,10 @@ object ItemQueries : IBaseQuery<ItemInput, ItemDao> {
             append("'$token')")
         }
 
+    fun elk(token: UUID, from: UUID? = null): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_retrieve_elk_elements"))
+        append("(${from?.let { "'$it'" }},")
+        append("'$token')")
+    }
+
 }
