@@ -105,7 +105,8 @@ object ItemCategoryQueries : IBaseQuery<ItemCategoryInput, ItemCategoryDao> {
         token: UUID
     ): String = buildString {
         append(QueryBuilder.Custom.buildRequestDef<ItemCategoryDao>(customQuery = "_on_search_usages"))
-        append("($first,")
+        append("($input,")
+        append("$first,")
         append("${after?.let { "'$it'" }},")
         append("${from?.let { "'$it'" }},")
         append("${to?.let { "'$it'" }},")
