@@ -1,7 +1,7 @@
 package  com.rsba.order_microservice.resolver.query
 
 import  com.rsba.order_microservice.aspect.AdminSecured
-import com.rsba.order_microservice.domain.input.OrderLayer
+import com.rsba.order_microservice.domain.model.OrderLayer
 import com.rsba.order_microservice.domain.model.*
 import  com.rsba.order_microservice.domain.repository.OrderRepository
 import com.rsba.order_microservice.domain.security.TokenAnalyzer
