@@ -14,7 +14,7 @@ type ElkGraphItemNode implements ElkGraphNode {
     id: ID!
     height: Int!
     width: Int!
-    node: ItemCategory!
+    node: Item!
 }
 
 type ElkGraphItem {
