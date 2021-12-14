@@ -8,16 +8,10 @@ import kotlinx.serialization.ExperimentalSerializationApi
 
 @OptIn(ExperimentalSerializationApi::class)
 sealed class QueryPicker<T : AbstractModel> {
-    object ItemCategory : QueryPicker<ItemCategoryDao>()
-    object Item : QueryPicker<ItemDao>()
-    object Operation : QueryPicker<OperationDao>()
-    object Technology : QueryPicker<ParameterDao>()
+    object Parameter : QueryPicker<ParameterDao>()
 
     fun pick(): IBaseQuery<AbstractInput, AbstractModel> = when (this) {
-        is Technology -> ParameterQueries
-        is Operation -> OperationQueries
-        is Item -> ItemQueries
-        is ItemCategory -> ItemCategoryQueries
+        is Parameter -> ParameterQueries
         else -> failOnNull()
     }
 }

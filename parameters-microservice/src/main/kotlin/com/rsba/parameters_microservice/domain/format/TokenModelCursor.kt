@@ -48,7 +48,7 @@ object TokenModelCursor {
         null
     }
 
-    fun count(row: Row, meta: RowMetadata? = null): Int {
+    fun count(row: Row): Int {
         return try {
             meOrNull(row = row, index = 0) ?: 0
         } catch (e: Exception) {
@@ -56,7 +56,7 @@ object TokenModelCursor {
         }
     }
 
-    fun isTrue(row: Row, meta: RowMetadata? = null): Boolean {
+    fun isTrue(row: Row): Boolean {
         return try {
             (meOrNull(row = row, index = 0) ?: 0) > 0
         } catch (e: Exception) {

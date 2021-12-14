@@ -15,7 +15,7 @@
     <description>parameters-microservice</description>
     <properties>
         <java.version>1.8</java.version>
-        <kotlin.version>1.6.0</kotlin.version>
+        <kotlin.version>1.5.31</kotlin.version>
         <spring-cloud.version>2020.0.2</spring-cloud.version>
         <serialization.version>1.1.0</serialization.version>
     </properties>

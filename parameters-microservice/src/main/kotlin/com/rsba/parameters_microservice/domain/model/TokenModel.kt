@@ -9,7 +9,7 @@ import java.time.OffsetDateTime
 import java.util.*
 
 @Serializable
-@ModelType(_class = ModelTypeCase.users)
+@ModelType(_class = "")
 data class TokenModel(
     @Serializable(with = UUIDSerializer::class) val token: UUID,
     @Serializable(with = UUIDSerializer::class) val refreshToken: UUID,

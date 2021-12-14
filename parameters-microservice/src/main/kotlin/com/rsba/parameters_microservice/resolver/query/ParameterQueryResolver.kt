@@ -46,22 +46,22 @@ class ParameterQueryResolver(val service: ParameterRepository, private val deduc
     suspend fun findParameter(id: UUID, environment: DataFetchingEnvironment): Optional<Parameter> =
         service.find(id = id, token = deduct(environment = environment))
 
-    suspend fun retrieveParametersValues(
-        id: UUID,
-        first: Int,
-        after: UUID? = null,
-        environment: DataFetchingEnvironment
-    ): Connection<String> = perform(
-        entries = service.values(
-            ids = setOf(id),
-            token = deduct(environment = environment),
-            first = first,
-            after = after
-        ),
-        first = first,
-        after = after,
-        id = id
-    )
+//    suspend fun retrieveParametersValues(
+//        id: UUID,
+//        first: Int,
+//        after: UUID? = null,
+//        environment: DataFetchingEnvironment
+//    ): Connection<String> = perform(
+//        entries = service.values(
+//            ids = setOf(id),
+//            token = deduct(environment = environment),
+//            first = first,
+//            after = after
+//        ),
+//        first = first,
+//        after = after,
+//        id = id
+//    )
 
     suspend fun countParameters(environment: DataFetchingEnvironment): Int =
         service.count(token = deduct(environment = environment))

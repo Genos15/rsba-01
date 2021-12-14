@@ -6,6 +6,6 @@ type Query {
     findParameter(input: ID!): Parameter
     countParameters: Int
     searchParameters (input: String!, first: Int!, after: ID): ParameterConnection @connection(for: "Parameter")
-    retrieveParametersValues(id: ID!, first: Int!, after: ID): ValueConnection @connection(for: "Value")
+    #    retrieveParametersValues(id: ID!, first: Int!, after: ID): ValueConnection @connection(for: "Value")
 
 }
