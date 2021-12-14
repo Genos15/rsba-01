@@ -6,6 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="component-microservice" />
+        <module name="parameters-microservice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -27,6 +29,7 @@
       <module name="monitor-ms" target="1.8" />
       <module name="notification-microservice" target="1.8" />
       <module name="order-microservice" target="1.8" />
+      <module name="parameters-microservice" target="1.8" />
       <module name="user-microservice" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -50,6 +53,7 @@
       <module name="monitor-ms" options="-parameters" />
       <module name="notification-microservice" options="-parameters" />
       <module name="order-microservice" options="-parameters" />
+      <module name="parameters-microservice" options="-parameters" />
       <module name="user-microservice" options="-parameters" />
     </option>
   </component>

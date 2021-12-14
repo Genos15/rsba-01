@@ -44,6 +44,13 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
+      <webServer id="3b9f431f-b2ba-4c81-8118-a337c4e57b45" name="rs.parameters.dev">
+        <fileTransfer accessType="SFTP" host="104.248.16.104" port="22" sshConfigId="965cc817-f69f-447f-938e-d6e3a7b83d1c" sshConfig="rs.parameters.dev.source">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
       <webServer id="e70baf5a-1f8e-46ee-abf8-41549c415b4b" name="rs.database.production">
         <fileTransfer accessType="SFTP" host="157.230.115.134" port="22" sshConfigId="03ef4ed8-576f-46bf-b2a8-f115aa32df82" sshConfig="rs.database.prod.source">
           <advancedOptions>
@@ -90,6 +97,7 @@
           <name value="not-use2" />
           <name value="rs.orders.components.development" />
           <name value="rs.users.notifications.development" />
+          <name value="rs.parameters.dev" />
         </servers>
       </group>
       <group>

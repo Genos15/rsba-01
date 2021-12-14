@@ -1,0 +1,4 @@
+type Mutation {
+    createOrEditParameter(input: ParameterInput!, action: MutationAction): Parameter
+    deleteParameter(input: ID!): Boolean
+}

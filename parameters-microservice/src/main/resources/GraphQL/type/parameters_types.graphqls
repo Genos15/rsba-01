@@ -1,0 +1,28 @@
+type Parameter {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: DateTime
+    editedAt: DateTime
+    values: [String!]!
+}
+
+type ParameterEdge {
+    cursor: String
+    node: Parameter
+}
+
+type ParameterConnection {
+    edges: [ParameterEdge]
+    pageInfo: PageInfo
+}
+
+type ValueEdge {
+    cursor: String
+    node: String
+}
+
+type ValueConnection {
+    edges: [ValueEdge]
+    pageInfo: PageInfo
+}

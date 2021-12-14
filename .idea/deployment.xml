@@ -66,6 +66,14 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="rs.parameters.dev">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/order-microservice" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="rs.staging.server">
         <serverdata>
           <mappings>

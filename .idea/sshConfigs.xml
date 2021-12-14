@@ -32,6 +32,9 @@
       <sshConfig authType="PASSWORD" host="165.232.71.237" id="f536c4f4-e0be-43e3-8f80-5e3eb81eaf4c" port="22" customName="rs.staging.source" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
         <option name="customName" value="rs.staging.source" />
       </sshConfig>
+      <sshConfig authType="PASSWORD" host="104.248.16.104" id="965cc817-f69f-447f-938e-d6e3a7b83d1c" port="22" customName="rs.parameters.dev.source" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
+        <option name="customName" value="rs.parameters.dev.source" />
+      </sshConfig>
     </configs>
   </component>
 </project>
