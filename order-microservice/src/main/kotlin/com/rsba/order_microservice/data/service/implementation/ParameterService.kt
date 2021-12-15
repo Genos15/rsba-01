@@ -1,6 +1,7 @@
 package com.rsba.order_microservice.data.service.implementation
 
 import com.rsba.order_microservice.domain.input.ParameterInput
+import com.rsba.order_microservice.domain.model.Parameter
 import com.rsba.order_microservice.domain.repository.ParameterRepository
 import com.rsba.order_microservice.data.service.implementation.parameters.EditParameterImpl
 import com.rsba.order_microservice.data.service.implementation.parameters.GetParameterByIdUseCase

@@ -8,6 +8,7 @@ import graphql.kickstart.tools.GraphQLMutationResolver
 import graphql.schema.DataFetchingEnvironment
 import org.springframework.stereotype.Component
 import java.util.*
+import com.rsba.order_microservice.domain.model.Parameter
 
 @Component
 class ParameterMutation(private val service: ParameterRepository) : GraphQLMutationResolver, ITokenImpl {

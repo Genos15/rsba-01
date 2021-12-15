@@ -5,6 +5,8 @@ import com.rsba.order_microservice.database.ParameterQueries
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import org.springframework.r2dbc.core.DatabaseClient
 import java.util.*
+import com.rsba.order_microservice.domain.model.Parameter
+
 
 interface RetrieveParameterImpl {
 

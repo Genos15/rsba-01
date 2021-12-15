@@ -13,6 +13,7 @@ import java.util.*
 
 import graphql.schema.DataFetchingEnvironment
 import mu.KLogger
+import com.rsba.order_microservice.domain.model.Parameter
 
 
 @Component

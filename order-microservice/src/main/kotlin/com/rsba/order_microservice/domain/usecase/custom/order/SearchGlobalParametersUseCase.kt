@@ -4,6 +4,7 @@ import com.rsba.order_microservice.domain.model.OrderSearchInputValue
 import graphql.relay.Connection
 import org.springframework.r2dbc.core.DatabaseClient
 import java.util.*
+import com.rsba.order_microservice.domain.model.Parameter
 
 interface SearchGlobalParametersUseCase {
     suspend operator fun invoke(

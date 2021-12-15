@@ -6,6 +6,8 @@ import io.r2dbc.spi.RowMetadata
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromString
 import java.util.*
+import com.rsba.order_microservice.domain.model.Parameter
+
 
 @OptIn(ExperimentalSerializationApi::class)
 object ParameterDBHandler {

@@ -7,6 +7,8 @@ import mu.KLogger
 import org.springframework.stereotype.Component
 import java.util.*
 import java.util.concurrent.CompletableFuture
+import com.rsba.order_microservice.domain.model.Parameter
+
 
 @Component
 class ParameterResolver(private val logger: KLogger) : GraphQLResolver<Parameter> {
