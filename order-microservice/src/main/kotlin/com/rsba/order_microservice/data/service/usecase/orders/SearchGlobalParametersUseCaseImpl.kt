@@ -1,10 +1,6 @@
 package com.rsba.order_microservice.data.service.usecase.orders
 
-import com.rsba.order_microservice.data.dao.ItemDao
-import com.rsba.order_microservice.data.service.usecase.queries.OrderQueries
 import com.rsba.order_microservice.domain.model.OrderSearchInputValue
-import com.rsba.order_microservice.domain.model.Parameter
-import com.rsba.order_microservice.domain.queries.QueryCursor
 import com.rsba.order_microservice.domain.usecase.custom.order.SearchGlobalParametersUseCase
 import com.rsba.order_microservice.resolver.query.GenericRetrieveConnection
 import graphql.relay.Connection

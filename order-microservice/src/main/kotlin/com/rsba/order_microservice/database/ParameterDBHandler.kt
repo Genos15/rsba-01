@@ -1,7 +1,6 @@
 package  com.rsba.order_microservice.database
 
 import com.rsba.order_microservice.configuration.json.JsonHandler
-import com.rsba.order_microservice.domain.model.Parameter
 import io.r2dbc.spi.Row
 import io.r2dbc.spi.RowMetadata
 import kotlinx.serialization.ExperimentalSerializationApi

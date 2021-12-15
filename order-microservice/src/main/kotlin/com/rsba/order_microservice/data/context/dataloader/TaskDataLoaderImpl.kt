@@ -39,82 +39,11 @@ class TaskDataLoaderImpl(private val service: TaskRepository) {
             }
         }
 
-//    fun dataLoaderOperationInTask(userId: UUID): DataLoader<UUID, Operation> {
-//        return DataLoader.newMappedDataLoader { ids ->
-//            GlobalScope.future {
-//                service.myOperation(
-//                    ids = ids,
-//                    userId = userId,
-//                    first = 0,
-//                    after = null
-//                )
-//            }
-//        }
-//    }
-//
-//    fun dataLoaderDepartmentsInTask(userId: UUID): DataLoader<UUID, List<Department>> {
-//        return DataLoader.newMappedDataLoader { ids ->
-//            GlobalScope.future {
-//                service.myDepartments(
-//                    ids = ids,
-//                    userId = userId,
-//                    first = 0,
-//                    after = null
-//                )
-//            }
-//        }
-//    }
-//
-//    fun dataLoaderCommentsInTask(userId: UUID): DataLoader<UUID, List<Comment>> {
-//        return DataLoader.newMappedDataLoader { ids ->
-//            GlobalScope.future {
-//                service.myComments(
-//                    ids = ids,
-//                    userId = userId,
-//                    first = 0,
-//                    after = null
-//                )
-//            }
-//        }
-//    }
-//
-//    fun dataLoaderUsersInTask(userId: UUID): DataLoader<UUID, List<User>> {
-//        return DataLoader.newMappedDataLoader { ids ->
-//            GlobalScope.future {
-//                service.usersInTask(
-//                    ids = ids,
-//                    userId = userId,
-//                    first = 0,
-//                    after = UUID.randomUUID()
-//                )
-//            }
-//        }
-//    }
-//
-//    fun dataLoaderItemInTask(userId: UUID): DataLoader<UUID, Item> {
-//        return DataLoader.newMappedDataLoader { ids ->
-//            GlobalScope.future {
-//                service.myItem(
-//                    ids = ids,
-//                    userId = userId,
-//                    first = 0,
-//                    after = null
-//                )
-//            }
-//        }
-//    }
-//
-//    fun dataLoaderOrderInTask(userId: UUID): DataLoader<UUID, Order> {
-//        return DataLoader.newMappedDataLoader { ids ->
-//            GlobalScope.future {
-//                service.myOrder(
-//                    ids = ids,
-//                    userId = userId,
-//                    first = 0,
-//                    after = null
-//                )
-//            }
-//        }
-//    }
+    fun parametersLoader(userId: UUID): DataLoader<UUID, List<Parameter>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future {
+                service.parameters(ids = ids)
+            }
+        }
 
 }

@@ -31,6 +31,23 @@ class TaskQueryResolver(private val service: TaskRepository, private val deduct:
         id = id
     )
 
+    suspend fun retrieveTaskParameters(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Parameter> = perform(
+        entries = service.parameters(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
     suspend fun findTaskOperation(id: UUID, environment: DataFetchingEnvironment): Optional<Operation> = perform(
         entries = service.operation(ids = setOf(id), token = deduct(environment = environment)),
         id = id

@@ -88,11 +88,13 @@ class DataLoaderRegistryFactory(
         const val LOADER_FACTORY_ITEM_OF_TASK = "ITEM_OF_TASK"
         const val LOADER_FACTORY_ORDER_OF_TASK = "ORDER_OF_TASK"
         const val LOADER_FACTORY_DEPARTMENTS_OF_TASK = "DEPARTMENTS_OF_TASK"
+        const val LOADER_FACTORY_PARAMETERS_OF_TASK = "PARAMETERS_OF_TASK"
 
         // item references
         const val LOADER_FACTORY_STATISTICS_OF_ITEM = "STATISTICS_OF_ITEM"
         const val LOADER_FACTORY_WHO_ADDED_OF_ITEM = "WHO_ADDED_OF_ITEM"
         const val LOADER_FACTORY_TECHNOLOGIES_OF_ITEM = "TECHNOLOGIES_OF_ITEM"
+        const val LOADER_FACTORY_PARAMETERS_OF_ITEM = "PARAMETERS_OF_ITEM"
 
     }
 
@@ -111,8 +113,14 @@ class DataLoaderRegistryFactory(
         registry.register(LOADER_FACTORY_WORKLOGS_OF_ORDER, _order.worklogsLoader(userId = instanceId))
         registry.register(LOADER_FACTORY_TYPE_OF_ORDER, _order.typeLoader(userId = instanceId))
         registry.register(LOADER_FACTORY_STATISTICS_OF_ORDER, _order.statisticsLoader(userId = instanceId))
-        registry.register(LOADER_FACTORY_DEPARTMENTS_STATISTICS_OF_ORDER, _order.departmentsStatisticsLoader(userId = instanceId))
-        registry.register(LOADER_FACTORY_ITEM_CATEGORIES_STATISTICS_OF_ORDER, _order.itemCategoryStatisticsLoader(userId = instanceId))
+        registry.register(
+            LOADER_FACTORY_DEPARTMENTS_STATISTICS_OF_ORDER,
+            _order.departmentsStatisticsLoader(userId = instanceId)
+        )
+        registry.register(
+            LOADER_FACTORY_ITEM_CATEGORIES_STATISTICS_OF_ORDER,
+            _order.itemCategoryStatisticsLoader(userId = instanceId)
+        )
 
         registry.register(LOADER_FACTORY_GLOBAL_SEARCH_ITEMS, _order.itemsSearchedLoader(userId = instanceId))
         registry.register(LOADER_FACTORY_GLOBAL_SEARCH_TASKS, _order.tasksSearchedLoader(userId = instanceId))
@@ -144,6 +152,7 @@ class DataLoaderRegistryFactory(
         registry.register(LOADER_FACTORY_ITEM_OF_TASK, _task.itemLoader(userId = instanceId))
         registry.register(LOADER_FACTORY_ORDER_OF_TASK, _task.orderLoader(userId = instanceId))
         registry.register(LOADER_FACTORY_DEPARTMENTS_OF_TASK, _task.departmentsLoader(userId = instanceId))
+        registry.register(LOADER_FACTORY_PARAMETERS_OF_TASK, _task.parametersLoader(userId = instanceId))
 
 
 
@@ -151,6 +160,7 @@ class DataLoaderRegistryFactory(
         registry.register(LOADER_FACTORY_STATISTICS_OF_ITEM, _item.statisticsLoader(userId = instanceId))
         registry.register(LOADER_FACTORY_WHO_ADDED_OF_ITEM, _item.whoAddedLoader(userId = instanceId))
         registry.register(LOADER_FACTORY_TECHNOLOGIES_OF_ITEM, _item.technologiesLoader(userId = instanceId))
+        registry.register(LOADER_FACTORY_PARAMETERS_OF_ITEM, _item.parametersLoader(userId = instanceId))
 //        registry.register(ORDER_IN_TASK_DATALOADER, _task.dataLoaderOrderInTask(userId = instanceId))
 
         registry.register(CONTACT_INFO_OF_USER_DATALOADER, forUser.dataLoaderContactInfoOfUser(userId = instanceId))

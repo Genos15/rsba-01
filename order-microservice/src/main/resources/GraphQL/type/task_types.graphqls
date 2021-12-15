@@ -12,6 +12,7 @@ type Task {
     comments: [Comment!]
     users: [User!]
     order: Order
+    parameters: [Parameter!]
 }
 
 type TaskEdge {

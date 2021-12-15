@@ -20,5 +20,6 @@ data class Task(
     val departments: List<Department>? = emptyList(),
     val comments: List<Comment>? = emptyList(),
     val users: List<User>? = emptyList(),
-    var order: Order? = null
+    var order: Order? = null,
+    val parameters: List<Parameter>? = emptyList(),
 )

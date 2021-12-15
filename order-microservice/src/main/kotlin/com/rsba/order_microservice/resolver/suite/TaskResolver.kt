@@ -17,25 +17,11 @@ class TaskResolver : GraphQLResolver<Task> {
         return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(Optional.empty())
     }
 
-//    fun users(instance: Task, env: DataFetchingEnvironment): CompletableFuture<List<User>>? {
-//        logger.warn { "+TaskResolver -> users" }
-//        val dataLoader =
-//            env.getDataLoader<UUID, List<User>>(DataLoaderRegistryFactory.USER_IN_TASK_DATALOADER)
-//        return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(null)
-//    }
-
     fun departments(instance: Task, env: DataFetchingEnvironment): CompletableFuture<List<Group>> {
         val dataLoader =
             env.getDataLoader<UUID, List<Group>>(DataLoaderRegistryFactory.LOADER_FACTORY_DEPARTMENTS_OF_TASK)
         return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(emptyList())
     }
-
-//    fun comments(order: Task, env: DataFetchingEnvironment): CompletableFuture<List<Comment>>? {
-//        logger.warn { "+TaskResolver -> comments" }
-//        val dataLoader =
-//            env.getDataLoader<UUID, List<Comment>>(DataLoaderRegistryFactory.COMMENTS_IN_TASK_DATALOADER)
-//        return dataLoader?.load(order.id) ?: CompletableFuture.completedFuture(null)
-//    }
 
     fun item(instance: Task, env: DataFetchingEnvironment): CompletableFuture<Optional<Item>> {
         val dataLoader =
@@ -47,5 +33,11 @@ class TaskResolver : GraphQLResolver<Task> {
         val dataLoader =
             env.getDataLoader<UUID, Optional<Order>>(DataLoaderRegistryFactory.LOADER_FACTORY_ORDER_OF_TASK)
         return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(Optional.empty())
+    }
+
+    fun parameters(instance: Task, env: DataFetchingEnvironment): CompletableFuture<List<Parameter>> {
+        val dataLoader =
+            env.getDataLoader<UUID, List<Parameter>>(DataLoaderRegistryFactory.LOADER_FACTORY_PARAMETERS_OF_TASK)
+        return dataLoader?.load(instance.id) ?: CompletableFuture.completedFuture(emptyList())
     }
 }

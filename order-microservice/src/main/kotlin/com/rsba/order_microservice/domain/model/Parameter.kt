@@ -1,15 +1,17 @@
 package com.rsba.order_microservice.domain.model
 
-import kotlinx.serialization.Serializable
-import java.util.*
+import com.rsba.order_microservice.configuration.deserializer.DateTimeSerializer
 import com.rsba.order_microservice.configuration.deserializer.UUIDSerializer
+import kotlinx.serialization.Serializable
+import java.time.OffsetDateTime
+import java.util.*
 
 @Serializable
 data class Parameter(
     @Serializable(with = UUIDSerializer::class) val id: UUID,
     val name: String,
     val description: String? = null,
-    val value: String,
-    val type: ParameterType? = null,
-    val potentialValues: List<String>? = emptyList()
+    @Serializable(with = DateTimeSerializer::class) val createdAt: OffsetDateTime? = null,
+    @Serializable(with = DateTimeSerializer::class) val editedAt: OffsetDateTime? = null,
+    val values: List<String> = emptyList(),
 )

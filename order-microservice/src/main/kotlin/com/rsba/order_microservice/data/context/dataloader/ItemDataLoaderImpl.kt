@@ -26,4 +26,11 @@ class ItemDataLoaderImpl(private val service: ItemRepository) {
             GlobalScope.future { service.technologies(ids = ids) }
         }
 
+    fun parametersLoader(userId: UUID): DataLoader<UUID, List<Parameter>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future {
+                service.parameters(ids = ids)
+            }
+        }
+
 }

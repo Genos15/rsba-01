@@ -5,6 +5,7 @@ import com.rsba.order_microservice.domain.input.*
 import com.rsba.order_microservice.domain.model.*
 import com.rsba.order_microservice.domain.repository.TaskRepository
 import com.rsba.order_microservice.data.service.implementation.tasks.RetrieveTaskImpl
+import com.rsba.order_microservice.domain.usecase.common.RetrieveParametersUseCase
 import com.rsba.order_microservice.domain.usecase.custom.task.FindItemUseCase
 import com.rsba.order_microservice.domain.usecase.custom.task.FindOperationUseCase
 import com.rsba.order_microservice.domain.usecase.custom.task.RetrieveDepartmentsUseCase
@@ -23,7 +24,8 @@ class TaskService(
     private val database: DatabaseClient,
     @Qualifier("find_task_item") private val findItemUseCase: FindItemUseCase,
     private val findOperationUseCase: FindOperationUseCase,
-    private val retrieveDepartmentsUseCase: RetrieveDepartmentsUseCase
+    private val retrieveDepartmentsUseCase: RetrieveDepartmentsUseCase,
+    @Qualifier("retrieve_task_parameters") private val retrieveParametersUseCase: RetrieveParametersUseCase,
 ) : TaskRepository,
     RetrieveTaskImpl {
 
@@ -556,4 +558,6 @@ class TaskService(
     override suspend fun order(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Order>> =
         emptyMap()
 
+    override suspend fun parameters(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Parameter>> =
+        retrieveParametersUseCase(database = database, ids = ids, first = first, after = after, token = token)
 }

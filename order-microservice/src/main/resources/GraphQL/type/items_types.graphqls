@@ -13,6 +13,7 @@ type Item {
     progress: Float!
     orderId: ID
     statistics: ItemStatistics
+    parameters: [Parameter!]
 }
 
 type GraphItem {

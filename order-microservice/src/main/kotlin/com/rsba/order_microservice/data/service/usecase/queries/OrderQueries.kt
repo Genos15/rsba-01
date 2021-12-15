@@ -208,4 +208,12 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
             append("'$token')")
         }
 
+    fun parameters(id: UUID, first: Int, after: UUID? = null, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_retrieve_parameters"))
+        append("('$id',")
+        append("$first,")
+        append("${after?.let { "'$it'" }},")
+        append("'$token')")
+    }
+
 }

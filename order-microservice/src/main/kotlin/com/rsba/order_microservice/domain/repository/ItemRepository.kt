@@ -24,4 +24,11 @@ interface ItemRepository {
         width: Int,
     ): ElkGraph<ElkGraphItemNode>
 
+    suspend fun parameters(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Parameter>>
+
 }

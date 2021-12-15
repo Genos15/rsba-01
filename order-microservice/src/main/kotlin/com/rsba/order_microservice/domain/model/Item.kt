@@ -21,6 +21,7 @@ data class Item(
     val category: ItemCategory? = null,
     @Serializable(with = UUIDSerializer::class) val orderId: UUID,
     val components: List<Item>? = emptyList(),
+    val parameters: List<Parameter>? = emptyList(),
     val statistics: ItemStatistics? = null
 ) {
 

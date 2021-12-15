@@ -1,7 +1,6 @@
 package com.rsba.order_microservice.domain.repository
 
 import com.rsba.order_microservice.domain.input.ParameterInput
-import com.rsba.order_microservice.domain.model.Parameter
 import java.util.*
 
 interface ParameterRepository {

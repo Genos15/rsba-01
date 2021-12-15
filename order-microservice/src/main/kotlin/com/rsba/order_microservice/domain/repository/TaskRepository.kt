@@ -125,4 +125,10 @@ interface TaskRepository {
     suspend fun operation(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Operation>>
     suspend fun order(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Order>>
 
+    suspend fun parameters(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Parameter>>
 }

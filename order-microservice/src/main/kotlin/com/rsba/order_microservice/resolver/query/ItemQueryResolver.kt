@@ -57,5 +57,21 @@ class ItemQueryResolver(private val service: ItemRepository, private val deduct:
         id = id
     )
 
+    suspend fun retrieveItemParameters(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Parameter> = perform(
+        entries = service.parameters(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
 
 }

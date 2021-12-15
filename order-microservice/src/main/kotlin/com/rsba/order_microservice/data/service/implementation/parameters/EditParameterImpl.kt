@@ -3,7 +3,6 @@ package com.rsba.order_microservice.data.service.implementation.parameters
 import com.rsba.order_microservice.database.ParameterDBHandler
 import com.rsba.order_microservice.database.ParameterQueries
 import com.rsba.order_microservice.domain.input.ParameterInput
-import com.rsba.order_microservice.domain.model.Parameter
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import org.springframework.r2dbc.core.DatabaseClient
 import java.util.*

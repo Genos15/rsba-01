@@ -2,6 +2,7 @@ package  com.rsba.order_microservice.data.service.implementation
 
 import com.rsba.order_microservice.domain.model.*
 import com.rsba.order_microservice.domain.repository.ItemRepository
+import com.rsba.order_microservice.domain.usecase.common.RetrieveParametersUseCase
 import com.rsba.order_microservice.domain.usecase.custom.item.FindItemStatisticsUseCase
 import com.rsba.order_microservice.domain.usecase.custom.item.FindWhoAddedUseCase
 import com.rsba.order_microservice.domain.usecase.custom.item.RetrieveItemElkGraphUseCase
@@ -17,6 +18,7 @@ class ItemService(
     private val findItemStatisticsUseCase: FindItemStatisticsUseCase,
     private val findWhoAddedUseCase: FindWhoAddedUseCase,
     @Qualifier("retrieve_technologies_item") private val retrieveTechnologiesUseCase: RetrieveTechnologiesUseCase,
+    @Qualifier("retrieve_item_parameters") private val retrieveParametersUseCase: RetrieveParametersUseCase,
     private val retrieveItemElkGraphUseCase: RetrieveItemElkGraphUseCase
 ) : ItemRepository {
 
@@ -50,4 +52,6 @@ class ItemService(
             orderId = orderId
         )
 
+    override suspend fun parameters(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Parameter>> =
+        retrieveParametersUseCase(database = database, ids = ids, token = token, first = first, after = after)
 }

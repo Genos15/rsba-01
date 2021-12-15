@@ -83,4 +83,12 @@ object ItemQueries : IBaseQuery<ItemInput, ItemDao> {
         append("'$token')")
     }
 
+    fun parameters(id: UUID, first: Int, after: UUID? = null, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<ItemDao>(customQuery = "_on_retrieve_parameters"))
+        append("('$id',")
+        append("$first,")
+        append("${after?.let { "'$it'" }},")
+        append("'$token')")
+    }
+
 }
