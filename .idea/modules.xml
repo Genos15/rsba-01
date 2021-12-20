@@ -16,6 +16,7 @@
       <module fileurl="file://$PROJECT_DIR$/notification-microservice/notification-microservice.iml" filepath="$PROJECT_DIR$/notification-microservice/notification-microservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/order-microservice/order-microservice.iml" filepath="$PROJECT_DIR$/order-microservice/order-microservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/parameters-microservice/parameters-microservice.iml" filepath="$PROJECT_DIR$/parameters-microservice/parameters-microservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tasks-microservice/tasks-microservice.iml" filepath="$PROJECT_DIR$/tasks-microservice/tasks-microservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/user-microservice/user-microservice.iml" filepath="$PROJECT_DIR$/user-microservice/user-microservice.iml" />
     </modules>
   </component>

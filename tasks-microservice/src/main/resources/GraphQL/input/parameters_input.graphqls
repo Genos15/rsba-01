@@ -1,0 +1,7 @@
+input ParameterInput {
+    id: ID
+    name: String
+    description: String
+    value: String
+    hostIds: [ID!]
+}

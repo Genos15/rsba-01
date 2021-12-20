@@ -35,6 +35,9 @@
       <sshConfig authType="PASSWORD" host="104.248.16.104" id="965cc817-f69f-447f-938e-d6e3a7b83d1c" port="22" customName="rs.parameters.dev.source" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
         <option name="customName" value="rs.parameters.dev.source" />
       </sshConfig>
+      <sshConfig authType="PASSWORD" host="142.93.100.157" id="1b7493ee-e90f-4eb5-9903-68e78af6d89f" port="22" customName="rs.tasks.dev.source" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
+        <option name="customName" value="rs.tasks.dev.source" />
+      </sshConfig>
     </configs>
   </component>
 </project>

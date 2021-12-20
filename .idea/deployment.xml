@@ -82,6 +82,14 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="rs.tasks.dev">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/user-microservice" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="rs.users.notification.production">
         <serverdata>
           <mappings>
