@@ -1,12 +1,12 @@
 package com.rsba.tasks_microservice.data.service.implementations
 
 import com.rsba.tasks_microservice.domain.input.TaskInput
-import com.rsba.tasks_microservice.domain.model.MutationAction
-import com.rsba.tasks_microservice.domain.model.Task
-import com.rsba.tasks_microservice.domain.model.TaskLayer
-import com.rsba.tasks_microservice.domain.model.TaskStatus
+import com.rsba.tasks_microservice.domain.model.*
 import com.rsba.tasks_microservice.domain.repository.TaskRepository
 import com.rsba.tasks_microservice.domain.usecase.common.*
+import com.rsba.tasks_microservice.domain.usecase.custom.task.FindItemUseCase
+import com.rsba.tasks_microservice.domain.usecase.custom.task.FindOperationUseCase
+import com.rsba.tasks_microservice.domain.usecase.custom.task.FindOrderUseCase
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
@@ -20,7 +20,10 @@ class TaskService(
     @Qualifier("find_task") private val findUseCase: FindUseCase<Task>,
     @Qualifier("retrieve_tasks") private val retrieveUseCase: RetrieveUseCase<Task>,
     @Qualifier("search_tasks") private val searchUseCase: SearchUseCase<Task>,
-    @Qualifier("count_tasks") private val countUseCase: CountUseCase
+    @Qualifier("count_tasks") private val countUseCase: CountUseCase,
+    private val findOrderUseCase: FindOrderUseCase,
+    private val findItemUseCase: FindItemUseCase,
+    private val findOperationUseCase: FindOperationUseCase
 ) : TaskRepository {
 
     override suspend fun toEdit(
@@ -82,5 +85,14 @@ class TaskService(
             layer = layer,
             id = id
         )
+
+    override suspend fun item(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Item>> =
+        findItemUseCase(database = database, ids = ids, token = token)
+
+    override suspend fun operation(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Operation>> =
+        findOperationUseCase(database = database, ids = ids, token = token)
+
+    override suspend fun order(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Order>> =
+        findOrderUseCase(database = database, ids = ids, token = token)
 
 }

@@ -1,8 +1,6 @@
 package com.rsba.tasks_microservice.resolver.query
 
-import com.rsba.tasks_microservice.domain.model.Task
-import com.rsba.tasks_microservice.domain.model.TaskLayer
-import com.rsba.tasks_microservice.domain.model.TaskStatus
+import com.rsba.tasks_microservice.domain.model.*
 import com.rsba.tasks_microservice.domain.repository.TaskRepository
 import com.rsba.tasks_microservice.domain.security.TokenAnalyzer
 import graphql.kickstart.tools.GraphQLQueryResolver
@@ -67,4 +65,21 @@ class TaskQueryResolver(val service: TaskRepository, private val deduct: TokenAn
         environment: DataFetchingEnvironment
     ): Int =
         service.count(token = deduct(environment = environment), status = status, layer = layer, id = id)
+
+
+    suspend fun findTaskOrder(id: UUID, environment: DataFetchingEnvironment): Optional<Order> = perform(
+        entries = service.order(ids = setOf(id), token = deduct(environment = environment)),
+        id = id
+    )
+
+    suspend fun findTaskItem(id: UUID, environment: DataFetchingEnvironment): Optional<Item> = perform(
+        entries = service.item(ids = setOf(id), token = deduct(environment = environment)),
+        id = id
+    )
+
+    suspend fun findTaskOperation(id: UUID, environment: DataFetchingEnvironment): Optional<Operation> = perform(
+        entries = service.operation(ids = setOf(id), token = deduct(environment = environment)),
+        id = id
+    )
+
 }

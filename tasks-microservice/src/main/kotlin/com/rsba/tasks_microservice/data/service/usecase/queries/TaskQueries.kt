@@ -84,12 +84,22 @@ object TaskQueries : IBaseQuery<TaskInput, TaskDao> {
         append("'$token')")
     }
 
-//    fun values(id: UUID, first: Int, after: UUID?, token: UUID): String = buildString {
-//        append(QueryBuilder.Custom.buildRequestDef<TaskDao>(customQuery = "_on_retrieve_values"))
-//        append("('$id',")
-//        append("$first,")
-//        append("${after?.let { "'$it'" }},")
-//        append("'$token')")
-//    }
+    fun order(id: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<TaskDao>(customQuery = "_on_find_order"))
+        append("('$id',")
+        append("'$token')")
+    }
+
+    fun item(id: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<TaskDao>(customQuery = "_on_find_item"))
+        append("('$id',")
+        append("'$token')")
+    }
+
+    fun operation(id: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<TaskDao>(customQuery = "_on_find_operation"))
+        append("('$id',")
+        append("'$token')")
+    }
 
 }

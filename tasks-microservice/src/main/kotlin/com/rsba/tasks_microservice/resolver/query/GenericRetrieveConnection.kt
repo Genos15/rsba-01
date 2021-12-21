@@ -34,4 +34,8 @@ interface GenericRetrieveConnection : ICursorUtil {
         return DefaultConnection(edges, pageInfo)
     }
 
+    fun <T> perform(entries: Map<UUID, Optional<T>>, id: UUID): Optional<T> {
+        return entries[id] ?: Optional.empty()
+    }
+
 }

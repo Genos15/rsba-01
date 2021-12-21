@@ -5,6 +5,7 @@ import com.rsba.tasks_microservice.domain.exception.CustomGraphQLError
 import com.rsba.tasks_microservice.domain.format.JsonHandlerKotlin
 import io.r2dbc.spi.Row
 import kotlinx.serialization.json.*
+import java.util.*
 
 object QueryCursor {
 
@@ -26,14 +27,15 @@ object QueryCursor {
         }
     }
 
-    fun one(row: Row): AbstractModel? {
-        val payload = row.get(0, String::class.java) ?: throw CustomGraphQLError(message = "Value is not nullable")
+    fun one(row: Row): Optional<AbstractModel> {
+        val payload = row.get(0, String::class.java)
+            ?: return Optional.empty()/* ?: throw CustomGraphQLError(message = "Value is not nullable")*/
         val payloadJson = payload.replace(" ", "").replace("[null]", "[]")
         var element = JsonHandlerKotlin.handler.parseToJsonElement(payloadJson)
         if (element is JsonArray && element.jsonArray.isNotEmpty()) {
             element = element.jsonArray[0].jsonObject
         }
-        return JsonHandlerKotlin.handler.decodeFromJsonElement<AbstractModel?>(element)
+        return Optional.ofNullable(JsonHandlerKotlin.handler.decodeFromJsonElement<AbstractModel?>(element))
     }
 
     private inline fun <reified N> meOrNull(row: Row, index: Int): N? = try {
@@ -47,6 +49,14 @@ object QueryCursor {
             meOrNull(row = row, index = 0) ?: 0
         } catch (e: Exception) {
             0
+        }
+    }
+
+    fun countAsString(row: Row): String? {
+        return try {
+            meOrNull(row = row, index = 0)
+        } catch (e: Exception) {
+            null
         }
     }
 

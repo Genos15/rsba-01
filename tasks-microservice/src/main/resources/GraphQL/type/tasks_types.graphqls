@@ -7,12 +7,12 @@ type Task {
     estimatedStartDate: DateTime!
     createdAt: DateTime!
     editedAt: DateTime!
-    #    operation: Operation
-    #    item: Item
+    operation: Operation
+    item: Item
     #    departments: [Department!]
     #    comments: [Comment!]
     #    users: [User!]
-    #    order: Order
+    order: Order
     #    parameters: [Parameter!]
 }
 

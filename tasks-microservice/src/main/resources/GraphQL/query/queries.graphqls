@@ -5,5 +5,7 @@ type Query {
     findTask(input: ID!): Task
     countTasks(status: TaskStatus, layer: TaskLayer, id: ID): Int
     searchTasks (input: String!, first: Int!, after: ID, status: TaskStatus, layer: TaskLayer, id: ID): TaskConnection @connection(for: "Task")
-
+    findTaskOrder (id: ID!): Order
+    findTaskItem (id: ID!): Item
+    findTaskOperation (id: ID!): Operation
 }

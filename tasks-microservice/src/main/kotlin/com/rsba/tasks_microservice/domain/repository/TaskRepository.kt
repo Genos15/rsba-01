@@ -1,10 +1,7 @@
 package com.rsba.tasks_microservice.domain.repository
 
 import com.rsba.tasks_microservice.domain.input.*
-import com.rsba.tasks_microservice.domain.model.MutationAction
-import com.rsba.tasks_microservice.domain.model.Task
-import com.rsba.tasks_microservice.domain.model.TaskLayer
-import com.rsba.tasks_microservice.domain.model.TaskStatus
+import com.rsba.tasks_microservice.domain.model.*
 import java.util.*
 
 interface TaskRepository {
@@ -44,5 +41,11 @@ interface TaskRepository {
         id: UUID? = null,
         token: UUID
     ): Int
+
+    suspend fun item(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Item>>
+
+    suspend fun operation(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Operation>>
+
+    suspend fun order(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Order>>
 
 }

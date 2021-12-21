@@ -12,12 +12,18 @@ object AbstractSerializer : JsonContentPolymorphicSerializer<AbstractModel>(Abst
         if (element is JsonArray) {
             return when (element.jsonArray[0].jsonObject["class"]?.jsonPrimitive?.content?.lowercase()) {
                 ModelTypeCase.tasks.lowercase() -> TaskDao.serializer()
+                ModelTypeCase.orders.lowercase() -> OrderDao.serializer()
+                ModelTypeCase.operations.lowercase() -> OperationDao.serializer()
+                ModelTypeCase.items.lowercase() -> ItemDao.serializer()
                 else -> throw  CustomGraphQLError(message = "Unknown Module: key 'type' not found or does not matches any module type")
             }
         }
 
         return when (element.jsonObject["type"]?.jsonPrimitive?.content?.lowercase()) {
             ModelTypeCase.tasks.lowercase() -> TaskDao.serializer()
+            ModelTypeCase.orders.lowercase() -> OrderDao.serializer()
+            ModelTypeCase.operations.lowercase() -> OperationDao.serializer()
+            ModelTypeCase.items.lowercase() -> ItemDao.serializer()
             else -> throw CustomGraphQLError(message = "Unknown Module: key 'type' not found or does not matches any module type")
         }
     }
