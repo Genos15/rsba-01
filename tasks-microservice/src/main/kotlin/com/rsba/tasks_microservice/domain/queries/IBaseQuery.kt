@@ -1,10 +1,8 @@
-package com.rsba.parameters_microservice.domain.queries
+package com.rsba.tasks_microservice.domain.queries
 
-import com.rsba.parameters_microservice.data.dao.AbstractModel
-import com.rsba.parameters_microservice.domain.input.AbstractInput
-import com.rsba.parameters_microservice.domain.model.Edition
-import com.rsba.parameters_microservice.domain.model.EditionCase
-import com.rsba.parameters_microservice.domain.model.MutationAction
+import com.rsba.tasks_microservice.data.dao.AbstractModel
+import com.rsba.tasks_microservice.domain.input.AbstractInput
+import com.rsba.tasks_microservice.domain.model.*
 import java.util.*
 
 interface IBaseQuery<out I : AbstractInput, out R : AbstractModel> {
@@ -18,12 +16,32 @@ interface IBaseQuery<out I : AbstractInput, out R : AbstractModel> {
 
     fun delete(input: UUID, token: UUID): String
 
-    fun retrieve(first: Int, after: UUID?, token: UUID): String
+    fun retrieve(
+        first: Int,
+        after: UUID? = null,
+        status: TaskStatus? = null,
+        layer: TaskLayer? = null,
+        id: UUID? = null,
+        token: UUID
+    ): String
 
-    fun search(input: String, first: Int, after: UUID?, token: UUID): String
+    fun search(
+        input: String,
+        first: Int,
+        after: UUID? = null,
+        status: TaskStatus? = null,
+        layer: TaskLayer? = null,
+        id: UUID? = null,
+        token: UUID
+    ): String
 
     fun find(id: UUID, token: UUID): String
 
-    fun count(token: UUID): String
+    fun count(
+        status: TaskStatus? = null,
+        layer: TaskLayer? = null,
+        id: UUID? = null,
+        token: UUID
+    ): String
 
 }

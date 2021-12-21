@@ -1,4 +1,4 @@
-package com.rsba.parameters_microservice.configuration.request_helper
+package com.rsba.tasks_microservice.configuration.request_helper
 
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean

@@ -1,6 +1,6 @@
-package com.rsba.parameters_microservice.data.context
+package com.rsba.tasks_microservice.data.context
 
-import  com.rsba.parameters_microservice.data.context.dataloader.DataLoaderRegistryFactory
+import  com.rsba.tasks_microservice.data.context.dataloader.DataLoaderRegistryFactory
 import graphql.kickstart.execution.context.GraphQLContext
 import graphql.kickstart.servlet.context.DefaultGraphQLServletContext
 import graphql.kickstart.servlet.context.GraphQLServletContextBuilder

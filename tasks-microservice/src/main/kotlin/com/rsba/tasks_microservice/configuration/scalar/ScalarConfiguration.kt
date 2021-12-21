@@ -1,4 +1,4 @@
-package com.rsba.parameters_microservice.configuration.scalar
+package com.rsba.tasks_microservice.configuration.scalar
 
 import com.expediagroup.graphql.generator.hooks.SchemaGeneratorHooks
 import graphql.scalars.ExtendedScalars

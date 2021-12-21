@@ -1,4 +1,4 @@
-package com.rsba.parameters_microservice.domain.format
+package com.rsba.tasks_microservice.domain.format
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)

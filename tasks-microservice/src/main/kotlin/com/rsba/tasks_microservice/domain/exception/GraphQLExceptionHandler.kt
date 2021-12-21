@@ -1,4 +1,4 @@
-package com.rsba.parameters_microservice.domain.exception
+package com.rsba.tasks_microservice.domain.exception
 
 import graphql.GraphQLException
 import graphql.kickstart.spring.error.ThrowableGraphQLError

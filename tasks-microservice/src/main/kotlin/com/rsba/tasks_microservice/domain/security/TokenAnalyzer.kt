@@ -1,6 +1,6 @@
-package com.rsba.parameters_microservice.domain.security
+package com.rsba.tasks_microservice.domain.security
 
-import com.rsba.parameters_microservice.domain.exception.CustomGraphQLError
+import com.rsba.tasks_microservice.domain.exception.CustomGraphQLError
 import graphql.schema.DataFetchingEnvironment
 import java.util.*
 import kotlin.jvm.Throws

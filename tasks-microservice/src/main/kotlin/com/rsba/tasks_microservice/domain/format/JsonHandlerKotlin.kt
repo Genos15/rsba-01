@@ -1,4 +1,4 @@
-package com.rsba.parameters_microservice.domain.format
+package com.rsba.tasks_microservice.domain.format
 
 import kotlinx.serialization.json.*
 

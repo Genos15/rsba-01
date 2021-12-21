@@ -1,4 +1,4 @@
-package com.rsba.parameters_microservice.configuration.deserializer
+package com.rsba.tasks_microservice.configuration.deserializer
 
 import graphql.language.ObjectValue
 import graphql.language.StringValue

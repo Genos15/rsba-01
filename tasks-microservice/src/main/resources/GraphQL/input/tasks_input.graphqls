@@ -1,0 +1,9 @@
+input TaskInput {
+    id: ID
+    quantity: BigDecimal
+    estimatedTimeInHour: BigDecimal
+    description: String
+    estimatedStartDate: DateTime
+    workcenterId: ID
+    users: [ID!]
+}

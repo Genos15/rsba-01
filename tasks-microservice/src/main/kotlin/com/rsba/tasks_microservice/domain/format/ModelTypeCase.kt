@@ -1,5 +1,5 @@
-package com.rsba.parameters_microservice.domain.format
+package com.rsba.tasks_microservice.domain.format
 
 object ModelTypeCase {
-    const val parameters = "parameters"
+    const val tasks = "tasks"
 }

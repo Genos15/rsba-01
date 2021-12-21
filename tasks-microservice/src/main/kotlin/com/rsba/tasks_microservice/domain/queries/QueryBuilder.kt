@@ -1,7 +1,7 @@
-package  com.rsba.parameters_microservice.domain.queries
+package  com.rsba.tasks_microservice.domain.queries
 
-import com.rsba.parameters_microservice.domain.format.ModelType
-import com.rsba.parameters_microservice.domain.format.ModelTypeCase
+import com.rsba.tasks_microservice.domain.format.ModelType
+import com.rsba.tasks_microservice.domain.format.ModelTypeCase
 import kotlin.reflect.full.findAnnotation
 
 sealed class QueryBuilder(val query: String? = null) {

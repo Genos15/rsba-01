@@ -1,4 +1,4 @@
 type Mutation {
-    createOrEditParameter(input: ParameterInput!, action: MutationAction): Parameter
-    deleteParameter(input: ID!): Boolean
+    editTask(input: TaskInput!, action: MutationAction): Task
+    deleteTask(input: ID!): Boolean
 }

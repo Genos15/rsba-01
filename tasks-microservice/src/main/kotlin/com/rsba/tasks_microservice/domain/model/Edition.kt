@@ -1,7 +1,7 @@
-package com.rsba.parameters_microservice.domain.model
+package com.rsba.tasks_microservice.domain.model
 
 
-import com.rsba.parameters_microservice.configuration.deserializer.UUIDSerializer
+import com.rsba.tasks_microservice.configuration.deserializer.UUIDSerializer
 import kotlinx.serialization.Serializable
 import java.util.*
 

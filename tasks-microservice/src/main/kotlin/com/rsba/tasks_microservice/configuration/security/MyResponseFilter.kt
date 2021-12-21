@@ -1,4 +1,4 @@
-package com.rsba.parameters_microservice.configuration.security
+package com.rsba.tasks_microservice.configuration.security
 
 import mu.KLogger
 import org.springframework.stereotype.Component

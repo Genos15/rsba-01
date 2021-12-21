@@ -1,8 +1,8 @@
-package com.rsba.parameters_microservice.data.dao
+package com.rsba.tasks_microservice.data.dao
 
-import com.rsba.parameters_microservice.configuration.deserializer.AbstractSerializer
-import com.rsba.parameters_microservice.configuration.deserializer.UUIDSerializer
-import com.rsba.parameters_microservice.domain.format.ModelType
+import com.rsba.tasks_microservice.configuration.deserializer.AbstractSerializer
+import com.rsba.tasks_microservice.configuration.deserializer.UUIDSerializer
+import com.rsba.tasks_microservice.domain.format.ModelType
 import kotlinx.serialization.Serializable
 import java.util.*
 

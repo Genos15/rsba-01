@@ -1,4 +1,4 @@
-package com.rsba.parameters_microservice.configuration.caching
+package com.rsba.tasks_microservice.configuration.caching
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.cache.annotation.CachingConfigurerSupport

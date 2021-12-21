@@ -1,4 +1,4 @@
-package com.rsba.parameters_microservice.configuration.request_helper
+package com.rsba.tasks_microservice.configuration.request_helper
 
 import graphql.PublicApi
 import graphql.relay.Connection

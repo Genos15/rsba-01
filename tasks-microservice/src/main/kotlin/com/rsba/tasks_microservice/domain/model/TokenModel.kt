@@ -1,9 +1,9 @@
-package com.rsba.parameters_microservice.domain.model
+package com.rsba.tasks_microservice.domain.model
 
-import com.rsba.parameters_microservice.configuration.deserializer.DateTimeSerializer
-import com.rsba.parameters_microservice.configuration.deserializer.UUIDSerializer
-import com.rsba.parameters_microservice.domain.format.ModelType
-import com.rsba.parameters_microservice.domain.format.ModelTypeCase
+import com.rsba.tasks_microservice.configuration.deserializer.DateTimeSerializer
+import com.rsba.tasks_microservice.configuration.deserializer.UUIDSerializer
+import com.rsba.tasks_microservice.domain.format.ModelType
+import com.rsba.tasks_microservice.domain.format.ModelTypeCase
 import kotlinx.serialization.Serializable
 import java.time.OffsetDateTime
 import java.util.*

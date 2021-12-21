@@ -1,7 +1,7 @@
-package com.rsba.parameters_microservice.domain.format
+package com.rsba.tasks_microservice.domain.format
 
- import com.rsba.parameters_microservice.domain.model.TokenModel
- import com.rsba.parameters_microservice.domain.exception.CustomGraphQLError
+ import com.rsba.tasks_microservice.domain.model.TokenModel
+ import com.rsba.tasks_microservice.domain.exception.CustomGraphQLError
 import io.r2dbc.spi.Row
 import io.r2dbc.spi.RowMetadata
 import kotlinx.serialization.json.*

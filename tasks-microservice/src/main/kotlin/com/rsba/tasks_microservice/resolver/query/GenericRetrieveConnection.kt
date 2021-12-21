@@ -1,7 +1,7 @@
-package com.rsba.parameters_microservice.resolver.query
+package com.rsba.tasks_microservice.resolver.query
 
-import com.rsba.parameters_microservice.configuration.request_helper.CustomPageInfo
-import com.rsba.parameters_microservice.domain.format.ICursorUtil
+import com.rsba.tasks_microservice.configuration.request_helper.CustomPageInfo
+import com.rsba.tasks_microservice.domain.format.ICursorUtil
 import graphql.relay.*
 import java.util.*
 

@@ -1,4 +1,4 @@
-package com.rsba.parameters_microservice.domain.exception
+package com.rsba.tasks_microservice.domain.exception
 
 import kotlinx.serialization.Serializable
 

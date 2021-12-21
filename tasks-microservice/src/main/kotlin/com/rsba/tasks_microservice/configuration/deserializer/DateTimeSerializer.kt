@@ -1,4 +1,4 @@
-package com.rsba.parameters_microservice.configuration.deserializer
+package com.rsba.tasks_microservice.configuration.deserializer
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
@@ -11,24 +11,20 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 
 
-class DateTimeSerializer : KSerializer<OffsetDateTime?> {
+class DateTimeSerializer : KSerializer<OffsetDateTime> {
 
     private val serializer = String.serializer()
 
     override val descriptor = serializer.descriptor
 
-    override fun deserialize(decoder: Decoder): OffsetDateTime? = try {
+    override fun deserialize(decoder: Decoder): OffsetDateTime {
         val datetime = LocalDateTime.parse(serializer.deserialize(decoder))
-        datetime.atZone(ZoneId.of("Europe/Moscow")).toOffsetDateTime()
-    } catch (e: Exception) {
-        e.printStackTrace()
-        null
+        return datetime.atZone(ZoneId.of("Europe/Moscow")).toOffsetDateTime()
     }
 
-    override fun serialize(encoder: Encoder, value: OffsetDateTime?) = try {
-        serializer.serialize(encoder, value?.toString() ?: "")
+    override fun serialize(encoder: Encoder, value: OffsetDateTime) = try {
+        serializer.serialize(encoder, (value as? OffsetDateTime?)?.toString() ?: "")
     } catch (e: Exception) {
         e.printStackTrace()
     }
-
 }

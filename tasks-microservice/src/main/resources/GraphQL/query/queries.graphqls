@@ -1,11 +1,9 @@
 type Query {
 
-    #------------ parameters ----------------
-
-    retrieveParameters (first: Int!, after: ID): ParameterConnection @connection(for: "Parameter")
-    findParameter(input: ID!): Parameter
-    countParameters: Int
-    searchParameters (input: String!, first: Int!, after: ID): ParameterConnection @connection(for: "Parameter")
-    #    retrieveParametersValues(id: ID!, first: Int!, after: ID): ValueConnection @connection(for: "Value")
+    #------------ tasks ----------------
+    retrieveTasks (first: Int!, after: ID, status: TaskStatus, layer: TaskLayer, id: ID): TaskConnection @connection(for: "Task")
+    findTask(input: ID!): Task
+    countTasks(status: TaskStatus, layer: TaskLayer, id: ID): Int
+    searchTasks (input: String!, first: Int!, after: ID, status: TaskStatus, layer: TaskLayer, id: ID): TaskConnection @connection(for: "Task")
 
 }

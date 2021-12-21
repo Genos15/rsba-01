@@ -1,6 +1,6 @@
-package com.rsba.parameters_microservice.configuration.request_helper
+package com.rsba.tasks_microservice.configuration.request_helper
 
-import com.rsba.parameters_microservice.domain.format.ICursorUtil
+import com.rsba.tasks_microservice.domain.format.ICursorUtil
 import graphql.PublicApi
 import graphql.relay.ConnectionCursor
 import graphql.relay.Edge

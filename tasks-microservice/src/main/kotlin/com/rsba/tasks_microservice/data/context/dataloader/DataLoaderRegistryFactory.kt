@@ -1,4 +1,4 @@
-package com.rsba.parameters_microservice.data.context.dataloader
+package com.rsba.tasks_microservice.data.context.dataloader
 
 import org.dataloader.*
 import org.springframework.stereotype.Component

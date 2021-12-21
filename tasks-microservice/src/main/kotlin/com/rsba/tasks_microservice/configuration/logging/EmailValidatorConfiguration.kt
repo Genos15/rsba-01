@@ -1,4 +1,4 @@
-package com.rsba.parameters_microservice.configuration.logging
+package com.rsba.tasks_microservice.configuration.logging
 
 import org.apache.commons.validator.routines.EmailValidator
 import org.springframework.context.annotation.Bean

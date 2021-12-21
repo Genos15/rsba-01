@@ -1,6 +1,6 @@
-package com.rsba.parameters_microservice.data.context.token
+package com.rsba.tasks_microservice.data.context.token
 
- import com.rsba.parameters_microservice.data.context.CustomGraphQLContext
+ import com.rsba.tasks_microservice.data.context.CustomGraphQLContext
  import graphql.schema.DataFetchingEnvironment
 import mu.KLogger
 import org.springframework.stereotype.Component

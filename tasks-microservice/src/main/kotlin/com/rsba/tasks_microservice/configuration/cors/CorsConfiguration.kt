@@ -1,4 +1,4 @@
-package com.rsba.parameters_microservice.configuration.cors
+package com.rsba.tasks_microservice.configuration.cors
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

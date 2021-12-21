@@ -1,3 +1,3 @@
-package com.rsba.parameters_microservice.domain.model
+package com.rsba.tasks_microservice.domain.model
 
 interface EditionCase
