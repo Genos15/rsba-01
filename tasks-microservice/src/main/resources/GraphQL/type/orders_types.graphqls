@@ -3,14 +3,3 @@ type Order {
     referenceNumber: String!
     description: String
 }
-
-type OrderConnection {
-    edges: [OrderEdge]
-    pageInfo: PageInfo
-}
-
-type OrderEdge {
-    cursor: String
-    node: Order
-}
-

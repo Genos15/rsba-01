@@ -12,8 +12,6 @@ data class Item(
     val name: String,
     val description: String? = null,
     val material: String? = null,
-    val quantity: Float,
-    val progress: Float,
     @Serializable(with = DateTimeSerializer::class) val createdAt: OffsetDateTime,
     @Serializable(with = DateTimeSerializer::class) val editedAt: OffsetDateTime,
 )

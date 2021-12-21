@@ -5,17 +5,4 @@ type Item {
     material: String
     createdAt: DateTime
     editedAt: DateTime
-    quantity: Float!
-    progress: Float!
 }
-
-type ItemEdge {
-    cursor: String
-    node: Item
-}
-
-type ItemConnection {
-    edges: [ItemEdge]
-    pageInfo: PageInfo
-}
-

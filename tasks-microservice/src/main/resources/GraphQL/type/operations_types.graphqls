@@ -7,13 +7,3 @@ type Operation {
     createdAt: String
     editedAt: String
 }
-
-type OperationEdge {
-    cursor: String
-    node: Operation
-}
-
-type OperationConnection {
-    edges: [OperationEdge]
-    pageInfo: PageInfo
-}

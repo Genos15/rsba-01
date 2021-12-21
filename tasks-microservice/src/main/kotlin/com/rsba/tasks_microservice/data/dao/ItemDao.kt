@@ -16,8 +16,6 @@ data class ItemDao(
     val name: String,
     val description: String? = null,
     val material: String? = null,
-    val quantity: Float,
-    val progress: Float,
     @Serializable(with = DateTimeSerializer::class) val createdAt: OffsetDateTime,
     @Serializable(with = DateTimeSerializer::class) val editedAt: OffsetDateTime,
 ) : AbstractModel() {
@@ -28,8 +26,6 @@ data class ItemDao(
             name = name,
             description = description,
             material = material,
-            quantity = quantity,
-            progress = progress,
             createdAt = createdAt,
             editedAt = editedAt
         )
