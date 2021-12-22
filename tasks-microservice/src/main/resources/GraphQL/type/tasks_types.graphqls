@@ -11,7 +11,7 @@ type Task {
     item: Item
     #    departments: [Department!]
     #    comments: [Comment!]
-    #    users: [User!]
+    users: [User!]
     order: Order
     #    parameters: [Parameter!]
     workcenter: Workcenter

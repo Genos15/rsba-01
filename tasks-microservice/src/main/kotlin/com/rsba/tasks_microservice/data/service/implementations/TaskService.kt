@@ -24,7 +24,8 @@ class TaskService(
     private val findItemUseCase: FindItemUseCase,
     private val findOperationUseCase: FindOperationUseCase,
     private val findWorkcenterUseCase: FindWorkcenterUseCase,
-    private val toAllocateUseCase: ToAllocateUseCase
+    private val toAllocateUseCase: ToAllocateUseCase,
+    private val retrieveUsersUseCase: RetrieveUsersUseCase
 ) : TaskRepository {
 
     override suspend fun toEdit(
@@ -105,5 +106,8 @@ class TaskService(
         action: MutationAction?,
         token: UUID
     ): Optional<Task> = toAllocateUseCase(database = database, id = id, action = action, token = token, users = users)
+
+    override suspend fun users(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<User>> =
+        retrieveUsersUseCase(database = database, ids = ids, token = token, first = first, after = after)
 
 }

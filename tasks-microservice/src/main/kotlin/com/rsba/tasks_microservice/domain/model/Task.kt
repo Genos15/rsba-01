@@ -21,5 +21,6 @@ data class Task(
     private val workcenter: Workcenter? = null,
     private val operation: Operation? = null,
     private val item: Item? = null,
-    private val order: Order? = null
+    private val order: Order? = null,
+    private val users: List<User>? = emptyList()
 )

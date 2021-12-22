@@ -36,4 +36,10 @@ class TaskResolver : GraphQLResolver<Task> {
         return dataLoader?.load(input.id) ?: CompletableFuture.completedFuture(Optional.empty())
     }
 
+    fun users(input: Task, env: DataFetchingEnvironment): CompletableFuture<List<User>> {
+        val dataLoader =
+            env.getDataLoader<UUID, List<User>>(DataLoaderRegistryFactory.LOADER_FACTORY_USERS_OF_TASK)
+        return dataLoader?.load(input.id) ?: CompletableFuture.completedFuture(emptyList())
+    }
+
 }

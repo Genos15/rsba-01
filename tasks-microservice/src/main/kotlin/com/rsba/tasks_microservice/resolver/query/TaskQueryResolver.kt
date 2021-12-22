@@ -86,4 +86,21 @@ class TaskQueryResolver(val service: TaskRepository, private val deduct: TokenAn
         id = id
     )
 
+    suspend fun retrieveTaskUsers(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<User> = perform(
+        entries = service.users(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
 }

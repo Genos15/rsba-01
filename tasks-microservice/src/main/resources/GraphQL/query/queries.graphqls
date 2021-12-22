@@ -9,4 +9,6 @@ type Query {
     findTaskItem (id: ID!): Item
     findTaskOperation (id: ID!): Operation
     findTaskWorkcenter (id: ID!): Workcenter
+    retrieveTaskUsers (id: ID!, first: Int!, after: ID): UserConnection @connection(for: "User")
+
 }

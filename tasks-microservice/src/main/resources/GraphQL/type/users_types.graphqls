@@ -1,0 +1,17 @@
+type User {
+    id: ID!
+    firstname: String!
+    lastname: String!
+    middlename: String
+    workload: Float!
+}
+
+type UserEdge {
+    cursor: String
+    node: User
+}
+
+type UserConnection {
+    edges: [UserEdge]
+    pageInfo: PageInfo
+}

@@ -57,4 +57,11 @@ interface TaskRepository {
         token: UUID = UUID.randomUUID()
     ): Optional<Task>
 
+    suspend fun users(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<User>>
+
 }
