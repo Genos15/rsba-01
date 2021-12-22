@@ -1,4 +1,5 @@
 type Mutation {
     editTask(input: TaskInput!, action: MutationAction): Task
     deleteTask(input: ID!): Boolean
+    editWorkers(id: ID!, users: [TaskWorkerTimeInput!]!, action: MutationAction): Task
 }

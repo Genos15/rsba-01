@@ -1,0 +1,8 @@
+type Workcenter {
+    id: ID!
+    name: String!
+    description: String
+    createdAt: DateTime!
+    editedAt: DateTime!
+    workload: Float!
+}

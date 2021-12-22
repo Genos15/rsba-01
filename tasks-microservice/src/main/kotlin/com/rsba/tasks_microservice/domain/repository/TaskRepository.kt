@@ -48,4 +48,13 @@ interface TaskRepository {
 
     suspend fun order(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Order>>
 
+    suspend fun workcenter(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Workcenter>>
+
+    suspend fun toAllocate(
+        id: UUID,
+        users: List<TaskWorkerTimeInput>,
+        action: MutationAction? = null,
+        token: UUID = UUID.randomUUID()
+    ): Optional<Task>
+
 }

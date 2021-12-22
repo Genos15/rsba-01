@@ -1,12 +1,11 @@
 package com.rsba.tasks_microservice.data.service.implementations
 
 import com.rsba.tasks_microservice.domain.input.TaskInput
+import com.rsba.tasks_microservice.domain.input.TaskWorkerTimeInput
 import com.rsba.tasks_microservice.domain.model.*
 import com.rsba.tasks_microservice.domain.repository.TaskRepository
 import com.rsba.tasks_microservice.domain.usecase.common.*
-import com.rsba.tasks_microservice.domain.usecase.custom.task.FindItemUseCase
-import com.rsba.tasks_microservice.domain.usecase.custom.task.FindOperationUseCase
-import com.rsba.tasks_microservice.domain.usecase.custom.task.FindOrderUseCase
+import com.rsba.tasks_microservice.domain.usecase.custom.task.*
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
@@ -23,7 +22,9 @@ class TaskService(
     @Qualifier("count_tasks") private val countUseCase: CountUseCase,
     private val findOrderUseCase: FindOrderUseCase,
     private val findItemUseCase: FindItemUseCase,
-    private val findOperationUseCase: FindOperationUseCase
+    private val findOperationUseCase: FindOperationUseCase,
+    private val findWorkcenterUseCase: FindWorkcenterUseCase,
+    private val toAllocateUseCase: ToAllocateUseCase
 ) : TaskRepository {
 
     override suspend fun toEdit(
@@ -94,5 +95,15 @@ class TaskService(
 
     override suspend fun order(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Order>> =
         findOrderUseCase(database = database, ids = ids, token = token)
+
+    override suspend fun workcenter(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Workcenter>> =
+        findWorkcenterUseCase(database = database, ids = ids, token = token)
+
+    override suspend fun toAllocate(
+        id: UUID,
+        users: List<TaskWorkerTimeInput>,
+        action: MutationAction?,
+        token: UUID
+    ): Optional<Task> = toAllocateUseCase(database = database, id = id, action = action, token = token, users = users)
 
 }

@@ -8,4 +8,5 @@ type Query {
     findTaskOrder (id: ID!): Order
     findTaskItem (id: ID!): Item
     findTaskOperation (id: ID!): Operation
+    findTaskWorkcenter (id: ID!): Workcenter
 }

@@ -5,6 +5,7 @@ import com.rsba.tasks_microservice.domain.queries.IBaseQuery
 import com.rsba.tasks_microservice.domain.format.JsonHandlerKotlin
 import com.rsba.tasks_microservice.domain.queries.QueryBuilder
 import com.rsba.tasks_microservice.domain.input.TaskInput
+import com.rsba.tasks_microservice.domain.input.TaskWorkerTimeInput
 import com.rsba.tasks_microservice.domain.model.Edition
 import com.rsba.tasks_microservice.domain.model.MutationAction
 import com.rsba.tasks_microservice.domain.model.TaskLayer
@@ -102,4 +103,22 @@ object TaskQueries : IBaseQuery<TaskInput, TaskDao> {
         append("'$token')")
     }
 
+    fun workcenter(id: UUID, token: UUID): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<TaskDao>(customQuery = "_on_find_workcenter"))
+        append("('$id',")
+        append("'$token')")
+    }
+
+    fun allocate(
+        id: UUID,
+        users: List<TaskWorkerTimeInput>,
+        action: MutationAction? = null,
+        token: UUID
+    ): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<TaskDao>(customQuery = "_on_allocate"))
+        append("('$id',")
+        append("'${JsonHandlerKotlin.handler.encodeToString(users)}',")
+        append("${action?.let { "'$it'" }},")
+        append("'$token')")
+    }
 }

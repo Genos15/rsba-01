@@ -11,6 +11,7 @@ class DataLoaderRegistryFactory(private val task: TaskDataLoaderImpl) {
         const val LOADER_FACTORY_ORDER_OF_TASK = "ORDER_OF_TASK"
         const val LOADER_FACTORY_ITEM_OF_TASK = "ITEM_OF_TASK"
         const val LOADER_FACTORY_OPERATION_OF_TASK = "OPERATION_OF_TASK"
+        const val LOADER_FACTORY_WORKCENTER_OF_TASK = "WORKCENTER_OF_TASK"
     }
 
     fun create(instanceId: UUID): DataLoaderRegistry {
@@ -18,6 +19,7 @@ class DataLoaderRegistryFactory(private val task: TaskDataLoaderImpl) {
         registry.register(LOADER_FACTORY_ORDER_OF_TASK, task.dataLoaderOrder(userId = instanceId))
         registry.register(LOADER_FACTORY_ITEM_OF_TASK, task.dataLoaderItem(userId = instanceId))
         registry.register(LOADER_FACTORY_OPERATION_OF_TASK, task.dataLoaderOperation(userId = instanceId))
+        registry.register(LOADER_FACTORY_WORKCENTER_OF_TASK, task.dataLoaderWorkcenter(userId = instanceId))
         return registry
     }
 

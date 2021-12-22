@@ -5,5 +5,9 @@ input TaskInput {
     description: String
     estimatedStartDate: DateTime
     workcenterId: ID
-    users: [ID!]
+}
+
+input TaskWorkerTimeInput{
+    id: ID!
+    startAt: DateTime!
 }

@@ -18,4 +18,8 @@ data class Task(
     @Serializable(with = DateTimeSerializer::class) val estimatedStartDate: OffsetDateTime,
     @Serializable(with = DateTimeSerializer::class) val createdAt: OffsetDateTime,
     @Serializable(with = DateTimeSerializer::class) val editedAt: OffsetDateTime,
+    private val workcenter: Workcenter? = null,
+    private val operation: Operation? = null,
+    private val item: Item? = null,
+    private val order: Order? = null
 )

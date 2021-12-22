@@ -5,4 +5,5 @@ object ModelTypeCase {
     const val orders = "orders"
     const val items = "items"
     const val operations = "operations"
+    const val workcenters = "workcenters"
 }

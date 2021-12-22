@@ -66,7 +66,6 @@ class TaskQueryResolver(val service: TaskRepository, private val deduct: TokenAn
     ): Int =
         service.count(token = deduct(environment = environment), status = status, layer = layer, id = id)
 
-
     suspend fun findTaskOrder(id: UUID, environment: DataFetchingEnvironment): Optional<Order> = perform(
         entries = service.order(ids = setOf(id), token = deduct(environment = environment)),
         id = id
@@ -79,6 +78,11 @@ class TaskQueryResolver(val service: TaskRepository, private val deduct: TokenAn
 
     suspend fun findTaskOperation(id: UUID, environment: DataFetchingEnvironment): Optional<Operation> = perform(
         entries = service.operation(ids = setOf(id), token = deduct(environment = environment)),
+        id = id
+    )
+
+    suspend fun findTaskWorkcenter(id: UUID, environment: DataFetchingEnvironment): Optional<Workcenter> = perform(
+        entries = service.workcenter(ids = setOf(id), token = deduct(environment = environment)),
         id = id
     )
 

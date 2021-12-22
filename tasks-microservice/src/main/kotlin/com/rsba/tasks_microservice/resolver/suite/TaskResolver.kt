@@ -1,10 +1,7 @@
 package com.rsba.tasks_microservice.resolver.suite
 
 import com.rsba.tasks_microservice.data.context.dataloader.DataLoaderRegistryFactory
-import com.rsba.tasks_microservice.domain.model.Item
-import com.rsba.tasks_microservice.domain.model.Operation
-import com.rsba.tasks_microservice.domain.model.Order
-import com.rsba.tasks_microservice.domain.model.Task
+import com.rsba.tasks_microservice.domain.model.*
 import graphql.kickstart.tools.GraphQLResolver
 import graphql.schema.DataFetchingEnvironment
 import org.springframework.stereotype.Component
@@ -30,6 +27,12 @@ class TaskResolver : GraphQLResolver<Task> {
     fun operation(input: Task, env: DataFetchingEnvironment): CompletableFuture<Optional<Operation>> {
         val dataLoader =
             env.getDataLoader<UUID, Optional<Operation>>(DataLoaderRegistryFactory.LOADER_FACTORY_OPERATION_OF_TASK)
+        return dataLoader?.load(input.id) ?: CompletableFuture.completedFuture(Optional.empty())
+    }
+
+    fun workcenter(input: Task, env: DataFetchingEnvironment): CompletableFuture<Optional<Workcenter>> {
+        val dataLoader =
+            env.getDataLoader<UUID, Optional<Workcenter>>(DataLoaderRegistryFactory.LOADER_FACTORY_WORKCENTER_OF_TASK)
         return dataLoader?.load(input.id) ?: CompletableFuture.completedFuture(Optional.empty())
     }
 
