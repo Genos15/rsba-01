@@ -4,6 +4,7 @@ type User {
     lastname: String!
     middlename: String
     workload: Float!
+    estimatedStartDate: DateTime!
 }
 
 type UserEdge {
