@@ -11,6 +11,6 @@ data class CreateUserInput(
     val email: String,
     val phone: String? = null,
     val lang: String? = "ru",
-    val code: String
+    val code: String? = null
 ) : AbstractModel
 

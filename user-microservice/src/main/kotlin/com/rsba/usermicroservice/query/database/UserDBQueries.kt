@@ -2,7 +2,6 @@ package com.rsba.usermicroservice.query.database
 
 import com.rsba.usermicroservice.domain.input.*
 import com.rsba.usermicroservice.domain.model.CachedUserContact
-import com.rsba.usermicroservice.domain.model.CreateUserDatabaseParam
 import com.rsba.usermicroservice.domain.model.TokenHelper
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -10,7 +9,7 @@ import java.util.*
 
 object UserDBQueries {
 
-    fun onInsertQueryFrom(input: CreateUserDatabaseParam): String = "SELECT on_insert_user('${input.toJson()}', '')"
+    fun onInsertQueryFrom(input: CreateUserInput): String = "SELECT on_insert_user('${input.toJson()}', '')"
 
     fun onInsertAdminQueryFrom(input: CreateAdminInput): String = "SELECT oninsertuserandcompany('${input.toJson()}')"
 

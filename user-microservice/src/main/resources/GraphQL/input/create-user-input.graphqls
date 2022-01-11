@@ -7,7 +7,7 @@ input CreateUserInput {
     email: String!
     phone: String
     lang: String
-    code: String!
+    code: String
 }
 
 input CreateOrEditWorkingCenterInput {

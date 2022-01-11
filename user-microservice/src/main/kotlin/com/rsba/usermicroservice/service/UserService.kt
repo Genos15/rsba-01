@@ -15,6 +15,7 @@ import com.rsba.usermicroservice.service.implementation.users.RetrievePhotoImpl
 import com.rsba.usermicroservice.utils.CacheHelper
 import graphql.schema.DataFetchingEnvironment
 import kotlinx.coroutines.reactive.awaitFirstOrElse
+import kotlinx.coroutines.reactor.mono
 import mu.KLogger
 import javax.servlet.http.Part
 import org.springframework.r2dbc.core.DatabaseClient
@@ -40,50 +41,12 @@ class UserService(
     private val dataHandler: User2DataHandler
 ) : UserRepository, EditUserProfileImpl, RetrievePhotoImpl {
 
-
     @Throws(RuntimeException::class)
-    override suspend fun onInsert(input: CreateUserInput): Optional<User> {
-        logger.warn { "+-- UserService -> onInsert" }
-
-        if (!emailHelper.isValid(input.email)) {
-            throw RuntimeException("НЕВЕРНЫЙ АДРЕС ЭЛЕКТРОННОЙ ПОЧТЫ")
-        }
-
-        return cached.getAsync(
-            key = input.code,
-            _class = SingleInviteUserReturn::class.java,
-            source = CacheHelper.EMAIL_CACHE_NAME
-        ).handle { single: Optional<SingleInviteUserReturn>, sink: SynchronousSink<SingleInviteUserReturn> ->
-            logger.warn { "CACHED OUT = ${single.get()}" }
-            if (single.isPresent) {
-                sink.next(single.get())
-            } else {
-                sink.error(RuntimeException("НЕВОЗМОЖНО НАЙТИ СОВПАДЕНИЕ КОДА В ПАМЯТИ"))
-            }
-        }.flatMap {
-            val instance = CreateUserDatabaseParam(
-                userId = it.userId,
-                companyId = it.companyId,
-                groupId = it.groupId,
-                roleId = it.roleId,
-                firstName = input.firstName,
-                lastName = input.lastName,
-                middleName = input.middleName,
-                login = input.login,
-                password = input.password,
-                phone = input.phone,
-                lang = input.lang,
-                email = it.email
-            )
-            database.sql(UserDBQueries.onInsertQueryFrom(input = instance))
-                .map { row, meta -> UserDatabaseHandler.read(row = row, meta = meta) }
-                .first()
-        }.doOnNext {
-            logger.warn { "USER = ${it.get()}" }
-        }
+    override suspend fun onInsert(input: CreateUserInput): Optional<User> =
+        database.sql(UserDBQueries.onInsertQueryFrom(input = input))
+            .map { row, meta -> UserDatabaseHandler.read(row = row, meta = meta) }
+            .first()
             .awaitFirstOrElse { Optional.empty() }
-
-    }
 
     override suspend fun onInsertAdminAndCompany(input: CreateAdminInput): Int {
         logger.warn { "+-- UserService -> onInsertAdminAndCompany" }

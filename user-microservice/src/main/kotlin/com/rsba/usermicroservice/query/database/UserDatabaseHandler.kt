@@ -31,16 +31,11 @@ object UserDatabaseHandler {
             try {
                 result.addAll(gson.fromJson<List<User>>(json, gsonListUserMapperType))
             } catch (e: Exception) {
-                logger.warn { "?------ $e" }
-                logger.warn { "?------ ${e.message}" }
                 e.printStackTrace()
             }
         }
 
         return if (result.isNotEmpty()) {
-            logger.warn { "RETURNING " }
-            logger.warn { result.first() }
-
             Optional.ofNullable(result.first())
         } else {
             Optional.empty()
