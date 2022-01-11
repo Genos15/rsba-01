@@ -4,6 +4,7 @@ input TaskInput {
     estimatedTimeInHour: BigDecimal
     description: String
     estimatedStartDate: DateTime
+    estimatedEndDate: DateTime
     workcenterId: ID
 }
 
