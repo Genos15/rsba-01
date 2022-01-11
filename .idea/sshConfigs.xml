@@ -38,6 +38,12 @@
       <sshConfig authType="PASSWORD" host="142.93.100.157" id="1b7493ee-e90f-4eb5-9903-68e78af6d89f" port="22" customName="rs.tasks.dev.source" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
         <option name="customName" value="rs.tasks.dev.source" />
       </sshConfig>
+      <sshConfig authType="PASSWORD" host="161.35.29.226" id="5d204815-f826-41c5-aa2d-5e4b9f4c96f9" port="22" customName="rs.tasks.prod.source" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
+        <option name="customName" value="rs.tasks.prod.source" />
+      </sshConfig>
+      <sshConfig authType="PASSWORD" host="159.89.96.188" id="552024f5-1623-41b6-a7da-4eb5cd84bd18" port="22" customName="rs.parameters.prod.source" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
+        <option name="customName" value="rs.parameters.prod.source" />
+      </sshConfig>
     </configs>
   </component>
 </project>
