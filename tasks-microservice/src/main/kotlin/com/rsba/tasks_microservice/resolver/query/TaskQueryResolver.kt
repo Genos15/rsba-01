@@ -7,6 +7,7 @@ import graphql.kickstart.tools.GraphQLQueryResolver
 import graphql.relay.Connection
 import graphql.schema.DataFetchingEnvironment
 import org.springframework.stereotype.Component
+import java.time.OffsetDateTime
 import java.util.*
 
 @Component
@@ -19,6 +20,8 @@ class TaskQueryResolver(val service: TaskRepository, private val deduct: TokenAn
         status: TaskStatus? = null,
         layer: TaskLayer? = null,
         id: UUID? = null,
+        rangeStart: OffsetDateTime? = null,
+        rangeEnd: OffsetDateTime? = null,
         environment: DataFetchingEnvironment
     ): Connection<Task> = perform(
         entries = service.retrieve(
@@ -27,7 +30,9 @@ class TaskQueryResolver(val service: TaskRepository, private val deduct: TokenAn
             token = deduct(environment = environment),
             status = status,
             layer = layer,
-            id = id
+            id = id,
+            rangeStart = rangeStart,
+            rangeEnd = rangeEnd,
         ),
         first = first,
         after = after
@@ -40,6 +45,8 @@ class TaskQueryResolver(val service: TaskRepository, private val deduct: TokenAn
         status: TaskStatus? = null,
         layer: TaskLayer? = null,
         id: UUID? = null,
+        rangeStart: OffsetDateTime? = null,
+        rangeEnd: OffsetDateTime? = null,
         environment: DataFetchingEnvironment
     ): Connection<Task> = perform(
         entries = service.search(
@@ -49,7 +56,9 @@ class TaskQueryResolver(val service: TaskRepository, private val deduct: TokenAn
             token = deduct(environment = environment),
             status = status,
             layer = layer,
-            id = id
+            id = id,
+            rangeStart = rangeStart,
+            rangeEnd = rangeEnd,
         ),
         first = first,
         after = after

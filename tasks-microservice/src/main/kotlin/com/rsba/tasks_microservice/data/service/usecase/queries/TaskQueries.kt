@@ -12,6 +12,7 @@ import com.rsba.tasks_microservice.domain.model.TaskLayer
 import com.rsba.tasks_microservice.domain.model.TaskStatus
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
+import java.time.OffsetDateTime
 import java.util.*
 
 @ExperimentalSerializationApi
@@ -41,6 +42,8 @@ object TaskQueries : IBaseQuery<TaskInput, TaskDao> {
         status: TaskStatus?,
         layer: TaskLayer?,
         id: UUID?,
+        rangeStart: OffsetDateTime?,
+        rangeEnd: OffsetDateTime?,
         token: UUID
     ): String = buildString {
         append(QueryBuilder.Retrieve.buildRequestDef<TaskDao>())
@@ -49,6 +52,8 @@ object TaskQueries : IBaseQuery<TaskInput, TaskDao> {
         append("${status?.let { "'$it'" }},")
         append("${layer?.let { "'$it'" }},")
         append("${id?.let { "'$it'" }},")
+        append("${rangeStart?.let { "'$rangeStart'" }},")
+        append("${rangeEnd?.let { "'$rangeEnd'" }},")
         append("'$token')")
     }
 
@@ -59,6 +64,8 @@ object TaskQueries : IBaseQuery<TaskInput, TaskDao> {
         status: TaskStatus?,
         layer: TaskLayer?,
         id: UUID?,
+        rangeStart: OffsetDateTime?,
+        rangeEnd: OffsetDateTime?,
         token: UUID
     ): String = buildString {
         append(QueryBuilder.Search.buildRequestDef<TaskDao>())
@@ -68,6 +75,8 @@ object TaskQueries : IBaseQuery<TaskInput, TaskDao> {
         append("${status?.let { "'$it'" }},")
         append("${layer?.let { "'$it'" }},")
         append("${id?.let { "'$it'" }},")
+        append("${rangeStart?.let { "'$rangeStart'" }},")
+        append("${rangeEnd?.let { "'$rangeEnd'" }},")
         append("'$token')")
     }
 

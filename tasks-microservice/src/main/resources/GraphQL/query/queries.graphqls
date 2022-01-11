@@ -1,10 +1,10 @@
 type Query {
 
     #------------ tasks ----------------
-    retrieveTasks (first: Int!, after: ID, status: TaskStatus, layer: TaskLayer, id: ID): TaskConnection @connection(for: "Task")
+    retrieveTasks (first: Int!, after: ID, status: TaskStatus, layer: TaskLayer, id: ID, rangeStart: DateTime, rangeEnd: DateTime): TaskConnection @connection(for: "Task")
     findTask(input: ID!): Task
     countTasks(status: TaskStatus, layer: TaskLayer, id: ID): Int
-    searchTasks (input: String!, first: Int!, after: ID, status: TaskStatus, layer: TaskLayer, id: ID): TaskConnection @connection(for: "Task")
+    searchTasks (input: String!, first: Int!, after: ID, status: TaskStatus, layer: TaskLayer, id: ID, rangeStart: DateTime, rangeEnd: DateTime): TaskConnection @connection(for: "Task")
     findTaskOrder (id: ID!): Order
     findTaskItem (id: ID!): Item
     findTaskOperation (id: ID!): Operation

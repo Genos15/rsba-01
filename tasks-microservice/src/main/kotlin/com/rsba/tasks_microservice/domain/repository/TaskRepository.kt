@@ -2,6 +2,7 @@ package com.rsba.tasks_microservice.domain.repository
 
 import com.rsba.tasks_microservice.domain.input.*
 import com.rsba.tasks_microservice.domain.model.*
+import java.time.OffsetDateTime
 import java.util.*
 
 interface TaskRepository {
@@ -22,7 +23,9 @@ interface TaskRepository {
         token: UUID,
         status: TaskStatus? = null,
         layer: TaskLayer? = null,
-        id: UUID? = null
+        id: UUID? = null,
+        rangeStart: OffsetDateTime? = null,
+        rangeEnd: OffsetDateTime? = null,
     ): List<Task>
 
     suspend fun search(
@@ -32,7 +35,9 @@ interface TaskRepository {
         token: UUID,
         status: TaskStatus? = null,
         layer: TaskLayer? = null,
-        id: UUID? = null
+        id: UUID? = null,
+        rangeStart: OffsetDateTime? = null,
+        rangeEnd: OffsetDateTime? = null,
     ): List<Task>
 
     suspend fun count(

@@ -12,6 +12,7 @@ import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Component
+import java.time.OffsetDateTime
 import java.util.*
 
 @Component(value = "retrieve_tasks")
@@ -24,6 +25,8 @@ class RetrieveUseCaseImpl : RetrieveUseCase<Task>, IQueryGuesser {
         status: TaskStatus?,
         layer: TaskLayer?,
         id: UUID?,
+        rangeStart: OffsetDateTime?,
+        rangeEnd: OffsetDateTime?,
         token: UUID
     ): List<Task> =
         database.sql(
@@ -33,7 +36,9 @@ class RetrieveUseCaseImpl : RetrieveUseCase<Task>, IQueryGuesser {
                 after = after,
                 status = status,
                 layer = layer,
-                id = id
+                id = id,
+                rangeEnd = rangeEnd,
+                rangeStart = rangeStart,
             )
         )
             .map { row -> QueryCursor.all(row = row) }

@@ -3,6 +3,7 @@ package com.rsba.tasks_microservice.domain.queries
 import com.rsba.tasks_microservice.data.dao.AbstractModel
 import com.rsba.tasks_microservice.domain.input.AbstractInput
 import com.rsba.tasks_microservice.domain.model.*
+import java.time.OffsetDateTime
 import java.util.*
 
 interface IBaseQuery<out I : AbstractInput, out R : AbstractModel> {
@@ -22,6 +23,8 @@ interface IBaseQuery<out I : AbstractInput, out R : AbstractModel> {
         status: TaskStatus? = null,
         layer: TaskLayer? = null,
         id: UUID? = null,
+        rangeStart: OffsetDateTime? = null,
+        rangeEnd: OffsetDateTime? = null,
         token: UUID
     ): String
 
@@ -32,6 +35,8 @@ interface IBaseQuery<out I : AbstractInput, out R : AbstractModel> {
         status: TaskStatus? = null,
         layer: TaskLayer? = null,
         id: UUID? = null,
+        rangeStart: OffsetDateTime? = null,
+        rangeEnd: OffsetDateTime? = null,
         token: UUID
     ): String
 

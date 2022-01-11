@@ -9,6 +9,7 @@ import com.rsba.tasks_microservice.domain.usecase.custom.task.*
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
+import java.time.OffsetDateTime
 import java.util.*
 
 @Service
@@ -47,7 +48,9 @@ class TaskService(
         token: UUID,
         status: TaskStatus?,
         layer: TaskLayer?,
-        id: UUID?
+        id: UUID?,
+        rangeStart: OffsetDateTime?,
+        rangeEnd: OffsetDateTime?
     ): List<Task> =
         retrieveUseCase(
             database = database,
@@ -56,7 +59,9 @@ class TaskService(
             token = token,
             status = status,
             layer = layer,
-            id = id
+            id = id,
+            rangeEnd = rangeEnd,
+            rangeStart = rangeStart,
         )
 
     override suspend fun search(
@@ -66,7 +71,9 @@ class TaskService(
         token: UUID,
         status: TaskStatus?,
         layer: TaskLayer?,
-        id: UUID?
+        id: UUID?,
+        rangeStart: OffsetDateTime?,
+        rangeEnd: OffsetDateTime?
     ): List<Task> =
         searchUseCase(
             database = database,
@@ -76,7 +83,9 @@ class TaskService(
             input = input,
             status = status,
             layer = layer,
-            id = id
+            id = id,
+            rangeEnd = rangeEnd,
+            rangeStart = rangeStart,
         )
 
     override suspend fun count(status: TaskStatus?, layer: TaskLayer?, id: UUID?, token: UUID): Int =
