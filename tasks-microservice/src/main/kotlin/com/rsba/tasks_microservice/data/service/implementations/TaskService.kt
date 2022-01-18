@@ -6,6 +6,7 @@ import com.rsba.tasks_microservice.domain.model.*
 import com.rsba.tasks_microservice.domain.repository.TaskRepository
 import com.rsba.tasks_microservice.domain.usecase.common.*
 import com.rsba.tasks_microservice.domain.usecase.custom.task.*
+import com.rsba.tasks_microservice.domain.usecase.custom.task.RetrieveUsersUseCase
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
@@ -26,7 +27,8 @@ class TaskService(
     private val findOperationUseCase: FindOperationUseCase,
     private val findWorkcenterUseCase: FindWorkcenterUseCase,
     private val toAllocateUseCase: ToAllocateUseCase,
-    private val retrieveUsersUseCase: RetrieveUsersUseCase
+    @Qualifier("retrieve_task_users") private val retrieveUsersUseCase: RetrieveUsersUseCase,
+    @Qualifier("retrieve_task_comments") private val retrieveCommentsUseCase: RetrieveCommentsUseCase
 ) : TaskRepository {
 
     override suspend fun toEdit(
@@ -118,5 +120,8 @@ class TaskService(
 
     override suspend fun users(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<User>> =
         retrieveUsersUseCase(database = database, ids = ids, token = token, first = first, after = after)
+
+    override suspend fun comments(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Comment>> =
+        retrieveCommentsUseCase(ids = ids, first = first, after = after, token = token)
 
 }

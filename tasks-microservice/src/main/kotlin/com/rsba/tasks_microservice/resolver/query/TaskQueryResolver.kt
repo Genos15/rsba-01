@@ -112,4 +112,21 @@ class TaskQueryResolver(val service: TaskRepository, private val deduct: TokenAn
         id = id
     )
 
+    suspend fun retrieveTaskComments(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Comment> = perform(
+        entries = service.comments(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
 }

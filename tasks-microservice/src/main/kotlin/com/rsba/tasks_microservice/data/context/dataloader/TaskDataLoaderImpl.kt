@@ -42,4 +42,11 @@ class TaskDataLoaderImpl(private val service: TaskRepository) {
             }
         }
 
+    fun commentsLoader(userId: UUID): DataLoader<UUID, List<Comment>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future {
+                service.comments(ids = ids)
+            }
+        }
+
 }

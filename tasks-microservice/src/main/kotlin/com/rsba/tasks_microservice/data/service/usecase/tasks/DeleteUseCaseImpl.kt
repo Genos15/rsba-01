@@ -22,4 +22,6 @@ class DeleteUseCaseImpl : DeleteUseCase<Task>, IQueryGuesser {
             .onErrorResume { throw it }
             .log()
             .awaitFirstOrElse { false }
+
+    override suspend fun invoke(input: UUID, token: UUID): Boolean = false
 }

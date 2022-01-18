@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux
 import reactor.core.scheduler.Schedulers
 import java.util.*
 
-@Component
+@Component(value = "retrieve_task_users")
 @OptIn(ExperimentalSerializationApi::class)
 class RetrieveUsersUseCaseImpl : RetrieveUsersUseCase {
 

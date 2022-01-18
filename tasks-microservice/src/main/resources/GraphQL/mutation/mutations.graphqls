@@ -2,4 +2,12 @@ type Mutation {
     editTask(input: TaskInput!, action: MutationAction): Task
     deleteTask(input: ID!): Boolean
     editWorkers(id: ID!, users: [TaskWorkerTimeInput!]!, action: MutationAction): Task
+
+
+    createOrEditTaskSet(input: TaskSetInput!, action: MutationAction): TaskSet
+    deleteTaskSet(input: ID!): Boolean
+
+
+    createOrEditComment(input: CommentInput!, layer: CommentLayer): Comment
+    deleteComment(input: ID!): Boolean
 }

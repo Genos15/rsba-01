@@ -1,0 +1,22 @@
+type Comment {
+    id: ID!
+    comment: String!
+    createdAt: DateTime!
+    editedAt: DateTime!
+    reporter: User
+}
+
+enum CommentLayer {
+    TASK
+    ORDER
+}
+
+type CommentEdge {
+    cursor: String
+    node: Comment
+}
+
+type CommentConnection {
+    edges: [CommentEdge]
+    pageInfo: PageInfo
+}

@@ -15,6 +15,7 @@ type Task {
     order: Order
     #    parameters: [Parameter!]
     workcenter: Workcenter
+    comments: [Comment!]
 }
 
 type TaskEdge {

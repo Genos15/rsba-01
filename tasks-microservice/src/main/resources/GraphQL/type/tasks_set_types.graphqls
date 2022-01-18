@@ -1,0 +1,17 @@
+type TaskSet {
+    id: ID!
+    duration: Float!
+    users: [User]
+    tasks: [Task]
+    comments: [Comment!]
+}
+
+type TaskSetEdge {
+    cursor: String
+    node: TaskSet
+}
+
+type TaskSetConnection {
+    edges: [TaskSetEdge]
+    pageInfo: PageInfo
+}

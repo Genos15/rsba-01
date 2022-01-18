@@ -18,4 +18,12 @@ interface RetrieveUseCase<T> {
         rangeEnd: OffsetDateTime? = null,
         token: UUID
     ): List<T>
+
+    suspend operator fun invoke(
+        first: Int,
+        after: UUID? = null,
+        rangeStart: OffsetDateTime? = null,
+        rangeEnd: OffsetDateTime? = null,
+        token: UUID
+    ): List<T>
 }

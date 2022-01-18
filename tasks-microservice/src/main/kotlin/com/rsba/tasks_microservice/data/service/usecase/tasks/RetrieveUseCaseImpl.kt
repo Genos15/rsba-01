@@ -48,4 +48,12 @@ class RetrieveUseCaseImpl : RetrieveUseCase<Task>, IQueryGuesser {
                 throw it
             }
             .awaitFirstOrElse { emptyList() }
+
+    override suspend fun invoke(
+        first: Int,
+        after: UUID?,
+        rangeStart: OffsetDateTime?,
+        rangeEnd: OffsetDateTime?,
+        token: UUID
+    ): List<Task> = emptyList()
 }

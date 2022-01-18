@@ -42,4 +42,10 @@ class TaskResolver : GraphQLResolver<Task> {
         return dataLoader?.load(input.id) ?: CompletableFuture.completedFuture(emptyList())
     }
 
+    fun comments(input: Task, env: DataFetchingEnvironment): CompletableFuture<List<Comment>> {
+        val dataLoader =
+            env.getDataLoader<UUID, List<Comment>>(DataLoaderRegistryFactory.LOADER_FACTORY_COMMENTS_OF_TASK)
+        return dataLoader?.load(input.id) ?: CompletableFuture.completedFuture(emptyList())
+    }
+
 }

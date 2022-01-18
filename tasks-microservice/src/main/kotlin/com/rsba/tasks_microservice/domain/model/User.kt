@@ -13,5 +13,5 @@ data class User(
     val lastname: String,
     val middlename: String? = null,
     val workload: Float = 0f,
-    @Serializable(with = DateTimeSerializer::class) val estimatedStartDate: OffsetDateTime,
+    @Serializable(with = DateTimeSerializer::class) val estimatedStartDate: OffsetDateTime? = null,
 )

@@ -139,4 +139,13 @@ object TaskQueries : IBaseQuery<TaskInput, TaskDao> {
             append("${after?.let { "'$it'" }},")
             append("'$token')")
         }
+
+    fun comments(id: UUID, first: Int, after: UUID? = null, token: UUID): String =
+        buildString {
+            append(QueryBuilder.Custom.buildRequestDef<TaskDao>(customQuery = "_on_retrieve_comments"))
+            append("('$id',")
+            append("$first,")
+            append("${after?.let { "'$it'" }},")
+            append("'$token')")
+        }
 }

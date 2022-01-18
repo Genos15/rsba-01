@@ -9,5 +9,7 @@ interface IQueryGuesser
 inline fun <reified T : AbstractModel> query(): IBaseQuery<AbstractInput, AbstractModel> =
     when (T::class) {
         TaskDao::class -> QueryPicker.Task.pick()
+        CommentDao::class -> QueryPicker.Comment.pick()
+        TaskSetDao::class -> QueryPicker.TaskSet.pick()
         else -> failOnNull()
     }

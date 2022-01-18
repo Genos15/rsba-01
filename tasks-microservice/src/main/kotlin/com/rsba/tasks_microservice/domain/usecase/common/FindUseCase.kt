@@ -5,4 +5,5 @@ import java.util.*
 
 interface FindUseCase<T> {
     suspend operator fun invoke(database: DatabaseClient, id: UUID, token: UUID): Optional<T>
+    suspend operator fun invoke(id: UUID, token: UUID): Optional<T>
 }

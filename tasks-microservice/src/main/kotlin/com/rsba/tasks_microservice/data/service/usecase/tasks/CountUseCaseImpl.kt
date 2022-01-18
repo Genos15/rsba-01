@@ -29,4 +29,6 @@ class CountUseCaseImpl : CountUseCase, IQueryGuesser {
             .onErrorResume { throw it }
             .log()
             .awaitFirstOrElse { 0 }
+
+    override suspend fun invoke(token: UUID): Int = 0
 }

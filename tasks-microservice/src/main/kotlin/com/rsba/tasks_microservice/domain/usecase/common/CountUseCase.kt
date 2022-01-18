@@ -13,4 +13,6 @@ interface CountUseCase {
         id: UUID? = null,
         token: UUID
     ): Int
+
+    suspend operator fun invoke(token: UUID): Int
 }

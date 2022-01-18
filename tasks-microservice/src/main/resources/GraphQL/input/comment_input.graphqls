@@ -1,0 +1,5 @@
+input CommentInput {
+    id: ID
+    comment: String
+    hostId: ID
+}

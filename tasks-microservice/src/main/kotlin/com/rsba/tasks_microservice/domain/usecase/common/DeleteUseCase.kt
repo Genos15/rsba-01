@@ -5,4 +5,5 @@ import java.util.*
 
 interface DeleteUseCase<T> {
     suspend operator fun invoke(database: DatabaseClient, input: UUID, token: UUID): Boolean
+    suspend operator fun invoke(input: UUID, token: UUID): Boolean
 }

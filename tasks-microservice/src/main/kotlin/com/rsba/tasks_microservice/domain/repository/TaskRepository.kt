@@ -69,4 +69,10 @@ interface TaskRepository {
         token: UUID = UUID.randomUUID()
     ): Map<UUID, List<User>>
 
+    suspend fun comments(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Comment>>
 }

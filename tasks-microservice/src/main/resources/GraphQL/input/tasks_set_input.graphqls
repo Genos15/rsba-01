@@ -1,0 +1,5 @@
+input TaskSetInput {
+    id: ID
+    users: [ID]
+    tasks: [ID]
+}
