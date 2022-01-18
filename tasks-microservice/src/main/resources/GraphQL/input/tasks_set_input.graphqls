@@ -1,5 +1,6 @@
 input TaskSetInput {
     id: ID
+    label: String
     users: [ID]
     tasks: [ID]
 }

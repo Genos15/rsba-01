@@ -18,7 +18,6 @@ import com.rsba.order_microservice.domain.model.Parameter
 
 @Component
 class ParameterQueryResolver(
-    val cursorUtil: CursorUtil,
     val service: ParameterRepository,
     private val deduct: TokenAnalyzer,
     val logger: KLogger

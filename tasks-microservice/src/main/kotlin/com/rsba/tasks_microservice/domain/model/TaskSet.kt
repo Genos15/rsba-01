@@ -7,6 +7,7 @@ import java.util.*
 @Serializable
 data class TaskSet(
     @Serializable(with = UUIDSerializer::class) val id: UUID,
+    val label: String,
     val duration: Float,
     private val users: List<User>? = emptyList(),
     private val tasks: List<Task>? = emptyList()

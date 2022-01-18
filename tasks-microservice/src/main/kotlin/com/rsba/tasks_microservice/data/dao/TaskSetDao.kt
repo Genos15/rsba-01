@@ -11,9 +11,10 @@ import java.util.*
 @ModelType(_class = ModelTypeCase.tasks_set)
 data class TaskSetDao(
     @Serializable(with = UUIDSerializer::class) override val id: UUID,
+    val label: String,
     val duration: Float,
 ) : AbstractModel() {
 
     val to: TaskSet
-        get() = TaskSet(id = id, duration = duration)
+        get() = TaskSet(id = id, duration = duration, label = label)
 }

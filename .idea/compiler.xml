@@ -7,8 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="tasks-microservice" />
-        <module name="user-microservice" />
-        <module name="parameters-microservice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
