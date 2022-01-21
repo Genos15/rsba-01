@@ -24,6 +24,7 @@ interface TaskSetRepository {
         token: UUID,
         rangeStart: OffsetDateTime? = null,
         rangeEnd: OffsetDateTime? = null,
+        id: UUID? = null
     ): List<TaskSet>
 
     suspend fun search(

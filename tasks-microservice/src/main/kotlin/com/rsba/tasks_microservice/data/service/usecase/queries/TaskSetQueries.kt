@@ -44,6 +44,7 @@ object TaskSetQueries : IBaseQuery<TaskSetInput, TaskSetDao> {
     ): String = buildString {
         append(QueryBuilder.Retrieve.buildRequestDef<TaskSetDao>())
         append("($first,")
+        append("${id?.let { "'$it'" }},")
         append("${after?.let { "'$it'" }},")
         append("${rangeStart?.let { "'$rangeStart'" }},")
         append("${rangeEnd?.let { "'$rangeEnd'" }},")

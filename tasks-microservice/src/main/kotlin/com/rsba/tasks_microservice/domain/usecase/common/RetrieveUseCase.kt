@@ -24,6 +24,7 @@ interface RetrieveUseCase<T> {
         after: UUID? = null,
         rangeStart: OffsetDateTime? = null,
         rangeEnd: OffsetDateTime? = null,
+        id: UUID? = null,
         token: UUID
     ): List<T>
 }

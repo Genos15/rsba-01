@@ -54,6 +54,7 @@ class RetrieveUseCaseImpl : RetrieveUseCase<Task>, IQueryGuesser {
         after: UUID?,
         rangeStart: OffsetDateTime?,
         rangeEnd: OffsetDateTime?,
+        id: UUID?,
         token: UUID
     ): List<Task> = emptyList()
 }

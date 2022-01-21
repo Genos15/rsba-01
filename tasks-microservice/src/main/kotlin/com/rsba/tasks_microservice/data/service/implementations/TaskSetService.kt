@@ -38,9 +38,17 @@ class TaskSetService(
         after: UUID?,
         token: UUID,
         rangeStart: OffsetDateTime?,
-        rangeEnd: OffsetDateTime?
+        rangeEnd: OffsetDateTime?,
+        id: UUID?
     ): List<TaskSet> =
-        retrieveUseCase(first = first, after = after, token = token, rangeStart = rangeStart, rangeEnd = rangeEnd)
+        retrieveUseCase(
+            first = first,
+            after = after,
+            token = token,
+            id = id,
+            rangeStart = rangeStart,
+            rangeEnd = rangeEnd,
+        )
 
     override suspend fun search(
         input: String,

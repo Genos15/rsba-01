@@ -16,6 +16,7 @@ class TaskSetQueryResolver(val service: TaskSetRepository, private val deduct: T
 
     suspend fun retrieveTaskSets(
         first: Int,
+        id: UUID? = null,
         after: UUID? = null,
         rangeStart: OffsetDateTime? = null,
         rangeEnd: OffsetDateTime? = null,
@@ -27,6 +28,7 @@ class TaskSetQueryResolver(val service: TaskSetRepository, private val deduct: T
             token = deduct(environment = environment),
             rangeStart = rangeStart,
             rangeEnd = rangeEnd,
+            id = id
         ),
         first = first,
         after = after

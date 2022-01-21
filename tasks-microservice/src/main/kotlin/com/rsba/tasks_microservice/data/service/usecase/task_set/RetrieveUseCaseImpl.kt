@@ -35,6 +35,7 @@ class RetrieveUseCaseImpl(private val database: DatabaseClient) : RetrieveUseCas
         after: UUID?,
         rangeStart: OffsetDateTime?,
         rangeEnd: OffsetDateTime?,
+        id: UUID?,
         token: UUID
     ): List<TaskSet> = database.sql(
         query<TaskSetDao>().retrieve(
@@ -43,6 +44,7 @@ class RetrieveUseCaseImpl(private val database: DatabaseClient) : RetrieveUseCas
             after = after,
             rangeEnd = rangeEnd,
             rangeStart = rangeStart,
+            id = id
         )
     )
         .map { row -> QueryCursor.all(row = row) }
