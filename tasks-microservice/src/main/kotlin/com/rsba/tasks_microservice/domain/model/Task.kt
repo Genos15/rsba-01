@@ -12,6 +12,7 @@ import java.util.*
 data class Task(
     @Serializable(with = UUIDSerializer::class) val id: UUID,
     @Serializable(with = BigDecimalSerializer::class) val quantity: BigDecimal? = BigDecimal.ONE,
+    @Serializable(with = BigDecimalSerializer::class) val doneQuantity: BigDecimal? = BigDecimal.ZERO,
     @Serializable(with = BigDecimalSerializer::class) val estimatedTimeInHour: BigDecimal? = BigDecimal.ONE,
     val description: String? = null,
     @Serializable(with = DateTimeSerializer::class) val estimatedEndDate: OffsetDateTime,

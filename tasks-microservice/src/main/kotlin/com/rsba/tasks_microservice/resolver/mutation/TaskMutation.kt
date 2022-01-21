@@ -21,6 +21,13 @@ class TaskMutation(private val service: TaskRepository, private val deduct: Toke
     ): Optional<Task> =
         service.toEdit(input = input, token = deduct(environment = environment), action = action)
 
+    suspend fun executeTask(
+        id: UUID,
+        quantity: Int? = null,
+        environment: DataFetchingEnvironment
+    ): Optional<Task> =
+        service.toExecute(id = id, token = deduct(environment = environment), quantity = quantity)
+
     suspend fun editWorkers(
         id: UUID,
         users: List<TaskWorkerTimeInput>,

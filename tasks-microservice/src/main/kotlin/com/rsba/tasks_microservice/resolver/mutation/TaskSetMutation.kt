@@ -21,6 +21,13 @@ class TaskSetMutation(private val service: TaskSetRepository, private val deduct
     ): Optional<TaskSet> =
         service.toCreateOrEdit(input = input, token = deduct(environment = environment), action = action)
 
+    suspend fun executeTaskSet(
+        id: UUID,
+        quantity: Int? = null,
+        environment: DataFetchingEnvironment
+    ): Optional<TaskSet> =
+        service.toExecute(id = id, token = deduct(environment = environment), quantity = quantity)
+
     suspend fun deleteTaskSet(input: UUID, environment: DataFetchingEnvironment): Boolean =
         service.toDelete(input = input, token = deduct(environment = environment))
 

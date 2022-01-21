@@ -5,6 +5,7 @@ import com.rsba.tasks_microservice.domain.model.*
 import com.rsba.tasks_microservice.domain.repository.TaskSetRepository
 import com.rsba.tasks_microservice.domain.usecase.common.*
 import com.rsba.tasks_microservice.domain.usecase.custom.task_set.CreateOrEditTaskSetUseCase
+import com.rsba.tasks_microservice.domain.usecase.custom.task_set.ToExecuteTaskSetUseCase
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
@@ -20,6 +21,7 @@ class TaskSetService(
     @Qualifier("retrieve_task_set_tasks") private val retrieveTasksUseCase: RetrieveTasksUseCase,
     @Qualifier("retrieve_task_set_users") private val retrieveUsersUseCase: RetrieveUsersUseCase,
     @Qualifier("retrieve_task_set_comments") private val retrieveCommentsUseCase: RetrieveCommentsUseCase,
+    private val toExecuteTaskSetUseCase: ToExecuteTaskSetUseCase
 ) : TaskSetRepository {
 
     override suspend fun toCreateOrEdit(input: TaskSetInput, action: MutationAction?, token: UUID): Optional<TaskSet> =
@@ -59,5 +61,8 @@ class TaskSetService(
 
     override suspend fun comments(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Comment>> =
         retrieveCommentsUseCase(ids = ids, first = first, after = after, token = token)
+
+    override suspend fun toExecute(id: UUID, quantity: Int?, token: UUID): Optional<TaskSet> =
+        toExecuteTaskSetUseCase(id = id, quantity = quantity, token = token)
 
 }

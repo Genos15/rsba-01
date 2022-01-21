@@ -2,6 +2,8 @@ type Mutation {
     editTask(input: TaskInput!, action: MutationAction): Task
     deleteTask(input: ID!): Boolean
     editWorkers(id: ID!, users: [TaskWorkerTimeInput!]!, action: MutationAction): Task
+    executeTask(id: ID!, quantity: Int): Task
+    executeTaskSet(id: ID!, quantity: Int): TaskSet
 
 
     createOrEditTaskSet(input: TaskSetInput!, action: MutationAction): TaskSet

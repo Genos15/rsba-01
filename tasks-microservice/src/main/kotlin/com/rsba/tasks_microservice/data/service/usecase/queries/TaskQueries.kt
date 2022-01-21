@@ -131,6 +131,17 @@ object TaskQueries : IBaseQuery<TaskInput, TaskDao> {
         append("'$token')")
     }
 
+    fun execute(
+        id: UUID,
+        quantity: Int? = null,
+        token: UUID
+    ): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<TaskDao>(customQuery = "_on_execute"))
+        append("('$id',")
+        append("${quantity?.let { "$it" }},")
+        append("'$token')")
+    }
+
     fun users(id: UUID, first: Int, after: UUID? = null, token: UUID): String =
         buildString {
             append(QueryBuilder.Custom.buildRequestDef<TaskDao>(customQuery = "_on_retrieve_users"))

@@ -1,5 +1,6 @@
 package  com.rsba.tasks_microservice.data.service.usecase.queries
 
+import com.rsba.tasks_microservice.data.dao.TaskDao
 import com.rsba.tasks_microservice.data.dao.TaskSetDao
 import com.rsba.tasks_microservice.domain.queries.IBaseQuery
 import com.rsba.tasks_microservice.domain.format.JsonHandlerKotlin
@@ -109,4 +110,16 @@ object TaskSetQueries : IBaseQuery<TaskSetInput, TaskSetDao> {
             append("${after?.let { "'$it'" }},")
             append("'$token')")
         }
+
+    fun execute(
+        id: UUID,
+        quantity: Int? = null,
+        token: UUID
+    ): String = buildString {
+        append(QueryBuilder.Custom.buildRequestDef<TaskDao>(customQuery = "_on_execute"))
+        append("('$id',")
+        append("${quantity?.let { "$it" }},")
+        append("'$token')")
+    }
+
 }
