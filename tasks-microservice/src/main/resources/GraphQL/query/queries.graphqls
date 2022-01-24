@@ -14,7 +14,7 @@ type Query {
 
 
     #------------ task_set ----------------
-    retrieveTaskSets (first: Int!, after: ID, rangeStart: DateTime, rangeEnd: DateTime, id: ID): TaskSetConnection @connection(for: "TaskSet")
+    retrieveTaskSets (first: Int!, id: ID, after: ID, rangeStart: DateTime, rangeEnd: DateTime): TaskSetConnection @connection(for: "TaskSet")
     findTaskSet(input: ID!): TaskSet
     countTaskSets: Int
     retrieveTaskSetUsers (id: ID!, first: Int!, after: ID): UserConnection @connection(for: "User")
