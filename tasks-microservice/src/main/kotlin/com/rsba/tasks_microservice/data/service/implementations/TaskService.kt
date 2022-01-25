@@ -122,8 +122,14 @@ class TaskService(
     override suspend fun users(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<User>> =
         retrieveUsersUseCase(database = database, ids = ids, token = token, first = first, after = after)
 
-    override suspend fun comments(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Comment>> =
-        retrieveCommentsUseCase(ids = ids, first = first, after = after, token = token)
+    override suspend fun comments(
+        ids: Set<UUID>,
+        first: Int,
+        after: UUID?,
+        layer: CommentLayer?,
+        token: UUID
+    ): Map<UUID, List<Comment>> =
+        retrieveCommentsUseCase(ids = ids, first = first, after = after, token = token, layer = layer)
 
     override suspend fun toExecute(id: UUID, quantity: Int?, token: UUID): Optional<Task> =
         toExecuteTaskUseCase(id = id, quantity = quantity, token = token)

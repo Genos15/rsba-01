@@ -62,13 +62,15 @@ class TaskSetQueryResolver(val service: TaskSetRepository, private val deduct: T
         id: UUID,
         first: Int,
         after: UUID? = null,
+        layer: CommentLayer? = null,
         environment: DataFetchingEnvironment
     ): Connection<Comment> = perform(
         entries = service.comments(
             ids = setOf(id),
             token = deduct(environment = environment),
             first = first,
-            after = after
+            after = after,
+            layer = layer
         ),
         first = first,
         after = after,

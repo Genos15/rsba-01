@@ -10,7 +10,7 @@ type Query {
     findTaskOperation (id: ID!): Operation
     findTaskWorkcenter (id: ID!): Workcenter
     retrieveTaskUsers (id: ID!, first: Int!, after: ID): UserConnection @connection(for: "User")
-    retrieveTaskComments (id: ID!, first: Int!, after: ID): CommentConnection @connection(for: "Comment")
+    retrieveTaskComments (id: ID!, first: Int!, after: ID, layer: CommentLayer): CommentConnection @connection(for: "Comment")
 
 
     #------------ task_set ----------------
@@ -19,7 +19,7 @@ type Query {
     countTaskSets: Int
     retrieveTaskSetUsers (id: ID!, first: Int!, after: ID): UserConnection @connection(for: "User")
     retrieveTaskSet_Tasks (id: ID!, first: Int!, after: ID): TaskConnection @connection(for: "Task")
-    retrieveTaskSetComments (id: ID!, first: Int!, after: ID): CommentConnection @connection(for: "Comment")
+    retrieveTaskSetComments (id: ID!, first: Int!, after: ID, layer: CommentLayer): CommentConnection @connection(for: "Comment")
 
 
     #------------ comment ----------------

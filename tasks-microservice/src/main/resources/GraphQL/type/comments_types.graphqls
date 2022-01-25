@@ -9,6 +9,7 @@ type Comment {
 enum CommentLayer {
     TASK
     ORDER
+    REPORT
 }
 
 type CommentEdge {

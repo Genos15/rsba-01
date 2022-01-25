@@ -67,8 +67,14 @@ class TaskSetService(
     override suspend fun tasks(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Task>> =
         retrieveTasksUseCase(ids = ids, first = first, after = after, token = token)
 
-    override suspend fun comments(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Comment>> =
-        retrieveCommentsUseCase(ids = ids, first = first, after = after, token = token)
+    override suspend fun comments(
+        ids: Set<UUID>,
+        first: Int,
+        after: UUID?,
+        layer: CommentLayer?,
+        token: UUID
+    ): Map<UUID, List<Comment>> =
+        retrieveCommentsUseCase(ids = ids, first = first, after = after, token = token, layer = layer)
 
     override suspend fun toExecute(id: UUID, quantity: Int?, token: UUID): Optional<TaskSet> =
         toExecuteTaskSetUseCase(id = id, quantity = quantity, token = token)

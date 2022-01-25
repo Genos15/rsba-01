@@ -58,6 +58,7 @@ interface TaskSetRepository {
         ids: Set<UUID>,
         first: Int = 1000,
         after: UUID? = null,
+        layer: CommentLayer? = null,
         token: UUID = UUID.randomUUID()
     ): Map<UUID, List<Comment>>
 

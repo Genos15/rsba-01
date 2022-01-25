@@ -6,10 +6,7 @@ import com.rsba.tasks_microservice.domain.format.JsonHandlerKotlin
 import com.rsba.tasks_microservice.domain.queries.QueryBuilder
 import com.rsba.tasks_microservice.domain.input.TaskInput
 import com.rsba.tasks_microservice.domain.input.TaskWorkerTimeInput
-import com.rsba.tasks_microservice.domain.model.Edition
-import com.rsba.tasks_microservice.domain.model.MutationAction
-import com.rsba.tasks_microservice.domain.model.TaskLayer
-import com.rsba.tasks_microservice.domain.model.TaskStatus
+import com.rsba.tasks_microservice.domain.model.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
 import java.time.OffsetDateTime
@@ -151,12 +148,13 @@ object TaskQueries : IBaseQuery<TaskInput, TaskDao> {
             append("'$token')")
         }
 
-    fun comments(id: UUID, first: Int, after: UUID? = null, token: UUID): String =
+    fun comments(id: UUID, first: Int, after: UUID? = null, token: UUID, layer: CommentLayer? = null): String =
         buildString {
             append(QueryBuilder.Custom.buildRequestDef<TaskDao>(customQuery = "_on_retrieve_comments"))
             append("('$id',")
             append("$first,")
             append("${after?.let { "'$it'" }},")
+            append("${layer?.let { "'$it'" }},")
             append("'$token')")
         }
 }

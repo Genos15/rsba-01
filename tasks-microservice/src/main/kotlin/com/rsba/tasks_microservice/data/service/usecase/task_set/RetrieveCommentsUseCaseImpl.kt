@@ -4,6 +4,7 @@ package com.rsba.tasks_microservice.data.service.usecase.task_set
 import com.rsba.tasks_microservice.data.dao.CommentDao
 import com.rsba.tasks_microservice.data.service.usecase.queries.TaskSetQueries
 import com.rsba.tasks_microservice.domain.model.Comment
+import com.rsba.tasks_microservice.domain.model.CommentLayer
 import com.rsba.tasks_microservice.domain.queries.QueryCursor
 import com.rsba.tasks_microservice.domain.usecase.common.RetrieveCommentsUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
@@ -17,7 +18,13 @@ import java.util.*
 @Component(value = "retrieve_task_set_comments")
 @OptIn(ExperimentalSerializationApi::class)
 class RetrieveCommentsUseCaseImpl(private val database: DatabaseClient) : RetrieveCommentsUseCase {
-    override suspend fun invoke(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Comment>> =
+    override suspend fun invoke(
+        ids: Set<UUID>,
+        first: Int,
+        after: UUID?,
+        layer: CommentLayer?,
+        token: UUID
+    ): Map<UUID, List<Comment>> =
         Flux.fromIterable(ids)
             .parallel()
             .flatMap { id ->
@@ -27,6 +34,7 @@ class RetrieveCommentsUseCaseImpl(private val database: DatabaseClient) : Retrie
                         id = id,
                         first = first,
                         after = after,
+                        layer = layer,
                     )
                 ).map { row -> QueryCursor.all(row = row) }
                     .first()
