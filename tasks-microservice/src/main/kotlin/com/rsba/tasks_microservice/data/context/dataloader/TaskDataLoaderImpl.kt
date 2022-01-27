@@ -49,4 +49,11 @@ class TaskDataLoaderImpl(private val service: TaskRepository) {
             }
         }
 
+    fun technologiesLoader(userId: UUID): DataLoader<UUID, List<Technology>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future {
+                service.technologies(ids = ids)
+            }
+        }
+
 }

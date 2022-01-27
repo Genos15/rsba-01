@@ -3,7 +3,6 @@ package com.rsba.tasks_microservice.configuration.deserializer
 import com.rsba.tasks_microservice.data.dao.*
 import com.rsba.tasks_microservice.domain.format.ModelTypeCase
 import com.rsba.tasks_microservice.domain.exception.CustomGraphQLError
-import com.rsba.tasks_microservice.domain.model.TaskSet
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.json.*
 
@@ -20,6 +19,7 @@ object AbstractSerializer : JsonContentPolymorphicSerializer<AbstractModel>(Abst
                 ModelTypeCase.users.lowercase() -> UserDao.serializer()
                 ModelTypeCase.tasks_set.lowercase() -> TaskSetDao.serializer()
                 ModelTypeCase.comments.lowercase() -> CommentDao.serializer()
+                ModelTypeCase.technologies.lowercase() -> TechnologyDao.serializer()
                 else -> throw  CustomGraphQLError(message = "Unknown Module: key 'type' not found or does not matches any module type")
             }
         }
@@ -33,6 +33,7 @@ object AbstractSerializer : JsonContentPolymorphicSerializer<AbstractModel>(Abst
             ModelTypeCase.users.lowercase() -> UserDao.serializer()
             ModelTypeCase.tasks_set.lowercase() -> TaskSetDao.serializer()
             ModelTypeCase.comments.lowercase() -> CommentDao.serializer()
+            ModelTypeCase.technologies.lowercase() -> TechnologyDao.serializer()
             else -> throw CustomGraphQLError(message = "Unknown Module: key 'type' not found or does not matches any module type")
         }
     }

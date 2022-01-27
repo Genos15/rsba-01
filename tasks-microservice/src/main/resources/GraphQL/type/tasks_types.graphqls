@@ -17,6 +17,7 @@ type Task {
     #    parameters: [Parameter!]
     workcenter: Workcenter
     comments: [Comment!]
+    technologies: [Technology!]
 }
 
 type TaskEdge {

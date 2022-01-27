@@ -52,6 +52,14 @@ object QueryCursor {
         }
     }
 
+    fun howMuch(row: Row): Float {
+        return try {
+            meOrNull(row = row, index = 0) ?: 0f
+        } catch (e: Exception) {
+            0f
+        }
+    }
+
     fun countAsString(row: Row): String? {
         return try {
             meOrNull(row = row, index = 0)

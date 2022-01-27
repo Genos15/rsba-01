@@ -2,7 +2,6 @@ package com.rsba.tasks_microservice.domain.repository
 
 import com.rsba.tasks_microservice.domain.input.*
 import com.rsba.tasks_microservice.domain.model.*
-import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.*
 
@@ -77,6 +76,20 @@ interface TaskRepository {
         layer: CommentLayer? = null,
         token: UUID = UUID.randomUUID()
     ): Map<UUID, List<Comment>>
+
+    suspend fun technologies(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Technology>>
+
+    suspend fun userWorkload(
+        id: UUID,
+        rangeStart: OffsetDateTime,
+        rangeEnd: OffsetDateTime,
+        token: UUID
+    ): Float
 
     suspend fun toExecute(id: UUID, quantity: Int? = null, token: UUID): Optional<Task>
 }

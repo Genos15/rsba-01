@@ -157,4 +157,26 @@ object TaskQueries : IBaseQuery<TaskInput, TaskDao> {
             append("${layer?.let { "'$it'" }},")
             append("'$token')")
         }
+
+    fun technologies(id: UUID, first: Int, after: UUID? = null, token: UUID): String =
+        buildString {
+            append(QueryBuilder.Custom.buildRequestDef<TaskDao>(customQuery = "_on_retrieve_technologies"))
+            append("('$id',")
+            append("$first,")
+            append("${after?.let { "'$it'" }},")
+            append("'$token')")
+        }
+
+    fun userWorkload(
+        id: UUID,
+        rangeStart: OffsetDateTime,
+        rangeEnd: OffsetDateTime,
+        token: UUID
+    ): String = buildString {
+        append("select users_on_calculate_workload")
+        append("('$id',")
+        append("${rangeStart.let { "'$rangeStart'" }},")
+        append("${rangeEnd.let { "'$rangeEnd'" }},")
+        append("'$token')")
+    }
 }

@@ -29,7 +29,9 @@ class TaskService(
     private val toAllocateUseCase: ToAllocateUseCase,
     @Qualifier("retrieve_task_users") private val retrieveUsersUseCase: RetrieveUsersUseCase,
     @Qualifier("retrieve_task_comments") private val retrieveCommentsUseCase: RetrieveCommentsUseCase,
-    private val toExecuteTaskUseCase: ToExecuteTaskUseCase
+    private val toExecuteTaskUseCase: ToExecuteTaskUseCase,
+    private val retrieveTechnologiesUseCase: RetrieveTechnologiesUseCase,
+    private val userWorkloadUseCase: UserWorkloadUseCase,
 ) : TaskRepository {
 
     override suspend fun toEdit(
@@ -130,6 +132,21 @@ class TaskService(
         token: UUID
     ): Map<UUID, List<Comment>> =
         retrieveCommentsUseCase(ids = ids, first = first, after = after, token = token, layer = layer)
+
+    override suspend fun technologies(
+        ids: Set<UUID>,
+        first: Int,
+        after: UUID?,
+        token: UUID
+    ): Map<UUID, List<Technology>> =
+        retrieveTechnologiesUseCase(ids = ids, first = first, after = after, token = token)
+
+    override suspend fun userWorkload(
+        id: UUID,
+        rangeStart: OffsetDateTime,
+        rangeEnd: OffsetDateTime,
+        token: UUID
+    ): Float = userWorkloadUseCase(id = id, rangeStart = rangeStart, rangeEnd = rangeEnd, token = token)
 
     override suspend fun toExecute(id: UUID, quantity: Int?, token: UUID): Optional<Task> =
         toExecuteTaskUseCase(id = id, quantity = quantity, token = token)

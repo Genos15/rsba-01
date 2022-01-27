@@ -22,7 +22,7 @@ sealed class QueryBuilder(val query: String? = null) {
         val annotation = myClass.findAnnotation<ModelType>()
         return if (annotation != null) {
             "select ${annotation._class}${query ?: customQuery ?: ""}"
-        } else {
+        }  else {
             "select null;"
         }
     }

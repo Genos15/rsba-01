@@ -48,4 +48,10 @@ class TaskResolver : GraphQLResolver<Task> {
         return dataLoader?.load(input.id) ?: CompletableFuture.completedFuture(emptyList())
     }
 
+    fun technologies(input: Task, env: DataFetchingEnvironment): CompletableFuture<List<Technology>> {
+        val dataLoader =
+            env.getDataLoader<UUID, List<Technology>>(DataLoaderRegistryFactory.LOADER_FACTORY_TECHNOLOGIES_OF_TASK)
+        return dataLoader?.load(input.id) ?: CompletableFuture.completedFuture(emptyList())
+    }
+
 }

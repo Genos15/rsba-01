@@ -9,4 +9,5 @@ object ModelTypeCase {
     const val users = "users"
     const val tasks_set = "tasks_set"
     const val comments = "comments"
+    const val technologies = "technologies"
 }

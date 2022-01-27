@@ -18,6 +18,7 @@ class DataLoaderRegistryFactory(
         const val LOADER_FACTORY_WORKCENTER_OF_TASK = "WORKCENTER_OF_TASK"
         const val LOADER_FACTORY_USERS_OF_TASK = "USERS_OF_TASK"
         const val LOADER_FACTORY_COMMENTS_OF_TASK = "COMMENTS_OF_TASK"
+        const val LOADER_FACTORY_TECHNOLOGIES_OF_TASK = "TECHNOLOGIES_OF_TASK"
 
 
         const val LOADER_FACTORY_USERS_OF_TASKSET = "USERS_OF_TASKSET"
@@ -37,6 +38,7 @@ class DataLoaderRegistryFactory(
         registry.register(LOADER_FACTORY_WORKCENTER_OF_TASK, task.workcenterLoader(userId = instanceId))
         registry.register(LOADER_FACTORY_USERS_OF_TASK, task.usersLoader(userId = instanceId))
         registry.register(LOADER_FACTORY_COMMENTS_OF_TASK, task.commentsLoader(userId = instanceId))
+        registry.register(LOADER_FACTORY_TECHNOLOGIES_OF_TASK, task.technologiesLoader(userId = instanceId))
 
 
         registry.register(LOADER_FACTORY_USERS_OF_TASKSET, taskset.usersLoader(userId = instanceId))

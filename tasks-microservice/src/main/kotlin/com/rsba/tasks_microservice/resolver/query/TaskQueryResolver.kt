@@ -131,4 +131,35 @@ class TaskQueryResolver(val service: TaskRepository, private val deduct: TokenAn
         id = id
     )
 
+
+    suspend fun retrieveTaskTechnologies(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Technology> = perform(
+        entries = service.technologies(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after,
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
+    suspend fun findUserWorkload(
+        id: UUID,
+        rangeStart: OffsetDateTime,
+        rangeEnd: OffsetDateTime,
+        environment: DataFetchingEnvironment
+    ): Float =
+        service.userWorkload(
+            id = id,
+            token = deduct(environment = environment),
+            rangeEnd = rangeEnd,
+            rangeStart = rangeStart
+        )
+
 }
