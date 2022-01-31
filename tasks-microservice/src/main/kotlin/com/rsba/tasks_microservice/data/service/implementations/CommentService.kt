@@ -4,6 +4,7 @@ import com.rsba.tasks_microservice.domain.input.CommentInput
 import com.rsba.tasks_microservice.domain.model.*
 import com.rsba.tasks_microservice.domain.repository.CommentRepository
 import com.rsba.tasks_microservice.domain.usecase.common.*
+import com.rsba.tasks_microservice.domain.usecase.custom.comment.CountCommentUseCase
 import com.rsba.tasks_microservice.domain.usecase.custom.comment.CreateOrEditCommentUseCase
 import com.rsba.tasks_microservice.domain.usecase.custom.comment.FindReporterUseCase
 import org.springframework.beans.factory.annotation.Qualifier
@@ -18,7 +19,7 @@ class CommentService(
 //    @Qualifier("find_task") private val findUseCase: FindUseCase<Task>,
 //    @Qualifier("retrieve_tasks") private val retrieveUseCase: RetrieveUseCase<Task>,
 //    @Qualifier("search_tasks") private val searchUseCase: SearchUseCase<Task>,
-//    @Qualifier("count_tasks") private val countUseCase: CountUseCase,
+    private val countCommentUseCase: CountCommentUseCase,
 //    private val findOrderUseCase: FindOrderUseCase,
 //    private val findItemUseCase: FindItemUseCase,
 //    private val findOperationUseCase: FindOperationUseCase,
@@ -58,9 +59,8 @@ class CommentService(
         TODO("Not yet implemented")
     }
 
-    override suspend fun count(token: UUID): Int {
-        TODO("Not yet implemented")
-    }
+    override suspend fun count(hostId: UUID, layer: CommentLayer?, token: UUID): Int =
+        countCommentUseCase(hostId = hostId, layer = layer, token = token)
 
     override suspend fun user(ids: Set<UUID>, token: UUID): Map<UUID, Optional<User>> =
         findReporterUseCase(ids = ids, token = token)

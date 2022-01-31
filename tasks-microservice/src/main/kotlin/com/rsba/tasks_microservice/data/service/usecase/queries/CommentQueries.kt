@@ -23,7 +23,7 @@ object CommentQueries : IBaseQuery<CommentInput, CommentDao> {
         }
 
 
-    fun createOrEdit(input: CommentInput, token: UUID, layer: CommentLayer?): String =
+    fun createOrEdit2(input: CommentInput, token: UUID, layer: CommentLayer?): String =
         buildString {
             append(QueryBuilder.CreateOrEdit.buildRequestDef<CommentDao>())
             append("('${JsonHandlerKotlin.handler.encodeToString(input)}',")
@@ -109,6 +109,13 @@ object CommentQueries : IBaseQuery<CommentInput, CommentDao> {
             append("${after?.let { "'$it'" }},")
             append("'$token')")
         }
+
+    fun count2(hostId: UUID, layer: CommentLayer?, token: UUID): String = buildString {
+        append(QueryBuilder.Count.buildRequestDef<CommentDao>())
+        append("(${hostId.let { "'$it'" }},")
+        append("${layer?.let { "'$it'" }},")
+        append("'$token')")
+    }
 
 
 }

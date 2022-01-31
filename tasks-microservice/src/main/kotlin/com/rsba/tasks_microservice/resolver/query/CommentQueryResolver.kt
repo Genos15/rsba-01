@@ -17,4 +17,11 @@ class CommentQueryResolver(val service: CommentRepository, private val deduct: T
         id = id
     )
 
+    suspend fun countComments(
+        hostId: UUID,
+        layer: CommentLayer? = null,
+        environment: DataFetchingEnvironment
+    ): Int =
+        service.count(token = deduct(environment = environment), layer = layer, hostId = hostId)
+
 }

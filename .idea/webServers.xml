@@ -86,6 +86,13 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
+      <webServer id="34941f8d-21e5-429c-898d-14801c23c213" name="rs.tasks.prod">
+        <fileTransfer rootFolder="/home" accessType="SFTP" host="161.35.29.226" port="22" sshConfigId="c66fa38c-e62e-40c3-9e46-b48f7f09e328" sshConfig="rs.tasks.prod.source">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
       <webServer id="d72038d7-edb7-443a-8eb8-77de08739aa9" name="rs.staging.server">
         <fileTransfer rootFolder="/home" accessType="SFTP" host="165.232.71.237" port="22" sshConfigId="f536c4f4-e0be-43e3-8f80-5e3eb81eaf4c" sshConfig="rs.staging.source">
           <advancedOptions>
@@ -115,6 +122,7 @@
           <name value="rs.users.notification.production" />
           <name value="rs.orders.components.production" />
           <name value="rs.feedback.production" />
+          <name value="rs.tasks.prod" />
         </servers>
       </group>
       <group>

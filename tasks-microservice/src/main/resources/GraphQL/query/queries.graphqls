@@ -25,5 +25,6 @@ type Query {
 
     #------------ comment ----------------
     findCommentReporter (id: ID!): User
+    countComments (hostId: ID!, layer: CommentLayer): Int
     findUserWorkload (id: ID!, rangeStart: DateTime!, rangeEnd: DateTime!): Float
 }

@@ -90,6 +90,14 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="rs.tasks.prod">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/order-microservice" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="rs.users.notification.production">
         <serverdata>
           <mappings>

@@ -36,6 +36,8 @@ interface CommentRepository {
     ): List<Comment>
 
     suspend fun count(
+        hostId: UUID,
+        layer: CommentLayer? = null,
         token: UUID
     ): Int
 
