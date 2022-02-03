@@ -12,6 +12,7 @@ type Query {
     retrieveTaskUsers (id: ID!, first: Int!, after: ID): UserConnection @connection(for: "User")
     retrieveTaskTechnologies(id: ID!, first: Int!, after: ID): TechnologyConnection @connection(for: "Technology")
     retrieveTaskComments (id: ID!, first: Int!, after: ID, layer: CommentLayer): CommentConnection @connection(for: "Comment")
+    retrieveTaskWorklogs(id: ID!, first: Int!, after: ID): WorklogConnection @connection(for: "Worklog")
 
 
     #------------ task_set ----------------

@@ -149,6 +149,23 @@ class TaskQueryResolver(val service: TaskRepository, private val deduct: TokenAn
         id = id
     )
 
+    suspend fun retrieveTaskWorklogs(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<Worklog> = perform(
+        entries = service.worklogs(
+            ids = setOf(id),
+            token = deduct(environment = environment),
+            first = first,
+            after = after,
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
+
     suspend fun findUserWorkload(
         id: UUID,
         rangeStart: OffsetDateTime,

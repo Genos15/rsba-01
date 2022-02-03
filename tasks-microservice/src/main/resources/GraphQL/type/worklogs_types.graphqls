@@ -1,0 +1,18 @@
+type Worklog {
+    id: ID!
+    title: String
+    contentTitle: String
+    content: String
+    details: String
+    createdAt: DateTime!
+}
+
+type WorklogEdge {
+    cursor: String
+    node: Worklog
+}
+
+type WorklogConnection {
+    edges: [WorklogEdge]
+    pageInfo: PageInfo
+}

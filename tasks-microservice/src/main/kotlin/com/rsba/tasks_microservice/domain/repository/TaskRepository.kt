@@ -92,4 +92,11 @@ interface TaskRepository {
     ): Float
 
     suspend fun toExecute(id: UUID, quantity: Int? = null, token: UUID): Optional<Task>
+
+    suspend fun worklogs(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Worklog>>
 }

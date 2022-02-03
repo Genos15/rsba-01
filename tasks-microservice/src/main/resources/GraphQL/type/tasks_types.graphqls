@@ -18,6 +18,7 @@ type Task {
     workcenter: Workcenter
     comments: [Comment!]
     technologies: [Technology!]
+    worklogs: [Worklog!]
 }
 
 type TaskEdge {

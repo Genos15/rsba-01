@@ -31,6 +31,7 @@ class TaskService(
     @Qualifier("retrieve_task_comments") private val retrieveCommentsUseCase: RetrieveCommentsUseCase,
     private val toExecuteTaskUseCase: ToExecuteTaskUseCase,
     private val retrieveTechnologiesUseCase: RetrieveTechnologiesUseCase,
+    private val retrieveWorklogsUseCase: RetrieveWorklogsUseCase,
     private val userWorkloadUseCase: UserWorkloadUseCase,
 ) : TaskRepository {
 
@@ -150,4 +151,7 @@ class TaskService(
 
     override suspend fun toExecute(id: UUID, quantity: Int?, token: UUID): Optional<Task> =
         toExecuteTaskUseCase(id = id, quantity = quantity, token = token)
+
+    override suspend fun worklogs(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Worklog>> =
+        retrieveWorklogsUseCase(ids = ids, first = first, after = after, token = token)
 }

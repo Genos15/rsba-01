@@ -167,6 +167,15 @@ object TaskQueries : IBaseQuery<TaskInput, TaskDao> {
             append("'$token')")
         }
 
+    fun worklogs(id: UUID, first: Int, after: UUID? = null, token: UUID): String =
+        buildString {
+            append(QueryBuilder.Custom.buildRequestDef<TaskDao>(customQuery = "_on_retrieve_worklogs"))
+            append("('$id',")
+            append("$first,")
+            append("${after?.let { "'$it'" }},")
+            append("'$token')")
+        }
+
     fun userWorkload(
         id: UUID,
         rangeStart: OffsetDateTime,

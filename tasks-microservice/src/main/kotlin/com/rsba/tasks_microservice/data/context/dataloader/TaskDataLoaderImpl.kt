@@ -56,4 +56,11 @@ class TaskDataLoaderImpl(private val service: TaskRepository) {
             }
         }
 
+    fun worklogsLoader(userId: UUID): DataLoader<UUID, List<Worklog>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future {
+                service.worklogs(ids = ids)
+            }
+        }
+
 }
