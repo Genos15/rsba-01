@@ -104,15 +104,6 @@ type DraggableMap {
     columnOrder: [ID!]
 }
 
-type Worklog {
-    id:ID!
-    contentTitle: String!
-    content: String!
-    createdAt: DateTime
-    details: String
-    actor: User
-}
-
 type ProgressionStep {
     id: ID!
     name: String!

@@ -17,14 +17,3 @@ type CommentEdge {
     cursor: String
     node: Comment
 }
-
-
-type WorklogConnection {
-    edges: [WorklogEdge]
-    pageInfo: PageInfo
-}
-
-type WorklogEdge {
-    cursor: String
-    node: Worklog
-}

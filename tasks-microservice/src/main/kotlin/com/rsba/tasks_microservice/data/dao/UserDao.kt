@@ -5,6 +5,7 @@ import com.rsba.tasks_microservice.configuration.deserializer.UUIDSerializer
 import com.rsba.tasks_microservice.domain.format.ModelType
 import com.rsba.tasks_microservice.domain.format.ModelTypeCase
 import com.rsba.tasks_microservice.domain.model.User
+import com.rsba.tasks_microservice.domain.model.UserActivity
 import kotlinx.serialization.Serializable
 import java.time.OffsetDateTime
 import java.util.*
@@ -18,6 +19,7 @@ data class UserDao(
     val middlename: String? = null,
     val workload: Float = 0f,
     @Serializable(with = DateTimeSerializer::class) val estimatedStartDate: OffsetDateTime? = null,
+    val activity: List<UserActivity>? = emptyList()
 ) : AbstractModel() {
 
     val to: User
@@ -27,6 +29,7 @@ data class UserDao(
             lastname = lastname,
             middlename = middlename,
             workload = workload,
-            estimatedStartDate = estimatedStartDate
+            estimatedStartDate = estimatedStartDate,
+            activity = activity
         )
 }

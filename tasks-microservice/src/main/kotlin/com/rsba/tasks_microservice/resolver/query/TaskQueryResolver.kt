@@ -179,4 +179,24 @@ class TaskQueryResolver(val service: TaskRepository, private val deduct: TokenAn
             rangeStart = rangeStart
         )
 
+    suspend fun retrieveUsersActivities(
+        first: Int,
+        after: UUID,
+        layer: UserActivityLayer,
+        rangeStart: OffsetDateTime,
+        rangeEnd: OffsetDateTime,
+        environment: DataFetchingEnvironment
+    ): Connection<User> = perform(
+        entries = service.userActivities(
+            first = first,
+            token = deduct(environment = environment),
+            after = after,
+            layer = layer,
+            rangeStart = rangeStart,
+            rangeEnd = rangeEnd,
+        ),
+        first = first,
+        after = after,
+    )
+
 }

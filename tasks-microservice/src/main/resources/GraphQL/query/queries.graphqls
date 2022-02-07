@@ -28,4 +28,8 @@ type Query {
     findCommentReporter (id: ID!): User
     countComments (hostId: ID!, layer: CommentLayer): Int
     findUserWorkload (id: ID!, rangeStart: DateTime!, rangeEnd: DateTime!): Float
+
+    #------------ users ----------------
+    retrieveUsersActivities(first: Int!, after: ID, layer: UserActivityLayer!, rangeStart: DateTime!, rangeEnd: DateTime!): UserConnection @connection(for: "User")
+
 }

@@ -41,6 +41,7 @@ class OrderService(
     private val retrieveDepartmentStatisticsUseCase: RetrieveDepartmentStatisticsUseCase,
     private val retrieveItemCategoryStatisticsUseCase: RetrieveItemCategoryStatisticsUseCase,
     @Qualifier("retrieve_order_parameters") private val retrieveParametersUseCase: RetrieveParametersUseCase,
+    private val retrieveWorklogsUseCase: RetrieveWorklogsUseCase
 ) : OrderRepository {
 
     override suspend fun completionLineGraph(year: Int, token: UUID): Optional<OrderCompletionLine> =
@@ -136,7 +137,7 @@ class OrderService(
     ): Map<UUID, List<ItemCategory>> = emptyMap()
 
     override suspend fun worklogs(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Worklog>> =
-        emptyMap()
+        retrieveWorklogsUseCase(ids = ids, token = token, first = first, after = after)
 
     override suspend fun customer(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Customer>> =
         customerUseCase(ids = ids, token = token, database = database)

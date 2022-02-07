@@ -17,4 +17,5 @@ object ModelTypeCase {
     const val technologies = "technologies"
     const val operations = "operations"
     const val parameters = "parameters"
+    const val worklogs = "worklogs"
 }

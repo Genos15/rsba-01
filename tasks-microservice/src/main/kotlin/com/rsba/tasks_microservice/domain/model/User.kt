@@ -14,4 +14,5 @@ data class User(
     val middlename: String? = null,
     val workload: Float = 0f,
     @Serializable(with = DateTimeSerializer::class) val estimatedStartDate: OffsetDateTime? = null,
+    val activity: List<UserActivity>? = emptyList()
 )

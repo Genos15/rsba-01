@@ -188,4 +188,21 @@ object TaskQueries : IBaseQuery<TaskInput, TaskDao> {
         append("${rangeEnd.let { "'$rangeEnd'" }},")
         append("'$token')")
     }
+
+    fun userActivities(
+        first: Int,
+        after: UUID?,
+        layer: UserActivityLayer,
+        rangeStart: OffsetDateTime,
+        rangeEnd: OffsetDateTime,
+        token: UUID
+    ): String = buildString {
+        append("select users_on_retrieve_amount_activities")
+        append("($first,")
+        append("${after?.let { "'$it'" }},")
+        append("${layer.let { "'$it'" }},")
+        append("${rangeStart.let { "'$rangeStart'" }},")
+        append("${rangeEnd.let { "'$rangeEnd'" }},")
+        append("'$token')")
+    }
 }

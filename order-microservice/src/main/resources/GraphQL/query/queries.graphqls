@@ -47,7 +47,7 @@ type Query {
     findTaskOperation(input: ID!): Operation
     findTaskItem(input: ID!): Item
     retrieveTaskParameters (id: ID!, first: Int!, after: ID): ParameterConnection @connection(for: "Parameter")
-    
+
     #------------------------ items --------------------
     findItemStatistics(input: ID!): ItemStatistics
     findItemWhoAdded(input: ID!): User

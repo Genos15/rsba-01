@@ -84,6 +84,15 @@ interface TaskRepository {
         token: UUID = UUID.randomUUID()
     ): Map<UUID, List<Technology>>
 
+    suspend fun userActivities(
+        first: Int,
+        after: UUID? = null,
+        layer: UserActivityLayer,
+        rangeStart: OffsetDateTime,
+        rangeEnd: OffsetDateTime,
+        token: UUID
+    ): List<User>
+
     suspend fun userWorkload(
         id: UUID,
         rangeStart: OffsetDateTime,

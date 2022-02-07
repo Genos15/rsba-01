@@ -75,13 +75,6 @@ class OrderDataLoaderImpl(private val service: OrderRepository) {
             }
         }
 
-    fun worklogsLoader(userId: UUID): DataLoader<UUID, List<Worklog>> =
-        DataLoader.newMappedDataLoader { ids ->
-            GlobalScope.future {
-                service.worklogs(ids = ids)
-            }
-        }
-
     fun itemsSearchedLoader(userId: UUID): DataLoader<OrderSearchInputValue, Connection<Item>> =
         DataLoader.newMappedDataLoader { ids ->
             GlobalScope.future {
@@ -125,5 +118,11 @@ class OrderDataLoaderImpl(private val service: OrderRepository) {
             GlobalScope.future { service.itemCategoryStatistics(ids = ids) }
         }
 
+    fun worklogsLoader(userId: UUID): DataLoader<UUID, List<Worklog>> =
+        DataLoader.newMappedDataLoader { ids ->
+            GlobalScope.future {
+                service.worklogs(ids = ids)
+            }
+        }
 
 }

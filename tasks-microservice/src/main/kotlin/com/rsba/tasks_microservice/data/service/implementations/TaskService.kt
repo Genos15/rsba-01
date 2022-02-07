@@ -7,6 +7,7 @@ import com.rsba.tasks_microservice.domain.repository.TaskRepository
 import com.rsba.tasks_microservice.domain.usecase.common.*
 import com.rsba.tasks_microservice.domain.usecase.custom.task.*
 import com.rsba.tasks_microservice.domain.usecase.custom.task.RetrieveUsersUseCase
+import com.rsba.tasks_microservice.domain.usecase.custom.user.RetrieveUserActivityUseCase
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
@@ -33,6 +34,7 @@ class TaskService(
     private val retrieveTechnologiesUseCase: RetrieveTechnologiesUseCase,
     private val retrieveWorklogsUseCase: RetrieveWorklogsUseCase,
     private val userWorkloadUseCase: UserWorkloadUseCase,
+    private val retrieveUserActivityUseCase: RetrieveUserActivityUseCase,
 ) : TaskRepository {
 
     override suspend fun toEdit(
@@ -141,6 +143,22 @@ class TaskService(
         token: UUID
     ): Map<UUID, List<Technology>> =
         retrieveTechnologiesUseCase(ids = ids, first = first, after = after, token = token)
+
+    override suspend fun userActivities(
+        first: Int,
+        after: UUID?,
+        layer: UserActivityLayer,
+        rangeStart: OffsetDateTime,
+        rangeEnd: OffsetDateTime,
+        token: UUID
+    ): List<User> = retrieveUserActivityUseCase(
+        first = first,
+        after = after,
+        layer = layer,
+        rangeStart = rangeStart,
+        rangeEnd = rangeEnd,
+        token = token
+    )
 
     override suspend fun userWorkload(
         id: UUID,

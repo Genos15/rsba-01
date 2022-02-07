@@ -5,6 +5,7 @@ type User {
     middlename: String
     workload: Float!
     estimatedStartDate: DateTime
+    activity: [UserActivity!]
 }
 
 type UserEdge {
@@ -15,4 +16,14 @@ type UserEdge {
 type UserConnection {
     edges: [UserEdge]
     pageInfo: PageInfo
+}
+
+type UserActivity {
+    date: DateTime!
+    count: Int!
+}
+
+enum UserActivityLayer {
+    DAYS
+    HOURS
 }

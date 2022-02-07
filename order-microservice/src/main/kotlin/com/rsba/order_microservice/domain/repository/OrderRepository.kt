@@ -72,13 +72,6 @@ interface OrderRepository {
         token: UUID = UUID.randomUUID()
     ): Map<UUID, List<ItemCategory>>
 
-    suspend fun worklogs(
-        ids: Set<UUID>,
-        first: Int = 1000,
-        after: UUID? = null,
-        token: UUID = UUID.randomUUID()
-    ): Map<UUID, List<Worklog>>
-
     suspend fun customer(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Customer>>
 
     suspend fun item(ids: Set<UUID>, token: UUID = UUID.randomUUID()): Map<UUID, Optional<Item>>
@@ -137,4 +130,11 @@ interface OrderRepository {
         after: UUID? = null,
         token: UUID = UUID.randomUUID()
     ): Map<UUID, List<ItemCategoryStatistics>>
+
+    suspend fun worklogs(
+        ids: Set<UUID>,
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
+    ): Map<UUID, List<Worklog>>
 }
