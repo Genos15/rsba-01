@@ -17,6 +17,7 @@ data class ItemDao(
     val description: String? = null,
     val material: String? = null,
     val quantity: Float? = null,
+    val progress: Float? = null,
     @Serializable(with = DateTimeSerializer::class) val createdAt: OffsetDateTime? = null,
     @Serializable(with = DateTimeSerializer::class) val editedAt: OffsetDateTime? = null,
     val childrenIds: List<String>? = emptyList(),
@@ -31,7 +32,7 @@ data class ItemDao(
             editedAt = editedAt,
             material = material,
             orderId = UUID.randomUUID(),
-            progress = 0f,
+            progress = progress ?: 0f,
             quantity = quantity ?: 0f
         )
 }
