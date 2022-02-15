@@ -11,4 +11,5 @@ object ModelTypeCase {
     const val comments = "comments"
     const val technologies = "technologies"
     const val worklogs = "worklogs"
+    const val gantt_data = "gantt_data"
 }

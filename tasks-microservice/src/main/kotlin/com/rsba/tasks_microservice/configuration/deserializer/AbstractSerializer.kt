@@ -21,6 +21,7 @@ object AbstractSerializer : JsonContentPolymorphicSerializer<AbstractModel>(Abst
                 ModelTypeCase.comments.lowercase() -> CommentDao.serializer()
                 ModelTypeCase.technologies.lowercase() -> TechnologyDao.serializer()
                 ModelTypeCase.worklogs.lowercase() -> WorklogDao.serializer()
+                ModelTypeCase.gantt_data.lowercase() -> GanttDataDao.serializer()
                 else -> throw  CustomGraphQLError(message = "Unknown Module: key 'type' not found or does not matches any module type")
             }
         }
@@ -36,6 +37,7 @@ object AbstractSerializer : JsonContentPolymorphicSerializer<AbstractModel>(Abst
             ModelTypeCase.comments.lowercase() -> CommentDao.serializer()
             ModelTypeCase.technologies.lowercase() -> TechnologyDao.serializer()
             ModelTypeCase.worklogs.lowercase() -> WorklogDao.serializer()
+            ModelTypeCase.gantt_data.lowercase() -> GanttDataDao.serializer()
             else -> throw CustomGraphQLError(message = "Unknown Module: key 'type' not found or does not matches any module type")
         }
     }

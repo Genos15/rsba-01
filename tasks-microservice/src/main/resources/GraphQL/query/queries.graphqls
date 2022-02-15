@@ -32,4 +32,7 @@ type Query {
     #------------ users ----------------
     retrieveUsersActivities(first: Int!, after: ID, layer: UserActivityLayer!, rangeStart: DateTime!, rangeEnd: DateTime!): UserConnection @connection(for: "User")
 
+    #------------ gantt ----------------
+    retrieveGantt(id: ID!): [GanttData]
+
 }

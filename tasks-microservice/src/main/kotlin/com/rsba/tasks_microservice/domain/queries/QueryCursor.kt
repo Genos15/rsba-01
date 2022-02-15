@@ -14,7 +14,12 @@ object QueryCursor {
         if (payload == null) {
             throw CustomGraphQLError(message = "Value is not nullable")
         } else {
-            val payloadJson = payload.replace(" ", "").replace("[null]", "[]")
+            val payloadJson = if (payload.replace(" ", "").contains("[null]", ignoreCase = true)) {
+                payload.replace(" ", "").replace("[null]", "[]")
+            } else {
+                payload.replace("[null]", "[]")
+            }
+
             val element = JsonHandlerKotlin.handler.parseToJsonElement(payloadJson)
             require(element is JsonArray)
             JsonHandlerKotlin.handler.decodeFromJsonElement(element)
@@ -23,6 +28,7 @@ object QueryCursor {
         if (e is CustomGraphQLError) {
             emptyList()
         } else {
+            println("Error = ${e.message}")
             throw e
         }
     }
@@ -30,7 +36,11 @@ object QueryCursor {
     fun one(row: Row): Optional<AbstractModel> {
         val payload = row.get(0, String::class.java)
             ?: return Optional.empty()/* ?: throw CustomGraphQLError(message = "Value is not nullable")*/
-        val payloadJson = payload.replace(" ", "").replace("[null]", "[]")
+        val payloadJson = if (payload.replace(" ", "").contains("[null]", ignoreCase = true)) {
+            payload.replace(" ", "").replace("[null]", "[]")
+        } else {
+            payload.replace("[null]", "[]")
+        }
         var element = JsonHandlerKotlin.handler.parseToJsonElement(payloadJson)
         if (element is JsonArray && element.jsonArray.isNotEmpty()) {
             element = element.jsonArray[0].jsonObject
