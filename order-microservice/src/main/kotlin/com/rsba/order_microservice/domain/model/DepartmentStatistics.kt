@@ -14,4 +14,5 @@ data class DepartmentStatistics(
     val isActive: Boolean,
     val isDone: Boolean,
     val progress: Float,
+    val workload: Float,
 )

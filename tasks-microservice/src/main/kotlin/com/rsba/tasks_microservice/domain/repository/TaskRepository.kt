@@ -100,6 +100,13 @@ interface TaskRepository {
         token: UUID
     ): Float
 
+    suspend fun workcenterWorkload(
+        id: UUID,
+        rangeStart: OffsetDateTime,
+        rangeEnd: OffsetDateTime,
+        token: UUID
+    ): Float
+
     suspend fun toExecute(id: UUID, quantity: Int? = null, token: UUID): Optional<Task>
 
     suspend fun worklogs(

@@ -27,12 +27,15 @@ type Query {
     #------------ comment ----------------
     findCommentReporter (id: ID!): User
     countComments (hostId: ID!, layer: CommentLayer): Int
-    findUserWorkload (id: ID!, rangeStart: DateTime!, rangeEnd: DateTime!): Float
+
 
     #------------ users ----------------
     retrieveUsersActivities(first: Int!, after: ID, layer: UserActivityLayer!, rangeStart: DateTime!, rangeEnd: DateTime!): UserConnection @connection(for: "User")
+    findUserWorkload (id: ID!, rangeStart: DateTime!, rangeEnd: DateTime!): Float
 
     #------------ gantt ----------------
     retrieveGantt(id: ID!): [GanttData]
 
+    #------------ workcenter ----------------
+    findWorkcenterWorkload (id: ID!, rangeStart: DateTime!, rangeEnd: DateTime!): Float
 }

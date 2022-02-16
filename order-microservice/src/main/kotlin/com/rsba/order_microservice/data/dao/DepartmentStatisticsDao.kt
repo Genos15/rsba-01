@@ -18,6 +18,7 @@ data class DepartmentStatisticsDao(
     val isActive: Boolean,
     val isDone: Boolean,
     val progress: Float,
+    val workload: Float,
 ) : AbstractModel() {
 
     val to: DepartmentStatistics
@@ -29,7 +30,8 @@ data class DepartmentStatisticsDao(
             rowIndex = rowIndex,
             isDone = isDone,
             isActive = isActive,
-            progress = progress
+            progress = progress,
+            workload = workload,
         )
 }
 

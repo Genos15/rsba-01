@@ -189,6 +189,19 @@ object TaskQueries : IBaseQuery<TaskInput, TaskDao> {
         append("'$token')")
     }
 
+    fun workcenterWorkload(
+        id: UUID,
+        rangeStart: OffsetDateTime,
+        rangeEnd: OffsetDateTime,
+        token: UUID
+    ): String = buildString {
+        append("select workcenter_on_calculate_workload")
+        append("('$id',")
+        append("${rangeStart.let { "'$rangeStart'" }},")
+        append("${rangeEnd.let { "'$rangeEnd'" }},")
+        append("'$token')")
+    }
+
     fun userActivities(
         first: Int,
         after: UUID?,

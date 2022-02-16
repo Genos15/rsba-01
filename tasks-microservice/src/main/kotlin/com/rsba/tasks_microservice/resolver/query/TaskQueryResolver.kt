@@ -179,6 +179,19 @@ class TaskQueryResolver(val service: TaskRepository, private val deduct: TokenAn
             rangeStart = rangeStart
         )
 
+    suspend fun findWorkcenterWorkload(
+        id: UUID,
+        rangeStart: OffsetDateTime,
+        rangeEnd: OffsetDateTime,
+        environment: DataFetchingEnvironment
+    ): Float =
+        service.workcenterWorkload(
+            id = id,
+            token = deduct(environment = environment),
+            rangeEnd = rangeEnd,
+            rangeStart = rangeStart
+        )
+
     suspend fun retrieveUsersActivities(
         first: Int,
         after: UUID,

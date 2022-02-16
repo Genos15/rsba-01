@@ -90,6 +90,7 @@ type DepartmentStatistics {
     isActive: Boolean!
     isDone: Boolean!
     progress: Float!
+    workload: Float!
 }
 
 type DepartmentStatisticsConnection {

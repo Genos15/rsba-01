@@ -35,6 +35,7 @@ class TaskService(
     private val retrieveWorklogsUseCase: RetrieveWorklogsUseCase,
     private val userWorkloadUseCase: UserWorkloadUseCase,
     private val retrieveUserActivityUseCase: RetrieveUserActivityUseCase,
+    @Qualifier("find_workcenter_workload") private val workcenterWorkloadUseCase: WorkcenterWorkloadUseCase
 ) : TaskRepository {
 
     override suspend fun toEdit(
@@ -166,6 +167,13 @@ class TaskService(
         rangeEnd: OffsetDateTime,
         token: UUID
     ): Float = userWorkloadUseCase(id = id, rangeStart = rangeStart, rangeEnd = rangeEnd, token = token)
+
+    override suspend fun workcenterWorkload(
+        id: UUID,
+        rangeStart: OffsetDateTime,
+        rangeEnd: OffsetDateTime,
+        token: UUID
+    ): Float = workcenterWorkloadUseCase(id = id, rangeStart = rangeStart, rangeEnd = rangeEnd, token = token)
 
     override suspend fun toExecute(id: UUID, quantity: Int?, token: UUID): Optional<Task> =
         toExecuteTaskUseCase(id = id, quantity = quantity, token = token)
