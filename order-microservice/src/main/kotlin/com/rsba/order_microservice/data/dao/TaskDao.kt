@@ -14,6 +14,7 @@ import java.util.*
 data class TaskDao(
     @Serializable(with = UUIDSerializer::class) override val id: UUID,
     val quantity: Float,
+    val doneQuantity: Float? = 0f,
     val estimatedTimeInHour: Float,
     val description: String? = null,
     @Serializable(with = DateTimeSerializer::class) val estimatedEndDate: OffsetDateTime? = null,
@@ -29,6 +30,7 @@ data class TaskDao(
             createdAt = createdAt,
             editedAt = editedAt,
             quantity = quantity,
-            estimatedEndDate = estimatedEndDate
+            estimatedEndDate = estimatedEndDate,
+            doneQuantity = doneQuantity ?: 0f
         )
 }

@@ -1,6 +1,7 @@
 type Task {
     id: ID!
     quantity: Float!
+    doneQuantity: Float!
     estimatedTimeInHour: Float!
     description: String
     estimatedEndDate: DateTime
