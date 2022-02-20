@@ -16,4 +16,7 @@ type Query {
     retrieveExecutorById (id: ID!): Executor
 
     retrieveUserByToken: User
+
+    retrieveWorkcenterUsers (id: ID!, first: Int!, after: ID): UserConnection @connection(for: "User")
+
 }

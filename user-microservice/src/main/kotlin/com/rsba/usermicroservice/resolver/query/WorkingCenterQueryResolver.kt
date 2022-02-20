@@ -2,6 +2,7 @@ package com.rsba.usermicroservice.resolver.query
 
 import com.rsba.usermicroservice.configuration.request_helper.CursorUtil
 import com.rsba.usermicroservice.context.token.TokenImpl
+import com.rsba.usermicroservice.domain.model.User
 import com.rsba.usermicroservice.domain.model.WorkingCenter
 import com.rsba.usermicroservice.interpector.aspect.AdminSecured
 import com.rsba.usermicroservice.repository.WorkingCenterRepository
@@ -20,7 +21,7 @@ class WorkingCenterQueryResolver(
     val cursorUtil: CursorUtil,
     val service: WorkingCenterRepository,
     private val tokenImpl: TokenImpl
-) : GraphQLQueryResolver {
+) : GraphQLQueryResolver, GenericRetrieveConnection {
 
     @AdminSecured
     suspend fun retrieveAllWorkingCenters(
@@ -47,6 +48,25 @@ class WorkingCenterQueryResolver(
 
         return DefaultConnection(edges, pageInfo)
     }
+
+
+    suspend fun retrieveWorkcenterUsers(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<User> = perform(
+        entries = service.retrieveUserOfWorkingCenter(
+            ids = setOf(id),
+            token = tokenImpl.read(environment = environment),
+            first = first,
+            after = after,
+            userId = UUID.randomUUID()
+        ),
+        first = first,
+        after = after,
+        id = id
+    )
 
     @AdminSecured
     suspend fun retrieveWorkingCenterById(id: UUID, environment: DataFetchingEnvironment): Optional<WorkingCenter> {

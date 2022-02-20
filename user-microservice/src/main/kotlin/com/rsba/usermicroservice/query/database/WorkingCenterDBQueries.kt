@@ -34,6 +34,9 @@ object WorkingCenterDBQueries {
     fun retrieveUsersByWorkingCenterId(input: UUID, token: UUID): String =
         "SELECT on_retrieve_users_by_working_center_id('$input', '$token')"
 
+    fun retrieveUsersByWorkcenterId(id: UUID, first: Int, after: UUID? = null, token: UUID): String =
+        "select workcenters_on_retrieve_users('$id','$first', ${after?.let { "'$it'" }}, '$token')"
+
     fun retrieveManagersByWorkingCenterId(input: UUID, token: UUID): String =
         "SELECT on_retrieve_managers_by_working_center_id('$input', '$token')"
 }

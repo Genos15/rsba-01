@@ -35,7 +35,8 @@ class TaskService(
     private val retrieveWorklogsUseCase: RetrieveWorklogsUseCase,
     private val userWorkloadUseCase: UserWorkloadUseCase,
     private val retrieveUserActivityUseCase: RetrieveUserActivityUseCase,
-    @Qualifier("find_workcenter_workload") private val workcenterWorkloadUseCase: WorkcenterWorkloadUseCase
+    @Qualifier("find_workcenter_workload") private val workcenterWorkloadUseCase: WorkcenterWorkloadUseCase,
+    private val toExecuteTasksOfItemUseCase: ToExecuteTasksOfItemUseCase
 ) : TaskRepository {
 
     override suspend fun toEdit(
@@ -47,6 +48,9 @@ class TaskService(
 
     override suspend fun toDelete(input: UUID, token: UUID): Boolean =
         deleteUseCase(database = database, input = input, token = token)
+
+    override suspend fun toExecuteTasksOfItem(input: UUID, token: UUID): Boolean =
+        toExecuteTasksOfItemUseCase(input = input, token = token)
 
     override suspend fun find(id: UUID, token: UUID): Optional<Task> =
         findUseCase(database = database, id = id, token = token)

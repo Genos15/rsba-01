@@ -15,6 +15,8 @@ interface TaskRepository {
 
     suspend fun toDelete(input: UUID, token: UUID): Boolean
 
+    suspend fun toExecuteTasksOfItem(input: UUID, token: UUID): Boolean
+
     suspend fun find(id: UUID, token: UUID): Optional<Task>
 
     suspend fun retrieve(

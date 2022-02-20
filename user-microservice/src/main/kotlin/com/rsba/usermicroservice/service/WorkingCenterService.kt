@@ -92,13 +92,16 @@ class WorkingCenterService(private val database: DatabaseClient) : WorkingCenter
         ids: Set<UUID>,
         userId: UUID,
         first: Int,
-        after: UUID?
+        after: UUID?,
+        token: UUID
     ): Map<UUID, List<User>> = Flux.fromIterable(ids)
         .flatMap { id ->
             return@flatMap database.sql(
-                WorkingCenterDBQueries.retrieveUsersByWorkingCenterId(
-                    input = id,
-                    token = UUID.randomUUID()
+                WorkingCenterDBQueries.retrieveUsersByWorkcenterId(
+                    id = id,
+                    first = first,
+                    after = after,
+                    token = token
                 )
             ).map { row, meta -> UserDBHandler.all(row = row, meta = meta) }
                 .first()
@@ -114,13 +117,14 @@ class WorkingCenterService(private val database: DatabaseClient) : WorkingCenter
         ids: Set<UUID>,
         userId: UUID,
         first: Int,
-        after: UUID?
+        after: UUID?,
+        token: UUID
     ): Map<UUID, List<User>> = Flux.fromIterable(ids)
         .flatMap { id ->
             return@flatMap database.sql(
                 WorkingCenterDBQueries.retrieveManagersByWorkingCenterId(
                     input = id,
-                    token = UUID.randomUUID()
+                    token = token
                 )
             ).map { row, meta -> UserDBHandler.all(row = row, meta = meta) }
                 .first()

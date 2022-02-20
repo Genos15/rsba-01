@@ -39,4 +39,7 @@ class TaskMutation(private val service: TaskRepository, private val deduct: Toke
     suspend fun deleteTask(input: UUID, environment: DataFetchingEnvironment): Boolean =
         service.toDelete(input = input, token = deduct(environment = environment))
 
+    suspend fun executeTasksOfItem(input: UUID, environment: DataFetchingEnvironment): Boolean =
+        service.toExecuteTasksOfItem(input = input, token = deduct(environment = environment))
+
 }

@@ -20,14 +20,16 @@ interface WorkingCenterRepository {
     suspend fun retrieveUserOfWorkingCenter(
         ids: Set<UUID>,
         userId: UUID,
-        first: Int,
-        after: UUID? = null
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
     ): Map<UUID, List<User>>
 
     suspend fun retrieveManagersOfWorkingCenter(
         ids: Set<UUID>,
         userId: UUID,
-        first: Int,
-        after: UUID? = null
+        first: Int = 1000,
+        after: UUID? = null,
+        token: UUID = UUID.randomUUID()
     ): Map<UUID, List<User>>
 }
