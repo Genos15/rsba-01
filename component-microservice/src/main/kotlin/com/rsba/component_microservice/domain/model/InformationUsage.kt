@@ -7,7 +7,7 @@ import java.time.OffsetDateTime
 import java.util.*
 
 @Serializable
-data class ItemCategoryUsage(
+data class InformationUsage(
     @Serializable(with = UUIDSerializer::class) val id: UUID,
     val name: String,
     val description: String? = null,

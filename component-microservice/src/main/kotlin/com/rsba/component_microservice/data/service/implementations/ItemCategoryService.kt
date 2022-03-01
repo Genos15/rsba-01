@@ -74,7 +74,7 @@ class ItemCategoryService(
         from: OffsetDateTime?,
         to: OffsetDateTime?,
         token: UUID
-    ): List<ItemCategoryUsage> =
+    ): List<InformationUsage> =
         retrieveItemCategoryUsageUseCase(
             database = database,
             first = first,
@@ -91,7 +91,7 @@ class ItemCategoryService(
         from: OffsetDateTime?,
         to: OffsetDateTime?,
         token: UUID
-    ): List<ItemCategoryUsage> =
+    ): List<InformationUsage> =
         searchItemCategoryUsageUseCase(
             database = database,
             first = first,
@@ -107,6 +107,6 @@ class ItemCategoryService(
         from: OffsetDateTime?,
         to: OffsetDateTime?,
         token: UUID
-    ): Optional<ItemCategoryUsage> =
+    ): Optional<InformationUsage> =
         findItemCategoryUsageUseCase(database = database, from = from, to = to, token = token, input = input)
 }

@@ -44,11 +44,12 @@ interface ItemCategoryRepository {
     ): ElkGraph<ElkGraphItemCategoryNode>
 
     suspend fun usages(
-        first: Int, after: UUID?,
+        first: Int,
+        after: UUID?,
         from: OffsetDateTime? = null,
         to: OffsetDateTime? = null,
         token: UUID
-    ): List<ItemCategoryUsage>
+    ): List<InformationUsage>
 
     suspend fun usages(
         input: String,
@@ -56,14 +57,14 @@ interface ItemCategoryRepository {
         from: OffsetDateTime? = null,
         to: OffsetDateTime? = null,
         token: UUID
-    ): List<ItemCategoryUsage>
+    ): List<InformationUsage>
 
     suspend fun usage(
         input: UUID,
         from: OffsetDateTime? = null,
         to: OffsetDateTime? = null,
         token: UUID
-    ): Optional<ItemCategoryUsage>
+    ): Optional<InformationUsage>
 
 
 }

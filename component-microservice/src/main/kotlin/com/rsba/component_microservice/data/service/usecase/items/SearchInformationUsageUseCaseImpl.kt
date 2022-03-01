@@ -1,10 +1,10 @@
-package com.rsba.component_microservice.data.service.usecase.item_category
+package com.rsba.component_microservice.data.service.usecase.items
 
 import com.rsba.component_microservice.data.dao.InformationUsageDao
-import com.rsba.component_microservice.data.service.usecase.queries.ItemCategoryQueries
+import com.rsba.component_microservice.data.service.usecase.queries.ItemQueries
 import com.rsba.component_microservice.domain.queries.QueryCursor
 import com.rsba.component_microservice.domain.model.InformationUsage
-import com.rsba.component_microservice.domain.usecase.custom.item_category.SearchItemCategoryUsageUseCase
+import com.rsba.component_microservice.domain.usecase.custom.item.SearchInformationUsageUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.springframework.r2dbc.core.DatabaseClient
@@ -13,11 +13,10 @@ import java.time.OffsetDateTime
 import java.util.*
 
 
-@Component
+@Component(value = "search_item_information_usage")
 @OptIn(ExperimentalSerializationApi::class)
-class SearchItemCategoryUsageUseCaseImpl : SearchItemCategoryUsageUseCase {
+class SearchInformationUsageUseCaseImpl(private val database: DatabaseClient) : SearchInformationUsageUseCase {
     override suspend fun invoke(
-        database: DatabaseClient,
         input: String,
         first: Int,
         after: UUID?,
@@ -26,7 +25,7 @@ class SearchItemCategoryUsageUseCaseImpl : SearchItemCategoryUsageUseCase {
         token: UUID
     ): List<InformationUsage> =
         database.sql(
-            ItemCategoryQueries.usages(
+            ItemQueries.usages(
                 token = token,
                 first = first,
                 after = after,

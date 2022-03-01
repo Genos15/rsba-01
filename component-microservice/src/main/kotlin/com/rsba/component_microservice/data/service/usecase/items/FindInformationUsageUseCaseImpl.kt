@@ -1,11 +1,11 @@
-package com.rsba.component_microservice.data.service.usecase.item_category
+package com.rsba.component_microservice.data.service.usecase.items
 
 import com.rsba.component_microservice.data.dao.InformationUsageDao
-import com.rsba.component_microservice.data.service.usecase.queries.ItemCategoryQueries
+import com.rsba.component_microservice.data.service.usecase.queries.ItemQueries
 import com.rsba.component_microservice.domain.exception.CustomGraphQLError
 import com.rsba.component_microservice.domain.model.InformationUsage
 import com.rsba.component_microservice.domain.queries.QueryCursor
-import com.rsba.component_microservice.domain.usecase.custom.item_category.FindItemCategoryUsageUseCase
+import com.rsba.component_microservice.domain.usecase.custom.item.FindInformationUsageUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.springframework.r2dbc.core.DatabaseClient
@@ -14,17 +14,16 @@ import reactor.core.publisher.Mono
 import java.time.OffsetDateTime
 import java.util.*
 
-@Component
+@Component(value = "find_item_information_usage")
 @OptIn(ExperimentalSerializationApi::class)
-class FindItemCategoryUsageUseCaseImpl : FindItemCategoryUsageUseCase {
+class FindInformationUsageUseCaseImpl(private val database: DatabaseClient) : FindInformationUsageUseCase {
     override suspend fun invoke(
-        database: DatabaseClient,
         input: UUID,
         from: OffsetDateTime?,
         to: OffsetDateTime?,
         token: UUID
     ): Optional<InformationUsage> =
-        database.sql(ItemCategoryQueries.usage(input = input, token = token, from = from, to = to))
+        database.sql(ItemQueries.usage(input = input, token = token, from = from, to = to))
             .map { row -> QueryCursor.one(row = row) }
             .first()
             .map { Optional.ofNullable((it as? InformationUsageDao?)?.to) }

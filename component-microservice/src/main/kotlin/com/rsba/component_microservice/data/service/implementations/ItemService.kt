@@ -9,6 +9,7 @@ import com.rsba.component_microservice.domain.usecase.custom.item.*
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
+import java.time.OffsetDateTime
 import java.util.*
 
 @Service
@@ -23,6 +24,9 @@ class ItemService(
     private val categoryUseCase: RetrieveCategoryDataLoaderUseCase,
     private val operationsUseCase: RetrieveOperationDataLoaderUseCase,
     private val componentsUseCase: RetrieveSubItemDataLoaderUseCase,
+    @Qualifier("find_item_information_usage") private val findInformationUsageUseCase: FindInformationUsageUseCase,
+    @Qualifier("retrieve_item_information_usage") private val retrieveInformationUsageUseCase: RetrieveInformationUsageUseCase,
+    @Qualifier("search_item_information_usage") private val searchInformationUsageUseCase: SearchInformationUsageUseCase
 ) : ItemRepository {
 
     override suspend fun toCreateOrEdit(input: ItemInput, action: MutationAction?, token: UUID): Optional<Item> =
@@ -47,6 +51,46 @@ class ItemService(
         categoryUseCase(database = database, ids = ids, token = UUID.randomUUID())
 
     override suspend fun count(token: UUID): Int = countUseCase(database = database, token = token)
+
+    override suspend fun usages(
+        first: Int,
+        after: UUID?,
+        from: OffsetDateTime?,
+        to: OffsetDateTime?,
+        token: UUID
+    ): List<InformationUsage> =
+        retrieveInformationUsageUseCase(
+            first = first,
+            after = after,
+            from = from,
+            to = to,
+            token = token
+        )
+
+    override suspend fun usages(
+        input: String,
+        first: Int,
+        after: UUID?,
+        from: OffsetDateTime?,
+        to: OffsetDateTime?,
+        token: UUID
+    ): List<InformationUsage> =
+        searchInformationUsageUseCase(
+            first = first,
+            after = after,
+            from = from,
+            to = to,
+            token = token,
+            input = input,
+        )
+
+    override suspend fun usage(
+        input: UUID,
+        from: OffsetDateTime?,
+        to: OffsetDateTime?,
+        token: UUID
+    ): Optional<InformationUsage> =
+        findInformationUsageUseCase(from = from, to = to, token = token, input = input)
 
     override suspend fun search(input: String, first: Int, after: UUID?, token: UUID): List<Item> =
         searchUseCase(database = database, first = first, after = after, token = token, input = input)

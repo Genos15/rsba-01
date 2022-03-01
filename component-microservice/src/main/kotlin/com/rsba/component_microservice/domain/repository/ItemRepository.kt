@@ -1,10 +1,8 @@
 package com.rsba.component_microservice.domain.repository
 
-import com.rsba.component_microservice.domain.model.ItemCategory
 import com.rsba.component_microservice.domain.input.ItemInput
-import com.rsba.component_microservice.domain.model.Item
-import com.rsba.component_microservice.domain.model.MutationAction
-import com.rsba.component_microservice.domain.model.Operation
+import com.rsba.component_microservice.domain.model.*
+import java.time.OffsetDateTime
 import java.util.*
 
 interface ItemRepository {
@@ -35,5 +33,28 @@ interface ItemRepository {
     suspend fun category(ids: Set<UUID>): Map<UUID, Optional<ItemCategory>>
 
     suspend fun count(token: UUID): Int
+
+    suspend fun usages(
+        first: Int,
+        after: UUID?,
+        from: OffsetDateTime? = null,
+        to: OffsetDateTime? = null,
+        token: UUID
+    ): List<InformationUsage>
+
+    suspend fun usages(
+        input: String,
+        first: Int, after: UUID?,
+        from: OffsetDateTime? = null,
+        to: OffsetDateTime? = null,
+        token: UUID
+    ): List<InformationUsage>
+
+    suspend fun usage(
+        input: UUID,
+        from: OffsetDateTime? = null,
+        to: OffsetDateTime? = null,
+        token: UUID
+    ): Optional<InformationUsage>
 
 }

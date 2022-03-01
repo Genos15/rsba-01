@@ -8,7 +8,7 @@ type ItemCategory {
     subItems: [Item!]
 }
 
-type ItemCategoryUsage {
+type InformationUsage {
     id: ID!
     name: String!
     description: String
@@ -27,12 +27,12 @@ type ItemCategoryConnection {
     pageInfo: PageInfo
 }
 
-type ItemCategoryUsageEdge {
+type InformationUsageEdge {
     cursor: String
-    node: ItemCategoryUsage
+    node: InformationUsage
 }
 
-type ItemCategoryUsageConnection {
-    edges: [ItemCategoryUsageEdge]
+type InformationUsageConnection {
+    edges: [InformationUsageEdge]
     pageInfo: PageInfo
 }

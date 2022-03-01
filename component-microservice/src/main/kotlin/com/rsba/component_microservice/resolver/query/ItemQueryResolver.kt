@@ -2,6 +2,7 @@ package com.rsba.component_microservice.resolver.query
 
 import com.rsba.component_microservice.domain.model.Item
 import com.rsba.component_microservice.aspect.AdminSecured
+import com.rsba.component_microservice.domain.model.InformationUsage
 import com.rsba.component_microservice.domain.model.Operation
 import com.rsba.component_microservice.domain.repository.ItemRepository
 import com.rsba.component_microservice.domain.security.TokenAnalyzer
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 import graphql.schema.DataFetchingEnvironment
+import java.time.OffsetDateTime
 
 
 @Component
@@ -22,7 +24,7 @@ class ItemQueryResolver(val service: ItemRepository, private val deduct: TokenAn
         first: Int,
         after: UUID? = null,
         environment: DataFetchingEnvironment
-    ): Connection<Item>? = perform(
+    ): Connection<Item> = perform(
         entries = service.retrieve(first = first, after = after, token = deduct(environment = environment)),
         first = first,
         after = after,
@@ -34,7 +36,7 @@ class ItemQueryResolver(val service: ItemRepository, private val deduct: TokenAn
         first: Int,
         after: UUID? = null,
         environment: DataFetchingEnvironment
-    ): Connection<Item>? = perform(
+    ): Connection<Item> = perform(
         entries = service.search(
             input = input,
             first = first,
@@ -84,5 +86,51 @@ class ItemQueryResolver(val service: ItemRepository, private val deduct: TokenAn
         after = after,
         id = id
     )
+
+    suspend fun retrieveItemUsage(
+        first: Int,
+        after: UUID? = null,
+        from: OffsetDateTime? = null,
+        to: OffsetDateTime? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<InformationUsage> = perform(
+        entries = service.usages(
+            first = first,
+            after = after,
+            token = deduct(environment = environment),
+            from = from,
+            to = to
+        ),
+        first = first,
+        after = after
+    )
+
+    suspend fun searchItemUsage(
+        input: String,
+        first: Int,
+        after: UUID? = null,
+        from: OffsetDateTime? = null,
+        to: OffsetDateTime? = null,
+        environment: DataFetchingEnvironment
+    ): Connection<InformationUsage> = perform(
+        entries = service.usages(
+            first = first,
+            after = after,
+            token = deduct(environment = environment),
+            from = from,
+            to = to,
+            input = input
+        ),
+        first = first,
+        after = after
+    )
+
+    suspend fun findItemUsage(
+        input: UUID,
+        from: OffsetDateTime? = null,
+        to: OffsetDateTime? = null,
+        environment: DataFetchingEnvironment
+    ): Optional<InformationUsage> =
+        service.usage(input = input, from = from, to = to, token = deduct(environment = environment))
 
 }

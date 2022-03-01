@@ -19,7 +19,7 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
         first: Int,
         after: UUID? = null,
         environment: DataFetchingEnvironment
-    ): Connection<ItemCategory>? = perform(
+    ): Connection<ItemCategory> = perform(
         entries = service.retrieve(
             first = first,
             after = after,
@@ -35,7 +35,7 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
         from: OffsetDateTime? = null,
         to: OffsetDateTime? = null,
         environment: DataFetchingEnvironment
-    ): Connection<ItemCategoryUsage> = perform(
+    ): Connection<InformationUsage> = perform(
         entries = service.usages(
             first = first,
             after = after,
@@ -54,7 +54,7 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
         from: OffsetDateTime? = null,
         to: OffsetDateTime? = null,
         environment: DataFetchingEnvironment
-    ): Connection<ItemCategoryUsage> = perform(
+    ): Connection<InformationUsage> = perform(
         entries = service.usages(
             first = first,
             after = after,
@@ -72,7 +72,7 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
         first: Int,
         after: UUID? = null,
         environment: DataFetchingEnvironment
-    ): Connection<ItemCategory>? = perform(
+    ): Connection<ItemCategory> = perform(
         entries = service.search(
             input = input,
             first = first,
@@ -91,7 +91,7 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
         from: OffsetDateTime? = null,
         to: OffsetDateTime? = null,
         environment: DataFetchingEnvironment
-    ): Optional<ItemCategoryUsage> =
+    ): Optional<InformationUsage> =
         service.usage(input = input, from = from, to = to, token = deduct(environment = environment))
 
     suspend fun retrieveItemCategorySubCategories(
@@ -99,7 +99,7 @@ class ItemCategoryQueryResolver(private val service: ItemCategoryRepository, pri
         first: Int,
         after: UUID? = null,
         environment: DataFetchingEnvironment
-    ): Connection<ItemCategory>? = perform(
+    ): Connection<ItemCategory> = perform(
         entries = service.subCategories(
             ids = setOf(id),
             first = first,
