@@ -15,5 +15,7 @@ data class GanttData(
     val Duration: Float? = 0f,
     val Progress: Float? = 0f,
     @Serializable(with = UUIDSerializer::class) val Predecessor: UUID? = null,
-    val subtasks: List<GanttData>? = emptyList()
+    val subtasks: List<GanttData>? = emptyList(),
+    val item: Item? = null,
+    val operation: Operation? = null
 )

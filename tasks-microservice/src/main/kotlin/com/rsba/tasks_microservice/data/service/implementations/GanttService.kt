@@ -13,5 +13,4 @@ class GanttService(
 ) : GanttRepository {
     override suspend fun retrieve(id: UUID, token: UUID): List<GanttData> =
         retrieveGanttDataUseCase(id = id, token = token)
-
 }

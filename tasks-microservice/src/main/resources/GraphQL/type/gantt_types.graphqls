@@ -7,4 +7,6 @@ type GanttData {
     Progress: Float
     Predecessor: ID
     subtasks: [GanttData!]
+    item: Item
+    operation: Operation
 }

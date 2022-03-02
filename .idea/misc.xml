@@ -4,9 +4,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/user-microservie/pom.xml" />
-        <option value="$PROJECT_DIR$/parameters-microservice/pom.xml" />
         <option value="$PROJECT_DIR$/tasks-microservice/pom.xml" />
-        <option value="$PROJECT_DIR$/component-microservice/pom.xml" />
       </list>
     </option>
   </component>
