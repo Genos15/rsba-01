@@ -34,12 +34,13 @@ class RetrieveWorklogsUseCaseImpl(private val database: DatabaseClient) : Retrie
                     .map { it?.mapNotNull { element -> (element as? WorklogDao?)?.to } ?: emptyList() }
                     .map { AbstractMap.SimpleEntry(id, it) }
                     .onErrorResume { throw it }
+                    .log("retrieve_orders_worklogs_1")
             }
             .runOn(Schedulers.parallel())
             .sequential()
             .collectList()
             .map { entries -> entries.associateBy({ it.key }, { it.value ?: emptyList() }) }
             .onErrorResume { throw it }
-            .log()
+            .log("retrieve_orders_worklogs")
             .awaitFirstOrElse { emptyMap() }
 }
