@@ -11,14 +11,14 @@ type Query {
     retrieveOrderTechnologies (id: ID!, first: Int!, parentId: ID, after: ID): TechnologyConnection @connection(for: "Technology")
     retrieveOrderParameters (id: ID!, first: Int!, after: ID): ParameterConnection @connection(for: "Parameter")
     retrieveOrderCategories (id: ID!, first: Int!, after: ID): ItemCategoryConnection @connection(for: "ItemCategory")
-    retrieveOrderWorklogs (id: ID!, first: Int!, after: ID): WorklogConnection @connection(for: "Worklog")
+    retrieveOrderWorklogs (id: ID!, first: Int!, after: ID, rangeStart: DateTime, rangeEnd: DateTime): WorklogConnection @connection(for: "Worklog")
     findOrderCustomer (id: ID!): Customer
     findOrderAgent(id: ID!): Agent
     findOrderItem(id: ID!): Item
     findOrderTask(id: ID!): Task
     findOrderManager(id: ID!): Agent
     findOrder__Type(id: ID!): OrderType
-    #this is related to the type in the order instance
+    #this is related to the type in the order instance¬
     countOrders(status: OrderStatus): Int
     potentialReferenceNumber: String
 

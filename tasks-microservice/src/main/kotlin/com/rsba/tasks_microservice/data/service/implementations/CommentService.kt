@@ -3,7 +3,7 @@ package com.rsba.tasks_microservice.data.service.implementations
 import com.rsba.tasks_microservice.domain.input.CommentInput
 import com.rsba.tasks_microservice.domain.model.*
 import com.rsba.tasks_microservice.domain.repository.CommentRepository
-import com.rsba.tasks_microservice.domain.usecase.common.*
+import com.rsba.tasks_microservice.domain.usecase.*
 import com.rsba.tasks_microservice.domain.usecase.custom.comment.CountCommentUseCase
 import com.rsba.tasks_microservice.domain.usecase.custom.comment.CreateOrEditCommentUseCase
 import com.rsba.tasks_microservice.domain.usecase.custom.comment.FindReporterUseCase

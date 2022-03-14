@@ -10,6 +10,7 @@ import graphql.relay.*
 import org.springframework.stereotype.Component
 
 import graphql.schema.DataFetchingEnvironment
+import java.time.OffsetDateTime
 import java.util.*
 
 
@@ -158,13 +159,17 @@ class OrderQueryResolver(private val service: OrderRepository, private val deduc
         id: UUID,
         first: Int,
         after: UUID? = null,
+        rangeStart: OffsetDateTime? = null,
+        rangeEnd: OffsetDateTime? = null,
         environment: DataFetchingEnvironment
     ): Connection<Worklog> = perform(
         entries = service.worklogs(
             ids = setOf(id),
             token = deduct(environment = environment),
             first = first,
-            after = after
+            after = after,
+            rangeStart = rangeStart,
+            rangeEnd = rangeEnd
         ),
         first = first,
         after = after,

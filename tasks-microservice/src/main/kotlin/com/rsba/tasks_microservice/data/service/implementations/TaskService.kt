@@ -4,7 +4,7 @@ import com.rsba.tasks_microservice.domain.input.TaskInput
 import com.rsba.tasks_microservice.domain.input.TaskWorkerTimeInput
 import com.rsba.tasks_microservice.domain.model.*
 import com.rsba.tasks_microservice.domain.repository.TaskRepository
-import com.rsba.tasks_microservice.domain.usecase.common.*
+import com.rsba.tasks_microservice.domain.usecase.*
 import com.rsba.tasks_microservice.domain.usecase.custom.task.*
 import com.rsba.tasks_microservice.domain.usecase.custom.task.RetrieveUsersUseCase
 import com.rsba.tasks_microservice.domain.usecase.custom.user.RetrieveUserActivityUseCase

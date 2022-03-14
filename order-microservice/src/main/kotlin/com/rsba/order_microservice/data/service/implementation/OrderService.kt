@@ -9,6 +9,7 @@ import graphql.relay.Connection
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Service
+import java.time.OffsetDateTime
 import java.util.*
 
 @Service
@@ -136,8 +137,22 @@ class OrderService(
         token: UUID
     ): Map<UUID, List<ItemCategory>> = emptyMap()
 
-    override suspend fun worklogs(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Worklog>> =
-        retrieveWorklogsUseCase(ids = ids, token = token, first = first, after = after)
+    override suspend fun worklogs(
+        ids: Set<UUID>,
+        first: Int,
+        after: UUID?,
+        rangeStart: OffsetDateTime?,
+        rangeEnd: OffsetDateTime?,
+        token: UUID
+    ): Map<UUID, List<Worklog>> =
+        retrieveWorklogsUseCase(
+            ids = ids,
+            token = token,
+            first = first,
+            after = after,
+            rangeStart = rangeStart,
+            rangeEnd = rangeEnd,
+        )
 
     override suspend fun customer(ids: Set<UUID>, token: UUID): Map<UUID, Optional<Customer>> =
         customerUseCase(ids = ids, token = token, database = database)

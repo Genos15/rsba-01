@@ -10,6 +10,7 @@ import com.rsba.order_microservice.domain.queries.IBaseQuery
 import com.rsba.order_microservice.domain.queries.QueryBuilder
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
+import java.time.OffsetDateTime
 import java.util.*
 
 @ExperimentalSerializationApi
@@ -216,12 +217,20 @@ object OrderQueries : IBaseQuery<OrderInput, OrderDao> {
         append("'$token')")
     }
 
-    fun worklogs(id: UUID, first: Int, after: UUID? = null, token: UUID): String =
+    fun worklogs(
+        id: UUID,
+        first: Int,
+        after: UUID? = null,
+        rangeStart: OffsetDateTime? = null,
+        rangeEnd: OffsetDateTime? = null, token: UUID
+    ): String =
         buildString {
             append(QueryBuilder.Custom.buildRequestDef<OrderDao>(customQuery = "_on_retrieve_worklogs"))
             append("('$id',")
             append("$first,")
             append("${after?.let { "'$it'" }},")
+            append("${rangeStart?.let { "'$rangeStart'" }},")
+            append("${rangeEnd?.let { "'$rangeEnd'" }},")
             append("'$token')")
         }
 

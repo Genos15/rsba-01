@@ -3,6 +3,7 @@ package  com.rsba.order_microservice.domain.repository
 import com.rsba.order_microservice.domain.input.*
 import com.rsba.order_microservice.domain.model.*
 import graphql.relay.Connection
+import java.time.OffsetDateTime
 import java.util.*
 
 interface OrderRepository {
@@ -135,6 +136,8 @@ interface OrderRepository {
         ids: Set<UUID>,
         first: Int = 1000,
         after: UUID? = null,
+        rangeStart: OffsetDateTime? = null,
+        rangeEnd: OffsetDateTime? = null,
         token: UUID = UUID.randomUUID()
     ): Map<UUID, List<Worklog>>
 }

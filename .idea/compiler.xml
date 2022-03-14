@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="tasks-microservice" />
         <module name="order-microservice" />
+        <module name="user-microservice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

@@ -12,13 +12,21 @@ import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Component
 import reactor.core.publisher.Flux
 import reactor.core.scheduler.Schedulers
+import java.time.OffsetDateTime
 import java.util.*
 
 @Component(value = "retrieve_orders_worklogs")
 @OptIn(ExperimentalSerializationApi::class)
 class RetrieveWorklogsUseCaseImpl(private val database: DatabaseClient) : RetrieveWorklogsUseCase {
 
-    override suspend fun invoke(ids: Set<UUID>, first: Int, after: UUID?, token: UUID): Map<UUID, List<Worklog>> =
+    override suspend fun invoke(
+        ids: Set<UUID>,
+        first: Int,
+        after: UUID?,
+        rangeStart: OffsetDateTime?,
+        rangeEnd: OffsetDateTime?,
+        token: UUID
+    ): Map<UUID, List<Worklog>> =
         Flux.fromIterable(ids)
             .parallel()
             .flatMap { id ->
@@ -28,6 +36,8 @@ class RetrieveWorklogsUseCaseImpl(private val database: DatabaseClient) : Retrie
                         id = id,
                         first = first,
                         after = after,
+                        rangeStart = rangeStart,
+                        rangeEnd = rangeEnd,
                     )
                 ).map { row -> QueryCursor.all(row = row) }
                     .first()
