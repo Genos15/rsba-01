@@ -11,7 +11,7 @@ data class Company(
     val description: String? = null,
     val createdAt: String? = null,
     val editedAt: String? = null,
-    val creator: User? = null,
+    val createdBy: User? = null,
     val referenceCode: String? = null,
     val country: String? = null
 ) : AbstractModel

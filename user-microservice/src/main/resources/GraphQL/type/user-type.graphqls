@@ -22,7 +22,7 @@ type Company {
     description: String
     createdAt: String
     editedAt: String
-    creator:  User
+    createdBy:  User
     referenceCode: String
     country: String
 }

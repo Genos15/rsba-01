@@ -3,7 +3,7 @@ package com.rsba.tasks_microservice.data.service.usecase.comment
 import com.rsba.tasks_microservice.data.service.usecase.queries.CommentQueries
 import com.rsba.tasks_microservice.domain.model.CommentLayer
 import com.rsba.tasks_microservice.domain.queries.QueryCursor
-import com.rsba.tasks_microservice.domain.usecase.custom.comment.CountCommentUseCase
+import com.rsba.tasks_microservice.domain.usecase.common.custom.comment.CountCommentUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.springframework.r2dbc.core.DatabaseClient

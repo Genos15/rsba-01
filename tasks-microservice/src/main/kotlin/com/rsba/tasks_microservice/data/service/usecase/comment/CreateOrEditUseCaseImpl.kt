@@ -7,7 +7,7 @@ import com.rsba.tasks_microservice.domain.queries.QueryCursor
  import com.rsba.tasks_microservice.domain.model.Comment
 import com.rsba.tasks_microservice.domain.model.CommentLayer
 import com.rsba.tasks_microservice.domain.queries.IQueryGuesser
-import com.rsba.tasks_microservice.domain.usecase.custom.comment.CreateOrEditCommentUseCase
+import com.rsba.tasks_microservice.domain.usecase.common.custom.comment.CreateOrEditCommentUseCase
  import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.springframework.r2dbc.core.DatabaseClient

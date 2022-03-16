@@ -1,4 +1,4 @@
-package com.rsba.tasks_microservice.domain.usecase.custom.task
+package com.rsba.tasks_microservice.domain.usecase.common.custom.task
 
 import org.springframework.r2dbc.core.DatabaseClient
 import java.util.*

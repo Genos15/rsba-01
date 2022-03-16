@@ -7,7 +7,7 @@ import com.rsba.tasks_microservice.domain.model.MutationAction
 import com.rsba.tasks_microservice.domain.model.TaskSet
 import com.rsba.tasks_microservice.domain.queries.IQueryGuesser
 import com.rsba.tasks_microservice.domain.queries.query
-import com.rsba.tasks_microservice.domain.usecase.custom.task_set.CreateOrEditTaskSetUseCase
+import com.rsba.tasks_microservice.domain.usecase.common.custom.task_set.CreateOrEditTaskSetUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.springframework.r2dbc.core.DatabaseClient

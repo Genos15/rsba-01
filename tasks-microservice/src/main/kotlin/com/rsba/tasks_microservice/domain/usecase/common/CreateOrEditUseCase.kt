@@ -1,7 +1,6 @@
 package com.rsba.tasks_microservice.domain.usecase.common
 
 import com.rsba.tasks_microservice.domain.model.Edition
-import com.rsba.tasks_microservice.domain.model.EditionCase
 import com.rsba.tasks_microservice.domain.model.MutationAction
 import org.springframework.r2dbc.core.DatabaseClient
 import java.util.*

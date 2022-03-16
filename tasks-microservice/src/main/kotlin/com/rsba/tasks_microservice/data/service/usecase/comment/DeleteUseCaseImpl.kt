@@ -1,13 +1,11 @@
 package com.rsba.tasks_microservice.data.service.usecase.comment
 
 import com.rsba.tasks_microservice.data.dao.CommentDao
-import com.rsba.tasks_microservice.data.dao.TaskSetDao
 import com.rsba.tasks_microservice.domain.model.Comment
 import com.rsba.tasks_microservice.domain.queries.QueryCursor
-import com.rsba.tasks_microservice.domain.model.TaskSet
 import com.rsba.tasks_microservice.domain.queries.IQueryGuesser
 import com.rsba.tasks_microservice.domain.queries.query
-import com.rsba.tasks_microservice.domain.usecase.DeleteUseCase
+import com.rsba.tasks_microservice.domain.usecase.common.DeleteUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.springframework.r2dbc.core.DatabaseClient

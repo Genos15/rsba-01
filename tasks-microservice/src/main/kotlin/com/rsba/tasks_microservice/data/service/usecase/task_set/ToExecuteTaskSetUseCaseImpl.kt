@@ -4,7 +4,7 @@ import com.rsba.tasks_microservice.data.dao.TaskSetDao
 import com.rsba.tasks_microservice.data.service.usecase.queries.TaskSetQueries
 import com.rsba.tasks_microservice.domain.model.TaskSet
 import com.rsba.tasks_microservice.domain.queries.QueryCursor
-import com.rsba.tasks_microservice.domain.usecase.custom.task_set.ToExecuteTaskSetUseCase
+import com.rsba.tasks_microservice.domain.usecase.common.custom.task_set.ToExecuteTaskSetUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.springframework.r2dbc.core.DatabaseClient

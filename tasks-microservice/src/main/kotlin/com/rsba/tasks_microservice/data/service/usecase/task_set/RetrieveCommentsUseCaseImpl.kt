@@ -6,7 +6,7 @@ import com.rsba.tasks_microservice.data.service.usecase.queries.TaskSetQueries
 import com.rsba.tasks_microservice.domain.model.Comment
 import com.rsba.tasks_microservice.domain.model.CommentLayer
 import com.rsba.tasks_microservice.domain.queries.QueryCursor
-import com.rsba.tasks_microservice.domain.usecase.RetrieveCommentsUseCase
+import com.rsba.tasks_microservice.domain.usecase.common.RetrieveCommentsUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.springframework.r2dbc.core.DatabaseClient

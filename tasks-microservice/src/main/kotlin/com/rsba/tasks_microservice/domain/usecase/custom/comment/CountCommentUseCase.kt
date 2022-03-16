@@ -1,4 +1,4 @@
-package com.rsba.tasks_microservice.domain.usecase.custom.comment
+package com.rsba.tasks_microservice.domain.usecase.common.custom.comment
 
 import com.rsba.tasks_microservice.domain.model.CommentLayer
 import java.util.*

@@ -3,14 +3,14 @@ package com.rsba.tasks_microservice.data.service.implementations
 import com.rsba.tasks_microservice.domain.input.CommentInput
 import com.rsba.tasks_microservice.domain.model.*
 import com.rsba.tasks_microservice.domain.repository.CommentRepository
-import com.rsba.tasks_microservice.domain.usecase.*
-import com.rsba.tasks_microservice.domain.usecase.custom.comment.CountCommentUseCase
-import com.rsba.tasks_microservice.domain.usecase.custom.comment.CreateOrEditCommentUseCase
-import com.rsba.tasks_microservice.domain.usecase.custom.comment.FindReporterUseCase
+import com.rsba.tasks_microservice.domain.usecase.common.custom.comment.CountCommentUseCase
+import com.rsba.tasks_microservice.domain.usecase.common.custom.comment.CreateOrEditCommentUseCase
+import com.rsba.tasks_microservice.domain.usecase.common.custom.comment.FindReporterUseCase
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.*
+import com.rsba.tasks_microservice.domain.usecase.common.DeleteUseCase
 
 @Service
 class CommentService(

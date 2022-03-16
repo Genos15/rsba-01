@@ -77,7 +77,7 @@ type OrderForSub {
     description: String
     createdAt: String
     editedAt: String
-    creator: ID
+    createdBy: ID
     customer: Customer
     manager: Agent
     agent: Agent

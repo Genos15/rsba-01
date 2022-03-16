@@ -12,7 +12,7 @@ data class User(
     val password: String? = null,
     val createdAt: String,
     val editedAt: String,
-    @Serializable(with = UUIDSerializer::class) val creator: UUID? = null,
+    @Serializable(with = UUIDSerializer::class) val createdBy: UUID? = null,
     val lang: String? = null,
     val deleted: Boolean? = null,
     val personalInfo: PersonalInfo? = null,

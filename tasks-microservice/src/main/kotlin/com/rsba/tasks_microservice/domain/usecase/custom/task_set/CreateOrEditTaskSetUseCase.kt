@@ -1,4 +1,4 @@
-package com.rsba.tasks_microservice.domain.usecase.custom.task_set
+package com.rsba.tasks_microservice.domain.usecase.common.custom.task_set
 
 import com.rsba.tasks_microservice.domain.input.TaskSetInput
 import com.rsba.tasks_microservice.domain.model.MutationAction

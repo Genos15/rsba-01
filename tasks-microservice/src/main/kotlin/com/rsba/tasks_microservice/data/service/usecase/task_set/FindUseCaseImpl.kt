@@ -6,7 +6,7 @@ import com.rsba.tasks_microservice.domain.queries.QueryCursor
 import com.rsba.tasks_microservice.domain.model.TaskSet
 import com.rsba.tasks_microservice.domain.queries.IQueryGuesser
 import com.rsba.tasks_microservice.domain.queries.query
-import com.rsba.tasks_microservice.domain.usecase.FindUseCase
+ import com.rsba.tasks_microservice.domain.usecase.common.FindUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.springframework.r2dbc.core.DatabaseClient

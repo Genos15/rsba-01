@@ -1,6 +1,5 @@
 package com.rsba.tasks_microservice.domain.usecase.common
 
-import com.rsba.tasks_microservice.domain.model.Task
 import com.rsba.tasks_microservice.domain.model.User
 import java.util.*
 

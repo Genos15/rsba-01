@@ -4,7 +4,7 @@ import com.rsba.tasks_microservice.data.dao.GanttDataDao
 import com.rsba.tasks_microservice.data.service.usecase.queries.GanttQueries
 import com.rsba.tasks_microservice.domain.model.GanttData
 import com.rsba.tasks_microservice.domain.queries.QueryCursor
-import com.rsba.tasks_microservice.domain.usecase.custom.gantt.RetrieveGanttDataUseCase
+import com.rsba.tasks_microservice.domain.usecase.common.custom.gantt.RetrieveGanttDataUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.springframework.r2dbc.core.DatabaseClient

@@ -4,7 +4,7 @@ import com.rsba.tasks_microservice.data.dao.UserDao
 import com.rsba.tasks_microservice.data.service.usecase.queries.CommentQueries
 import com.rsba.tasks_microservice.domain.model.User
 import com.rsba.tasks_microservice.domain.queries.QueryCursor
-import com.rsba.tasks_microservice.domain.usecase.custom.comment.FindReporterUseCase
+import com.rsba.tasks_microservice.domain.usecase.common.custom.comment.FindReporterUseCase
 import kotlinx.coroutines.reactive.awaitFirstOrElse
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.springframework.r2dbc.core.DatabaseClient

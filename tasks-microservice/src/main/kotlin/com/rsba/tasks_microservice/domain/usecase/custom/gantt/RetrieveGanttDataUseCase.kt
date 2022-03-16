@@ -1,4 +1,4 @@
-package com.rsba.tasks_microservice.domain.usecase.custom.gantt
+package com.rsba.tasks_microservice.domain.usecase.common.custom.gantt
 
 import com.rsba.tasks_microservice.domain.model.GanttData
 import java.util.*
